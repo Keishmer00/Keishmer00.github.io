@@ -17,15 +17,29 @@
     --acent-color: #A31621;
     --font-family: 'Roboto', sans-serif;
 }
+html{
+    scroll-behavior: smooth;
+    font-size: 1rem;
+    width: 100%;
+    height: 100%; 
+    background: -webkit-linear-gradient(to right, #16161c, #0b0a17, #0f0c29); 
+    background: linear-gradient(to right, #0a0a0a, #0f0d1f, #0a0a0a);
+}   
 body{
-    font-family: var(--font-family);
-    background-color: var(--background-color);
+    font-family: var(--font-family);    
     color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0 auto;
+    width: 100%;
+    height: auto;
+}
+main{
+    display: flex;
+    max-width: 1440px;
+    padding: 0 4rem;
+    height: auto;
 }
 h1{
     font-size: 2.5rem;
@@ -34,18 +48,16 @@ h1{
     text-align: center;
 }
 span{
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--text-white);
     display: block;
     margin: 0 auto;
     font-weight: 300;
 }
 header{
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    background: #0f0c29;  
-    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29); 
-    background: linear-gradient(to right, #24243e, #302b63, #0f0c29); 
+    flex-direction: column; 
     height: 100dvh;
     padding-bottom: 20rem;
 }
@@ -62,23 +74,26 @@ header{
 nav{
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: blur(10px);
+    margin: 0 auto;
     backdrop-filter: blur(10px);
-    position: fixed;
-    padding: 1rem 0;
+    top: 2rem;
 }
 ul{
-
     display: flex;
     justify-content: center;
     list-style: none;
-    gap: 2rem;
-    margin-top: 1rem;
     width: 100%;
+    position: fixed;
+    top: 2rem;
+    gap: 2rem;
+}
+li{
+    display: flex;
+    
+    
 }
 a{
+    font-size: 1rem;
     text-decoration: none;
     color: var(--text-white);
     font-weight: 300;
@@ -88,7 +103,7 @@ a{
 a:hover{
     border: 1px var(--acent-color);
     color: var(--acent-color);
-    font-weight: 500;
+    
 }
 .button{
     padding: 0.5rem 1rem;
