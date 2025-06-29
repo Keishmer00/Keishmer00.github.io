@@ -1,6 +1,15 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+@font-face {
+    font-family: 'ALTRONED';
+    src:
+         url('/Public/ALTRONED.woff') format('woff'), 
+         url('/Public/ALTRONED.woff2') format('woff2');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
 
 *{
     margin: 0;
@@ -16,6 +25,7 @@
     --text-black: #121313;
     --acent-color: #A31621;
     --font-family: 'Roboto', sans-serif;
+    --special-font: 'ALTRONED', sans-serif;
 }
 html{
     scroll-behavior: smooth;
@@ -37,17 +47,20 @@ body{
 }
 main{
     display: flex;
+
     max-width: 1440px;
     padding: 0 4rem;
     height: auto;
 }
 h1{
+    font-family: var(--special-font);
     font-size: 2.5rem;
     color: var(--text-white);
     font-weight: 800;
     text-align: center;
 }
 span{
+    font-family: var(--font-family);
     font-size: 1rem;
     color: var(--text-white);
     display: block;
@@ -63,7 +76,7 @@ header{
 }
 .information{
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -103,21 +116,31 @@ a{
 a:hover{
     border: 1px var(--acent-color);
     color: var(--acent-color);
+    font-weight: 500;
+}
+
+         
+.button{
+    background-image: linear-gradient(to right, #0a0b0c 0%, #732caa  51%, #01192d  100%);
+    padding: 0.8rem 3rem;
+    text-align: center;
+    transition: 0.3s ease;
+    background-size: 200% auto;
+    color: var(--text-white);            
+    box-shadow: 0 0 1rem #d00bcd;
+    border-radius: 50px;
+    display: block;
+    font-weight: 400;
     
 }
-.button{
-    padding: 0.5rem 1rem;
-    background-color: var(--acent-color);
-    color: var(--text-white);
-    border: none;
-    border-radius: 5px;
-    font-family: var(--font-family);
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-}
 .button:hover{
-    background-color: var(--white);
-    color: var(--acent-color);
-    box-shadow: var(--acent-color) 0px 0px 20px;
-    border: 1px solid var(--acent-color);
+    background-position: right center; 
+    color: var(--text-white);
+    text-decoration: none;
+            
+}
+.CTAs{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
