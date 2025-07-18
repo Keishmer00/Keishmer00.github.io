@@ -201,8 +201,7 @@ figure{
     padding: 0.5rem 0.5rem;
 }
 .item-tecnologies img{
-    width: 40px;
-    height: 40px;
+    width: 30px;
     object-fit: contain;
 }
 .item-tecnologies p{
