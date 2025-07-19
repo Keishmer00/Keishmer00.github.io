@@ -60,6 +60,14 @@ h1{
     text-align: center;
     
 }
+h2{
+    font-family: var(--font-family);
+    font-size: 1.5rem;
+    color: var(--text-white);
+    font-weight: 600;
+    text-align: center;
+    margin-top: 1rem;
+}
 span{
     font-family: var(--font-family);
     font-size: 0.96rem;
@@ -74,7 +82,7 @@ p{
     font-family: var(--font-family);
     font-size: 0.9rem;
     color: var(--text-white);
-    font-weight: 400;
+    font-weight: 300;
     text-align: center;
 }
 header{
@@ -185,8 +193,8 @@ figure{
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
+    gap: .8rem;
+    margin: 1rem 1rem;
 }
 .item-tecnologies{
     display: flex;
@@ -244,5 +252,25 @@ figure{
         padding: 0.5rem 2rem;
         font-size: 0.8rem;
     }
+    h2{
+        font-size: 1.2rem;
+    }
+    p{
+        font-size: 0.8rem;
+    }
+
+    .item-tecnologies{
+    width: 70px;
+    height: 70px;
+    gap: 0.5rem;
+    padding: 0.2rem 0.2rem;
+}
+.item-tecnologies img{
+    width: 15px;
+}
+.item-tecnologies p{
+    font-size: 0.6rem;
+    color: var(--text-white);
+}
    
 }
