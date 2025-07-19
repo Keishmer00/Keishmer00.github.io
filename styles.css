@@ -46,8 +46,6 @@ body{
     height: auto;
 }
 main{
-    display: flex;
-
     max-width: 1440px;
     padding: 0 0;
     height: auto;
@@ -91,7 +89,7 @@ header{
     flex-direction: column; 
     justify-content: center;
     height: 100dvh;
-    padding-bottom: 4rem;
+    padding-bottom: 1rem;
 }
 .information{
     display: flex;
@@ -260,17 +258,46 @@ figure{
     }
 
     .item-tecnologies{
-    width: 70px;
-    height: 70px;
-    gap: 0.5rem;
-    padding: 0.2rem 0.2rem;
+        width: 70px;
+        height: 70px;
+        gap: 0.5rem;
+        padding: 0.2rem 0.2rem;
+    }
+    .item-tecnologies img{
+        width: 15px;
+    }
+    .item-tecnologies p{
+        font-size: 0.6rem;
+        color: var(--text-white);
+    }
+
 }
-.item-tecnologies img{
-    width: 15px;
-}
-.item-tecnologies p{
-    font-size: 0.6rem;
+/* Additional styles for the about section */
+.about-me {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin: 2rem 0;
     color: var(--text-white);
+    height: 100dvh;
+    align-items: center;
 }
-   
+.text-about {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    max-width: 600px;
+    text-align: start;
+    gap: 1rem;
+}
+.text-about p {
+    text-align:start;
+}
+.image-about img {
+    max-width: 800px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
