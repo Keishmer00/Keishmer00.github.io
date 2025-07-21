@@ -1,0 +1,237 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+    font-family: 'ALTRONED';
+    src:
+         url('/Public/ALTRONED.woff') format('woff'), 
+         url('/Public/ALTRONED.woff2') format('woff2');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --white: #FCF7F8;
+    --secondary-color: #7515bf;
+    --black: #121313;
+    --text-white: #f2f5f7;
+    --text-black: #121313;
+    --acent-color: #A31621;
+    --font-family: 'Roboto', sans-serif;
+    --special-font: 'ALTRONED', sans-serif;
+}
+html{
+    scroll-behavior: smooth;
+    font-size: 1rem;
+    width: 100%;
+    height: 100%; 
+    background: -webkit-linear-gradient(to right, #16161c, #0b0a17, #0f0c29); 
+    background: linear-gradient(to right, #0a0a0a, #171718, #0a0a0a);
+}   
+body{
+    font-family: var(--font-family);    
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+}
+main{
+    max-width: 1440px;
+    padding: 0 0;
+    height: auto;
+}
+h1{
+    font-family: var(--special-font);
+    font-size: 3rem;
+    color: var(--text-white);
+    font-weight: 800;
+    text-align: center;
+    
+}
+h2{
+    font-family: var(--font-family);
+    font-size: 1.5rem;
+    color: var(--text-white);
+    font-weight: 600;
+    text-align: center;
+    margin-top: 1rem;
+}
+span{
+    font-family: var(--font-family);
+    font-size: 0.96rem;
+    color: var(--text-white);
+    display: block;
+    margin: 0 auto;
+    font-weight: 300;
+    margin-top: 0.5
+    rem;
+}
+p{
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    color: var(--text-white);
+    font-weight: 300;
+    text-align: center;
+}
+header{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+    align-items: center;
+    height: 100dvh;
+    width: 100%;
+    max-width: 1440px;
+    padding-bottom: 4rem;
+}
+
+nav{
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    backdrop-filter: blur(10px);
+    top: 2rem;
+    backdrop-filter: blur(5px);
+    background-color: #0a0a0a;
+}
+ul{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    width: 100%;
+    position: fixed;
+    top: 2rem;
+    gap: 2rem;
+}
+li{
+    display: flex;
+    
+    
+}
+a{
+    font-size: 1rem;
+    text-decoration: none;
+    color: var(--text-white);
+    font-weight: 300;
+    transition: color 0.2s ease;
+    
+}
+a:hover{
+    border: 1px var(--acent-color);
+    color: var(--acent-color);
+    font-weight: 500;
+}
+
+         
+.button{
+    background-image: linear-gradient(to right, #0a0b0c 0%, #aa2c65  51%, #0a0b0c  100%);
+    padding: 0.8rem 3rem;
+    text-align: center;
+    transition: 0.3s ease;
+    background-size: 200% auto;
+    color: var(--text-white);            
+    box-shadow: 0 0 1rem #d00b46;
+    border-radius: 50px;
+    display: block;
+    font-weight: 400;
+    
+    
+}
+.button:hover{
+    background-position: right center; 
+    color: var(--text-white);
+    text-decoration: none;
+            
+}
+.text-information{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100dvh;
+    padding-top: 8rem;
+    gap: 1.5rem;
+}
+
+.videos {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin: 0 4rem;
+    gap: 2rem;
+}
+video {
+    width: 400px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    border-color: var(--white);
+    border-width: 2px;
+    border-style: solid;    
+}
+.box{
+     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem 2.5rem;
+    margin: 4rem auto;
+    gap: 8rem;
+    background-color: #1d1e1f;
+    border-radius: 20px;
+}
+.project-correr-la-tierra {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    height: 100dvh;
+    padding: 2rem 0;
+}
+
+.text-info-projects {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.text-info-projects h2,p {
+    text-align: start;
+}
+.galery-correr-la-tierra-en-balsa{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    gap: 1rem;
+}
+.galery-correr-la-tierra-en-balsa img {
+    width: 300px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px; 
+}
+.galery-correr-la-tierra-en-balsa img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+.galery-correr-la-tierra-en-balsa img not-hover {
+
+}
