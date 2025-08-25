@@ -4,8 +4,8 @@
 @font-face {
     font-family: 'ALTRONED';
     src:
-         url('/Public/ALTRONED.woff') format('woff'), 
-         url('/Public/ALTRONED.woff2') format('woff2');
+         url('/Public/Font/ALTRONED.woff') format('woff'), 
+         url('/Public/Font/ALTRONED.woff2') format('woff2');
     font-style: normal;
     font-weight: normal;
     text-rendering: optimizeLegibility;
