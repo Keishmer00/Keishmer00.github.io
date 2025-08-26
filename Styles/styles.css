@@ -23,7 +23,7 @@
     --black: #121313;
     --text-white: #f2f5f7;
     --text-black: #121313;
-    --acent-color: #A31621;
+    --acent-color: #ff5549;
     --font-family: 'Roboto', sans-serif;
     --special-font: 'ALTRONED', sans-serif;
 }
@@ -34,6 +34,8 @@ html{
     height: 100%; 
     background: -webkit-linear-gradient(to right, #16161c, #0b0a17, #0f0c29); 
     background: linear-gradient(to right, #0a0a0a, #171718, #0a0a0a);
+    margin: 0 auto;
+    padding: 0;
 }   
 body{
     font-family: var(--font-family);    
@@ -45,16 +47,18 @@ body{
     margin: 0 auto;
     width: 100%;
     height: auto;
+    position: relative;
+    padding: 0;
 }
 main{
     max-width: 1440px;
     padding: 0 0;
     height: auto;
-    margin: 0 2rem;
+    margin: 0 auto;
 }
 h1{
     font-family: var(--special-font);
-    font-size: 3rem;
+    font-size: 4rem;
     color: var(--text-white);
     font-weight: 800;
     text-align: center;
@@ -119,39 +123,67 @@ header{
     color: var(--text-black);
     font-weight: 600;
 }
+.menu-icon{
+    display: none;
+    cursor: pointer;
+    
+}
 nav{
     width: 100%;
     display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     margin: 0 auto;
-    backdrop-filter: blur(10px);
-    top: 2rem;
+    backdrop-filter: blur(16px);
+    height: auto;
+    padding: 1rem;
+
 }
-ul{
+.logo{
+
+    width: auto;
+    height: 20px;
+}
+menu{
     display: flex;
     justify-content: center;
     list-style: none;
     width: 100%;
-    position: fixed;
-    top: 2rem;
     gap: 2rem;
+    height: auto;
+
 }
 li{
     display: flex;
-    
-    
+    text-align: center;
+    justify-content: center;
+
 }
-a{
+menu li a {
+    text-align: center;
     font-size: 1rem;
     text-decoration: none;
     color: var(--text-white);
     font-weight: 300;
     transition: color 0.2s ease;
+
+}
+a{
+    text-align: center;
+    font-size: 1rem;
+    text-decoration: none;
+    color: var(--text-white);
+    font-weight: 300;
+    transition: border color 0.2s ease;
     
 }
-a:hover{
+menu li a:hover{
     border: 1px var(--acent-color);
     color: var(--acent-color);
-    font-weight: 500;
+
 }
 
          
@@ -228,17 +260,36 @@ gap: 0.5rem;
     h1{
         font-size: 2.5rem;
     }
-    nav{
+    nav { 
+        backdrop-filter: blur(0px);
+    }
+    nav menu{
         display: none
     ;
     }
     span{
         font-size: 0.79rem;
     }
-    figure {
-        display: inline-flex
+   
+    .menu-icon{
+        display: flex; 
+        flex-direction: column;
+        position: fixed;
        
-}}
+        right: 1.5rem;
+         background-color: #121314;
+         gap: 0;
+         border: none;
+         padding: 0.2rem 0.5rem;
+         border-radius: 4px;
+    }
+    .menu-icon span{
+        font-size: 0.5rem;
+        color: var(--text-white);
+        font-weight: 300;
+    }
+    
+}
 @media (max-width: 430px) {
     main{
         margin: 0 auto;
@@ -250,7 +301,7 @@ gap: 0.5rem;
         font-size: 0.7rem;
         max-width: 300px;
     }
-    nav{
+    nav menu{
         display: none
     ;
     }
@@ -423,6 +474,12 @@ gap: 0.5rem;
    display: flex;
    gap: 0.5rem;
 }
+.item-projects-important img{
+    width: 100px;
+    height: auto;
+    border-radius: 0.5rem;
+    object-fit:cover;
+}
 @media (max-width: 768px) {
     .projects {
         flex-direction: column-reverse;
@@ -473,12 +530,17 @@ gap: 0.5rem;
         align-items: start;
         justify-items: start;
     }
+
     .item-projects-important p,h3 {
         text-align: start;
     }
     .item-projects-important img {
-        width: 100%;
+        width: 54px;
         height: auto;
+    }
+       .image-projects img {
+        max-width: 70%;
+        
     }
 }
 
@@ -486,26 +548,27 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: space-between;
-    background-color: #0a0b0c;
-    padding: 3rem 3rem 0.5rem 3rem;
+    background-color: #1f1f1f;
+    padding: 2rem;
     text-align: center;
     justify-content: space-between;
     width: 100%;
     height: auto;
-    gap: 2rem;
+    gap: 1rem;
 }
 footer p {
     font-size: 0.8rem;
     color: var(--text-white);
     font-weight: 300;
     text-align: center;
+
 }
 .footer-items {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: space-between;
     width: 100%;
-    height: 100px;
+    height: auto;
     max-width: 1440px;
     margin: 0 auto;
 }
@@ -515,27 +578,121 @@ footer p {
     align-items: start;
     justify-content: center;
     color: var(--text-white);
-    margin-bottom: 1rem;
+    height: auto;
 }
 
 .footer-text-info p {
     text-align: start;
     font-size: 0.9rem;
-    max-width: 450px;
+    max-width: 700px;
 }
 .other-media{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: end;
     gap: 0.3rem;
+    width: 100%;
+    height: auto;
+}
+
+.other-media p {
+    font-size: 0.8rem;
+    
 }
 h5 {
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    text-align: left;
 }
 h6 {
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
+}
+.social-media{
+    display: flex;
+    gap: 1rem;
+    height: 24px;
+}
+
+.contact{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    gap: 0.3rem;
+    width: 100%;
+    height: auto;
+}
+.contact p{
+    text-align: end;
+    font-size: 1rem;
+}
+.conntact p a{
+    color: var(--text-white);
+    
+}
+.conntact p a:hover{
+    color: var(--acent-color);
+    
+}
+.contact a{
+    color: var(--text-white);
+    text-decoration: none;
+    font-weight: 300;
+}
+.contact a:hover{
+    color: var(--acent-color);
+    
+}
+.all-rights{
+    display: flex;
+    gap: 0.3rem;
+}
+.all-rights a{
+    font-size: 0.8rem;
+}
+.all-rights a:hover{
+    font-weight: 300;
+    color: #0d82e9;
+}
+@media (max-width: 430px) {
+    footer {
+        padding: 2rem 1rem 1rem 1rem;
+    }
+    .footer-items {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 2rem;
+    }
+    .footer-text-info {
+        align-items: center;
+        text-align: center;
+        max-width: 100%;
+    }
+    .footer-text-info p {
+        text-align: center;
+        max-width: 100%;
+    }
+    .other-media{
+        align-items: center;
+        text-align: center;
+    }
+    .contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .all-rights p{
+        font-size: 0.7rem;
+    }
+    .all-rights a{
+        font-size: 0.7rem;
+    }   
+    
 }
