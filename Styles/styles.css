@@ -198,9 +198,12 @@ menu li a:hover{
     border-radius: 50px;
     display: block;
     font-weight: 400;
-    
-    
 }
+    
+.text-about a{
+    margin-top: 1rem;
+}    
+
 .button:hover{
     background-position: right center; 
     color: var(--text-white);
@@ -255,7 +258,7 @@ gap: 0.5rem;
     font-weight: 400;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
 
     h1{
         font-size: 2.5rem;
@@ -275,22 +278,23 @@ gap: 0.5rem;
         display: flex; 
         flex-direction: column;
         position: fixed;
-       
         right: 1.5rem;
          background-color: #121314;
          gap: 0;
          border: none;
-         padding: 0.2rem 0.5rem;
+         padding: 0.4rem 0.8rem;
          border-radius: 4px;
+         box-shadow: 0 0 0.5rem var(--acent-color);
+         margin: 0.5rem;
     }
     .menu-icon span{
-        font-size: 0.5rem;
+        font-size: 0.7rem;
         color: var(--text-white);
         font-weight: 300;
     }
     
 }
-@media (max-width: 430px) {
+@media (max-width: 500px) {
     main{
         margin: 0 auto;
     }
@@ -330,6 +334,15 @@ gap: 0.5rem;
         color: var(--text-white);
     }
 
+    .menu-icon{
+
+        right: 1rem;
+        padding: 0.2rem 0.4rem;
+        margin: 0.5rem;
+    }
+    .menu-icon span{
+        font-size: 0.5rem;
+    }
 }
 /*styles for the about section */
 
@@ -371,7 +384,7 @@ gap: 0.5rem;
     max-width: 500px;
     height: auto;
 }
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .about-me {
         flex-direction: column;
         align-items: center;
@@ -443,13 +456,14 @@ gap: 0.5rem;
     width: 100%;
     height: 100%;
     gap: 1rem;
+    margin-top: 1rem;
 }
 .item-projects-important {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    max-width: 250px;
+    width: 100%;
     height: 300px;
     background-color: #1d1e1f;
     border-radius: 1rem;
@@ -480,7 +494,7 @@ gap: 0.5rem;
     border-radius: 0.5rem;
     object-fit:cover;
 }
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .projects {
         flex-direction: column-reverse;
         
@@ -516,14 +530,16 @@ gap: 0.5rem;
         align-content: center;
     }
 }
-@media (max-width: 430px) {
+@media (max-width: 800px) {
     .projects-important {
+        width: 100%;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         height: auto;
     }
     .item-projects-important {
+        display: flex;
         max-width: 100%;
         height: auto;
         padding: 1rem 1rem;
@@ -658,7 +674,7 @@ h6 {
     font-weight: 300;
     color: #0d82e9;
 }
-@media (max-width: 430px) {
+@media (max-width: 800px) {
     footer {
         padding: 2rem 1rem 1rem 1rem;
     }
