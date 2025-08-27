@@ -147,7 +147,7 @@ nav{
     width: auto;
     height: 20px;
 }
-menu{
+ul{
     display: flex;
     justify-content: center;
     list-style: none;
@@ -156,13 +156,84 @@ menu{
     height: auto;
 
 }
+
+#menuDialog {
+    margin: 0 auto;
+    background: transparent;
+    inset: 0;
+    border: none;
+    margin: 0;
+  padding: 0;
+  width: 100dvw;   
+  height: 100dvh; /* alto completo */
+  max-width: 100dvw;
+  max-height: 100dvh;
+  background: transparent;
+  }
+#menuDialog::backdrop {
+    margin: 0 auto;
+    background: #38373780;
+  }
+   
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    width: 100%;
+    max-height: 100%;
+    background: -webkit-linear-gradient(to right, #16161c, #0b0a17, #0f0c29); 
+    background: linear-gradient(to right, #0a0a0a, #171718, #0a0a0a);
+    color: white;
+    padding: 1rem 0 4rem 0;
+    transform: translatey(-100%);
+    transition: transform 0.2s ease-in;
+    height: max-content;
+    border-bottom: 2px solid var(--acent-color);
+  }
+  #closeMenu {
+    position: inherit;
+    align-self: flex-end;
+    background: none;
+    padding-right: 1.5rem;
+    
+  }
+
+  /* Cuando el dialog está abierto, el sidebar entra */
+  #menuDialog[open] .sidebar {
+    transform: translatey(0);
+        
+  }
+.menu-mobile{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 2rem;
+    padding-left: 2rem;
+}
+.menu-mobile a {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    gap: 8px;
+  }
+
+  .menu-mobile a:hover {
+    color: #00c4ff;
+  }
+  #closeMenu{
+        box-shadow: none;
+    }
 li{
     display: flex;
     text-align: center;
     justify-content: center;
 
 }
-menu li a {
+ul li a {
     text-align: center;
     font-size: 1rem;
     text-decoration: none;
@@ -180,11 +251,13 @@ a{
     transition: border color 0.2s ease;
     
 }
-menu li a:hover{
+ul li a:hover{
     border: 1px var(--acent-color);
     color: var(--acent-color);
 
 }
+
+
 
          
 .button{
@@ -258,6 +331,7 @@ gap: 0.5rem;
     font-weight: 400;
 }
 
+
 @media (max-width: 1000px) {
 
     h1{
@@ -266,7 +340,7 @@ gap: 0.5rem;
     nav { 
         backdrop-filter: blur(0px);
     }
-    nav menu{
+    nav ul{
         display: none
     ;
     }
@@ -286,7 +360,12 @@ gap: 0.5rem;
          border-radius: 4px;
          box-shadow: 0 0 0.5rem var(--acent-color);
          margin: 0.5rem;
+        cursor: pointer;
     }
+    
+    
+    
+    
     .menu-icon span{
         font-size: 0.7rem;
         color: var(--text-white);
@@ -305,7 +384,7 @@ gap: 0.5rem;
         font-size: 0.7rem;
         max-width: 300px;
     }
-    nav menu{
+    nav ul{
         display: none
     ;
     }
@@ -406,6 +485,7 @@ gap: 0.5rem;
         
     }
 }
+
 
 /*styles for the projects section */
 
@@ -587,6 +667,7 @@ footer p {
     height: auto;
     max-width: 1440px;
     margin: 0 auto;
+    padding: 0.5rem 0;
 }
 .footer-text-info {
     display: flex;
