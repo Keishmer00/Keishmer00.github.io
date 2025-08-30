@@ -133,13 +133,14 @@ nav{
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     margin: 0 auto;
     backdrop-filter: blur(16px);
-    height: auto;
+    height: 60px;
     padding: 1rem;
 
 }
@@ -155,6 +156,7 @@ ul{
     width: 100%;
     gap: 2rem;
     height: auto;
+    margin: 0 auto;
 
 }
 
@@ -259,7 +261,24 @@ ul li a:hover{
 
 }
 
-
+.language{
+    display: flex;
+    gap: 0.5rem;
+   
+}
+.language-button{
+    background: none;
+    border: none;
+    color: var(--text-white);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 300;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.language-button:hover{
+    color: var(--acent-color);
+    
+}
 
          
 .button{
@@ -274,17 +293,17 @@ ul li a:hover{
     display: block;
     font-weight: 400;
 }
-    
-.text-about a{
-    margin-top: 1rem;
-}    
-
 .button:hover{
     background-position: right center; 
     color: var(--text-white);
     text-decoration: none;
             
 }
+.text-about a{
+    margin-top: 1rem;
+}    
+
+
 .CTAs{
     display: flex;
     flex-wrap: wrap;
@@ -299,6 +318,9 @@ ul li a:hover{
 justify-content: center;
 align-items: center;
 gap: 0.5rem;
+border: 1px solid var(--text-white);
+padding: 0.5rem 2rem;
+border-radius: 50px;
 }
 
 .tecnologies{

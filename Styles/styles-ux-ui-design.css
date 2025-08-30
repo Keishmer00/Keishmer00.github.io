@@ -47,13 +47,15 @@ main{
     max-width: 1440px;
     padding: 0 0;
     height: auto;
+    margin: 0 auto;
 }
 h1{
     font-family: var(--special-font);
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: var(--text-white);
     font-weight: 800;
     text-align: center;
+    margin-bottom: 1rem;
     
 }
 h2{
@@ -87,15 +89,34 @@ nav{
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     margin: 0 auto;
     backdrop-filter: blur(16px);
-    height: auto;
+    height: 60px;
     padding: 1rem;
 
+}
+.language{
+    display: flex;
+    gap: 0.5rem;
+   
+}
+.language-button{
+    background: none;
+    border: none;
+    color: var(--text-white);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 300;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.language-button:hover{
+    color: var(--acent-color);
+    
 }
 .menu-icon{
     display: none;
@@ -163,27 +184,26 @@ ul{
     transform: translatey(0);
         
   }
-.menu-mobile{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 2rem;
-    padding-left: 2rem;
+.button{
+    background-image: linear-gradient(to right, #0a0b0c 0%, #aa2c65  51%, #0a0b0c  100%);
+    padding: 0.8rem 3rem;
+    text-align: center;
+    transition: 0.3s ease;
+    background-size: 200% auto;
+    color: var(--text-white);            
+    box-shadow: 0 0 1rem #d00b46;
+    border-radius: 50px;
+    display: block;
+    font-weight: 400;
+    margin-top: 1rem;
+    margin-bottom: 6rem;
 }
-.menu-mobile a {
-    display: flex;
-    color: white;
+.button:hover{
+    background-position: right center; 
+    color: var(--text-white);
     text-decoration: none;
-    font-size: 1rem;
-    gap: 8px;
-  }
-
-  .menu-mobile a:hover {
-    color: #00c4ff;
-  }
+            
+}
   #closeMenu{
         box-shadow: none;
         border: none;
@@ -227,20 +247,31 @@ ul li a:hover{
     align-items: center;
     gap: 4rem;
 }
+.container-hero{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
 .info-hero{
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    max-width: 800px;
-    padding: 0 1rem;
+    width: 800px;
     text-align: start;
-    gap: 1rem;
+
+    
+    
 }
 .info-hero p{
     font-size: 1rem;
     text-align: start;
-    width: 100%;
+    width: 80%;
     font-weight: 300;
     color: var(--text-white);
     max-width: 750px;
@@ -250,24 +281,33 @@ ul li a:hover{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 60%;
+    width: 65%;
     text-align: start;
+    gap: 2rem;
     
 }
-.metrics-hero span{
+.data-metrics span{
     font-size: 0.8rem;
     color: var(--text-white);
     font-weight: 500;
     text-align: start;
     margin: 0;
+    width: auto;
     
+}
+.data-metrics{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: start;
+
 }
 .image-hero{
     display: block;
 }
 .image-hero img{
-    width: 100%;
-    max-width: 480px;
+    width: 750px;
     height: auto;
     margin-top: 2rem;
     border-radius: 10px;
@@ -277,55 +317,114 @@ ul li a:hover{
 
 .project-nexus{
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    justify-content: center;
+    justify-content: space-between;
     align-items: start;
-    width: 100%;
-    height: 100dvh;
-    margin: 0 6rem;
-}
-
-.project-nexus h2{
-    font-size: 2.5rem;
-    color: var(--text-white);
-    font-weight: 600;
-    text-align: start;
+    height: 100%;
+    gap: 2rem;
+    padding: 3rem;
+    background: linear-gradient(145deg, #101112, #131415);
+box-shadow:  18px 18px 36px #0b0b0c,
+             -18px -18px 36px #191b1c;
+    border-radius: 1.5rem;
+    margin: 10rem 3rem;
     
 }
+
 .project-nexus-info{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
     gap: 4rem;
     width: 100%;
     margin: 0 auto;
     height: 100%;
-    padding: 0 1rem;
     text-align: center;
-    gap: 3rem;
+}
+      
+.title-nexus{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    width: 400px;
+    height: auto;
 }
 .info-nexus{
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    gap: 1rem;
-    width: 800px;
+    width: 700px;
     height: auto;
+    gap: 1rem;
 }
 .info-nexus p{
+    text-align: start;
+    width: 100%;
+}
+.image-nexus{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    height: auto;
+}
+.image-nexus img{
+    width: 90px;
+    height: auto;
+}
+.image-nexus ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+    color: var(--text-white);
+    font-size: 0.8rem;
+    width: 200px;
+   
+
+}
+.actions{
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: start;
+    gap: 0.5rem;
     width: 100%;
-}
-.image-nexus img{
-    width: 700px;
     height: auto;
 }
+.actions h3{
+    font-size: 1.5rem;
+    color: var(--text-white);
+    font-weight: 600;
+    text-align: start;
+}
 
+.images-project-nexus {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    height: auto;
+
+}
+.images-project-nexus img{
+    width: 80px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.container-nexus-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
 
 
 
