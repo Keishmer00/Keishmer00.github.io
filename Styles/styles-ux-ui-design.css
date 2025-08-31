@@ -30,22 +30,22 @@
 html{
     scroll-behavior: smooth;
     font-size: 1rem;
-    width: 100%;
-    height: 100%; 
     background: -webkit-linear-gradient(to right, #16161c, #0b0a17, #0f0c29); 
     background: linear-gradient(to right, #0a0a0a, #171718, #0a0a0a);
+    margin: 0 auto;
+    padding: 0;
 }   
 body{
     font-family: var(--font-family);    
     color: var(--text-color);
-    margin: 0 auto;
-    width: 100%;
-    height: auto;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
+
 }
 main{
+    width: 100%;
     max-width: 1440px;
-    padding: 0 0;
     height: auto;
     margin: 0 auto;
 }
@@ -80,7 +80,6 @@ header{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
     gap: 3rem;
 }
 
@@ -195,7 +194,6 @@ ul{
     display: block;
     font-weight: 400;
     margin-top: 1rem;
-    margin-bottom: 6rem;
 }
 .button:hover{
     background-position: right center; 
@@ -242,9 +240,9 @@ ul li a:hover{
     align-items: center;
     width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: center;
+    
     gap: 4rem;
+    margin: 0 auto;
 }
 .container-hero{
     display: flex;
@@ -261,7 +259,7 @@ ul li a:hover{
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    width: 1000px;
+    width: 60%;
     text-align: start;
 
     
@@ -283,6 +281,7 @@ ul li a:hover{
     width: 80%;
     text-align: start;
     gap: 2rem;
+    margin-top: 6rem;
     
 }
 .data-metrics span{
@@ -306,11 +305,11 @@ ul li a:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 60%;
     height: auto;
 }
 .image-hero img{
-    width: 650px;
+    width: 100%;
     height: auto;
     margin-top: 2rem;
     border-radius: 10px;
@@ -349,7 +348,7 @@ ul li a:hover{
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
+    align-items: start;
     gap: 1rem;
     width: 400px;
     height: auto;
