@@ -395,6 +395,12 @@ border-radius: 50px;
         color: var(--text-white);
         font-weight: 300;
     }
+    .logo{
+        display: none;
+    }
+    .language{
+        display: none;
+    }
     
 }
 @media (max-width: 500px) {
