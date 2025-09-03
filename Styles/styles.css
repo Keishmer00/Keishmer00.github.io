@@ -126,7 +126,7 @@ header{
 }
 .menu-icon{
     display: none;
-    cursor: pointer;
+    
     
 }
 nav{
@@ -187,7 +187,7 @@ ul{
     background: -webkit-linear-gradient(to right, #16161c, #0b0a17, #0f0c29); 
     background: linear-gradient(to right, #0a0a0a, #171718, #0a0a0a);
     color: white;
-    padding: 1rem 0 4rem 0;
+    padding: 0.6rem 0.4rem 4rem 0;
     transform: translatey(-100%);
     transition: transform 0.2s ease-in;
     height: max-content;
@@ -224,12 +224,18 @@ ul{
     gap: 8px;
   }
 
-  .menu-mobile a:hover {
+.menu-mobile a:hover {
     color: #00c4ff;
   }
-  #closeMenu{
+
+  .menu-mobile p{
+    color: var(--acent-color);
+  }
+  
+#closeMenu{
         box-shadow: none;
         border: none;
+        
     }
 li{
     display: flex;
@@ -375,7 +381,8 @@ gap: 0.5rem;
         display: flex; 
         flex-direction: column;
         position: fixed;
-        right: 1.5rem;
+        top: 0.5rem;
+        right: 0.5rem;
          background-color: #121314;
          gap: 0;
          border: none;
@@ -444,13 +451,14 @@ gap: 0.5rem;
 
     .menu-icon{
 
-        right: 1rem;
+        
         padding: 0.2rem 0.4rem;
-        margin: 0.5rem;
+        
     }
     .menu-icon span{
         font-size: 0.5rem;
     }
+   
 }
 /*styles for the about section */
 
@@ -512,6 +520,12 @@ gap: 0.5rem;
     .image-about img {
         max-width: 70%;
         
+    }
+}
+@media (max-width: 500px) {
+    .text-about p{
+        font-size: 1rem;
+        line-height: 1.5rem;
     }
 }
 
@@ -727,7 +741,7 @@ footer p {
     
 }
 h5 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     text-align: left;
@@ -820,5 +834,14 @@ h6 {
     .all-rights a{
         font-size: 0.7rem;
     }   
+    h5, h6 {
+        text-align: center;
+    }
     
+}
+@media (max-width: 500px) {
+    .text-projects p{
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
 }

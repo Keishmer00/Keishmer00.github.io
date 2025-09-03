@@ -1,11 +1,10 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 @font-face {
     font-family: 'ALTRONED';
     src:
-         url('/Public/ALTRONED.woff') format('woff'), 
-         url('/Public/ALTRONED.woff2') format('woff2');
+         url('/Public/Font/ALTRONED.woff') format('woff'), 
+         url('/Public/Font/ALTRONED.woff2') format('woff2');
     font-style: normal;
     font-weight: normal;
     text-rendering: optimizeLegibility;
@@ -23,29 +22,38 @@
     --black: #121313;
     --text-white: #f2f5f7;
     --text-black: #121313;
-    --acent-color: #A31621;
+    --acent-color: #c73476;
     --font-family: 'Roboto', sans-serif;
     --special-font: 'ALTRONED', sans-serif;
+    --grayneutral: #6e6e6e;
 }
 html{
     scroll-behavior: smooth;
     font-size: 1rem;
+    width: 100%;
+    height: 100%; 
     background: -webkit-linear-gradient(to right, #16161c, #0b0a17, #0f0c29); 
     background: linear-gradient(to right, #0a0a0a, #171718, #0a0a0a);
     margin: 0 auto;
     padding: 0;
+    
 }   
 body{
     font-family: var(--font-family);    
     color: var(--text-color);
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    position: relative;
     padding: 0;
-    overflow-x: hidden;
-
 }
 main{
-    width: 100%;
     max-width: 1440px;
+    padding: 0 0;
     height: auto;
     margin: 0 auto;
 }
@@ -54,16 +62,17 @@ h1{
     font-size: 2.5rem;
     color: var(--text-white);
     font-weight: 800;
+    text-align: left;
     margin-bottom: 1rem;
     
 }
 h2{
     font-family: var(--font-family);
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     color: var(--text-white);
     font-weight: 600;
     text-align: center;
-   
+    
 }
 
 p{
@@ -75,7 +84,7 @@ p{
 }
 header{
     width: 100%;
-    height: 100dvh;
+    max-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -143,8 +152,7 @@ ul{
     border: none;
     margin: 0;
   padding: 0;
-  width: 100dvw;   
-  height: 100dvh; /* alto completo */
+  width: 100dvw;  
   max-width: 100dvw;
   max-height: 100dvh;
   background: transparent;
@@ -239,20 +247,21 @@ ul li a:hover{
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 100%;
-    
+    max-height: 100dvh;
     gap: 4rem;
     margin: 0 auto;
+    
 }
 .container-hero{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: auto;
+    max-height: 100dvh;
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 4rem;
+    margin-top: 4.5rem;
 }
 .info-hero{
     display: flex;
@@ -305,7 +314,7 @@ ul li a:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: 40%;
     height: auto;
 }
 .image-hero img{
@@ -319,54 +328,57 @@ ul li a:hover{
 
 .project-nexus{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: start;
-    height: 100%;
+    align-items:center;
+    max-width: 100%;
+    max-height: 100dvh;
     gap: 2rem;
-    padding: 3rem;
-    background: linear-gradient(145deg, #101112, #131415);
-    box-shadow:  18px 18px 36px #2a2a2c,
-             -18px -18px 36px #484c4d;
-    border-radius: 1.5rem;
-    margin: 10rem 3rem;
+    margin: 8rem 6rem;
+     max-width: 1440px;
+    
+}
+.cards {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4rem;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 0;
+    
+}
+.cards a{
+    text-decoration: none;
+    background-color: #1d1e1f;
+   width: 100%;
+     border-radius: 16px;
+}
+.cards a:hover{
+    background: #2d2e2f;
+    
     
 }
 
-.project-nexus-info{
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: end;
-    gap: 4rem;
-    width: 100%;
-    margin: 0 auto;
-    height: 100%;
-    text-align: center;
-}
       
 .title-nexus{
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    gap: 1rem;
-    width: 400px;
-    height: auto;
-}
-.info-nexus{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    width: 700px;
-    height: auto;
-    gap: 1rem;
-}
-.info-nexus p{
-    text-align: start;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
     width: 100%;
+    height: 100%;
+   
+    
 }
-.image-nexus{
+.title-nexus h2{
+    width: 100%;
+    text-align: start;
+}
+
+.list-nexus{
     display: flex;
     justify-content: start;
     align-items: center;
@@ -374,11 +386,8 @@ ul li a:hover{
     width: 100%;
     height: auto;
 }
-.image-nexus img{
-    width: 90px;
-    height: auto;
-}
-.image-nexus ul{
+
+.list-nexus ul{
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -386,38 +395,24 @@ ul li a:hover{
     gap: 0.5rem;
     color: var(--text-white);
     font-size: 0.8rem;
-    width: 200px;
-   
-
-}
-.actions{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    gap: 0.5rem;
     width: 100%;
-    height: auto;
 }
-.actions h3{
-    font-size: 1.5rem;
-    color: var(--text-white);
-    font-weight: 600;
-    text-align: start;
-}
+   
 
 .images-project-nexus {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    width: 100%;
-    height: auto;
+    max-width: 100%;
+    height: 100%;
 
 }
 .images-project-nexus img{
-    width: 80px;
-    height: auto;
+    
+    width: 100px;
+    height: 100%;
     border-radius: 8px;
+
 }
 
 .container-nexus-info{
@@ -426,6 +421,14 @@ ul li a:hover{
     align-items: center;
     width: 100%;
     height: auto;
+}
+.button-2{
+    text-align: center;
+    color: var(--text-white);            
+    display: block;
+    font-weight: 400;
+    margin-top: 1rem;
+    text-decoration: none;
 }
 
 
@@ -545,49 +548,13 @@ h6 {
     font-weight: 300;
     color: #0d82e9;
 }
-@media (max-width: 800px) {
-    footer {
-        padding: 2rem 1rem 1rem 1rem;
-    }
-    .footer-items {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        gap: 2rem;
-    }
-    .footer-text-info {
-        align-items: center;
-        text-align: center;
-        max-width: 100%;
-    }
-    .footer-text-info p {
-        text-align: center;
-        max-width: 100%;
-    }
-    .other-media{
-        align-items: center;
-        text-align: center;
-    }
-    .contact {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .all-rights p{
-        font-size: 0.7rem;
-    }
-    .all-rights a{
-        font-size: 0.7rem;
-    }   
-    
-}
+
+/*Responsive Design*/
 
 @media (max-width: 1000px) {
 
     h1{
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
     nav { 
         backdrop-filter: blur(0px);
@@ -653,12 +620,93 @@ h6 {
     }
     
 }
+
+
+@media (max-width: 800px) {
+
+     h1{
+        font-size: 1.5rem;
+    }
+
+    footer {
+        padding: 2rem 1rem 1rem 1rem;
+    }
+    .footer-items {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 2rem;
+    }
+    .footer-text-info {
+        align-items: center;
+        text-align: center;
+        max-width: 100%;
+    }
+    .footer-text-info p {
+        text-align: center;
+        max-width: 100%;
+    }
+    .other-media{
+        align-items: center;
+        text-align: center;
+    }
+    .contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .all-rights p{
+        font-size: 0.7rem;
+    }
+    .all-rights a{
+        font-size: 0.7rem;
+    }  
+     .project-nexus{
+        height: auto;
+        max-height: none;
+        margin: 0 auto;
+        width: 100%;
+        border-radius: 0;
+    } 
+    .cards {
+        flex-direction: column;
+        height: auto;
+       margin: 1rem;
+
+    }
+    .metrics-hero{
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 0;
+        margin-top: 2rem;
+    }
+    .data-metrics svg{
+        width: 24px;
+    }
+    .image-hero{
+        width: 200px;
+      margin: 0 auto;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .image-hero img{
+        width: 100px;
+     
+    }
+    
+}
+
+
 @media (max-width: 500px) {
     main{
         margin: 0 auto;
     }
     h1{
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
     span{
         font-size: 0.7rem;
@@ -702,4 +750,6 @@ h6 {
     .menu-icon span{
         font-size: 0.5rem;
     }
+    
+    
 }
