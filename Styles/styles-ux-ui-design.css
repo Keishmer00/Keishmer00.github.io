@@ -31,25 +31,20 @@ html{
     scroll-behavior: smooth;
     font-size: 1rem;
     width: 100%;
-    height: 100%; 
+    height: auto; 
     background: -webkit-linear-gradient(to right, #16161c, #0b0a17, #0f0c29); 
     background: linear-gradient(to right, #0a0a0a, #171718, #0a0a0a);
     margin: 0 auto;
-    padding: 0;
     
 }   
 body{
     font-family: var(--font-family);    
     color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin: 0 auto;
     width: 100%;
     height: auto;
     position: relative;
-    padding: 0;
+    
 }
 main{
     max-width: 1440px;
@@ -261,7 +256,8 @@ ul li a:hover{
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 4rem;
-    margin-top: 4.5rem;
+    margin-top: 7rem;
+    margin-bottom: 4rem;
 }
 .info-hero{
     display: flex;
@@ -270,8 +266,6 @@ ul li a:hover{
     align-items: start;
     width: 60%;
     text-align: start;
-
-    
     
 }
 .info-hero p{
@@ -331,33 +325,32 @@ ul li a:hover{
     flex-direction: column;
     justify-content: space-between;
     align-items:center;
-    max-width: 100%;
+    width: 100%;
     max-height: 100dvh;
-    gap: 2rem;
-    margin: 8rem 6rem;
-     max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem 4rem; 
+    
     
 }
 .cards {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 4rem;
     width: 100%;
     height: 100%;
     padding: 1rem 0;
+    gap: 2rem
     
 }
 .cards a{
+    display: flex;
     text-decoration: none;
     background-color: #1d1e1f;
-   width: 100%;
-     border-radius: 16px;
+    width: 100%;
+    border-radius: 16px;
 }
 .cards a:hover{
     background: #2d2e2f;
-    
-    
 }
 
       
@@ -402,18 +395,18 @@ ul li a:hover{
 .images-project-nexus {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
     max-width: 100%;
-    height: 100%;
-
+    gap: 1rem;
+    
 }
 .images-project-nexus img{
-    
     width: 100px;
-    height: 100%;
+    height: auto;
     border-radius: 8px;
-
+    
 }
+
 
 .container-nexus-info{
     display: flex;
@@ -551,7 +544,7 @@ h6 {
 
 /*Responsive Design*/
 
-@media (max-width: 1000px) {
+@media (max-width: 1023px) {
 
     h1{
         font-size: 2rem;
@@ -595,7 +588,7 @@ h6 {
         justify-content: center;
     }
     .info-hero p{
-        width: 65%;
+        width: 100%;
         font-size: 0.9rem;
         text-align: center;
         margin: 0 auto;
@@ -611,7 +604,7 @@ h6 {
         height: auto;
         
     }
-    
+   
     
     .menu-icon span{
         font-size: 0.7rem;
@@ -622,14 +615,18 @@ h6 {
 }
 
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
      h1{
-        font-size: 1.5rem;
+        font-size: 2.5rem;
     }
-
+.info-hero p{
+        font-size: 0.9rem;
+        width: 100%;
+        padding-bottom: 1rem;
+    }
     footer {
-        padding: 2rem 1rem 1rem 1rem;
+        padding: 2rem;
     }
     .footer-items {
         flex-direction: column;
@@ -677,7 +674,7 @@ h6 {
 
     }
     .metrics-hero{
-        flex-direction: column;
+        
         justify-content: start;
         align-items: start;
         gap: 0;
@@ -687,19 +684,20 @@ h6 {
         width: 24px;
     }
     .image-hero{
-        width: 200px;
+        width: 100%;
       margin: 0 auto;
         text-align: center;
         justify-content: center;
         align-items: center;
     }
     .image-hero img{
-        width: 100px;
+        width: 300px;
      
     }
     
 }
 
+/*Mobile*/
 
 @media (max-width: 500px) {
     main{
@@ -707,6 +705,7 @@ h6 {
     }
     h1{
         font-size: 1rem;
+        text-align: center;
     }
     span{
         font-size: 0.7rem;
@@ -751,5 +750,60 @@ h6 {
         font-size: 0.5rem;
     }
     
+    .info-hero p{
+        width: 100%;
+        font-size: 0.8rem;
+    }
+    .container-hero{
+        padding: 1rem;
+        margin-top: 3rem;
+        align-items: space-between;
+        gap: 2rem;
+       
+        width: 100%;
+    }
+    .metrics-hero{
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        gap:1rem
+    }
+    .data-metrics span{
+        font-size: 0.6rem;
+    }
+    .image-hero{
+        width: 100%;
+        margin: 0;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .image-hero img{
+        width: 250px;
+        margin: 0;
+    }
+    .images-project-nexus{
+        gap: 0;
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+    .images-project-nexus img{
+        width: 70px;
+        height: auto;
+        border-radius: 4px;
+    }
+    .cards{
+        gap: 1rem;
+        margin: 0;
+    }
+    .title-nexus{
+       width: 100%; 
+    }
+    .project-nexus{
+       width: 100%;
+       padding: 1rem;
+    }
     
 }
