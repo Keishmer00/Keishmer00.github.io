@@ -361,105 +361,6 @@ gap: 0.5rem;
 }
 
 
-@media (max-width: 1000px) {
-
-    h1{
-        font-size: 2.5rem;
-    }
-    nav { 
-        backdrop-filter: blur(0px);
-    }
-    nav ul{
-        display: none
-    ;
-    }
-    span{
-        font-size: 0.79rem;
-    }
-   
-    .menu-icon{
-        display: flex; 
-        flex-direction: column;
-        position: fixed;
-        top: 0.5rem;
-        right: 0.5rem;
-         background-color: #121314;
-         gap: 0;
-         border: none;
-         padding: 0.4rem 0.8rem;
-         border-radius: 4px;
-         border: 1px solid var(--acent-color);
-         margin: 0.5rem;
-        cursor: pointer;
-    }
-    
-    
-    
-    
-    .menu-icon span{
-        font-size: 0.7rem;
-        color: var(--text-white);
-        font-weight: 300;
-    }
-    .logo{
-        display: none;
-    }
-    .language{
-        display: none;
-    }
-    
-}
-@media (max-width: 500px) {
-    main{
-        margin: 0 auto;
-    }
-    h1{
-        font-size: 1.5rem;
-    }
-    span{
-        font-size: 0.7rem;
-        max-width: 300px;
-    }
-    nav ul{
-        display: none
-    ;
-    }
-    .button{
-        padding: 0.5rem 2rem;
-        font-size: 0.8rem;
-    }
-    h2{
-        font-size: 1.2rem;
-    }
-    p{
-        font-size: 0.8rem;
-    }
-
-    .item-tecnologies{
-        width: 70px;
-        height: 70px;
-        gap: 0.5rem;
-        padding: 0.2rem 0.2rem;
-    }
-    .item-tecnologies img{
-        width: 15px;
-    }
-    .item-tecnologies p{
-        font-size: 0.6rem;
-        color: var(--text-white);
-    }
-
-    .menu-icon{
-
-        
-        padding: 0.2rem 0.4rem;
-        
-    }
-    .menu-icon span{
-        font-size: 0.5rem;
-    }
-   
-}
 /*styles for the about section */
 
 .about-me {
@@ -490,6 +391,7 @@ gap: 0.5rem;
 .text-about p {
     text-align:start;
     font-size: 1.2rem; 
+    line-height: 2rem;
 }
 .text-about:nth-child(4) {
     padding-top: 1rem;
@@ -500,34 +402,7 @@ gap: 0.5rem;
     max-width: 500px;
     height: auto;
 }
-@media (max-width: 1000px) {
-    .about-me {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: auto;
-    }
-    .text-about {
-        text-align: center;
-        max-width: 100%;
-    }
-    .image-about {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-    .image-about img {
-        max-width: 70%;
-        
-    }
-}
-@media (max-width: 500px) {
-    .text-about p{
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-}
+
 
 
 /*styles for the projects section */
@@ -557,9 +432,10 @@ gap: 0.5rem;
     font-size: 2rem;
     font-weight: 600;
 }
-.text-projects p {
+.text-projects>p {
     text-align:start;
     font-size: 1.2rem; 
+    line-height: 2rem;
 }
 .text-projects:nth-child(3) {
     padding-bottom: 1rem;
@@ -616,71 +492,6 @@ gap: 0.5rem;
     height: auto;
     border-radius: 0.5rem;
     object-fit:cover;
-}
-@media (max-width: 1000px) {
-    .projects {
-        flex-direction: column-reverse;
-        
-        align-items: center;
-        justify-content: center;
-        height: auto;
-
-    }
-    .text-projects {
-        text-align: center;
-        max-width: 100%;
-    }
-    .image-projects {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-    .image-projects img {
-        max-width: 40%;
-        
-    }
-    .item-projects-important h3::after {
-        content: '';
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        background-image: url('/Public/ArrowForwad.svg');
-        background-size: cover;
-        background-repeat: no-repeat; 
-        justify-content: center;  
-        align-items: center;
-        align-content: center;
-    }
-}
-@media (max-width: 800px) {
-    .projects-important {
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: auto;
-    }
-    .item-projects-important {
-        display: flex;
-        max-width: 100%;
-        height: auto;
-        padding: 1rem 1rem;
-        align-items: start;
-        justify-items: start;
-    }
-
-    .item-projects-important p,h3 {
-        text-align: start;
-    }
-    .item-projects-important img {
-        width: 54px;
-        height: auto;
-    }
-       .image-projects img {
-        max-width: 70%;
-        
-    }
 }
 
 footer {
@@ -798,8 +609,142 @@ h6 {
     font-weight: 300;
     color: #0d82e9;
 }
+
+
+/*aptop sm*/
+
+@media (max-width: 1000px) {
+    h1{
+        font-size: 2.5rem;
+    }
+    nav { 
+        backdrop-filter: blur(0px);
+    }
+    nav ul{
+        display: none
+    ;
+    }
+    span{
+        font-size: 0.79rem;
+    }
+   
+    .menu-icon{
+        display: flex; 
+        flex-direction: column;
+        position: fixed;
+        top: 0.5rem;
+        right: 0.5rem;
+         background-color: #121314;
+         gap: 0;
+         border: none;
+         padding: 0.4rem 0.8rem;
+         border-radius: 4px;
+         border: 1px solid var(--acent-color);
+         margin: 0.5rem;
+        cursor: pointer;
+    }
+    
+    
+    
+    
+    .menu-icon span{
+        font-size: 0.7rem;
+        color: var(--text-white);
+        font-weight: 300;
+    }
+    .logo{
+        display: none;
+    }
+    .language{
+        display: none;
+    }
+
+    .about-me {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+    .text-about {
+        text-align: center;
+        max-width: 100%;
+    }
+    .image-about {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    .image-about img {
+        max-width: 70%;
+        
+    }
+    .projects {
+        flex-direction: column-reverse;
+        
+        align-items: center;
+        justify-content: center;
+        height: auto;
+
+    }
+    .text-projects {
+        text-align: center;
+        max-width: 100%;
+    }
+    .image-projects {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    .image-projects img {
+        max-width: 40%;
+        
+    }
+    .item-projects-important h3::after {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-image: url('/Public/ArrowForwad.svg');
+        background-size: cover;
+        background-repeat: no-repeat; 
+        justify-content: center;  
+        align-items: center;
+        align-content: center;
+    }
+}
+/*Tablet*/
+
 @media (max-width: 800px) {
-    footer {
+    .projects-important {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+    .item-projects-important {
+        display: flex;
+        max-width: 100%;
+        height: auto;
+        padding: 1rem 1rem;
+        align-items: start;
+        justify-items: start;
+    }
+
+    .item-projects-important p,h3 {
+        text-align: start;
+    }
+    .item-projects-important img {
+        width: 54px;
+        height: auto;
+    }
+       .image-projects img {
+        max-width: 70%;
+        
+    }
+     footer {
         padding: 2rem 1rem 1rem 1rem;
     }
     .footer-items {
@@ -837,11 +782,65 @@ h6 {
     h5, h6 {
         text-align: center;
     }
-    
 }
+/*Mobile*/
+
 @media (max-width: 500px) {
-    .text-projects p{
+    main{
+        margin: 0 auto;
+    }
+    h1{
+        font-size: 1.5rem;
+    }
+    span{
+        font-size: 0.7rem;
+        max-width: 300px;
+    }
+    nav ul{
+        display: none
+    ;
+    }
+    .button{
+        padding: 0.5rem 2rem;
+        font-size: 0.8rem;
+    }
+    h2{
+        font-size: 1.2rem;
+    }
+    p{
+        font-size: 0.8rem;
+    }
+
+    .item-tecnologies{
+        width: 70px;
+        height: 70px;
+        gap: 0.5rem;
+        padding: 0.2rem 0.2rem;
+    }
+    .item-tecnologies img{
+        width: 15px;
+    }
+    .item-tecnologies p{
+        font-size: 0.6rem;
+        color: var(--text-white);
+    }
+
+    .menu-icon{
+
+        
+        padding: 0.2rem 0.4rem;
+        
+    }
+    .menu-icon span{
+        font-size: 0.5rem;
+    }
+    .text-about p{
         font-size: 1rem;
         line-height: 1.5rem;
     }
+      .text-projects p{
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+   
 }
