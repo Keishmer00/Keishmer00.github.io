@@ -379,7 +379,7 @@ gap: 0.5rem;
 .all-best-projects{
     display: flex;
     flex-direction: column;
-    background-color:#2b2a2a ;
+    background-color:#1c1c1c ;
     height: auto;
     width: 100%;
     padding: 4rem;
@@ -431,14 +431,14 @@ box-shadow: 0px 0px 18px 4px #000000a6;
 }
 .project-info p{
     text-align:start;
-    font-size: 1.2rem; 
+    font-size: 1rem; 
     line-height: 2rem;
     margin-bottom: 1rem;
 
 }
 .list-mots{
     color: var(--text-white);
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 
 }
 .list-mots ul li{
@@ -452,6 +452,16 @@ box-shadow: 0px 0px 18px 4px #000000a6;
 .list-mots ul li span{
     font-size: 0.7rem;
 }
+.see-page{
+    display: flex;
+justify-content: center;
+align-items: center;
+gap: 0.5rem;
+
+
+}
+
+
 
 /*styles for the about section */
 
@@ -509,6 +519,7 @@ box-shadow: 0px 0px 18px 4px #000000a6;
     height: 100dvh;
     align-items: center;
     gap: 4rem;
+    padding: 0 4rem;
 
 
 }
@@ -702,11 +713,15 @@ h6 {
     font-weight: 300;
     color: #0d82e9;
 }
+.whatsapp-btn{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
 
+/*laptop sm*/
 
-/*aptop sm*/
-
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
     h1{
         font-size: 2.5rem;
     }
@@ -806,6 +821,13 @@ h6 {
         align-items: center;
         align-content: center;
     }
+    .best-projects{
+        flex-direction: column;
+        height: auto;
+    }
+    .project-info{
+        width: 100%;
+    }
 }
 /*Tablet*/
 
@@ -879,6 +901,7 @@ h6 {
     display: flex;
     flex-direction: column-reverse;
     height: auto;
+    flex-direction: column;
 }
 }
 /*Mobile*/
@@ -940,5 +963,27 @@ h6 {
         font-size: 1rem;
         line-height: 1.5rem;
     }
-   
+    .projects{
+        padding: 0;
+    }
+    .about-me{
+        padding: 0;
+    }
+   .all-best-projects{
+    padding: 2rem 0 0 0;
+    margin-top: 2rem;
+   }
+   .all-best-projects>p{
+    padding: 0 3rem;
+    line-height: 1.5rem;
+   }
+   .best-projects {
+    flex-direction: column;
+    margin: 2rem 0.5rem;
+   }
+   #best-projects-2{
+    flex-direction: column;
+    margin: 2rem 0;
+   }
+
 }
