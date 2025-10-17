@@ -65,9 +65,9 @@ h1{
     
 }
 .title-wrapper{
-    overflow-y: hidden; 
-    width: 100%;
-    height: auto;
+     overflow-y: hidden; 
+        width: 100%;
+        height: 100px;
   
 }
 #title-main{
