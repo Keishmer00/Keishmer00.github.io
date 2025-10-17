@@ -28,6 +28,7 @@
     --font-family: 'Roboto', sans-serif;
     --special-font: 'ALTRONED', sans-serif;
     --grayneutral: #6e6e6e;
+    --gray-100: #c2bfbf;
     --bg-1: #0a0a0a;
     --bg-2: #161617;
     
@@ -38,7 +39,16 @@ html{
     width: 100%;
     height: 100%; 
     background: #0a0a0a;
-}   
+    /* Create a snapping rule on the html element */
+  scroll-snap-type: y mandatory;
+
+  /* Create a timeline scope, so we can target any element on the page */
+  timeline-scope: --section, --main, --site-header;
+}
+
+/* We'll want to match these colors for the best melty effect */
+/* But play around with them (and add a color to section) to see happens */
+ 
 body{
     position: relative;
     font-family: var(--font-family);    
@@ -53,6 +63,7 @@ main{
     height: 100dvh;
     margin: 0 auto;
     position: relative;
+    view-timeline: --main;
 }
 
 h1{
@@ -395,7 +406,7 @@ ul li a:hover{
     gap: 0.5rem;
 }
 .tecnologies-section{
-    background-color: var(--bg-2);
+    
     padding: 2rem 0;
     gap: 1rem;
     animation : subir 2s ease-out forwards;
@@ -451,8 +462,8 @@ ul li a:hover{
 
 .item-tecnologies p{
     font-family: var(--font-family);
-    font-size: 0.7rem;
-    color: var(--grayneutral);
+    font-size: 0.8rem;
+    color: var(--gray-100);
     text-align: center;
     font-weight: 400;
 }
@@ -460,7 +471,7 @@ ul li a:hover{
 /*styles for all best projects section */
 
 .all-best-projects{
-    position: absolute;
+    scroll-snap-type: y mandatory;
     background-color: var(--bg-2);
     height: 100dvh;
     width: 100%;
@@ -481,6 +492,15 @@ ul li a:hover{
     align-items: center;
     width: 100%;
     height: 100%;
+    /* Creating a snapping rule on the section element */
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+
+  /* Attach the timeline to the section element*/
+  view-timeline: --section;
+
+  /* Set each section to the full dynamic height of the viewport */
+  height: 100dvh;
     
 }
 /*styles for best projects section */
@@ -1009,4 +1029,59 @@ h6 {
     .project-info{
         width: 100%;
     }
+}
+
+
+
+
+
+
+/* Contenedor principal */
+.marquee {
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* Contenido que se mueve */
+.marquee-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 25s linear infinite;
+}
+
+/* Animación */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Items individuales */
+.item-tecnologies {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 2rem;
+    white-space: nowrap;
+}
+
+.item-tecnologies p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.icons {
+    width: 60px;
+    height: 60px;
+}
+
+/* Pausar al hover (opcional) */
+.marquee:hover .marquee-content {
+    animation-play-state: paused;
 }
