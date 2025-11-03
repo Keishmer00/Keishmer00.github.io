@@ -27,7 +27,7 @@
     --text-black: #121313;
     --font-family: 'Roboto', sans-serif;
     --special-font: 'ALTRONED', sans-serif;
-    --grayneutral: #6e6e6e;
+    --gray-300: #6e6e6e;
     --gray-100: #c2bfbf;
     --bg-1: #0a0a0a;
     --bg-2: #161617;
@@ -359,9 +359,10 @@ ul li a:hover{
          
 .button{
     background-image: linear-gradient(to right, #0a0b0c 0%, #aa2c65  51%, #0a0b0c  100%);
-    padding: 0.8rem 1rem;
+    padding: 1.2rem 1rem;
     text-align: center;
     width: 100%;
+
     transition: 0.3s ease;
     background-size: 200% auto;
     color: var(--text-white);            
@@ -381,15 +382,12 @@ ul li a:hover{
 }    
 
 .CTAs{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+   
     width: 100%;
-    gap: 2rem;
     margin-top: 1.5rem;
     transform: opacity 0s ease-in;
     animation : aparecer 1.3s ease-out forwards;
-    padding: 0 1rem;
+    padding: 0 4rem;
     max-width: 400px; ;
 }
 .text-icon{
@@ -473,6 +471,7 @@ ul li a:hover{
     gap: 0;
     max-height: 100dvh; 
     scroll-snap-align: start;
+    height: 100dvh;
      
 }
 .all-best-projects> h2{
@@ -481,38 +480,40 @@ ul li a:hover{
     text-align: left;
     padding-left: 1rem;
     width: 100%;
-    height: 100%;
+    height: auto;
+    font-size: 1.2rem;
+    border-bottom: 2px solid var(--acent-color);
     
 }
 .container-projects{
-  
+  position: relative;
   scroll-snap-type: y mandatory; 
-  max-height: 100%;
+  height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+  
+ 
 }
 
-    
-
-
-.project{
-   
+.project {
+    position: sticky;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-height: 100%;
-    padding-bottom: 2rem;
+    height: 100%;
     scroll-snap-align: start;
     scroll-snap-stop: normal;
-    
     
 }
 
 /*styles for best projects section */
 
-
+.video-project{
+    height: auto;
+    width: 100%;
+}
 .video-project video{
     width: 100%;
     height: auto;
@@ -522,15 +523,16 @@ ul li a:hover{
     display: flex;
     flex-direction: column;
     align-items: start;
-    justify-content: start;
+    justify-content: space-between;
     gap: 1rem;
     width: 100%;
     text-align: left;
     padding: 1rem;
+    height: 100%;
 }
 
 .project-info h2{
-    font-size: 1rem;
+    font-size: 1.4rem;
     text-align: left;
     font-weight: bold;
 }
@@ -538,6 +540,7 @@ ul li a:hover{
     text-align:start;
     font-size: 1rem; 
     line-height: 2rem;
+    color: var(--gray-100);
     
     
 
@@ -593,8 +596,8 @@ width: 100%;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    padding: 0 0.5rem;
-    margin-top: 1.51rem;
+    padding: 0;
+    
     
     
 }
@@ -613,7 +616,6 @@ width: 100%;
     align-items: center;
     gap: 1rem;
     padding: 2rem 1rem 0 1rem;
-    height: auto;
     scroll-snap-align: start;
 
 
@@ -754,6 +756,7 @@ footer {
     width: 100%;
     height: auto;
     gap: 1rem;
+    scroll-snap-align: end;
 }
 footer p {
     font-size: 0.8rem;
