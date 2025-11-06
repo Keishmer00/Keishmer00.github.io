@@ -22,9 +22,9 @@
     --white: #FCF7F8;
     --acent-color: #c73476;
     --secondary-color: #7515bf;
-    --black: #121313;
-    --text-white: #f2f5f7;
-    --text-black: #121313;
+    --black: #121314;
+    --text-white: #f8f5f0;
+    --text-black: #121314;
     --font-family: 'Roboto', sans-serif;
     --special-font: 'ALTRONED', sans-serif;
     --gray-300: #6e6e6e;
@@ -66,32 +66,33 @@ main{
 
 h1{
     font-family: var(--special-font);
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     color: var(--text-white);
     font-weight: 800;
     text-align: center;
+    width: 100%;
+    
     
 }
 span{
     font-family: var(--font-family);
-    font-size: 0.9rem;
+    font-size: 1rem;
     display: block;
-    margin: 0 auto;
-    font-weight: 300;
+    font-weight: 400;
     margin-top: 0.5rem;
-    padding: 0 1.5rem;
-    line-height: 1.5rem;
+    line-height: 2rem;
 }
 .title-wrapper{
-    overflow-y: hidden; 
+overflow-y: hidden; 
     width: 100%;
     height: auto;
+    
   
 }
 #title-main{
    
   transform: translateY(100%);
-  animation: entrarDesdeAbajo 1s ease-out forwards;
+  animation: entrarDesdeAbajo 1.5s ease-out forwards;
   
   
 }
@@ -401,7 +402,7 @@ ul li a:hover{
 }
 .tecnologies-section{
     
-    padding: 2rem 0;
+    
     gap: 1rem;
     animation : subir 2s ease-out forwards;
 }
@@ -424,11 +425,12 @@ ul li a:hover{
 
 .tecnologies{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: .8rem;
-    
+    overflow-x: scroll;
+    background-color: var(--bg-2);
+    padding: 1rem;
     
 }
 .text-info{
@@ -448,13 +450,15 @@ ul li a:hover{
     justify-content: center;
     width: 70px;
     height: 70px;
-    background-color: var(--bg-2);
+    
     border-radius: 1rem;
     gap: 0.8rem;
     padding: 0.5rem 0.5rem;
 }
 
 .item-tecnologies p{
+    display: flex;
+    width: auto;
     font-family: var(--font-family);
     font-size: 0.8rem;
     color: var(--gray-100);
@@ -467,7 +471,6 @@ ul li a:hover{
 .all-best-projects{
     display: flex;
     flex-direction: column;
-    background-color: var(--bg-2);
     width: 100%;
     padding-top: 2rem;
     gap: 0;
@@ -484,7 +487,7 @@ ul li a:hover{
     width: 100%;
     height: auto;
     font-size: 2rem;
-    border-bottom: 2px solid var(--acent-color);
+    
     
 }
 .container-projects{
@@ -493,11 +496,13 @@ ul li a:hover{
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+  border-top: 4px solid var(--text-white);
+  border-bottom: 4px solid var(--text-white);
   
 }
 
 .project {
-    position: sticky;
+    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -506,6 +511,7 @@ ul li a:hover{
     height: 100%;
     scroll-snap-align: start;
     scroll-snap-stop: normal;
+    
     
 }
 
@@ -517,14 +523,15 @@ ul li a:hover{
 }
 .video-project video{
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
 
 }
 .project-info{
     display: flex;
     flex-direction: column;
     align-items: start;
-    justify-content: space-between;
+    justify-content: end;
     gap: 1rem;
     width: 100%;
     text-align: left;
@@ -597,7 +604,7 @@ width: 100%;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    padding: 0;
+    padding: 1rem 0;
     
     
     
@@ -627,11 +634,12 @@ width: 100%;
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    max-width: 600px;
+    width: 100%;
     text-align: start;
     gap: 1rem;
     height: 100%;
 }
+
 .text-about h2 {
     font-size: 2rem;
     font-weight: 600;
@@ -640,6 +648,7 @@ width: 100%;
     text-align:start;
     font-size: 1rem; 
     line-height: 1.5rem;
+    width: 100%;
 }
 
 .text-about div :nth-child(2) {
@@ -976,20 +985,21 @@ main::-webkit-scrollbar {
   width: 8px; /* ancho de la barra */
 }
 
+
 /* Fondo del track (la parte fija) */
 main::-webkit-scrollbar-track {
-  background: #101010; /* color de fondo del scroll */
+  background: #0a0a0a; /* color de fondo del scroll */
 }
 
 /* Color de la barra que se mueve */
 main::-webkit-scrollbar-thumb {
-  background-color: #555; /* color del thumb */
+  background-color: var(--gray-300); /* color del thumb */
   border-radius: 4px;
 }
 
 /* Efecto hover */
 main::-webkit-scrollbar-thumb:hover {
-  background-color: #777;
+  background-color: var(--acent-color);
 }
 
     h1{
@@ -1039,7 +1049,9 @@ main::-webkit-scrollbar-thumb:hover {
     .language{
         display: none;
     }
-
+.tecnologies{
+    overflow-x: hidden;
+}
     .about-me {
         flex-direction: column;
         align-items: center;
@@ -1047,8 +1059,10 @@ main::-webkit-scrollbar-thumb:hover {
         height: 100dvh;
     }
     .text-about {
-        text-align: center;
-        max-width: 100%;
+        padding: 3rem;
+    }
+    .text-about div :nth-child(2) {
+        align-self: end;
     }
     .image-about {
         display: flex;
@@ -1060,17 +1074,28 @@ main::-webkit-scrollbar-thumb:hover {
         max-width: 70%;
         
     }
-    .container-projects{
-     overflow: auto;
-  scrollbar-width: none;
+    .container-projects{       
+    scrollbar-width: none;
     }
     .project{
+        position: sticky;
         flex-direction: row;
         gap: 3rem;
+        
+    
+    }
+
+    .project:nth-child(even){
+        flex-direction: row-reverse;
+    }
+    .project:last-child{
+        scroll-snap-align: end;
+        
     }
      .project-info{
         width: 50%;
         padding: 3rem 3rem;
+        justify-content: center;
     }
 
     .video-project {
