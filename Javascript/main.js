@@ -44,6 +44,7 @@ gsap.from('nav',{
 gsap.from('.left-text',{
   opacity: 0,
   duration: 2,
+  delay:2,
   y: -100,
   ease: "power2.out",
   color: "red",
