@@ -728,6 +728,138 @@ width: 100%;
 
 
 
+/*styles for the branding portfolio section */
+
+.branding-portfolio {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 4rem 1rem 3rem;
+    gap: 2rem;
+}
+
+.branding-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.branding-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+.branding-header p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--gray-100);
+    text-align: left;
+    max-width: 600px;
+}
+
+.branding-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 50px;
+    background: transparent;
+    color: var(--gray-100);
+    font-size: 0.85rem;
+    font-family: var(--Aloe-regular);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    border-color: var(--text-white);
+    color: var(--text-white);
+}
+
+.tab-btn.active {
+    background-color: var(--text-white);
+    color: var(--text-black);
+    border-color: var(--text-white);
+    font-weight: 500;
+}
+
+.branding-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+.branding-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, opacity 0.4s ease;
+}
+
+.branding-card.hidden {
+    display: none;
+}
+
+.branding-card:hover {
+    transform: translateY(-4px);
+}
+
+.branding-card-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.branding-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.branding-card:hover .branding-card-image img {
+    transform: scale(1.05);
+}
+
+.branding-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem 1.25rem;
+}
+
+.branding-tag {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--acent-color);
+    border: 1px solid var(--acent-color);
+    border-radius: 50px;
+    padding: 0.2rem 0.75rem;
+}
+
+.branding-card-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-white);
+}
+
+.branding-card-info p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--gray-100);
+}
+
 /*styles for the projects section */
 
 .projects {
@@ -1024,6 +1156,14 @@ h6 {
     height: auto;
     flex-direction: column;
 }
+
+    .branding-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .branding-header h2 {
+        font-size: 2.5rem;
+    }
 }
 
 
@@ -1162,6 +1302,33 @@ main::-webkit-scrollbar-thumb:hover {
     .image-projects img {
         max-width: 40%;
         
+    }
+
+    .branding-portfolio {
+        padding: 5rem 3rem 4rem;
+        gap: 2.5rem;
+    }
+
+    .branding-header h2 {
+        font-size: 5rem;
+    }
+
+    .branding-header p {
+        font-size: 1.2rem;
+    }
+
+    .branding-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    .branding-card-info h3 {
+        font-size: 1.2rem;
+    }
+
+    .tab-btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.5rem;
     }
     
    
