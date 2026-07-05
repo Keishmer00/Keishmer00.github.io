@@ -1,0 +1,476 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+
+import { getCategories, getProjectUrl } from "../lib/projects";
+
+// Format data specifically for the Works grid
+const categoriesData = getCategories(lang);
+const categoriesForGrid = categoriesData.map((category) => ({
+  id: category.id,
+  label: category.label,
+  statement: category.statement,
+  works: category.works.map((work) => ({
+    id: work.id,
+    title: work.title,
+    description: work.tagline, // Use tagline for the short card description
+    image: work.image,
+    imageAlt: work.imageAlt,
+    ctaLabel: work.ctaLabel,
+    href: getProjectUrl(category.id, work.id, lang),
+  })),
+}));
+
+const defaultCategoryIndex = 0;
+const defaultCategory = categoriesForGrid[defaultCategoryIndex];
+---
+
+<works-section
+  id="works"
+  data-categories={JSON.stringify(categoriesForGrid)}
+  class="flex w-full justify-between bg-black pt-12 pb-12 h-svh lg:h-auto px-8 md:px-6 lg:px-8 selection:bg-brand-primary selection:text-white"
+>
+  <div class="w-full mx-auto flex flex-col justify-between h-full">
+    <h3
+      class="text-xl md:text-2xl text-left lg:text-2xl font-medium uppercase font-unbounded text-white pb-2"
+    >
+      {t("works.title")}
+    </h3>
+    <p
+      id="works-category-statement"
+      class="text-xl font-medium font-mono text-left text-gray-300 leading-relaxed pb-8"
+    >
+      {defaultCategory.statement}
+    </p>
+
+    <div
+      class="flex flex-col-reverse lg:items-start h-[80%] lg:h-full justify-between gap-16 lg:gap-10 xl:gap-14"
+    >
+      <!-- Categories + statement -->
+      <article
+        class="flex flex-col justify-between shrink-0 order-1 lg:order-2"
+      >
+        <div class="flex flex-col gap-2 lg:gap-5 w-full">
+          <div
+            id="works-category-list"
+            role="tablist"
+            aria-label="Work categories"
+            class="flex flex-row justify-between items-center w-auto md:w-fit gap-0 lg:gap-4 p-1"
+          >
+            {
+              categoriesData.map((category, index) => {
+                const isActive = index === defaultCategoryIndex;
+                return (
+                  <button
+                    type="button"
+                    role="tab"
+                    id={`works-tab-${category.id}`}
+                    data-category-id={category.id}
+                    data-category-index={index}
+                    aria-selected={isActive ? "true" : "false"}
+                    aria-controls="works-panel"
+                    tabindex={isActive ? 0 : -1}
+                    class={`category-tab shrink-0 text-base font-mono transition-all duration-300 ease-out px-2 lg:px-4 max-lg:py-1.5 lg:py-2 lg:text-right uppercase ${
+                      isActive
+                        ? "is-active text-black bg-white"
+                        : "text-gray-300 hover:text-white" 
+                    }`}
+                  >
+                    {category.label}
+                  </button>
+                );
+              })
+            }
+          </div>
+        </div>
+      </article>
+
+      <!-- Works grid -->
+      <div
+        class="flex-1 h-auto justify-between min-w-0 order-2 lg:order-1 max-lg:overflow-x-hidden"
+        role="tabpanel"
+        id="works-panel"
+        aria-labelledby={`works-tab-${defaultCategory.id}`}
+      >
+        <div
+          id="projects"
+          class="flex flex-row h-full lg:h-auto max-lg:overflow-x-auto max-lg:gap-4 max-lg:pb-3 max-lg:snap-x max-lg:snap-mandatory max-lg:[&::-webkit-scrollbar]:hidden max-lg:[-ms-overflow-style:none] max-lg:scrollbar-none lg:grid lg:grid-cols-4 xl:grid-cols-4 lg:gap-5 xl:gap-6"
+        >
+          {
+            defaultCategory.works.map((work, index) => (
+              <article
+                data-work-index={index}
+                class="work-card flex flex-col min-w-0 max-lg:shrink-0 max-lg:w-[65vw] max-lg:snap-center h-full lg:max-h-[55vh]"
+              >
+                <div class="work-image-wrap flex flex-col w-full overflow-hidden bg-black h-full hover:shadow-lg transition-all duration-300">
+                  <img
+                    src={work.image}
+                    alt={work.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    class="work-image w-full flex-1 object-cover grayscale"
+                  />
+                  <div class="py-4 flex flex-col gap-2 bg-black">
+                    <h3 class="work-title text-sm md:text-base font-bold font-unbounded uppercase tracking-wide text-white leading-tight">
+                      {work.title}
+                    </h3>
+                    <p class="work-desc text-sm text-gray-300 block font-light font-mono leading-relaxed line-clamp-2">
+                      {work.description}
+                    </p>
+                    <a
+                      href={work.href}
+                      target="_blank"
+                      class="block work-cta lg:inline-flex items-center gap-1 text-xs font-medium font-mono  hover:text-primary transition-colors duration-200 w-fit group"
+                    >
+                      <span class="work-cta-label">{work.ctaLabel}</span>
+                      <span
+                        class="work-cta-arrow transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        aria-hidden="true"
+                      >
+                        ↗
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</works-section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  type WorkItem = {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    imageAlt: string;
+    ctaLabel: string;
+    href: string;
+  };
+
+  type WorkCategory = {
+    id: string;
+    label: string;
+    statement: string;
+    works: WorkItem[];
+  };
+
+  // Convertimos la sección en un Web Component nativo para que Astro lo maneje perfectamente
+  class WorksSection extends HTMLElement {
+    connectedCallback() {
+      // Prevenir doble inicialización
+      if (this.dataset.worksInitialized === "true") return;
+      this.dataset.worksInitialized = "true";
+
+      let categories: WorkCategory[] = [];
+      try {
+        categories = JSON.parse(this.dataset.categories || "[]");
+      } catch {
+        return;
+      }
+
+      // Usamos 'this' en lugar de 'document' para asegurar que solo afecte a este componente
+      const cardsContainer = this.querySelector("#projects");
+      const categoryList = this.querySelector("#works-category-list");
+      const tabs = this.querySelectorAll<HTMLButtonElement>(".category-tab");
+      const panel = this.querySelector("#works-panel");
+      const statementEl = this.querySelector("#works-category-statement");
+      const mobileMq = window.matchMedia("(max-width: 1023px)");
+
+      if (!cardsContainer) return;
+
+      let currentCategoryIndex = 0;
+      let activeTimeline: gsap.core.Timeline | null = null;
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+
+      const isMobileLayout = () => mobileMq.matches;
+
+      const getCards = () =>
+        Array.from(cardsContainer.querySelectorAll<HTMLElement>(".work-card"));
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Entrance Animation (reversible with scrub)
+      const titleEl = this.querySelector("p.uppercase"); // "Best Works"
+      const allCards = getCards();
+
+      const worksEntranceTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: this,
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 1,
+        },
+      });
+
+      if (titleEl) {
+        worksEntranceTl.from(titleEl, {
+          y: 20,
+          opacity: 0,
+          ease: "power2.out",
+        });
+      }
+
+      if (statementEl) {
+        worksEntranceTl.from(
+          statementEl,
+          {
+            y: 20,
+            opacity: 0,
+            ease: "power2.out",
+          },
+          "-=0.3",
+        );
+      }
+
+      if (categoryList) {
+        worksEntranceTl.from(
+          categoryList,
+          {
+            y: 20,
+            opacity: 0,
+            ease: "power2.out",
+          },
+          "-=0.3",
+        );
+      }
+
+      if (allCards.length > 0) {
+        worksEntranceTl.from(
+          allCards,
+          {
+            y: 40,
+            opacity: 0,
+            stagger: 0.1,
+            ease: "power3.out",
+          },
+          "-=0.2",
+        );
+      }
+
+      const setTabState = (index: number) => {
+        const category = categories[index];
+        tabs.forEach((tab, tabIndex) => {
+          const active = tabIndex === index;
+          tab.setAttribute("aria-selected", active ? "true" : "false");
+          tab.tabIndex = active ? 0 : -1;
+
+          // FIX: Se remueven e insertan TODAS las clases correctas, evitando el bug del bg-transparent
+          if (active) {
+            tab.classList.add(
+              "is-active",
+              "bg-white",
+              "text-black",
+              
+            );
+            // Removemos el hover blanco cuando está activo
+            tab.classList.remove(
+              "text-gray-500",
+              "hover:text-white",
+              "lg:bg-transparent",
+            );
+          } else {
+            tab.classList.remove(
+              "is-active",
+              "bg-white",
+              "text-black",
+              
+            );
+            // Agregamos el hover blanco cuando pasa a inactivo
+            tab.classList.add(
+              "text-gray-500",
+              "hover:text-white",
+              "lg:bg-transparent",
+            );
+          }
+        });
+
+        if (panel && category) {
+          panel.setAttribute("aria-labelledby", `works-tab-${category.id}`);
+        }
+
+        if (isMobileLayout()) {
+          tabs[index]?.scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest",
+          });
+        }
+      };
+
+      const renderWorkIntoCard = (card: HTMLElement, work: WorkItem) => {
+        const title = card.querySelector(".work-title");
+        const desc = card.querySelector(".work-desc");
+        const img = card.querySelector(
+          ".work-image",
+        ) as HTMLImageElement | null;
+        const cta = card.querySelector(".work-cta") as HTMLAnchorElement | null;
+        const ctaLabel = card.querySelector(".work-cta-label");
+
+        if (title) title.textContent = work.title;
+        if (desc) desc.textContent = work.description;
+        if (img) {
+          img.src = work.image;
+          img.alt = work.imageAlt;
+        }
+        if (cta) cta.href = work.href;
+        if (ctaLabel) ctaLabel.textContent = work.ctaLabel;
+      };
+
+      const updateStatement = (index: number) => {
+        const category = categories[index];
+        if (!statementEl || !category) return;
+
+        if (prefersReducedMotion.matches) {
+          statementEl.textContent = category.statement;
+          return;
+        }
+
+        gsap.to(statementEl, {
+          opacity: 0,
+          y: 6,
+          duration: 0.15,
+          ease: "power2.in",
+          onComplete: () => {
+            statementEl.textContent = category.statement;
+            gsap.to(statementEl, {
+              opacity: 1,
+              y: 0,
+              duration: 0.25,
+              ease: "power2.out",
+            });
+          },
+        });
+      };
+
+      const activateCategory = (index: number) => {
+        if (index === currentCategoryIndex || !categories[index]) return;
+        currentCategoryIndex = index;
+        const works = categories[index].works;
+        const cards = getCards();
+
+        setTabState(index);
+        updateStatement(index);
+
+        if (prefersReducedMotion.matches) {
+          cards.forEach((card, cardIndex) => {
+            if (works[cardIndex]) renderWorkIntoCard(card, works[cardIndex]);
+          });
+          if (isMobileLayout()) {
+            cardsContainer.scrollLeft = 0;
+          }
+          return;
+        }
+
+        if (activeTimeline) activeTimeline.kill();
+
+        // FIX: Se agrega .filter(Boolean) para evitar que GSAP truene si algún elemento es null
+        const targets = cards
+          .flatMap((card) => [
+            card.querySelector(".work-title"),
+            card.querySelector(".work-desc"),
+            card.querySelector(".work-image-wrap"),
+            card.querySelector(".work-cta"),
+          ])
+          .filter(Boolean);
+
+        activeTimeline = gsap.timeline();
+
+        activeTimeline.to(targets, {
+          opacity: 0,
+          y: 8,
+          duration: 0.2,
+          stagger: 0.02,
+          ease: "power2.in",
+          onComplete: () => {
+            cards.forEach((card, cardIndex) => {
+              if (works[cardIndex]) renderWorkIntoCard(card, works[cardIndex]);
+            });
+          },
+        });
+
+        activeTimeline.fromTo(
+          targets,
+          { opacity: 0, y: 12 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.3,
+            stagger: 0.03,
+            ease: "power2.out",
+            onComplete: () => {
+              if (isMobileLayout()) {
+                cardsContainer.scrollLeft = 0;
+              }
+            },
+          },
+        );
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const indexAttr = tab.getAttribute("data-category-index");
+          if (indexAttr === null) return;
+          activateCategory(parseInt(indexAttr, 10));
+        });
+
+        tab.addEventListener("keydown", (e) => {
+          const key = e.key;
+          if (
+            ![
+              "ArrowDown",
+              "ArrowUp",
+              "ArrowLeft",
+              "ArrowRight",
+              "Home",
+              "End",
+            ].includes(key)
+          ) {
+            return;
+          }
+          e.preventDefault();
+          let next = currentCategoryIndex;
+          if (key === "Home") next = 0;
+          else if (key === "End") next = categories.length - 1;
+          else if (
+            (isMobileLayout() && key === "ArrowRight") ||
+            (!isMobileLayout() && key === "ArrowDown")
+          ) {
+            next = Math.min(currentCategoryIndex + 1, categories.length - 1);
+          } else if (
+            (isMobileLayout() && key === "ArrowLeft") ||
+            (!isMobileLayout() && key === "ArrowUp")
+          ) {
+            next = Math.max(currentCategoryIndex - 1, 0);
+          }
+          activateCategory(next);
+          tabs[next]?.focus();
+        });
+      });
+
+      if (categoryList && isMobileLayout()) {
+        categoryList.scrollLeft = 0;
+      }
+    }
+  }
+
+  // Definimos el Custom Element solo si no ha sido registrado previamente
+  if (!customElements.get("works-section")) {
+    customElements.define("works-section", WorksSection);
+  }
+</script>

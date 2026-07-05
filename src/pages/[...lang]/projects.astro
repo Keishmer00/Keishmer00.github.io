@@ -1,0 +1,154 @@
+---
+import Footer from "../../components/Footer.astro";
+import Navbar from "../../components/Navbar.astro";
+import Breadcrumbs from "../../components/atoms/Breadcrumbs.astro";
+import Layout from "../../layouts/Layout.astro";
+import type { Lang } from "../../i18n/index";
+import { useTranslations } from "../../i18n/index";
+import { getCategories, getProjectUrl } from "../../lib/projects";
+
+export function getStaticPaths() {
+  return [{ params: { lang: undefined } }, { params: { lang: "es" } }];
+}
+
+const { lang = "en" } = Astro.params as { lang?: Lang };
+const { t } = useTranslations(lang);
+const pathname = lang === "en" ? "/projects/" : "/es/projects/";
+const localizedCategories = getCategories(lang);
+---
+
+<Layout lang={lang} page="projects" pathname={pathname}>
+  <Navbar lang={lang} pathname={pathname} />
+  <Breadcrumbs
+    items={[
+      { label: t("projects.breadcrumbHome"), href: lang === "en" ? "/" : "/es/" },
+      { label: t("projects.breadcrumbProjects") },
+    ]}
+    light
+  />
+  <main class="pt-32 lg:pt-40 pb-8 px-4 md:px-8 lg:px-24 bg-black">
+    <section class="max-w-6xl mx-auto mb-16 ">
+      <h1 class="text-3xl md:text-5xl text-brand-primary font-unbounded font-bold uppercase leading-tight">
+        {t("projects.title")}
+      </h1>
+      <p class="text-xs font-mono md:text-xl text-gray-300 mt-4">
+        {t("projects.description")}
+      </p>
+    </section>
+
+    <projects-page
+      id="projects-page"
+      class="max-w-6xl mx-auto flex flex-col"
+    >
+      { 
+        localizedCategories.map((category, catIndex) => (
+          <section
+            class="category-section pb-8 lg:pb-16"
+            data-category-id={category.id}
+          >
+            <div class="mb-8">
+              <h2 class="text-xl md:text-2xl font-unbounded font-black text-black-700 uppercase">
+                {category.label}
+              </h2>
+              <p class="text-gray-300 font-mono text-base mt-2 w-full leading-relaxed">
+                {category.statement}
+              </p>
+            </div>
+
+            <div
+              class="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+            >
+              {
+                category.works.map((work) => (
+                  <article class="work-card group bg-secondary hover:border hover:border-primary/50 overflow-hidden shadow-lg shadow-black/5 border border-black/5">
+                    <div class="relative aspect-4/3 overflow-hidden">
+                      <img
+                        src={work.image}
+                        alt={work.imageAlt}
+                        width="400"
+                        height="300"
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div class="p-5">
+                      <h3 class="text-base font-medium uppercase font-unbounded tracking-wide text-black-700">
+                        {work.title}
+                      </h3>
+                      <p class="text-base text-gray-500 mt-2 font-mono leading-relaxed line-clamp-2">
+                        {work.tagline}
+                      </p>
+                      <a
+                        href={getProjectUrl(category.id, work.id, lang)}
+                        class="inline-flex items-center gap-1 mt-4 text-sm font-bold font-mono hover:text-primary text-brand-primary hover:text-black-700 transition-colors duration-200 group/link"
+                      >
+                        {work.ctaLabel}
+                        <span
+                          class="transition-transform duration-200 group-hover/link:translate-x-1"
+                          aria-hidden="true"
+                          >→</span>
+                      </a>
+                    </div>
+                  </article>
+                ))
+              }
+            </div>
+          </section>
+        ))
+      }
+    </projects-page>
+  </main>
+  <Footer lang={lang} pathname={pathname} />
+</Layout>
+
+<script>
+  import { gsap } from "gsap";
+
+  class ProjectsPage extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.initialized === "true") return;
+      this.dataset.initialized = "true";
+
+      const sections = this.querySelectorAll(".category-section");
+      if (!sections.length) return;
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      );
+      if (prefersReducedMotion.matches) return;
+
+      // Animate each category section sequentially
+      sections.forEach((section, index) => {
+        const heading = section.querySelector("h2");
+        const statement = section.querySelector("p");
+        const cards = section.querySelectorAll(".work-card");
+
+        const tl = gsap.timeline({
+          delay: index * 0.15,
+          defaults: { ease: "power3.out" },
+        });
+
+        if (heading) tl.from(heading, { y: 24, opacity: 0, duration: 0.5 });
+        if (statement)
+          tl.from(statement, { y: 16, opacity: 0, duration: 0.4 }, "-=0.3");
+        if (cards.length)
+          tl.from(
+            cards,
+            { y: 30, opacity: 0, duration: 0.5, stagger: 0.06 },
+            "-=0.2"
+          );
+      });
+    }
+  }
+
+  if (!customElements.get("projects-page")) {
+    customElements.define("projects-page", ProjectsPage);
+  }
+</script>
+
+<style>
+  projects-page {
+    display: block;
+  }
+</style>

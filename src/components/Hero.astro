@@ -1,0 +1,74 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+import CTA from "./CTA.astro";
+import video from "../assets/videos/background.mp4";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+---
+
+<header
+  class="flex flex-col justify-between p-4 pb-8 md:pb-4 pt-44 items-center h-svh lg:h-screen bg-linear-to-r from-black via-black/80 to-black"
+>
+  <section class="flex flex-col justify-center items-center gap-2 md:gap-4">
+    <span
+      class="hidden md:flex text-center max-w-72 md:max-w-none items-center gap-2 px-4 py-1 text-sm md:text-base font-mono uppercase text-white"
+    >
+      <div class="hidden md:block w-2 h-2 rounded-full bg-primary"></div>
+      {t("hero.available")}
+    </span>
+
+    <p
+      class="lg:text-6xl text-transparent bg-clip-text bg-linear-to-r from-white/70 via-white to-white/70 text-center font-extrabold font-unbounded w-full text-3xl uppercase"
+    >
+      {t("hero.name")}
+    </p>
+    <h1
+      class="text-white text-base md:text-lg font-mono text-center w-full max-w-3xl px-4"
+    >
+      {t("hero.subtitle")}
+    </h1>
+
+    <CTA lang={lang} />
+  </section>
+
+  <div class="flex w-full justify-between px-4 self-end text-white">
+    <div
+      class="flex flex-col w-full md:w-auto items-center gap-2 md:items-start text-left"
+    >
+      <p class="font-mono text-lg uppercase text-gray-300">
+        {t("hero.whatIAm")}
+      </p>
+      <div class="font-mono text-lg flex md:flex-col justify-between w-full">
+        <p>{t("hero.roleVisualArtist")}</p>
+        <p>{t("hero.roleFrontendDev")}</p>
+        <p>{t("hero.roleProductDesigner")}</p>
+      </div>
+    </div>
+    <div class="hidden md:flex flex-col gap-2 items-end text-right">
+      <p class="font-mono text-lg uppercase text-gray-300">
+        {t("hero.expertise")}
+      </p>
+      <h2 class="font-mono text-lg">
+        {t("hero.expAIGenerative")}<br />
+        {t("hero.expBranding")}<br />
+        {t("hero.expResearch")}
+      </h2>
+    </div>
+  </div>
+
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    class="absolute -z-10 w-full h-full object-cover inset-0"
+  >
+    <source src={video} type="video/mp4" />
+  </video>
+</header>

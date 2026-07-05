@@ -1,0 +1,81 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+import video1 from "../assets/videos/strategic1.mp4";
+import video2 from "../assets/videos/strategic2.mp4";
+
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+
+
+---
+
+<section
+  id="strategic"
+  class="flex flex-col items-center justify-between h-svh lg:h-screen w-full bg-linear-to-r from-black via-black/80 to-black px-8 py-16 lg:py-16"
+>
+    <div class="flex flex-col items-center w-full gap-2 max-w-3xl ">
+      <h4 class="text-lg text-center text-white font-mono font-medium uppercase leading-tight">
+        {t("strategic.title")}
+      </h4>
+      <p class="text-gray-400 text-base text-center font-mono md:text-lg leading-relaxed mb-4">
+        {t("strategic.description")}
+      </p>
+    </div>
+    <article class="flex flex-col justify-between w-full items-center ">
+      
+      <h5 class="text-white text-center lg:text-6xl text-4xl font-unbounded font-bold uppercase">{t("strategic.ai")}</h5>
+      <h5 class="text-white text-center lg:text-6xl text-4xl font-unbounded font-bold uppercase">{t("strategic.design")}</h5>
+      <h5 class="text-white text-center lg:text-6xl text-4xl font-unbounded font-bold uppercase">{t("strategic.development")}</h5>
+      <h5 class="text-white text-center lg:text-6xl text-4xl font-unbounded font-bold uppercase">{t("strategic.branding")}</h5>
+      <h5 class="text-white text-center lg:text-6xl text-4xl font-unbounded font-bold uppercase">{t("strategic.seo")}</h5>
+      
+      
+      
+    </article>
+    <article class="flex flex-col lg:flex-row gap-3 lg:gap-0 lg:justify-between w-full">
+      <div class="text-gray-300 text-base lg:text-start text-center max-w-sm font-mono md:text-lg">{t("strategic.text1")}</div>
+      <div class="text-gray-300 text-base lg:text-end text-center max-w-sm font-mono md:text-lg">{t("strategic.text2")}</div>
+    </article>
+    
+  
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (prefersReducedMotion.matches) return;
+    const section = document.getElementById("strategic");
+    if (!section) return;
+
+    const title = section.querySelector(".strategic-title");
+    const texts = section.querySelectorAll(".strategic-text");
+    const cards = section.querySelectorAll(".strategic-card");
+    const cta = section.querySelector(".strategic-cta");
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top 85%",
+        end: "top 40%",
+        scrub: 1,
+      },
+    });
+
+    if (title) tl.fromTo(title, { y: 30, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" });
+    if (texts.length) tl.fromTo(texts, { y: 20, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, ease: "power2.out" }, "-=0.3");
+    if (cards.length) tl.fromTo(cards, { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.12, ease: "power3.out" }, "-=0.2");
+    if (cta) tl.fromTo(cta, { y: 20, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, "-=0.1");
+  });
+</script>

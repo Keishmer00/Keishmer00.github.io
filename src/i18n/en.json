@@ -1,0 +1,276 @@
+{
+  "site": {
+    "title": "Keishmer Pérez Torres - UX/UI Designer, Visual Artist and Frontend Developer",
+    "description": "Keishmer Perez is a Visual Artist and Multimedia Designer specialized in UX/UI and front-end development. Explore my portfolio and projects.",
+    "url": "https://keishmerstudio.com",
+    "author": "Keishmer Pérez Torres"
+  },
+  "nav": {
+    "menu": "Menu",
+    "uxuiDesigner": "UX/UI Designer",
+    "frontendDev": "Frontend Dev",
+    "visualArtist": "Visual Artist",
+    "downloadCV": "Download CV",
+    "projects": "Projects",
+    "contact": "Contact",
+    "logo": "KEISHMER STUDIO"
+  },
+  "hero": {
+    "available": "Available for design, SEO, frontend development, and branding projects",
+    "name": "Keishmer Pérez",
+    "subtitle": "UX/UI Designer, Frontend Developer, and Visual Artist in Colombia. I create digital experiences, branding, and SEO-optimized websites with a focus on clarity, conversion, and visual value",
+    "cta": "Start a project",
+    "whatIAm": "What I am",
+    "expertise": "Expertise",
+    "roleVisualArtist": "Visual Artist",
+    "roleFrontendDev": "Web Developer",
+    "roleProductDesigner": "UX/UI Designer",
+    "expAIGenerative": "AI Generative",
+    "expBranding": "Branding Design",
+    "expResearch": "Strategic Research"
+  },
+  "about": {
+    "title": "I design at the intersection of art, strategy design, and technology",
+    "subtitle": "My work brings together UX/UI, frontend development, branding, and visual thinking to create digital experiences that are clear, functional, and intentional.",
+    "text1": "With a background in visual arts and experience across product design, teaching, and digital environments, I approach each project with both conceptual depth and technical precision",
+    "text2": "I am interested in creating solutions that do more than look good, perform better, and create real value for people and brands",
+    "cta":"Know More About Me",
+    "imageAlt": "Selfie"
+  },
+  "aboutMe": {
+    "title": "About Me",
+    "subtitle": "Product Designer & Visual Artist",
+    "breadcrumb": "About Me",
+    "imageAlt": "Keishmer Pérez Torres — Product Designer, UX/UI and Visual Artist portrait",
+    "role": "Product Designer · UX/UI Designer · Visual Artist",
+    "location": "Pamplona, Norte de Santander, Colombia",
+    "intro": "I am a Product Designer and Visual Artist who builds digital experiences at the intersection of art, strategy, and technology. I specialize in UX/UI design, AI-driven design, branding, and front-end development — creating products that are intuitive, performant, and visually compelling.",
+    "professionalSummary": "Keishmer Pérez Torres is a Product Designer and Visual Artist with over 4 years of experience across digital product design, university teaching, and multimedia production. He holds a Master's degree in Multimedia Design and Production from Universidad Internacional de la Rioja (Spain) and a Bachelor's in Visual Arts from Universidad de Pamplona (Colombia). He currently works as a Product Designer at Move On Tech Service, leading visual and functional design for digital solutions in the security and logistics sector. Previously, he served as a university lecturer in Industrial Design, coordinated digital library services, and created multimedia content for educational and cultural institutions. With 40+ certifications in design, development, AI, SEO, and marketing, he brings a multidisciplinary approach to every project — combining artistic sensibility, technical precision, and strategic thinking to deliver solutions that create real value for people and brands.",
+    "skillsTitle": "Skills & Specialties",
+    "skillAI": "AI Design",
+    "skillUX": "UX Research & UI Design",
+    "skillProduct": "Product Design",
+    "skillBranding": "Branding & Identity",
+    "skillFrontend": "Frontend Development",
+    "skillSEO": "SEO / AEO / GEO",
+    "skillFigma": "Figma & Design Systems",
+    "skillMobile": "iOS & Android Design",
+    "skillMarketing": "Content Strategy & Marketing",
+    "skillReact": "React · Next.js · Astro",
+    "skillHTML": "HTML · CSS · JavaScript",
+    "skillCyber": "Cybersecurity Fundamentals",
+    "experienceTitle": "Work Experience",
+    "exp1Role": "Product Designer / UX/UI Designer",
+    "exp1Company": "Move On Tech Service",
+    "exp1Period": "2024 — Present",
+    "exp1Desc": "Leads visual and functional design of digital solutions focused on security and high-value logistics. Develops interactive prototypes in Figma to optimize user experience across mobile, web, and multi-device platforms. Maintains a hands-on approach to product design, UX research, and front-end collaboration.",
+    "exp2Role": "Industrial Design Lecturer",
+    "exp2Company": "Universidad de Pamplona",
+    "exp2Period": "2023 — 2024",
+    "exp2Desc": "Led research and product creation processes using user-centered design methodologies for wood products, technical drawing, and manual illustration. Taught courses on two-dimensional and three-dimensional representation with physical materials and guided practical workshops on contemporary design trends and fundamentals.",
+    "exp3Role": "Digital Libraries Coordinator",
+    "exp3Company": "Universidad de Pamplona",
+    "exp3Period": "2023 — 2024",
+    "exp3Desc": "Led the transition and management of library services to digital environments. Implemented academic search tools, open access resources, and content curation strategies. Established visual communication campaigns to promote scientific databases and research resources across the university community.",
+    "exp4Role": "Multimedia Designer",
+    "exp4Company": "Universidad de Pamplona",
+    "exp4Period": "2023 — 2024",
+    "exp4Desc": "Created graphics, videos, and interactive content for educational and cultural campaigns. Supported institutional communication through visual design and multimedia tools. Optimized the brand's omnichannel experience across digital and physical touchpoints.",
+    "educationTitle": "Education",
+    "edu1Degree": "Master's in Multimedia Design and Production",
+    "edu1School": "Universidad Internacional de la Rioja (Spain)",
+    "edu1Period": "2023 — 2024",
+    "edu2Degree": "Diploma in Cultural Project Management",
+    "edu2School": "Universidad EAN · Ministry of Culture",
+    "edu2Period": "2022",
+    "edu3Degree": "Bachelor's in Visual Arts",
+    "edu3School": "Universidad de Pamplona (Colombia)",
+    "edu3Period": "2016 — 2021",
+    "certificationsTitle": "Certifications & Continuous Learning",
+    "certCount": "40+ certifications in design, development, AI, SEO, and marketing",
+    "certKey1": "Branding & Identity Design",
+    "certKey2": "AI & Generative Tools (Gemini, Perplexity, Copilot)",
+    "certKey3": "SEO, AEO & GEO for Organic Search",
+    "certKey4": "React.js & Modern Frontend",
+    "certKey5": "Design Systems & Information Architecture",
+    "certKey6": "Product Management for Mobile",
+    "certKey7": "Content Strategy & Social Media Marketing",
+    "certKey8": "A/B Testing & Data-Driven Design",
+    "certKey9": "Cybersecurity & Digital Protection",
+    "certKey10": "Shopify & E-commerce Platforms",
+    "valuesTitle": "My Values",
+    "value1": "Clarity & Simplicity",
+    "value1Desc": "Every pixel must have a purpose. I believe in clean, intuitive design that communicates without friction.",
+    "value2": "Technical Integrity",
+    "value2Desc": "I write code that is maintainable, accessible, and performant. Design without solid engineering is incomplete.",
+    "value3": "Human-Centered",
+    "value3Desc": "Every decision starts with the user. I design for real people with real needs and contexts.",
+    "cta": "Let's Work Together",
+    "ctaSubtext": "Have a project in mind? I'm available for design, development, and branding projects worldwide."
+  },
+  "seo": {
+    "home": {
+      "title": "Keishmer Pérez Torres - UX/UI Designer, Visual Artist and Frontend Developer",
+      "description": "Keishmer Perez is a Visual Artist and Multimedia Designer specialized in UX/UI and front-end development. Explore my portfolio and projects."
+    },
+    "uxui": {
+      "title": "UX/UI Design Portfolio - Keishmer Pérez Torres",
+      "description": "Explore UX/UI design projects by Keishmer Perez: user interfaces, design systems, wireframes, and prototypes built with Figma."
+    },
+    "frontend": {
+      "title": "Frontend Development Portfolio - Keishmer Pérez Torres",
+      "description": "Frontend development projects by Keishmer Perez: responsive websites, web apps, and interactive experiences built with modern technologies."
+    },
+    "visualArtist": {
+      "title": "Visual Art Portfolio - Keishmer Pérez Torres",
+      "description": "Visual art portfolio by Keishmer Perez: digital art, illustrations, and creative visual projects."
+    },
+    "aboutMe": {
+      "title": "About Keishmer Pérez Torres — Product Designer, UX/UI & Visual Artist | Pamplona, Colombia",
+      "description": "Product Designer and Visual Artist based in Pamplona, Colombia. Specialized in UX/UI design, AI design, branding, and front-end development. 40+ certifications, Master's in Multimedia Design. Available for projects worldwide."
+    },
+    "projects": {
+      "title": "Projects Portfolio - Keishmer Pérez Torres",
+      "description": "Explore portfolio projects by Keishmer Perez: branding, web development, UX/UI design, and visual art projects."
+    },
+    "contact": {
+      "title": "Contact - Keishmer Pérez Torres",
+      "description": "Get in touch with Keishmer Pérez Torres for UX/UI design, frontend development, branding, and visual art projects."
+    },
+    "terms": {
+      "title": "Terms and Conditions - Keishmer Studio",
+      "description": "Read the terms and conditions for using Keishmer Studio services and website."
+    },
+    "privacy": {
+      "title": "Privacy Policy - Keishmer Studio",
+      "description": "Learn how Keishmer Studio collects, uses, and protects your personal data."
+    },
+    "error": {
+      "title": "404 - Page Not Found - Keishmer Studio",
+      "description": "The page you are looking for does not exist or has been moved."
+    }
+  },
+  "strategic": {
+    "title": "Strategic Vision",
+    "description": "Here are some of my recent projects that showcase my skills in UX/UI design and front-end development. Each project reflects my commitment to quality and attention to detail.",
+    "ai": "AI",
+    "design": "Design",
+    "development": "Development",
+    "branding": "Branding",
+    "seo": "SEO",
+    "text1": "I design interfaces, brands, and digital experiences with visual clarity and strategic focus",
+    "text2": "I create visual systems and digital experiences that connect identity, function, and value"
+  },
+  "works": {
+    "title": "Best Projects"
+  },
+  "projects": {
+    "title": "Best Projects",
+    "description": "A curated selection of work I am proud of. Each project reflects a partnership built on trust, creativity, and a relentless attention to detail.",
+    "breadcrumbHome": "Home",
+    "breadcrumbProjects": "Best Projects",
+    "client": "Client",
+    "services": "Services",
+    "overview": "Project Overview",
+    "challenge": "The Challenge",
+    "solution": "Our Solution",
+    "outcome": "The Outcome"
+  },
+  "contact": {
+    "title": "Let's Work Together",
+    "description": "Have a project in mind or just want to say hello? Fill out the form below and I'll get back to you as soon as possible.",
+    "namePlaceholder": "Your Name",
+    "emailPlaceholder": "Your Email",
+    "subjectPlaceholder": "Subject",
+    "messagePlaceholder": "Tell me about your project...",
+    "submit": "Send Message",
+    "success": "Thanks for reaching out! I'll get back to you soon.",
+    "error": "Something went wrong. Please try again or send an email directly."
+  },
+  "form": {
+    "title": "Start Your Project",
+    "description": "Tell me about your project and I'll get back to you within 24 hours.",
+    "name": "Legal Name",
+    "email": "Client Email",
+    "phone": "Phone Number",
+    "text": "Subject or Project Idea",
+    "submit": "Send Application",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "apply": "apply."
+  },
+  "terms": {
+    "title": "Terms and Conditions",
+    "description": "Read the terms and conditions for using Keishmer Studio services and website.",
+    "breadcrumb": "Terms and Conditions",
+    "lastUpdate": "Last updated: July 2026",
+    "intro": "Please read these Terms and Conditions carefully before using the Keishmer Studio website and services.",
+    "section1Title": "1. General Information",
+    "section1Text": "Keishmer Studio is a personal portfolio and professional services website operated by Keishmer Pérez Torres. Throughout this site, the terms \"we\", \"us\", and \"our\" refer to Keishmer Studio. By accessing this website, you agree to be bound by these Terms and Conditions.",
+    "section2Title": "2. Intellectual Property",
+    "section2Text": "All content on this website — including but not limited to text, graphics, logos, images, audio clips, digital downloads, data compilations, and software — is the property of Keishmer Pérez Torres and is protected by applicable intellectual property laws. You may not reproduce, distribute, or exploit any content without explicit written permission.",
+    "section3Title": "3. Use of the Website",
+    "section3Text": "You agree to use this website for lawful purposes only. You must not use this site in any way that damages, disables, overburdens, or impairs the site or interferes with any other party's use of the site.",
+    "section4Title": "4. Third-Party Links",
+    "section4Text": "This website may contain links to third-party websites. These links are provided for your convenience. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites.",
+    "section5Title": "5. Limitation of Liability",
+    "section5Text": "Keishmer Studio shall not be liable for any damages arising from the use or inability to use the materials on this website, even if we have been notified of the possibility of such damages.",
+    "section6Title": "6. Changes to Terms",
+    "section6Text": "We reserve the right to revise these Terms and Conditions at any time without prior notice. By continuing to use this website after changes are posted, you agree to be bound by the revised terms.",
+    "section7Title": "7. Contact",
+    "section7Text": "If you have any questions about these Terms and Conditions, please contact us through the form on our website."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "description": "Learn how Keishmer Studio collects, uses, and protects your personal data.",
+    "breadcrumb": "Privacy Policy",
+    "lastUpdate": "Last updated: July 2026",
+    "intro": "At Keishmer Studio, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.",
+    "section1Title": "1. Information We Collect",
+    "section1Text": "We collect personal information that you voluntarily provide to us when you fill out a contact form, including your name, email address, phone number, and any message you submit. We also automatically collect certain information when you visit the website, such as your IP address, browser type, and pages visited.",
+    "section2Title": "2. How We Use Your Information",
+    "section2Text": "We use the information we collect to respond to your inquiries, provide services you request, improve our website, and send occasional updates if you have opted in. We do not sell your personal information to third parties.",
+    "section3Title": "3. Data Protection",
+    "section3Text": "We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction.",
+    "section4Title": "4. Third-Party Services",
+    "section4Text": "We use Supabase for database storage, Resend for email notifications, and Google reCAPTCHA for spam protection. These services have their own privacy policies governing the use of your data.",
+    "section5Title": "5. Cookies",
+    "section5Text": "Our website may use cookies and similar tracking technologies to enhance your browsing experience. You can control cookie preferences through your browser settings.",
+    "section6Title": "6. Your Rights",
+    "section6Text": "Depending on your location, you may have rights regarding your personal data, including the right to access, correct, or delete your information. To exercise these rights, please contact us.",
+    "section7Title": "7. Changes to This Policy",
+    "section7Text": "We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.",
+    "section8Title": "8. Contact",
+    "section8Text": "If you have questions about this Privacy Policy, please reach out through the contact form on our website."
+  },
+  "subpages": {
+    "uxuiTitle": "UX/UI Design",
+    "uxuiDescription": "Explore my UX/UI design projects, case studies, and design process. Coming soon.",
+    "frontendTitle": "Frontend Development",
+    "frontendDescription": "Discover frontend development projects built with modern technologies. Coming soon.",
+    "visualTitle": "Visual Art",
+    "visualDescription": "Browse my visual art portfolio including digital art, illustrations, and creative projects. Coming soon.",
+    "comingSoon": "Coming soon",
+    "comingSoonDescription": "This page is under construction. New content will be available soon."
+  },
+  "error": {
+    "title": "404 - Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "message": "The page you are looking for does not exist or has been moved.",
+    "cta": "Go back home"
+  },
+  "footer": {
+    "description": "Design, development and visual art — everything you need to build a brand that stands out.",
+    "copyright": "© 2026 Keishmer Studio. All rights reserved.",
+    "pagesTitle": "Pages",
+    "legalTitle": "Legal",
+    "logo": "Keishmer Studio"
+  },
+  "jsonld": {
+    "personName": "Keishmer Pérez Torres",
+    "jobTitle": "Product Designer, UX/UI Designer & Frontend Developer",
+    "jobTitleEs": "Artista Visual, Diseñador UX/UI & Desarrollador Frontend",
+    "knowsAbout": ["UX/UI Design", "Product Design", "AI Design", "Figma", "Design Systems", "iOS Design", "Android Design", "Branding", "Frontend Development", "React", "Next.js", "Astro", "HTML", "CSS", "JavaScript", "SEO", "AEO", "GEO", "Multimedia Design", "Graphic Design", "Illustration", "Content Strategy", "Marketing", "Cybersecurity"],
+    "knowsAboutEs": ["Diseño UX/UI", "Diseño de Producto", "Diseño con IA", "Figma", "Sistemas de Diseño", "Diseño iOS", "Diseño Android", "Branding", "Desarrollo Frontend", "React", "Next.js", "Astro", "HTML", "CSS", "JavaScript", "SEO", "AEO", "GEO", "Diseño Multimedia", "Diseño Gráfico", "Ilustración", "Estrategia de Contenido", "Marketing", "Ciberseguridad"]
+  }
+}

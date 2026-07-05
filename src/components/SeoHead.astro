@@ -1,0 +1,87 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+
+export interface Props {
+  lang: Lang;
+  page: "home" | "about-me" | "uxui" | "frontend" | "visualArtist" | "projects" | "contact" | "terms" | "privacy" | "error";
+  pathname: string;
+  title?: string;
+  description?: string;
+}
+
+const { lang, page, pathname, title: customTitle, description: customDescription } = Astro.props;
+const { t, tArray } = useTranslations(lang);
+
+const seoKey = page === "home" ? "home" : page === "about-me" ? "aboutMe" : page;
+const title = customTitle || t(`seo.${seoKey}.title`);
+const description = customDescription || t(`seo.${seoKey}.description`);
+const canonical = `https://keishmerstudio.com/${pathname}`;
+const alternateEn = `https://keishmerstudio.com/${page === "home" ? "/" : pathname.replace(/^\/es\//, "/")}`;
+const alternateEs = `https://keishmerstudio.com/${page === "home" && lang === "en" ? "/es/" : pathname.startsWith("/es/") ? pathname : `/es${pathname === "/" ? "/" : pathname}`}`;
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content={t("site.author")} />
+<meta name="theme-color" content="#0a0a0a" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href={canonical} />
+
+<!-- Alternate language links -->
+<link rel="alternate" hreflang="en" href={alternateEn} />
+<link rel="alternate" hreflang="es" href={alternateEs} />
+<link rel="alternate" hreflang="x-default" href={alternateEn} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content="/Public/Images/About.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={lang === "en" ? "en_US" : "es_ES"} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content="/Public/Images/About.png" />
+<meta name="twitter:creator" content="@keishmer00" />
+<meta name="twitter:site" content="@keishmer00" />
+
+<!-- JSON-LD Structured Data for AI indexing -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": t("jsonld.personName"),
+  "jobTitle": t("jsonld.jobTitle"),
+  "url": "https://keishmerstudio.com",
+  "image": "https://keishmerstudio/Public/images/About.png",
+  "sameAs": [
+    "https://twitter.com/keishmer00"
+  ],
+  "knowsAbout": tArray("jsonld.knowsAbout")
+})} />
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": t("site.title"),
+  "url": "https://keishmerstudio.com",
+  "description": t("site.description"),
+  "inLanguage": lang === "en" ? "en-US" : "es-ES"
+})} />
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": canonical,
+  "inLanguage": lang === "en" ? "en-US" : "es-ES",
+  "isPartOf": {
+    "@type": "WebSite",
+    "url": "https://keishmerstudio.com"
+  }
+})} />

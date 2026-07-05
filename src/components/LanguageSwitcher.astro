@@ -1,0 +1,34 @@
+---
+import type { Lang } from "../i18n/index";
+
+export interface Props {
+  lang: Lang;
+  pathname: string;
+}
+
+const { lang, pathname } = Astro.props;
+const targetLang: Lang = lang === "en" ? "es" : "en";
+
+const targetPaths: Record<Lang, string> = {
+  en: pathname.replace(/^\/es(\/|$)/, "/"),
+  es: pathname === "/" ? "/es/" : `/es${pathname}`,
+};
+const target = targetPaths[targetLang];
+---
+
+<div>
+  <a
+    href={target}
+    hreflang={targetLang}
+    aria-label={targetLang === "en" ? "Switch to English" : "Cambiar a Español"}
+    class="flex items-center gap-1 p-1 bg-white/5 rounded-full border border-white/20 cursor-pointer transition-all duration-300 w-auto"
+  >
+    <span class={`flex items-center justify-center gap-1 px-1.5 py-0.5 rounded-full text-[11px] text-gray-300 font-medium leading-none transition-all duration-300 ${lang === "en" ? "bg-white/20 text-white shadow-sm" : "text-gray-300"}`}>
+      <span>EN</span>
+    </span>
+
+    <span class={`flex items-center justify-center gap-1 px-1.5 py-0.5 rounded-full text-[11px] text-gray-300 font-medium leading-none transition-all duration-300 ${lang === "es" ? "bg-white/20 text-white shadow-sm" : "text-gray-300"}`}>
+      <span>ES</span>
+    </span>
+  </a>
+</div>

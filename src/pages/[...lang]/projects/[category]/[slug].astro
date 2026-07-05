@@ -1,0 +1,211 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import Navbar from "../../../../components/Navbar.astro";
+import Footer from "../../../../components/Footer.astro";
+import Breadcrumbs from "../../../../components/atoms/Breadcrumbs.astro";
+import type { Lang } from "../../../../i18n/index";
+import { useTranslations } from "../../../../i18n/index";
+import { allCategories, findProject, getCategories } from "../../../../lib/projects";
+import type { WorkItem, WorkCategory } from "../../../../lib/projects";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const paths = [];
+  const langs: Array<{ lang: undefined | string; prefix: string }> = [
+    { lang: undefined, prefix: "" },
+    { lang: "es", prefix: "/es" },
+  ];
+
+  for (const langEntry of langs) {
+    for (const category of allCategories) {
+      for (const work of category.works) {
+        paths.push({
+          params: { lang: langEntry.lang, category: category.id, slug: work.id },
+        });
+      }
+    }
+  }
+
+  return paths;
+}
+
+const { lang = "en" } = Astro.params as { lang?: Lang };
+const { t } = useTranslations(lang);
+const categorySlug = Astro.params.category!;
+const workSlug = Astro.params.slug!;
+
+const result = findProject(categorySlug, workSlug, lang);
+if (!result) {
+  return Astro.redirect("/404");
+}
+const { work, category } = result;
+const pathname = lang === "en"
+  ? `/projects/${category.id}/${work.id}/`
+  : `/es/projects/${category.id}/${work.id}/`;
+---
+
+<Layout
+  lang={lang}
+  page="projects"
+  pathname={pathname}
+  title={work.seoTitle}
+  description={work.seoDescription}
+>
+  <Navbar lang={lang} pathname={pathname} />
+  <Breadcrumbs
+    items={[
+      { label: t("projects.breadcrumbHome"), href: lang === "en" ? "/" : "/es/" },
+      { label: t("projects.breadcrumbProjects"), href: lang === "en" ? "/projects/" : "/es/projects/" },
+      { label: work.title },
+    ]}
+    light
+  />
+  <main class="bg-black">
+  <!-- HERO SECTION -->
+  <section class="w-full pt-24 px-4 md:px-6 lg:px-24 flex flex-col lg:flex-row items-center gap-24">
+    <div class="w-full lg:w-1/2 h-auto">
+      <img
+        src={work.image}
+        alt={work.imageAlt}
+        class="w-full h-full object-cover scale-105"
+      />
+    </div>
+
+    <div class="w-full">
+      <p class="text-gray-300 uppercase tracking-widest text-xs md:text-lg font-mono font-regular mb-3 ">
+        {category.label} &mdash; {work.year}
+      </p>
+      <h1 class="text-2xl md:text-4xl lg:text-6xl font-unbounded font-medium text-white uppercase leading-none ">
+        {work.title}
+      </h1>
+    </div>
+  </section>
+
+  <!-- CONTENT SECTION -->
+  <section class="w-full px-4 md:px-6 lg:px-24 py-16 lg:py-16 flex flex-col lg:flex-row gap-12 lg:gap-24">
+
+    <!-- Sidebar: Meta Information -->
+    <aside class="w-full lg:w-1/3 flex flex-col gap-10 project-content-element">
+      <div class="flex flex-col gap-2">
+        <h3 class="text-sm font-bold text-gray-300 uppercase font-mono tracking-widest border-b border-gray-300 pb-2">{t("projects.client")}</h3>
+        <p class="text-lg text-white font-unbounded">{work.client}</p>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h3 class="text-sm font-bold text-gray-300 uppercase font-mono tracking-widest border-b border-gray-300/20 pb-2">{t("projects.services")}</h3>
+        <ul class="flex flex-col gap-1">
+          {work.services.map(service => (
+            <li class="text-base text-white font-mono">{service}</li>
+          ))}
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <article class="w-full lg:w-2/3 flex flex-col gap-12 lg:gap-16">
+      <div class="flex flex-col gap-4 project-content-element">
+        <h2 class="text-2xl lg:text-2xl font-unbounded uppercase text-white">{t("projects.overview")}</h2>
+        <p class="text-base lg:text-xl text-gray-200 leading-relaxed font-mono font-light">{work.description}</p>
+      </div>
+
+      <div class="flex flex-col gap-4 project-content-element">
+        <h2 class="text-2xl lg:text-2xl font-unbounded uppercase text-white">{t("projects.challenge")}</h2>
+        <p class="text-base lg:text-xl text-gray-200 leading-relaxed font-mono font-light">{work.challenge}</p>
+      </div>
+
+      <div class="flex flex-col gap-4 project-content-element">
+        <h2 class="text-2xl lg:text-2xl font-unbounded uppercase text-white">{t("projects.solution")}</h2>
+        <p class="text-base lg:text-xl text-gray-200 leading-relaxed font-mono font-light">{work.solution}</p>
+      </div>
+
+      <div class="flex flex-col gap-4 project-content-element">
+        <h2 class="text-2xl lg:text-2xl font-unbounded uppercase text-white">{t("projects.outcome")}</h2>
+        <p class="text-base lg:text-xl text-gray-200 leading-relaxed font-mono font-light">{work.outcome}</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section class="w-full px-4 md:px-6 lg:px-24 pb-24 lg:pb-32">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8">
+      {work.gallery.map((img, index) => {
+        const isFullWidth = index === 0;
+
+        return (
+          <div class={`overflow-hidden rounded-2xl project-gallery-img ${isFullWidth ? 'md:col-span-2 aspect-video' : 'aspect-square md:aspect-4/3'}`}>
+            <img
+              src={img}
+              alt={`${work.title} - Gallery image ${index + 1}`}
+              loading="lazy"
+              class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
+        )
+      })}
+    </div>
+  </section>
+
+  <Footer lang={lang} pathname={pathname} />
+  </main>
+</Layout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const heroImg = document.querySelector(".project-hero-img");
+    if (heroImg) {
+      gsap.to(heroImg, {
+        yPercent: 20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroImg,
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    }
+
+    gsap.from(".project-hero-text", {
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.15,
+      ease: "power3.out",
+      delay: 0.2
+    });
+
+    gsap.utils.toArray(".project-content-element").forEach((el: any) => {
+      gsap.from(el, {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 95%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+
+    gsap.utils.toArray(".project-gallery-img").forEach((el: any) => {
+      gsap.from(el, {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 95%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+  });
+</script>

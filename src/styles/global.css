@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'Unbounded';
+    src:
+        url('/font/Unbounded.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 200 300 400 500 600 700 800 900;
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: 'Albert';
+    src:
+        url('/font/AlbertSans.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: 'Albert-Italic';
+    src:
+        url('/font/AlbertSans-Italic.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: 'Mono';
+    src:
+        url('/font/VT323-Mono.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+:root {
+    --white: #c6d2d4;
+    --white-2: #f8f5f0;
+    --color-primary: #FF6B6B;
+    --color-secondary: #171717;
+    --black: #121314;
+    --text-white: #d0e2e4; 
+    --text-black: #121314;
+    --unbounded: 'Unbounded', sans-serif;
+    --albert: 'Albert', sans-serif;
+    --albert-italic: 'Albert-Italic', sans-serif;
+    --mono: 'Mono', sans-serif;
+    --gray-600: #2a2a2a;
+    --gray-500: #3a3a3a;
+    --gray-400: #4a4a4a;
+    --gray-300: #6e6e6e;
+    --gray-200: #949494;
+    --gray-100: #c2bfbf;
+    --gray-50: #e3e3e3;
+    --bg-1: #0a0a0a;
+    --bg-2: #161617;
+    --bg-3: #145976;
+}
+
+@theme {
+    
+    --font-unbounded: var(--unbounded);
+    --font-albert: var(--albert);
+    --font-albert-italic: var(--albert-italic);
+    --color-primary: var(--color-primary);
+    --color-secondary: var(--color-secondary);
+    --font-mono: var(--mono);
+    --color-black: var(--black);
+    --color-gray-50: var(--gray-50);
+    --color-gray-200: var(--gray-200);
+    --color-gray-300: var(--gray-300);
+    --color-gray-400: var(--gray-400);
+    --color-white: var(--white);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: var(--color-black);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-gray-300);
+    border-radius: 4px;
+    width: 3px;
+}
+
+/* Ocultar el badge de reCAPTCHA v3 */
+.grecaptcha-badge {
+  visibility: hidden;
+}

@@ -1,0 +1,29 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations, getLocalizedPath } from "../i18n/index";
+import Selfie from "../assets/images/selfie.jpg";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+---
+
+<section class="flex flex-col items-center p-8 py-16 pb-8 justify-between h-svh lg:h-screen bg-black ">
+  
+    <p class="text-left font-mono text-xl self-start text-gray-300">{t("about.title")}</p>
+    <h2 class=" text-left font-unbounded pt-4 md:pt-0 text-xl md:text-2xl lg:text-4xl  self-center">{t("about.subtitle")}</h2>
+    <div class="flex flex-col lg:flex-row gap-4 justify-between w-full pt-8">
+      <p class=" hidden md:block text-gray-300 text-left font-mono text-base max-w-sm self-start">{t("about.text1")}</p>
+      <img src={Selfie.src} alt={t("about.imageAlt")} class="w-44 lg:w-50 h-auto grayscale border-[0.2px] rounded-lg [corner-shape:scoop] border-white shadow-md shadow-[#000000] self-end">
+      <div class="flex flex-col gap-2 self-end">
+        <a class="flex items-center gap-1 py-1 border-b group hover:text-primary hover:border-primary border-white w-fit self-end" href={getLocalizedPath("/about-me/", lang)}>
+          {t("about.cta")} 
+          <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor"><path d="m243-240-51-51 405-405H240v-72h480v480h-72v-357L243-240Z"/></svg></a>
+        <p class="text-end font-mono text-gray-300 text-base max-w-xs self-end">{t("about.text2")}</p>
+      </div>
+    </div>
+  
+</section>

@@ -1,0 +1,102 @@
+---
+import { type Lang, useTranslations } from "../i18n";
+
+export interface Props {
+    lang: Lang;
+    pathname: string;
+}
+
+const { lang, pathname } = Astro.props;
+const { t } = useTranslations(lang);
+
+const localizedPath = (path: string) => {
+  if (lang === "en") return path;
+  return `/es${path}`;
+};
+---
+
+<footer
+    class:list={[
+        "flex items-center h-svh lg:h-auto bg-linear-to-t from-black/80 via-black/95 to-black lg:flex-row flex-col justify-between lg:justify-center h-dvh lg:h-auto w-full px-8 pt-32 pb-12 lg:py-12 lg:gap-20 ",
+    ]}
+>
+    <section class="w-full h-auto gap-2 flex flex-col items-start justify-center">
+        <p class="text-white font-unbounded font-bold lg:text-8xl text-5xl text-center lg:text-left uppercase" aria-label={t("site.title")}>
+            {t("footer.logo")}
+        </p>
+        <p class="text-gray-200 text-base lg:text-xl font-mono lg:text-start text-center w-full">
+            {t("footer.description")}
+        </p>
+        <div class="flex gap-6 w-full lg:justify-start justify-center">
+            <a class="font-mono text-base text-white hover:text-primary transition-colors" href="https://www.linkedin.com/in/keishmer-p%C3%A9rez-torres/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="font-mono text-base text-white hover:text-primary transition-colors" href="https://github.com/Keishmer00" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="font-mono text-base text-white hover:text-primary transition-colors" href="https://www.instagram.com/keishmer00/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+        <p class="hidden lg:block text-gray-200 text-xs text-start">{t("footer.copyright")}</p>
+    </section>
+    <section class="w-1/2 h-auto flex flex-col gap-8">
+        <article class="flex flex-col w-full gap-6">
+            <div class="flex flex-col gap-2">
+                <p class="text-gray-300 text-base uppercase font-mono text-center lg:text-right">{t("footer.pagesTitle")}</p>
+                <ul class="flex flex-col font-mono text-white items-center lg:items-end gap-2">
+                    <li><a href={localizedPath("/about-me/")} class="hover:text-primary transition-colors">{t("aboutMe.title")}</a></li>
+                    <li><a href={localizedPath("/projects/")} class="hover:text-primary transition-colors">{t("nav.projects")}</a></li>
+                    <li><a href={localizedPath("/ux-ui-design/")} class="hover:text-primary transition-colors">{t("nav.uxuiDesigner")}</a></li>
+                    <li><a href={localizedPath("/frontend-dev/")} class="hover:text-primary transition-colors">{t("nav.frontendDev")}</a></li>
+                    <li><a href={localizedPath("/visual-artist/")} class="hover:text-primary transition-colors">{t("nav.visualArtist")}</a></li>
+                    <li><a href={localizedPath("/contact/")} class="hover:text-primary transition-colors">{t("nav.contact")}</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-2">
+                <p class="text-gray-300 text-base uppercase font-mono text-center lg:text-right">{t("footer.legalTitle")}</p>
+                <ul class="flex flex-col font-mono text-white items-center lg:items-end gap-2">
+                    <li><a href={localizedPath("/terms")} class="hover:text-primary transition-colors">{t("terms.breadcrumb")}</a></li>
+                    <li><a href={localizedPath("/privacy")} class="hover:text-primary transition-colors">{t("privacy.breadcrumb")}</a></li>
+                </ul>
+            </div>
+            <p class="lg:hidden text-gray-200 text-xs text-center">{t("footer.copyright")}</p>
+        </article>
+    </section>
+</footer>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Run after DOM is ready and layout is stable
+    const initFooterAnim = () => {
+        const footerLogos = document.querySelectorAll("#footer-logo-svg");
+
+        footerLogos.forEach((logo) => {
+            const letters = logo.querySelectorAll(".footer-letter");
+
+            if (letters.length > 0) {
+                gsap.set(letters, { opacity: 0, y: 50 });
+
+                gsap.to(letters, {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.3,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: logo,
+                        start: "top bottom",
+                        end: "bottom bottom",
+                        scrub: 3,
+                    },
+                });
+            }
+        });
+
+        ScrollTrigger.refresh();
+    };
+
+    // Wait for full page load to ensure layout heights are computed
+    if (document.readyState === "complete") {
+        initFooterAnim();
+    } else {
+        window.addEventListener("load", initFooterAnim);
+    }
+</script>

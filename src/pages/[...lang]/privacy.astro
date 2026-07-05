@@ -1,0 +1,118 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Breadcrumbs from "../../components/atoms/Breadcrumbs.astro";
+import Footer from "../../components/Footer.astro";
+import type { Lang } from "../../i18n/index";
+import { useTranslations } from "../../i18n/index";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } },
+    { params: { lang: "es" } },
+  ];
+}
+
+const { lang = "en" } = Astro.params as { lang?: Lang };
+const { t } = useTranslations(lang);
+const pathname = lang === "en" ? "/privacy" : "/es/privacy";
+---
+
+<Layout lang={lang} page="privacy" pathname={pathname}>
+    <Navbar lang={lang} pathname={pathname} />
+    <Breadcrumbs
+        items={[
+            { label: t("projects.breadcrumbHome"), href: "/" },
+            { label: t("privacy.breadcrumb") }
+        ]}
+        absolute
+        light
+    />
+    <main
+        class="pt-32 lg:pt-40 pb-24 px-4 md:px-8 lg:px-24"
+    >
+        <h1
+            class="text-3xl md:text-5xl font-anton font-regular uppercase leading-tight"
+        >
+            {t("privacy.title")}
+        </h1>
+        <p class="text-sm mb-16">{t("privacy.lastUpdate")}</p>
+
+        <div class="flex flex-col gap-10 max-w-3xl">
+
+            <section>
+                <h3 class="font-anton text-2xl tracking-wide mb-2">
+                    {t("privacy.section1Title")}
+                </h3>
+                <p class="text-sm leading-relaxed">
+                    {t("privacy.section1Text")}
+                </p>
+            </section>
+
+            <section>
+                <h3 class="font-anton text-2xl tracking-wide mb-2">
+                    {t("privacy.section2Title")}
+                </h3>
+                <p class="text-sm leading-relaxed">
+                    {t("privacy.section2Text")}
+                </p>
+            </section>
+
+            <section>
+                <h3 class="font-anton text-2xl tracking-wide mb-2">
+                    {t("privacy.section3Title")}
+                </h3>
+                <p class="text-sm leading-relaxed">
+                    {t("privacy.section3Text")}
+                </p>
+            </section>
+
+            <section>
+                <h3 class="font-anton text-2xl tracking-wide mb-2">
+                    {t("privacy.section4Title")}
+                </h3>
+                <p class="text-sm leading-relaxed">
+                    {t("privacy.section4Text")}
+                </p>
+            </section>
+
+            <section>
+                <h3 class="font-anton text-2xl tracking-wide mb-2">
+                    {t("privacy.section5Title")}
+                </h3>
+                <p class="text-sm leading-relaxed">
+                    {t("privacy.section5Text")}
+                </p>
+            </section>
+
+            <section>
+                <h3 class="font-anton text-2xl tracking-wide mb-2">
+                    {t("privacy.section6Title")}
+                </h3>
+                <p class="text-sm leading-relaxed">
+                    {t("privacy.section6Text")}
+                </p>
+            </section>
+
+            <section>
+                <h3 class="font-anton text-2xl tracking-wide mb-2">
+                    {t("privacy.section7Title")}
+                </h3>
+                <p class="text-sm leading-relaxed">
+                    {t("privacy.section7Text")}
+                </p>
+            </section>
+
+            <section>
+                <h3 class="font-anton text-2xl tracking-wide mb-2">
+                    {t("privacy.section8Title")}
+                </h3>
+                <p class="text-sm leading-relaxed">
+                    {t("privacy.section8Text")}
+                </p>
+            </section>
+
+        </div>
+    </main>
+    <Footer lang={lang} pathname={pathname} />
+</Layout>
