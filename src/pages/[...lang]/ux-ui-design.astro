@@ -4,6 +4,8 @@ import Navbar from "../../components/Navbar.astro";
 import type { Lang } from "../../i18n/index";
 import { useTranslations } from "../../i18n/index";
 
+export const prerender = true;
+
 export function getStaticPaths() {
   return [
     { params: { lang: undefined } },

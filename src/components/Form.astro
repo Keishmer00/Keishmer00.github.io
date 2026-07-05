@@ -15,11 +15,11 @@ const { t } = useTranslations(lang);
 
 <section
     id="contact"
-    class="flex bg-black items-center justify-center w-full bg-brand-primary p-4 md:p-14 lg:p-16"
+    class="flex bg-black items-center justify-center w-full p-4 md:p-14 lg:p-16"
 >
     <div
         id="contact-form-card"
-        class="flex flex-col items-center justify-center w-full border border-gray-300 shadow-2xl shadow-white/30 px-6 py-10 bg-linear-to-br from-white/5 via-black to-white/5 md:px-10 md:py-12 lg:px-14 lg:py-16"
+        class="flex flex-col items-center justify-center w-full border border-gray-300 px-6 py-10 bg-linear-to-br from-white/5 via-black to-white/5 md:px-10 md:py-12 lg:px-14 lg:py-16"
     >
         <header class="w-full flex flex-col items-center justify-center text-center mb-10 md:mb-12 lg:mb-14">
             <h6
@@ -42,10 +42,10 @@ const { t } = useTranslations(lang);
                     id="users-form"
                     class="w-full lg:w-fit flex flex-col gap-2"
                 >
-                    <div class="flex flex-col gap-1 border-b border-black-700/25">
+                    <div class="flex flex-col gap-1 border-b border-white/25">
                         <label
                             for="legal-name"
-                            class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-black-700"
+                            class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-white"
                             >{t("form.name")}</label
                         >
                         <input
@@ -54,14 +54,14 @@ const { t } = useTranslations(lang);
                             id="legal-name"
                             autocomplete="name"
                             required
-                            class="bg-transparent text-sm md:text-base text-black-700 outline-none placeholder:text-black-700/40 w-full"
+                            class="bg-transparent text-sm md:text-base text-white outline-none placeholder:text-white/40 w-full"
                         />
                     </div>
 
-                    <div class="flex flex-col gap-1 border-b border-black-700/25">
+                    <div class="flex flex-col gap-1 border-b border-white/25">
                         <label
                             for="client-email"
-                            class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-black-700"
+                            class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-white"
                             >{t("form.email")}</label
                         >
                         <input
@@ -70,14 +70,14 @@ const { t } = useTranslations(lang);
                             id="client-email"
                             autocomplete="email"
                             required
-                            class="bg-transparent text-sm md:text-base text-black-700 outline-none placeholder:text-black-700/40 w-full"
+                            class="bg-transparent text-sm md:text-base text-white outline-none placeholder:text-white/40 w-full"
                         />
                     </div>
 
-                    <div class="flex flex-col gap-1 border-b border-black-700/25">
+                    <div class="flex flex-col gap-1 border-b border-white/25">
                         <label
                             for="phone-number"
-                            class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-black-700"
+                            class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-white"
                             >{t("form.phone")}</label
                         >
                         <input
@@ -86,13 +86,13 @@ const { t } = useTranslations(lang);
                             id="phone-number"
                             autocomplete="tel"
                             required
-                            class="bg-transparent text-sm md:text-base text-black-700 outline-none placeholder:text-black-700/40 w-full"
+                            class="bg-transparent text-sm md:text-base text-white outline-none placeholder:text-white/40 w-full"
                         />
                     </div>
-                     <div class="flex flex-col gap-1 border-b border-black-700/25">
+                     <div class="flex flex-col gap-1 border-b border-white/25">
                         <label
                             for="text"
-                            class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-black-700"
+                            class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-white"
                             >{t("form.text")}</label
                         >
                         <input
@@ -101,7 +101,7 @@ const { t } = useTranslations(lang);
                             id="text"
                             autocomplete="tel"
                             required
-                            class="bg-transparent text-sm md:text-base text-black-700 outline-none placeholder:text-black-700/40 w-full"
+                            class="bg-transparent text-sm md:text-base text-white outline-none placeholder:text-white/40 w-full"
                         />
                     </div>
 
@@ -132,21 +132,21 @@ const { t } = useTranslations(lang);
                             </span>
                         </button>
 
-                        <p class="text-[10px] text-black-700/50 leading-relaxed lg:text-left text-center max-w-sm md:max-w-full lg:max-w-sm">
-                            This site is protected by reCAPTCHA and the Google
+                        <p class="text-[10px] text-gray-300 leading-relaxed lg:text-left text-center max-w-sm md:max-w-full lg:max-w-sm">
+                            This site is protected by reCAPTCHA and the Google 
                             <a
                                 href="https://policies.google.com/privacy"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="text-black-700 hover:underline font-medium"
+                                class="text-white hover:underline font-medium"
                                 >{t("form.privacy")}</a
                             >
-                            and
+                            and 
                             <a
                                 href="https://policies.google.com/terms"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="text-black-700 hover:underline font-medium"
+                                class="text-white hover:underline font-medium"
                                 >{t("form.terms")}</a
                             >
                             {t("form.apply")}
@@ -226,11 +226,11 @@ const { t } = useTranslations(lang);
                                         submitBtn.innerHTML =
                                             '<span class="text-sm font-medium">Application Sent ✓</span>';
                                         submitBtn.classList.replace(
-                                            "bg-black-700",
+                                            "bg-white",
                                             "bg-green-600",
                                         );
                                         submitBtn.classList.replace(
-                                            "text-white-500",
+                                            "text-black",
                                             "text-white",
                                         );
                                         form.reset();
@@ -241,11 +241,11 @@ const { t } = useTranslations(lang);
                                                 originalBtnText;
                                             submitBtn.classList.replace(
                                                 "bg-green-600",
-                                                "bg-black-700",
+                                                "bg-white",
                                             );
                                             submitBtn.classList.replace(
                                                 "text-white",
-                                                "text-white-500",
+                                                "text-black",
                                             );
                                             submitBtn.disabled = false;
                                         }, 3000);

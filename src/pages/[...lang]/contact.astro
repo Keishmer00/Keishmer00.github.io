@@ -7,6 +7,8 @@ import Form from "../../components/Form.astro";
 import type { Lang } from "../../i18n/index";
 import { useTranslations } from "../../i18n/index";
 
+export const prerender = true;
+
 export function getStaticPaths() {
   return [
     { params: { lang: undefined } },
@@ -23,7 +25,7 @@ const pathname = lang === "en" ? "/contact" : "/es/contact";
     <Navbar lang={lang} pathname={pathname} />
     <Breadcrumbs
         items={[
-            { label: t("projects.breadcrumbHome"), href: "/" },
+            { label: t("projects.breadcrumbHome"), href: lang === "en" ? "/" : "/es/" },
             { label: t("nav.contact") }
         ]}
         light
@@ -31,7 +33,7 @@ const pathname = lang === "en" ? "/contact" : "/es/contact";
     <main class="pt-32 bg-black lg:pt-40 pb-8 lg:pb-24 px-4 md:px-8 lg:px-24">
     <section class="max-w-6xl mx-auto">
       <h1
-        class="text-3xl md:text-5xl text-brand-primary font-unbounded font-bold uppercase leading-tight"
+        class="text-3xl md:text-5xl text-primary font-unbounded font-bold uppercase leading-tight"
       >
         {t("contact.title")}
       </h1>

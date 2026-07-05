@@ -59,7 +59,6 @@ export const POST: APIRoute = async ({ request }) => {
         // y solo permitir los que vienen desde este servidor backend seguro.
         const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
         console.log("SUPABASE_URL present?", !!supabaseUrl);
-        console.log("SERVICE KEY prefix:", (supabaseKey || "").slice(0, 8));
 
         if (!supabaseUrl || !supabaseKey) {
             console.error("Server misconfiguration: missing SUPABASE credentials");

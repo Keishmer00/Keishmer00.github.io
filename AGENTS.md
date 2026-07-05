@@ -35,7 +35,7 @@ Pages use `[...lang]` catch-all param. Every page defines `getStaticPaths()` ret
 ## Known gotchas
 
 - **Hero video path is wrong** (`src/components/Hero.astro:92`): `<source src="/src/assets/videos/background.mp4">` won't resolve — Astro cannot serve files from `src/` via plain URLs. Move the video to `public/` or use ESM `import`.
-- **`About.astro` component exists but is not imported by any page** — stale.
+- **`About.astro`** is imported in `index.astro` (homepage).
 - **All sub-pages** (`ux-ui-design`, `frontend-dev`, `visual-artist`) are "coming soon" placeholders.
 - **Microsoft Clarity** analytics (`tfbwgxewkn`) embedded in `Layout.astro`.
 - **Canonical URLs** reference `keishmerstudio.com`; JSON-LD also references `keishmer00.github.io` (GitHub Pages alias).
