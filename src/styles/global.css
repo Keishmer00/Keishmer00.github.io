@@ -3,7 +3,7 @@
 @font-face {
     font-family: 'Unbounded';
     src:
-        url('/font/Unbounded.ttf') format('truetype');
+        url('/Font/Unbounded.ttf') format('truetype');
     font-style: normal;
     font-weight: 200 300 400 500 600 700 800 900;
     text-rendering: optimizeLegibility;
@@ -12,7 +12,7 @@
 @font-face {
     font-family: 'Albert';
     src:
-        url('/font/AlbertSans.ttf') format('truetype');
+        url('/Font/AlbertSans.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
     text-rendering: optimizeLegibility;
@@ -21,7 +21,7 @@
 @font-face {
     font-family: 'Albert-Italic';
     src:
-        url('/font/AlbertSans-Italic.ttf') format('truetype');
+        url('/Font/AlbertSans-Italic.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
     text-rendering: optimizeLegibility;
@@ -30,7 +30,7 @@
 @font-face {
     font-family: 'Mono';
     src:
-        url('/font/VT323-Mono.ttf') format('truetype');
+        url('/Font/VT323-Mono.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
     text-rendering: optimizeLegibility;
@@ -77,7 +77,7 @@
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
     background-color: var(--color-black);
 }
 
