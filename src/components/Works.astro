@@ -205,63 +205,67 @@ const defaultCategory = categoriesForGrid[defaultCategoryIndex];
 
       gsap.registerPlugin(ScrollTrigger);
 
-      // Entrance Animation (reversible with scrub)
-      const titleEl = this.querySelector("p.uppercase"); // "Best Works"
-      const allCards = getCards();
+      // Entrance Animation — wrapped in rAF for stable layout + reduced-motion guard
+      requestAnimationFrame(() => {
+        if (prefersReducedMotion.matches) return;
 
-      const worksEntranceTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: this,
-          start: "top 80%",
-          end: "top 30%",
-          scrub: 1,
-        },
+        const titleEl = this.querySelector("h3.uppercase"); // "Best Works"
+        const allCards = getCards();
+
+        const worksEntranceTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: this,
+            start: "top 80%",
+            end: "top 30%",
+            scrub: 1,
+          },
+        });
+
+        if (titleEl) {
+          worksEntranceTl.fromTo(
+            titleEl,
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, ease: "power2.out", immediateRender: false },
+          );
+        }
+
+        if (statementEl) {
+          worksEntranceTl.fromTo(
+            statementEl,
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, ease: "power2.out", immediateRender: false },
+            "-=0.3",
+          );
+        }
+
+        if (categoryList) {
+          worksEntranceTl.fromTo(
+            categoryList,
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, ease: "power2.out", immediateRender: false },
+            "-=0.3",
+          );
+        }
+
+        if (allCards.length > 0) {
+          worksEntranceTl.fromTo(
+            allCards,
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, stagger: 0.1, ease: "power3.out", immediateRender: false },
+            "-=0.2",
+          );
+        }
       });
 
-      if (titleEl) {
-        worksEntranceTl.from(titleEl, {
-          y: 20,
-          opacity: 0,
-          ease: "power2.out",
-        });
-      }
+      // Safety: refresh ScrollTrigger when layout stabilizes
+      document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
-      if (statementEl) {
-        worksEntranceTl.from(
-          statementEl,
-          {
-            y: 20,
-            opacity: 0,
-            ease: "power2.out",
-          },
-          "-=0.3",
-        );
-      }
+      // Safety: refresh on visibility restore (fixes mobile share/return bug)
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") ScrollTrigger.refresh();
+      });
 
-      if (categoryList) {
-        worksEntranceTl.from(
-          categoryList,
-          {
-            y: 20,
-            opacity: 0,
-            ease: "power2.out",
-          },
-          "-=0.3",
-        );
-      }
-
-      if (allCards.length > 0) {
-        worksEntranceTl.from(
-          allCards,
-          {
-            y: 40,
-            opacity: 0,
-            stagger: 0.1,
-            ease: "power3.out",
-          },
-          "-=0.2",
-        );
-      }
+      window.addEventListener("pageshow", () => ScrollTrigger.refresh());
 
       const setTabState = (index: number) => {
         const category = categories[index];
@@ -466,6 +470,15 @@ const defaultCategory = categoriesForGrid[defaultCategoryIndex];
       if (categoryList && isMobileLayout()) {
         categoryList.scrollLeft = 0;
       }
+    }
+
+    disconnectedCallback() {
+      ScrollTrigger.getAll()
+        .filter((st) => {
+          const trigger = st.vars.trigger;
+          return trigger === this || (trigger instanceof Element && this.contains(trigger));
+        })
+        .forEach((st) => st.kill());
     }
   }
 
