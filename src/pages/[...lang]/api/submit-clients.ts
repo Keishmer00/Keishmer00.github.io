@@ -54,11 +54,7 @@ export const POST: APIRoute = async ({ request }) => {
 
         // 4. Conectar con Supabase e Insertar los datos
         const supabaseUrl = import.meta.env.SUPABASE_URL;
-        // Recomendación de Seguridad: Usar SUPABASE_SERVICE_ROLE_KEY permite evadir RLS
-        // Esto es útil si configuras la tabla en Supabase para denegar todos los inserts públicos
-        // y solo permitir los que vienen desde este servidor backend seguro.
-        const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
-        console.log("SUPABASE_URL present?", !!supabaseUrl);
+        const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
         if (!supabaseUrl || !supabaseKey) {
             console.error("Server misconfiguration: missing SUPABASE credentials");
@@ -68,7 +64,25 @@ export const POST: APIRoute = async ({ request }) => {
             });
         }
 
+        const keyFormat = supabaseKey.startsWith("sb_secret_") ? "new" : supabaseKey.startsWith("eyJ") ? "jwt" : "unknown";
+        console.log(`[submit-clients] Key format: ${keyFormat}, length: ${supabaseKey.length}`);
+
         const supabase = createClient(supabaseUrl, supabaseKey);
+
+        // Quick auth check: service role should be able to query even with RLS enabled
+        const { error: authCheckError } = await supabase
+            .from("leads_clients")
+            .select("id", { count: "exact", head: true });
+
+        if (authCheckError) {
+            console.error("[submit-clients] Auth check FAILED:", authCheckError.message, authCheckError.code);
+            return new Response(JSON.stringify({
+                success: false,
+                message: `Supabase auth check failed (${authCheckError.code}): ${authCheckError.message} — verify SUPABASE_SERVICE_ROLE_KEY in Vercel env vars`,
+            }), { status: 500, headers: { "Content-Type": "application/json" } });
+        }
+
+        console.log("[submit-clients] Auth check PASSED — service role key is valid");
         const client_email_normalized = String(client_email).trim();
 
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(client_email_normalized)) {
