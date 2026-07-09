@@ -22,8 +22,8 @@ const separatorClass = light ? "gray-700" : "opacity-50 text-primary/50";
 const currentClass = light ? "text-primary font-bold" : "text-primary font-bold";
 ---
 
-<div class={`${' absolute z-50 w-fit mx-4 md:mx-52 lg:mx-64 pt-16 md:pt-6'} ${className}`}>
-    <nav class="flex text-[11px] md:text-xs font-medium tracking-widest uppercase">
+<div class={`absolute z-50 w-fit mx-4 md:mx-52 lg:mx-64 pt-16 md:pt-6 ${className}`}>
+    <nav aria-label="Breadcrumb" class="flex text-[11px] md:text-xs font-medium tracking-widest uppercase">
     <ol class="flex items-center gap-2">
       {items.map((item, index) => (
         <>
@@ -40,3 +40,16 @@ const currentClass = light ? "text-primary font-bold" : "text-primary font-bold"
     </ol>
   </nav>
 </div>
+
+{items.length > 0 && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, idx) => ({
+      "@type": "ListItem",
+      "position": idx + 1,
+      "name": item.label,
+      ...(item.href ? { "item": `https://keishmerstudio.com${item.href}` } : {}),
+    })),
+  })} />
+)}

@@ -16,9 +16,9 @@ const { t, tArray } = useTranslations(lang);
 const seoKey = page === "home" ? "home" : page === "about-me" ? "aboutMe" : page;
 const title = customTitle || t(`seo.${seoKey}.title`);
 const description = customDescription || t(`seo.${seoKey}.description`);
-const canonical = `https://keishmerstudio.com/${pathname}`;
-const alternateEn = `https://keishmerstudio.com/${page === "home" ? "/" : pathname.replace(/^\/es\//, "/")}`;
-const alternateEs = `https://keishmerstudio.com/${page === "home" && lang === "en" ? "/es/" : pathname.startsWith("/es/") ? pathname : `/es${pathname === "/" ? "/" : pathname}`}`;
+const canonical = `https://keishmerstudio.com${pathname}`;
+const alternateEn = `https://keishmerstudio.com${page === "home" ? "/" : `/${pathname.replace(/^\/es\//, "")}`}`;
+const alternateEs = `https://keishmerstudio.com${page === "home" && lang === "en" ? "/es/" : pathname.startsWith("/es/") ? `/${pathname}` : `/es${pathname === "/" ? "/" : pathname}`}`;
 ---
 
 <!-- Primary Meta Tags -->
@@ -26,7 +26,7 @@ const alternateEs = `https://keishmerstudio.com/${page === "home" && lang === "e
 <meta name="description" content={description} />
 <meta name="author" content={t("site.author")} />
 <meta name="theme-color" content="#0a0a0a" />
-<meta name="robots" content="index, follow" />
+<meta name="robots" content={page === "error" || page === "uxui" || page === "frontend" || page === "visualArtist" ? "noindex" : "index, follow"} />
 <link rel="canonical" href={canonical} />
 
 <!-- Alternate language links -->
@@ -37,7 +37,11 @@ const alternateEs = `https://keishmerstudio.com/${page === "home" && lang === "e
 <!-- Open Graph -->
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content="/og-image.png" />
+<meta property="og:image" content="https://keishmerstudio.com/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={description} />
+<meta property="og:site_name" content={t("site.title")} />
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonical} />
 <meta property="og:locale" content={lang === "en" ? "en_US" : "es_ES"} />
@@ -46,14 +50,17 @@ const alternateEs = `https://keishmerstudio.com/${page === "home" && lang === "e
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content="/og-image.png" />
+<meta name="twitter:image" content="https://keishmerstudio.com/og-image.png" />
+<meta name="twitter:image:alt" content={description} />
 <meta name="twitter:creator" content="@keishmer00" />
 <meta name="twitter:site" content="@keishmer00" />
 
-<!-- JSON-LD Structured Data for AI indexing -->
+<!-- JSON-LD Person -->
+{(page === "home" || page === "about-me") && (
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": "https://keishmerstudio.com/#person",
   "name": t("jsonld.personName"),
   "jobTitle": t("jsonld.jobTitle"),
   "url": "https://keishmerstudio.com",
@@ -63,14 +70,25 @@ const alternateEs = `https://keishmerstudio.com/${page === "home" && lang === "e
   ],
   "knowsAbout": tArray("jsonld.knowsAbout")
 })} />
+)}
 
+<!-- JSON-LD WebSite -->
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": t("site.title"),
   "url": "https://keishmerstudio.com",
   "description": t("site.description"),
-  "inLanguage": lang === "en" ? "en-US" : "es-ES"
+  "image": "https://keishmerstudio.com/og-image.png",
+  "inLanguage": lang === "en" ? "en-US" : "es-ES",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://keishmerstudio.com/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
 })} />
 
 <script type="application/ld+json" set:html={JSON.stringify({

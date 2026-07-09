@@ -34,8 +34,8 @@ const localizedPath = (path: string) => {
         </div>
         <p class="hidden lg:block text-gray-200 text-xs text-start">{t("footer.copyright")}</p>
     </section>
-    <section class="w-1/2 h-auto flex flex-col gap-8">
-        <article class="flex flex-col w-full gap-6">
+    <section class="lg:w-1/2 w-full h-auto flex flex-col gap-8">
+        <div class="flex flex-col w-full gap-6">
             <div class="flex flex-col gap-2">
                 <p class="text-gray-300 text-base uppercase font-mono text-center lg:text-right">{t("footer.pagesTitle")}</p>
                 <ul class="flex flex-col font-mono text-white items-center lg:items-end gap-2">
@@ -54,8 +54,8 @@ const localizedPath = (path: string) => {
                     <li><a href={localizedPath("/privacy")} class="hover:text-primary transition-colors">{t("privacy.breadcrumb")}</a></li>
                 </ul>
             </div>
-            <p class="lg:hidden text-gray-200 text-xs text-center">{t("footer.copyright")}</p>
-        </article>
+            <p class="lg:hidden w-full text-gray-200 text-xs text-center">{t("footer.copyright")}</p>
+        </div>
     </section>
 </footer>
 

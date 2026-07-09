@@ -60,9 +60,9 @@ const localizedPath = (path: string) => {
         <ul
           class="flex flex-col gap-6 text-2xl font-mono uppercase px-8 items-start w-full"
         >
-          <p class="text-gray-300 text-sm uppercase tracking-widest mb-2">
+          <li class="text-gray-300 text-sm uppercase tracking-widest mb-2 list-none">
             {t("nav.menu")}
-          </p>
+          </li>
           <li>
             <a
               href={localizedPath("/about-me/")}
@@ -185,15 +185,23 @@ const localizedPath = (path: string) => {
         <a
           class="font-mono uppercase text-white hover:text-primary transition-colors"
           href="https://www.linkedin.com/in/keishmer-p%C3%A9rez-torres/"
+          target="_blank"
+          rel="noopener noreferrer"
           >LinkedIn</a
         >
         <a
           class="font-mono uppercase text-white hover:text-primary transition-colors"
-          href="https://github.com/Keishmer00">GitHub</a
+          href="https://github.com/Keishmer00"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
         >
         <a
           class="font-mono uppercase text-white hover:text-primary transition-colors"
-          href="https://www.instagram.com/keishmer00/">Instagram</a
+          href="https://www.instagram.com/keishmer00/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Instagram</a
         >
         </div>
       </div>

@@ -8,6 +8,7 @@ import Strategic from "../../components/Strategic.astro";
 import Works from "../../components/Works.astro";
 import Footer from "../../components/Footer.astro";
 import Form from "../../components/Form.astro";
+import ServiceBanner from "../../components/ServiceBanner.astro";
 
 export const prerender = true;
 
@@ -23,6 +24,7 @@ const pathname = lang === "en" ? "/" : "/es/";
   <main>
     <Navbar lang={lang} pathname={pathname} />
     <Hero lang={lang} />
+    <ServiceBanner lang={lang} />
     <About lang={lang} />
     <Works lang={lang} />
     <Strategic lang={lang} />

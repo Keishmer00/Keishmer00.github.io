@@ -37,7 +37,7 @@ const workSlug = Astro.params.slug!;
 
 const result = findProject(categorySlug, workSlug, lang);
 if (!result) {
-  return Astro.redirect("/404");
+  return Astro.redirect(lang === "en" ? "/404" : "/es/404");
 }
 const { work, category } = result;
 const pathname = lang === "en"
@@ -68,6 +68,7 @@ const pathname = lang === "en"
       <img
         src={work.image}
         alt={work.imageAlt}
+        fetchpriority="high"
         class="w-full h-full object-cover scale-105"
       />
     </div>
@@ -148,6 +149,21 @@ const pathname = lang === "en"
 
   <Footer lang={lang} pathname={pathname} />
   </main>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": work.title,
+    "description": work.description,
+    "author": { "@id": "https://keishmerstudio.com/#person" },
+    "image": work.image.startsWith("http") ? work.image : `https://keishmerstudio.com${work.image}`,
+    "dateCreated": work.year,
+    "about": { "name": work.title },
+    "provider": {
+      "@type": "Person",
+      "@id": "https://keishmerstudio.com/#person"
+    }
+  })} />
 </Layout>
 
 <script>

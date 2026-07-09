@@ -17,14 +17,14 @@ export function getStaticPaths() {
 
 const { lang = "en" } = Astro.params as { lang?: Lang };
 const { t } = useTranslations(lang);
-const pathname = lang === "en" ? "/privacy" : "/es/privacy";
+const pathname = lang === "en" ? "/privacy/" : "/es/privacy/";
 ---
 
 <Layout lang={lang} page="privacy" pathname={pathname}>
     <Navbar lang={lang} pathname={pathname} />
     <Breadcrumbs
         items={[
-            { label: t("projects.breadcrumbHome"), href: "/" },
+            { label: t("projects.breadcrumbHome"), href: lang === "en" ? "/" : "/es/" },
             { label: t("privacy.breadcrumb") }
         ]}
         absolute
@@ -43,72 +43,72 @@ const pathname = lang === "en" ? "/privacy" : "/es/privacy";
         <div class="flex flex-col gap-10 max-w-3xl">
 
             <section>
-                <h3 class="font-unbounded text-2xl tracking-wide mb-2">
+                <h2 class="font-unbounded text-2xl tracking-wide mb-2">
                     {t("privacy.section1Title")}
-                </h3>
+                </h2>
                 <p class="text-sm leading-relaxed">
                     {t("privacy.section1Text")}
                 </p>
             </section>
 
             <section>
-                <h3 class="font-unbounded text-2xl tracking-wide mb-2">
+                <h2 class="font-unbounded text-2xl tracking-wide mb-2">
                     {t("privacy.section2Title")}
-                </h3>
+                </h2>
                 <p class="text-sm leading-relaxed">
                     {t("privacy.section2Text")}
                 </p>
             </section>
 
             <section>
-                <h3 class="font-unbounded text-2xl tracking-wide mb-2">
+                <h2 class="font-unbounded text-2xl tracking-wide mb-2">
                     {t("privacy.section3Title")}
-                </h3>
+                </h2>
                 <p class="text-sm leading-relaxed">
                     {t("privacy.section3Text")}
                 </p>
             </section>
 
             <section>
-                <h3 class="font-unbounded text-2xl tracking-wide mb-2">
+                <h2 class="font-unbounded text-2xl tracking-wide mb-2">
                     {t("privacy.section4Title")}
-                </h3>
+                </h2>
                 <p class="text-sm leading-relaxed">
                     {t("privacy.section4Text")}
                 </p>
             </section>
 
             <section>
-                <h3 class="font-unbounded text-2xl tracking-wide mb-2">
+                <h2 class="font-unbounded text-2xl tracking-wide mb-2">
                     {t("privacy.section5Title")}
-                </h3>
+                </h2>
                 <p class="text-sm leading-relaxed">
                     {t("privacy.section5Text")}
                 </p>
             </section>
 
             <section>
-                <h3 class="font-unbounded text-2xl tracking-wide mb-2">
+                <h2 class="font-unbounded text-2xl tracking-wide mb-2">
                     {t("privacy.section6Title")}
-                </h3>
+                </h2>
                 <p class="text-sm leading-relaxed">
                     {t("privacy.section6Text")}
                 </p>
             </section>
 
             <section>
-                <h3 class="font-unbounded text-2xl tracking-wide mb-2">
+                <h2 class="font-unbounded text-2xl tracking-wide mb-2">
                     {t("privacy.section7Title")}
-                </h3>
+                </h2>
                 <p class="text-sm leading-relaxed">
                     {t("privacy.section7Text")}
                 </p>
             </section>
 
             <section>
-                <h3 class="font-unbounded text-2xl tracking-wide mb-2">
+                <h2 class="font-unbounded text-2xl tracking-wide mb-2">
                     {t("privacy.section8Title")}
-                </h3>
+                </h2>
                 <p class="text-sm leading-relaxed">
                     {t("privacy.section8Text")}
                 </p>

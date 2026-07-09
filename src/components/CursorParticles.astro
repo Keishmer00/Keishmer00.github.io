@@ -35,11 +35,11 @@
   const particleColor = 'rgba(198, 210, 212, '; // #c6d2d4 - project white
 
   // Configuration
-  const IDLE_THRESHOLD = 100; // ms without movement to enter idle mode
+  const IDLE_THRESHOLD = 80; // ms without movement to enter idle mode
   const IDLE_COUNT = 20; // particles in the idle ring
-  const IDLE_RADIUS = 10; // base orbit radius in px
+  const IDLE_RADIUS = 25; // base orbit radius in px
   const IDLE_ORBIT_SPEED = 0.002; // radians per frame (slow)
-  const MAX_TRAIL_PARTICLES = 30;
+  const MAX_TRAIL_PARTICLES = 60;
 
   interface Particle {
     x: number;

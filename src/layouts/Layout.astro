@@ -19,12 +19,9 @@ const { lang, page, pathname, title, description } = Astro.props;
 <html lang={lang === "en" ? "en" : "es"}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<link rel="icon" type="image/png" href="/Public/Icons/favicon.png" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		
 
 		<SeoHead lang={lang} page={page} pathname={pathname} title={title} description={description} />
