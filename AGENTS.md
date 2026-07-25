@@ -2,41 +2,69 @@
 
 ## Package manager
 
-Use **pnpm** (not npm). Both `pnpm-lock.yaml` and `package-lock.json` exist in the repo — the npm lockfile is stale and must not be updated.
+Use **pnpm** (not npm). `package-lock.json` is gitignored — never run `npm install`.
 
 ## Available commands
-
-Only `dev`, `build`, `preview` are defined. No lint, typecheck, or test scripts exist.
 
 | Command | Purpose |
 |---------|---------|
 | `pnpm dev` | Dev server (localhost:4321) |
-| `pnpm build` | Static build to `dist/` |
+| `pnpm build` | Build to `dist/` |
 | `pnpm preview` | Preview production build |
 | `pnpm astro` | Astro CLI (add, check, etc.) |
 
-Node >=22.12.0 required. No CI/CD workflows.
+No lint, typecheck, or test scripts exist. Node >=22.12.0 required.
+
+## Architecture
+
+- **Astro 7** with `@astrojs/vercel` adapter, `output: 'server'`, every page has `export const prerender = true` (static except API).
+- **No React / Vue / Svelte** — pure Astro + vanilla JS. Canvas animations (`BlackHoleBG.astro`, `MeshText.astro`) use vanilla `<script>` tags, no frameworks.
+- **Tailwind v4** via `@tailwindcss/vite` plugin. No `tailwind.config.*`. Gradients use `bg-linear-to-r` (v4 syntax). Custom `@theme` directive maps fonts and colors.
 
 ## Routing & i18n
 
-Pages use `[...lang]` catch-all param. Every page defines `getStaticPaths()` returning `{ params: { lang: undefined } }` for English and `{ params: { lang: "es" } }` for Spanish.
+- Pages use `[...lang]` catch-all param with `getStaticPaths()` returning `{ params: { lang: undefined } }` (English, no prefix) and `{ params: { lang: "es" } }` (Spanish, `/es/` prefix).
+- i18n is custom: `src/i18n/index.ts` with `t("dot.key")` / `tArray("dot.key")`, JSON files per locale.
+- Helpers: `getLocalizedPath(path, lang)`, `getAlternatePaths(pathname)`.
 
-- English is the default locale with **no URL prefix** (`/`, `/ux-ui-design/`)
-- Spanish uses `/es/` prefix (`/es/`, `/es/ux-ui-design/`)
-- i18n is **custom** (not `astro:i18n`): `src/i18n/index.ts` with `t("dot.key")` and `tArray("dot.key")`
-- `getLocalizedPath(path, lang)` / `getAlternatePaths(pathname)` in `src/i18n/index.ts`
+## Key components & pages
 
-## Tailwind v4 quirks
+| File | Role |
+|------|------|
+| `Hero.astro` | Full-viewport header with `BlackHoleBG` canvas background |
+| `Strategic.astro` | Scroll-triggered word list + `MeshText` WebGL2 hover effect |
+| `SeoHead.astro` | Canonical URLs, JSON-LD, hreflang, `noindex` on placeholder pages |
+| `Layout.astro` | Wraps all pages: `CursorParticles`, Microsoft Clarity analytics |
+| `[...lang]/api/submit-clients.ts` | POST endpoint (Supabase + reCAPTCHA v3) |
 
-- Uses `@import "tailwindcss"` (v4 syntax), no `tailwind.config.*` file
-- Gradients use `bg-linear-to-r` (not `bg-gradient-to-r`) — v4 syntax change
-- Custom `@theme` directive defines font and color tokens mapped to CSS vars
+## Contact / Form flow
+
+API route `submit-clients.ts` requires these env vars (all in `.env`, gitignored):
+
+```
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+RESEND_API_KEY=
+RECAPTCHA_SECRET_KEY=
+```
+
+The API route disables prerender (`export const prerender = false`). The form uses Supabase `leads_clients` table and ReCAPTCHA v3 score (>0.5).
+
+## Styling
+
+- Three font faces in `global.css`: **Unbounded** (200-900, display), **Albert** (body), **Mono** (VT323, code).
+- Custom `@theme` tokens: `--font-unbounded`, `--font-albert`, `--font-mono`, `--color-primary` (#FF6B6B).
+- Gradients and overlays use CSS `mix-blend-mode: overlay`.
+- Custom scrollbar (4px, dark).
+
+## Animations
+
+- **GSAP** + **ScrollTrigger** in `Strategic.astro` for scroll-based fade/slide.
+- **BlackHoleBG.astro**: Canvas 2D particle simulation (vanilla JS, `requestAnimationFrame`).
+- **MeshText.astro**: WebGL2 interactive text distortion with chromatic aberration (vertex/fragment shaders, mouse tracking).
 
 ## Known gotchas
 
-- **Hero video path is wrong** (`src/components/Hero.astro:92`): `<source src="/src/assets/videos/background.mp4">` won't resolve — Astro cannot serve files from `src/` via plain URLs. Move the video to `public/` or use ESM `import`.
-- **`About.astro`** is imported in `index.astro` (homepage).
-- **All sub-pages** (`ux-ui-design`, `frontend-dev`, `visual-artist`) are "coming soon" placeholders.
-- **Microsoft Clarity** analytics (`tfbwgxewkn`) embedded in `Layout.astro`.
-- **Canonical URLs** reference `keishmerstudio.com`; JSON-LD also references `keishmer00.github.io` (GitHub Pages alias).
-- `package-lock.json` (npm) and `pnpm-lock.yaml` coexist — never run `npm install`.
+- Placeholder pages (`/ux-ui-design/`, `/frontend-dev/`, `/visual-artist/`) have `<meta name="robots" content="noindex">`.
+- `/projects/[category]/[slug].astro` and `Works.astro` read from `src/lib/projects.ts` (central project data with image imports).
+- The reCAPTCHA badge is hidden via CSS (`.grecaptcha-badge { visibility: hidden }`).

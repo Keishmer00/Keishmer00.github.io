@@ -1,0 +1,463 @@
+---
+export interface Props {
+  text: string;
+  color?: string;
+  fontFamily?: string;
+  fontWeight?: number;
+  fontStyle?: string;
+  fontSize?: number;
+  colorSplit?: boolean;
+  customColors?: string[];
+  force?: number;
+  class?: string;
+}
+
+const {
+  text,
+  color = "#c6d2d4",
+  fontFamily = "Unbounded",
+  fontWeight = 700,
+  fontStyle = "normal",
+  fontSize = 48,
+  colorSplit = true,
+  customColors = ["#FF6B6B", "#67A6D8"],
+  force = 17,
+  class: className = "",
+} = Astro.props;
+
+const customColorsStr = JSON.stringify(customColors);
+---
+
+<div
+  class={`mesh-text-wrapper relative w-full overflow-hidden ${className}`}
+  style="user-select: none;"
+>
+  <canvas
+    class="mesh-text-canvas block w-full"
+    data-text={text}
+    data-color={color}
+    data-font-family={fontFamily}
+    data-font-weight={fontWeight}
+    data-font-style={fontStyle}
+    data-font-size={fontSize}
+    data-color-split={colorSplit}
+    data-custom-colors={customColorsStr}
+    data-force={force}
+  ></canvas>
+</div>
+
+<script>
+(function () {
+  if (typeof WebGL2RenderingContext === "undefined") return;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".mesh-text-canvas").forEach(initMeshText);
+  });
+
+  function parseColor(v) {
+    if (typeof v !== "string") return [1, 1, 1];
+    var s = v.trim();
+    if (s.startsWith("#")) {
+      var h = s.slice(1);
+      if (h.length === 3)
+        h = h
+          .split("")
+          .map(function (c) {
+            return c + c;
+          })
+          .join("");
+      if (h.length >= 6) {
+        var r = parseInt(h.slice(0, 2), 16) / 255;
+        var g = parseInt(h.slice(2, 4), 16) / 255;
+        var b = parseInt(h.slice(4, 6), 16) / 255;
+        if (isFinite(r) && isFinite(g) && isFinite(b)) return [r, g, b];
+      }
+    }
+    var m = s.match(/rgba?\s*\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/i);
+    if (m) {
+      return [
+        parseInt(m[1], 10) / 255,
+        parseInt(m[2], 10) / 255,
+        parseInt(m[3], 10) / 255,
+      ];
+    }
+    return [1, 1, 1];
+  }
+
+  function compile(gl, type, src) {
+    var sh = gl.createShader(type);
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+      gl.deleteShader(sh);
+      return null;
+    }
+    return sh;
+  }
+
+  function linkProgram(gl, vs, fs) {
+    var p = gl.createProgram();
+    gl.attachShader(p, vs);
+    gl.attachShader(p, fs);
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
+      gl.deleteProgram(p);
+      return null;
+    }
+    return p;
+  }
+
+  function initMeshText(canvas) {
+    var gl = canvas.getContext("webgl2", {
+      alpha: true,
+      premultipliedAlpha: true,
+      antialias: true,
+    });
+    if (!gl) return;
+
+    var wrapper = canvas.parentElement;
+
+    var text = canvas.dataset.text || "MESH";
+    var color = canvas.dataset.color || "#ffffff";
+    var fontFamily = canvas.dataset.fontFamily || "Unbounded";
+    var fontWeight = parseInt(canvas.dataset.fontWeight) || 700;
+    var fontStyle = canvas.dataset.fontStyle || "normal";
+    var fontSize = parseInt(canvas.dataset.fontSize) || 48;
+    var colorSplit = canvas.dataset.colorSplit !== "false";
+    var customColorsRaw = canvas.dataset.customColors;
+    var customColors = [];
+    try {
+      customColors = JSON.parse(customColorsRaw);
+    } catch (e) {
+      customColors = ["#FF6B6B", "#67A6D8"];
+    }
+    var parsedColors = customColors.map(parseColor);
+    var force = parseFloat(canvas.dataset.force) || 18;
+
+    var GRID_W = 96;
+    var GRID_H = 40;
+    var DRAG = force / 10;
+    var SPRING_K = 0.08;
+    var DAMPING = 0.9;
+    var DT = 0.1;
+    var CHROMA = 0.005;
+
+    function getFontSize(cssWidth) {
+      var base = Math.round(cssWidth * 0.08);
+      return Math.max(28, Math.min(65, base));
+    }
+
+    var vertCount = (GRID_W + 1) * (GRID_H + 1);
+    var positions = new Float32Array(vertCount * 2);
+    var uvs = new Float32Array(vertCount * 2);
+    for (var y = 0; y <= GRID_H; y++) {
+      for (var x = 0; x <= GRID_W; x++) {
+        var i = y * (GRID_W + 1) + x;
+        var u = x / GRID_W;
+        var v = y / GRID_H;
+        positions[i * 2] = u * 2 - 1;
+        positions[i * 2 + 1] = 1 - v * 2;
+        uvs[i * 2] = u;
+        uvs[i * 2 + 1] = v;
+      }
+    }
+    var indexCount = GRID_W * GRID_H * 6;
+    var indices = new Uint32Array(indexCount);
+    var idx = 0;
+    for (var y = 0; y < GRID_H; y++) {
+      for (var x = 0; x < GRID_W; x++) {
+        var a = y * (GRID_W + 1) + x;
+        var b = a + 1;
+        var c = a + (GRID_W + 1);
+        var d = c + 1;
+        indices[idx++] = a;
+        indices[idx++] = c;
+        indices[idx++] = b;
+        indices[idx++] = b;
+        indices[idx++] = c;
+        indices[idx++] = d;
+      }
+    }
+
+    var disp = new Float32Array(vertCount * 2);
+    var vel = new Float32Array(vertCount * 2);
+
+    var VERT_SRC =
+      "#version 300 es\n" +
+      "in vec2 aPos;\n" +
+      "in vec2 aUv;\n" +
+      "in vec2 aDisp;\n" +
+      "out vec2 vUv;\n" +
+      "out float vMag;\n" +
+      "void main() {\n" +
+      "    gl_Position = vec4(aPos + aDisp, 0.0, 1.0);\n" +
+      "    vUv = aUv;\n" +
+      "    vMag = length(aDisp);\n" +
+      "}";
+
+    var FRAG_SRC =
+      "#version 300 es\n" +
+      "precision highp float;\n" +
+      "in vec2 vUv;\n" +
+      "in float vMag;\n" +
+      "out vec4 outColor;\n" +
+      "uniform sampler2D uTex;\n" +
+      "uniform float uChroma;\n" +
+      "uniform vec3 uColorA;\n" +
+      "uniform vec3 uColorB;\n" +
+      "void main() {\n" +
+      "    vec4 base = texture(uTex, vUv);\n" +
+      "    if (uChroma > 0.0) {\n" +
+      "        float o = uChroma * " +
+      CHROMA.toFixed(5) +
+      " * clamp(vMag * 8.0, 0.0, 1.0);\n" +
+      "        float aOff = texture(uTex, vUv + vec2(o, 0.0)).a;\n" +
+      "        float bOff = texture(uTex, vUv - vec2(o, 0.0)).a;\n" +
+      "        vec3 col = base.rgb * base.a;\n" +
+      "        col += uColorA * max(0.0, aOff - base.a);\n" +
+      "        col += uColorB * max(0.0, bOff - base.a);\n" +
+      "        float aMax = max(base.a, max(aOff, bOff));\n" +
+      "        outColor = vec4(col, aMax);\n" +
+      "    } else {\n" +
+      "        outColor = base;\n" +
+      "    }\n" +
+      "}";
+
+    var vs = compile(gl, gl.VERTEX_SHADER, VERT_SRC);
+    var fs = compile(gl, gl.FRAGMENT_SHADER, FRAG_SRC);
+    if (!vs || !fs) return;
+    var program = linkProgram(gl, vs, fs);
+    if (!program) return;
+
+    var aPos = gl.getAttribLocation(program, "aPos");
+    var aUv = gl.getAttribLocation(program, "aUv");
+    var aDisp = gl.getAttribLocation(program, "aDisp");
+    var uTex = gl.getUniformLocation(program, "uTex");
+    var uChroma = gl.getUniformLocation(program, "uChroma");
+    var uColorA = gl.getUniformLocation(program, "uColorA");
+    var uColorB = gl.getUniformLocation(program, "uColorB");
+
+    var vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+
+    var posBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    var uvBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, uvBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, uvs, gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(aUv);
+    gl.vertexAttribPointer(aUv, 2, gl.FLOAT, false, 0, 0);
+
+    var dispBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, dispBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, disp, gl.DYNAMIC_DRAW);
+    gl.enableVertexAttribArray(aDisp);
+    gl.vertexAttribPointer(aDisp, 2, gl.FLOAT, false, 0, 0);
+
+    var idxBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, idxBuf);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indices, gl.STATIC_DRAW);
+
+    var tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+    function renderTextToCanvas(w, h) {
+      var c = document.createElement("canvas");
+      c.width = Math.max(2, w);
+      c.height = Math.max(2, h);
+      var ctx = c.getContext("2d");
+      if (!ctx) return c;
+      ctx.clearRect(0, 0, c.width, c.height);
+      ctx.fillStyle = color;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      var dpr = window.devicePixelRatio || 1;
+      var rFs = getFontSize(Math.round(w / dpr));
+      var ctxFs = rFs * dpr;
+      ctx.font =
+        fontStyle +
+        " " +
+        fontWeight +
+        " " +
+        ctxFs +
+        "px " +
+        fontFamily +
+        ", sans-serif";
+      ctx.fillText(text, c.width / 2, c.height / 2);
+      return c;
+    }
+
+    async function rebuildTex(w, h) {
+      var dpr = window.devicePixelRatio || 1;
+      var rFs = getFontSize(Math.round(w / dpr));
+      var fs = rFs * dpr;
+      var fontStr =
+        fontStyle + " " + fontWeight + " " + fs + "px " + fontFamily;
+      try {
+        if (document.fonts && document.fonts.load) {
+          await document.fonts.load(fontStr);
+        }
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
+      } catch (e) {}
+      var c2 = renderTextToCanvas(w, h);
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, c2);
+    }
+
+    function resize() {
+      var dpr = window.devicePixelRatio || 1;
+      var rect = wrapper.getBoundingClientRect();
+      var w = Math.max(2, Math.round(rect.width * dpr));
+      var rFs = getFontSize(rect.width);
+      var textH = Math.round(rFs * 1.4);
+      var h = Math.max(2, Math.round(textH * dpr));
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+        canvas.style.height = textH + "px";
+        gl.viewport(0, 0, w, h);
+        rebuildTex(w, h);
+      }
+    }
+
+    var ro = new ResizeObserver(function () {
+      resize();
+    });
+    ro.observe(wrapper);
+    resize();
+
+    var cursor = {
+      x: 99,
+      y: 99,
+      px: 99,
+      py: 99,
+      vx: 0,
+      vy: 0,
+      inside: false,
+    };
+
+    function onMove(e) {
+      var rect = canvas.getBoundingClientRect();
+      var nx = (e.clientX - rect.left) / rect.width;
+      var ny = (e.clientY - rect.top) / rect.height;
+      var x = nx * 2 - 1;
+      var y = 1 - ny * 2;
+      if (!cursor.inside) {
+        cursor.px = x;
+        cursor.py = y;
+        cursor.inside = true;
+      }
+      cursor.x = x;
+      cursor.y = y;
+    }
+
+    function onLeave() {
+      cursor.inside = false;
+      cursor.x = 99;
+      cursor.y = 99;
+      cursor.vx = 0;
+      cursor.vy = 0;
+    }
+
+    wrapper.addEventListener("pointermove", onMove);
+    wrapper.addEventListener("pointerleave", onLeave);
+
+    var rafId = 0;
+
+    function tick() {
+      cursor.vx = cursor.x - cursor.px;
+      cursor.vy = cursor.y - cursor.py;
+      var vmag = Math.hypot(cursor.vx, cursor.vy);
+      if (vmag > 0.3) {
+        cursor.vx = 0;
+        cursor.vy = 0;
+      }
+      cursor.px = cursor.x;
+      cursor.py = cursor.y;
+
+      for (var i = 0; i < vertCount; i++) {
+        var i2 = i * 2;
+        var px = positions[i2];
+        var py = positions[i2 + 1];
+        var dx = disp[i2];
+        var dy = disp[i2 + 1];
+
+        var cx = cursor.x - (px + dx);
+        var cy = cursor.y - (py + dy);
+        var cd = Math.hypot(cx, cy);
+        var proximity = Math.max(0, 1 / (1 + cd / 0.05) - 0.1);
+
+        var vx = vel[i2];
+        var vy = vel[i2 + 1];
+
+        vx += cursor.vx * DRAG * proximity;
+        vy += cursor.vy * DRAG * proximity;
+
+        vx -= dx * SPRING_K;
+        vy -= dy * SPRING_K;
+
+        vx *= DAMPING;
+        vy *= DAMPING;
+
+        vel[i2] = vx;
+        vel[i2 + 1] = vy;
+
+        var ndx = dx + vx * DT;
+        var ndy = dy + vy * DT;
+        if (ndx > 1) ndx = 1;
+        else if (ndx < -1) ndx = -1;
+        if (ndy > 1) ndy = 1;
+        else if (ndy < -1) ndy = -1;
+        disp[i2] = ndx;
+        disp[i2 + 1] = ndy;
+      }
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, dispBuf);
+      gl.bufferSubData(gl.ARRAY_BUFFER, 0, disp);
+
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      gl.useProgram(program);
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.uniform1i(uTex, 0);
+      gl.uniform1f(uChroma, colorSplit ? 1.0 : 0.0);
+
+      var cA = [1, 0, 0];
+      var cB = [0, 0, 1];
+      if (parsedColors.length === 1) {
+        cA = parsedColors[0];
+        cB = parsedColors[0];
+      } else if (parsedColors.length > 1) {
+        var cycleMs = 400;
+        var cIdx = Math.floor(performance.now() / cycleMs) % parsedColors.length;
+        cA = parsedColors[cIdx];
+        cB = parsedColors[(cIdx + 1) % parsedColors.length];
+      }
+      gl.uniform3f(uColorA, cA[0], cA[1], cA[2]);
+      gl.uniform3f(uColorB, cB[0], cB[1], cB[2]);
+
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+      gl.bindVertexArray(vao);
+      gl.drawElements(gl.TRIANGLES, indexCount, gl.UNSIGNED_INT, 0);
+
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+})();
+</script>

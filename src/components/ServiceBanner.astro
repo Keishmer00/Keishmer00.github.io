@@ -1,57 +1,100 @@
 ---
-const servicesList = [
-  "Photography",
-  "Video",
-  "Branding",
-  "UX/UI",
-  "Web Development",
-  "Social Media",
-  "SEO",
-  "Content Creation",
-  "Email Marketing",
-  "Marketing Strategy",
-  "Analytics",
-  "Consulting & Growth",
+interface ServiceItem { text: string }
+interface SeparatorItem { type: "separator"; id: string }
+type MarqueeItem = ServiceItem | SeparatorItem;
 
+const serviceItems: MarqueeItem[] = [
+  { type: "separator", id: "icons" },
+  { type: "separator", id: "icons5" },
+  { text: "Photography" },
+  { text: "Video" },
+  { text: "Branding" },
+  { type: "separator", id: "icons2" },
+  { text: "UX/UI" },
+  { text: "Web Development" },
+  { text: "Social Media" },
+  { type: "separator", id: "icons3" },
+  { text: "SEO" },
+  { text: "Content Creation" },
+  { text: "Email Marketing" },
+  { type: "separator", id: "icons4" },
+  { text: "Marketing Strategy" },
+  { text: "Analytics" },
+  { text: "Consulting & Growth" },
+  { type: "separator", id: "icons5" },
 ];
 ---
 
 <section
   id="service-banner"
-  class="relative w-full overflow-hidden bg-black select-none"
+  class="relative w-full bg-black overflow-hidden  select-none"
 >
   <!-- Subtle top edge -->
   <div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent"></div>
 
   <div class="relative flex py-3 md:py-4">
     <!-- Edge fade masks -->
-    <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-linear-to-r from-transparent to-transparent"></div>
-    <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-linear-to-l from-transparent to-transparent"></div>
+    <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-linear-to-r from-brand-tertiary to-transparent"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-linear-to-l from-brand-tertiary to-transparent"></div>
 
     <div class="marquee-track flex shrink-0 items-center gap-0 whitespace-nowrap will-change-transform">
       {[0, 1].map((_) => (
-        <span class="flex items-center gap-0">
-          <span class="inline-flex items-center gap-5 md:gap-8 mx-5 md:mx-8">
-            <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-300 shrink-0" viewBox="0 0 16 16" fill="currentColor">
-              <circle cx="8" cy="8" r="2.5" />
-            </svg>
-          </span>
-          {servicesList.map((service, i) => (
-            <span class="inline-flex items-center gap-5 md:gap-8 mx-5 md:mx-8">
-              <span class="font-unbounded text-[10px] md:text-xs lg:text-sm uppercase tracking-wider text-white font-medium">{service}</span>
-              {i < servicesList.length - 1 && (
-                <svg class="w-3 h-3 md:w-4 md:h-4 text-primary/60 shrink-0" viewBox="0 0 16 16" fill="currentColor">
-                  <circle cx="8" cy="8" r="2.5" />
-                </svg>
-              )}
-            </span>
-          ))}
-          <span class="inline-flex items-center gap-5 md:gap-8 mx-5 md:mx-8">
-            <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-200 shrink-0" viewBox="0 0 16 16" fill="currentColor">
-              <circle cx="8" cy="8" r="2.5" />
-            </svg> 
-            <a href="/projects" class="flex items-center gap-2 font-unbounded text-xs md:text-sm lg:text-base uppercase tracking-[0.2em] text-primary hover:text-white transition-colors duration-300">Explore Projects <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="m576-288-51-51 105-105H192v-72h438L525-621l51-51 192 192-192 192Z"/></svg></a>
-          </span>
+        <span class="flex items-center gap-3 md:gap-5">
+          {serviceItems.map((item, i) => {
+            if ("type" in item) {
+              if (item.id === "icons") {
+                return (
+                  <span class="inline-flex items-center gap-2 md:gap-5 px-4 bg-gray-400 p-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c6d2d4"><path d="M240-280 40-480l200-200 56 56-143 144 143 144-56 56Zm178 132-76-24 200-640 76 24-200 640Zm302-132-56-56 143-144-143-144 56-56 200 200-200 200Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c6d2d4"><path d="m352-522 86-87-56-57-44 44-56-56 43-44-45-45-87 87 159-158Zm328 329 87-87-45-45-44 43-56-56 43-44-57-56-86 86 158-159Zm24-567 57 57-57-57ZM290-120H120v-170l175-175L80-680l200-200 216 216 151-152q12-12 27-18t31-6q16 0 31 6t27 18l53 54q12 12 18 27t6 31q0 16-6 30.5T816-647L665-495l215 215L680-80 465-295 290-120Zm-90-80h56l392-391-57-57-391 392v56Zm420-419-29-29 57 57-28-28Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c6d2d4"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
+                  </span>
+                );
+              }
+              if (item.id === "icons2") {
+                return (
+                  <span class="inline-flex items-center gap-2 md:gap-5 px-4 bg-gray-400 p-2 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c6d2d4"><path d="M508-200h224q-7 26-24 42t-44 20L228-85q-33 5-59.5-15.5T138-154L85-591q-4-33 16-59t53-30l46-6v80l-36 5 54 437 290-36Zm-148-80q-33 0-56.5-23.5T280-360v-440q0-33 23.5-56.5T360-880h440q33 0 56.5 23.5T880-800v440q0 33-23.5 56.5T800-280H360Zm0-80h440v-440H360v440Zm220-220ZM218-164Zm363-236q68 0 115.5-47T749-560q-68 0-116.5 47T581-400Zm0 0q-3-66-51.5-113T413-560q5 66 52.5 113T581-400Zm0-120q17 0 28.5-11.5T621-560v-10l10 4q15 6 30.5 3t23.5-17q9-15 6-32t-20-24l-10-4 10-4q17-7 19.5-24.5T685-700q-9-15-24-17.5t-30 3.5l-10 4v-10q0-17-11.5-28.5T581-760q-17 0-28.5 11.5T541-720v10l-10-4q-15-6-30-3.5T477-700q-8 14-5.5 31.5T491-644l10 4-10 4q-17 7-20 24t6 32q8 14 23.5 17t30.5-3l10-4v10q0 17 11.5 28.5T581-520Zm0-80q-17 0-28.5-11.5T541-640q0-17 11.5-28.5T581-680q17 0 28.5 11.5T621-640q0 17-11.5 28.5T581-600Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c6d2d4"><path d="M320-280v-23q0-44 44-70.5T480-400q72 0 116 26.5t44 70.5v23H320Zm103.5-183.5Q400-487 400-520t23.5-56.5Q447-600 480-600t56.5 23.5Q560-553 560-520t-23.5 56.5Q513-440 480-440t-56.5-23.5ZM120-592v306q14 13 34 22.5t46 14.5v-317q-22-5-42.5-11.5T120-592Zm720-1q-17 8-37 14.5T760-567v318q26-5 46-14.5t34-22.5v-307ZM280-154q-115-14-177.5-47T40-280v-400q0-57 113.5-88T480-799q213 0 326.5 31T920-680v400q0 46-62.5 79T680-154v-480q51-8 90.5-19.5T827-676q-43-17-147-30.5T480-720q-96 0-200 13.5T133-676q17 12 56.5 23t90.5 19v480ZM120-592v343-343Zm720-1v344-344Z"/></svg>
+                  </span>
+                );
+              }
+              if (item.id === "icons3") {
+                return (
+                  <span class="inline-flex items-center gap-2 md:gap-5 px-4 bg-gray-400 p-2 rounded-lg">
+                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c6d2d4"><path d="M200-40q-33 0-56.5-23.5T120-120v-40h80v40h560v-40h80v40q0 33-23.5 56.5T760-40H200Zm-40-200q-33 0-56.5-23.5T80-320v-320q0-33 23.5-56.5T160-720h640q33 0 56.5 23.5T880-640v320q0 33-23.5 56.5T800-240H160Zm-40-560v-40q0-33 23.5-56.5T200-920h560q33 0 56.5 23.5T840-840v40h-80v-40H200v40h-80Zm40 480h640v-320H160v320Zm320-160Zm-80 120 200-120-200-120v240Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c6d2d4"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h480q33 0 56.5 23.5T720-720v180l160-160v440L720-420v180q0 33-23.5 56.5T640-160H160Zm0-80h480v-480H160v480Zm0 0v-480 480Z"/></svg>
+                  </span>
+                );
+              }
+              if (item.id === "icons4") {
+                return (
+                  <span class="inline-flex items-center gap-1 px-4 py-2 bg-black rounded-full border border-gray-300">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c6d2d4"><path d="M186-80q-54 0-80-22t-26-66q0-58 49-74t116-16h21v-56q0-34-1-55.5t-6-35.5q-5-14-11.5-19.5T230-430q-9 0-16.5 3t-12.5 8q-4 5-5 10.5t1 11.5q6 11 14 21.5t8 24.5q0 25-17.5 42.5T159-291q-25 0-42.5-17.5T99-351q0-27 12-44t32.5-27q20.5-10 47.5-14t58-4q85 0 118 30.5T400-302v147q0 19 4.5 28t15.5 9q12 0 19.5-18t9.5-56h11q-3 62-23.5 87T368-80q-43 0-67.5-13.5T269-134q-10 29-29.5 41.5T186-80Zm373 0q-20 0-32.5-16.5T522-132l102-269q7-17 22-28t34-11q19 0 34 11t22 28l102 269q8 19-4.5 35.5T801-80q-12 0-22-7t-15-19l-20-58H616l-20 58q-4 11-14 18.5T559-80Zm-324-29q13 0 22-20.5t9-49.5v-67q-26 0-38 15.5T216-180v11q0 36 4 48t15 12Zm407-125h77l-39-114-38 114Zm-37-285q-48 0-76.5-33.5T500-643q0-104 66-170.5T735-880q42 0 68 9.5t26 24.5q0 6-2 12t-7 11q-5 7-12.5 10t-15.5 1q-14-4-32-7t-33-3q-71 0-114 48t-43 127q0 22 8 46t36 24q11 0 21.5-5t18.5-14q17-18 31.5-60T712-758q2-13 10.5-18.5T746-782q18 0 27.5 9.5T779-749q-12 43-17.5 75t-5.5 58q0 20 5.5 29t16.5 9q11 0 21.5-8t29.5-30q2-3 15-7 8 0 12 6t4 17q0 28-32 54t-67 26q-26 0-44.5-14T691-574q-15 26-37 40.5T605-519Zm-485-1v-220q0-58 41-99t99-41q58 0 99 41t41 99v220h-80v-80H200v80h-80Zm80-160h120v-60q0-25-17.5-42.5T260-800q-25 0-42.5 17.5T200-740v60Z"/></svg>
+                  </span>
+                );
+              }
+              if (item.id === "icons5") {
+                return (
+                  <span class="inline-flex items-center gap-1.5 mx-3 md:mx-5">
+                    <span class="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-gray-300"></span>
+                    <span class="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-gray-300"></span>
+                    <span class="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-gray-300"></span>
+                  </span>
+                );
+              }
+              return null;
+            }
+            return (
+              <span class="inline-flex items-center gap-3 md:gap-4">
+                <span class="text-[10px] md:text-xs lg:text-sm uppercase font-mono tracking-wider text-gray-200 font-medium">{item.text}</span>
+                {i < serviceItems.length - 1 && (
+                  <svg class="h-3 w-3 lg:h-4 lg:w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#3a3a3a"><path d="M440-80v-800h80v800h-80Zm160-200v-400h120v400H600Zm-360 0v-400h120v400H240Z"/></svg>
+                )}
+              </span>
+            );
+          })}
         </span>
       ))}
     </div>
@@ -68,7 +111,11 @@ const servicesList = [
   }
 
   .marquee-track {
-    animation: marquee 25s linear infinite;
+    animation: marquee 50s linear infinite;
+  }
+
+  section:hover .marquee-track {
+    animation-play-state: paused;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -78,24 +125,4 @@ const servicesList = [
   }
 </style>
 
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  const section = document.getElementById("service-banner");
-  if (section) {
-    gsap.from(section, {
-      scrollTrigger: {
-        trigger: section,
-        start: "top 95%",
-        end: "top 70%",
-        scrub: 1.5,
-      },
-      opacity: 1,
-      y: 0,
-      ease: "power2.out",
-    });
-  }
-</script>

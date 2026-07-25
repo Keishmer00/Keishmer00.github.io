@@ -3,16 +3,14 @@ import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../components/Navbar.astro";
 import Breadcrumbs from "../../components/atoms/Breadcrumbs.astro";
 import type { Lang } from "../../i18n/index";
-import Selfie from "../../assets/images/selfie.jpg"; 
+import Selfie from "../../assets/images/selfie.jpg";
 import { useTranslations } from "../../i18n/index";
+import Footer from "../../components/Footer.astro";
 
 export const prerender = true;
 
 export function getStaticPaths() {
-  return [
-    { params: { lang: undefined } },
-    { params: { lang: "es" } },
-  ];
+  return [{ params: { lang: undefined } }, { params: { lang: "es" } }];
 }
 
 const { lang = "en" } = Astro.params as { lang?: Lang };
@@ -24,17 +22,23 @@ const { t } = useTranslations(lang);
   <Navbar lang={lang} pathname={pathname} />
   <Breadcrumbs
     items={[
-      { label: t("projects.breadcrumbHome"), href: lang === "en" ? "/" : "/es/" },
+      {
+        label: t("projects.breadcrumbHome"),
+        href: lang === "en" ? "/" : "/es/",
+      },
       { label: t("aboutMe.breadcrumb") },
     ]}
     light
   />
-  <main class="bg-secondary min-h-screen">
-
+  <main class="bg-black">
     <!-- HERO SECTION -->
-    <section class="flex flex-col items-center px-6 pt-44 pb-16 max-w-6xl mx-auto">
-      <div class="flex flex-col lg:flex-row gap-12 items-center lg:items-start w-full">
-        <div class="shrink-0">
+    <section
+      class="flex flex-col items-center px-6 md:px-12 lg:px-0 pt-44 pb-8 max-w-7xl mx-auto"
+    >
+      <div
+        class="flex flex-col lg:flex-row gap-6 lg:gap-none lg:justify-between items-center  w-full"
+      >
+        <div class="w-fit">
           <img
             src={Selfie.src}
             alt={t("aboutMe.imageAlt")}
@@ -42,200 +46,361 @@ const { t } = useTranslations(lang);
           />
         </div>
 
-        <div class="flex flex-col gap-6 text-white">
+        <div class="flex flex-col w-full max-w-4xl gap-6 text-white">
           <div class="flex flex-col gap-2">
-            <p class="font-mono text-xs uppercase text-gray-400 tracking-widest">
+            <p
+              class="font-mono text-xs text-center lg:text-left md:text-base lg:text-lg uppercase text-gray-300 tracking-widest"
+            >
               {t("aboutMe.role")}
             </p>
-            <p class="font-mono text-sm text-primary/80 flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-              {t("aboutMe.location")}
-            </p>
           </div>
-          <h1 class="font-unbounded text-3xl lg:text-4xl xl:text-5xl">
+          <h1 class="font-unbounded text-center lg:text-left text-xl lg:text-3xl">
             {t("aboutMe.title")}
           </h1>
-          <p class="font-mono text-xl lg:text-2xl text-gray-200 leading-relaxed max-w-2xl">
+          <p
+            class="font-mono text-xl lg:text-2xl text-gray-200 leading-relaxed "
+          >
             {t("aboutMe.intro")}
           </p>
         </div>
       </div>
     </section>
-
+    <!-- SKILLS GRID -->
+    <section class="flex flex-col items-center px-6 md:px-12 lg:py-16 lg:px-0 pb-8 max-w-7xl mx-auto">
+      <h2
+        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8 "
+      >
+        {t("aboutMe.skillsTitle")}
+      </h2>
+      <div class="flex flex-wrap justify-center items-center gap-1.5 lg:gap-5 w-full">
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillAI")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillUX")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillProduct")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillBranding")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillFrontend")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillSEO")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillFigma")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillMobile")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillMarketing")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillReact")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillHTML")}</span
+        >
+        <span
+          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
+          >{t("aboutMe.skillCyber")}</span
+        >
+      </div>
+    </section>
+    
     <!-- PROFESSIONAL SUMMARY -->
-    <section class="flex flex-col items-center px-6 pb-20 max-w-4xl mx-auto">
+    <section class="flex flex-col items-center px-6 lg:px-0 pb-8 max-w-7xl mx-auto">
       <p class="font-mono text-base lg:text-lg text-gray-300 leading-relaxed">
         {t("aboutMe.professionalSummary")}
       </p>
     </section>
 
-    <!-- SKILLS GRID -->
-    <section class="flex flex-col items-center px-6 pb-20 max-w-6xl mx-auto">
-      <h2 class="font-unbounded text-xl lg:text-2xl text-white text-center mb-10 uppercase tracking-wide">
-        {t("aboutMe.skillsTitle")}
-      </h2>
-      <div class="flex flex-wrap justify-center gap-3 w-full">
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillAI")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillUX")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillProduct")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillBranding")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillFrontend")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillSEO")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillFigma")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillMobile")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillMarketing")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillReact")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillHTML")}</span>
-        <span class="px-5 py-2.5 border border-gray-600 rounded-full text-sm font-mono text-gray-200 bg-black/30 hover:border-primary hover:text-primary transition-colors duration-300">{t("aboutMe.skillCyber")}</span>
-      </div>
-    </section>
 
     <!-- WORK EXPERIENCE -->
-    <section class="flex flex-col items-center px-6 pb-20 max-w-6xl mx-auto">
-      <h2 class="font-unbounded text-xl lg:text-2xl text-white text-center mb-10 uppercase tracking-wide">
+    <section class="flex flex-col items-center px-6 pb-8 lg:py-16  max-w-6xl mx-auto">
+      <h2
+        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8 "
+      >
         {t("aboutMe.experienceTitle")}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-        <div class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
+        <div
+          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
           <div class="flex flex-col gap-1">
-            <span class="text-primary font-unbounded text-base lg:text-lg">{t("aboutMe.exp1Role")}</span>
-            <span class="font-mono text-sm text-gray-400">{t("aboutMe.exp1Company")}</span>
-            <span class="font-mono text-xs text-gray-500">{t("aboutMe.exp1Period")}</span>
+            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+              >{t("aboutMe.exp1Role")}</span
+            >
+            <span class="font-mono text-sm text-gray-400"
+              >{t("aboutMe.exp1Company")}</span
+            >
+            <span class="font-mono text-xs text-gray-500"
+              >{t("aboutMe.exp1Period")}</span
+            >
           </div>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">{t("aboutMe.exp1Desc")}</p>
+          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+            {t("aboutMe.exp1Desc")}
+          </p>
         </div>
-        <div class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
+        <div
+          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
           <div class="flex flex-col gap-1">
-            <span class="text-primary font-unbounded text-base lg:text-lg">{t("aboutMe.exp2Role")}</span>
-            <span class="font-mono text-sm text-gray-400">{t("aboutMe.exp2Company")}</span>
-            <span class="font-mono text-xs text-gray-500">{t("aboutMe.exp2Period")}</span>
+            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+              >{t("aboutMe.exp2Role")}</span
+            >
+            <span class="font-mono text-sm text-gray-400"
+              >{t("aboutMe.exp2Company")}</span
+            >
+            <span class="font-mono text-xs text-gray-500"
+              >{t("aboutMe.exp2Period")}</span
+            >
           </div>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">{t("aboutMe.exp2Desc")}</p>
+          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+            {t("aboutMe.exp2Desc")}
+          </p>
         </div>
-        <div class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
+        <div
+          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
           <div class="flex flex-col gap-1">
-            <span class="text-primary font-unbounded text-base lg:text-lg">{t("aboutMe.exp3Role")}</span>
-            <span class="font-mono text-sm text-gray-400">{t("aboutMe.exp3Company")}</span>
-            <span class="font-mono text-xs text-gray-500">{t("aboutMe.exp3Period")}</span>
+            <span class="text-gray-300 font-unbounded text-smlg:text-lg"
+              >{t("aboutMe.exp3Role")}</span
+            >
+            <span class="font-mono text-sm text-gray-400"
+              >{t("aboutMe.exp3Company")}</span
+            >
+            <span class="font-mono text-xs text-gray-500"
+              >{t("aboutMe.exp3Period")}</span
+            >
           </div>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">{t("aboutMe.exp3Desc")}</p>
+          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+            {t("aboutMe.exp3Desc")}
+          </p>
         </div>
-        <div class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
+        <div
+          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
           <div class="flex flex-col gap-1">
-            <span class="text-primary font-unbounded text-base lg:text-lg">{t("aboutMe.exp4Role")}</span>
-            <span class="font-mono text-sm text-gray-400">{t("aboutMe.exp4Company")}</span>
-            <span class="font-mono text-xs text-gray-500">{t("aboutMe.exp4Period")}</span>
+            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+              >{t("aboutMe.exp4Role")}</span
+            >
+            <span class="font-mono text-sm text-gray-400"
+              >{t("aboutMe.exp4Company")}</span
+            >
+            <span class="font-mono text-xs text-gray-500"
+              >{t("aboutMe.exp4Period")}</span
+            >
           </div>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">{t("aboutMe.exp4Desc")}</p>
+          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+            {t("aboutMe.exp4Desc")}
+          </p>
         </div>
       </div>
     </section>
 
     <!-- EDUCATION -->
-    <section class="flex flex-col items-center px-6 pb-20 max-w-6xl mx-auto">
-      <h2 class="font-unbounded text-xl lg:text-2xl text-white text-center mb-10 uppercase tracking-wide">
+    <section class="flex flex-col items-center px-6 pb-8 lg:py-16 max-w-6xl mx-auto">
+      <h2
+        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8"
+      >
         {t("aboutMe.educationTitle")}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-        <div class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
+        <div
+          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
           <div class="flex flex-col gap-1">
-            <span class="text-primary font-unbounded text-base">{t("aboutMe.edu1Degree")}</span>
-            <span class="font-mono text-sm text-gray-400">{t("aboutMe.edu1School")}</span>
-            <span class="font-mono text-xs text-gray-500">{t("aboutMe.edu1Period")}</span>
+            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+              >{t("aboutMe.edu1Degree")}</span
+            >
+            <span class="font-mono text-sm text-gray-400"
+              >{t("aboutMe.edu1School")}</span
+            >
+            <span class="font-mono text-xs text-gray-500"
+              >{t("aboutMe.edu1Period")}</span
+            >
           </div>
         </div>
-        <div class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
+        <div
+          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
           <div class="flex flex-col gap-1">
-            <span class="text-primary font-unbounded text-base">{t("aboutMe.edu2Degree")}</span>
-            <span class="font-mono text-sm text-gray-400">{t("aboutMe.edu2School")}</span>
-            <span class="font-mono text-xs text-gray-500">{t("aboutMe.edu2Period")}</span>
+            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+              >{t("aboutMe.edu2Degree")}</span
+            >
+            <span class="font-mono text-sm text-gray-400"
+              >{t("aboutMe.edu2School")}</span
+            >
+            <span class="font-mono text-xs text-gray-500"
+              >{t("aboutMe.edu2Period")}</span
+            >
           </div>
         </div>
-        <div class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
+        <div
+          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
           <div class="flex flex-col gap-1">
-            <span class="text-primary font-unbounded text-base">{t("aboutMe.edu3Degree")}</span>
-            <span class="font-mono text-sm text-gray-400">{t("aboutMe.edu3School")}</span>
-            <span class="font-mono text-xs text-gray-500">{t("aboutMe.edu3Period")}</span>
+            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+              >{t("aboutMe.edu3Degree")}</span
+            >
+            <span class="font-mono text-sm text-gray-400"
+              >{t("aboutMe.edu3School")}</span
+            >
+            <span class="font-mono text-xs text-gray-500"
+              >{t("aboutMe.edu3Period")}</span
+            >
           </div>
         </div>
       </div>
     </section>
 
     <!-- CERTIFICATIONS -->
-    <section class="flex flex-col items-center px-6 pb-20 max-w-6xl mx-auto">
-      <h2 class="font-unbounded text-xl lg:text-2xl text-white text-center mb-10 uppercase tracking-wide">
+    <section class="flex flex-col items-center px-6 pb-8 lg:py-16 max-w-6xl mx-auto">
+      <h2
+        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8"
+      >
         {t("aboutMe.certificationsTitle")}
       </h2>
-      <p class="font-mono text-sm text-primary text-center mb-8">
-        {t("aboutMe.certCount")}
-      </p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey1")}</span>
+     
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 w-full">
+        <div
+          class="flex items-center gap-3"
+        >
+          <span class="text-gray-200 text-lg">&check;</span>
+          <span class="font-mono text-sm text-gray-300"
+            >{t("aboutMe.certKey1")}</span
+          >
         </div>
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey2")}</span>
+        <div
+          class="flex items-center gap-3"
+        >
+          <span class="text-gray-200 text-lg">&check;</span>
+          <span class="font-mono text-sm text-gray-300"
+            >{t("aboutMe.certKey2")}</span
+          >
         </div>
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey3")}</span>
+        <div
+          class="flex items-center gap-3"
+        >
+          <span class="text-gray-200 text-lg">&check;</span>
+          <span class="font-mono text-sm text-gray-300"
+            >{t("aboutMe.certKey3")}</span
+          >
         </div>
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey4")}</span>
+        <div
+          class="flex items-center gap-3"
+        >
+          <span class="text-gray-200 text-lg">&check;</span>
+          <span class="font-mono text-sm text-gray-300"
+            >{t("aboutMe.certKey4")}</span
+          >
         </div>
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey5")}</span>
+        <div
+          class="flex items-center gap-3"
+        >
+          <span class="text-gray-200 text-lg">&check;</span>
+          <span class="font-mono text-sm text-gray-300"
+            >{t("aboutMe.certKey5")}</span
+          >
         </div>
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey6")}</span>
+        <div
+          class="flex items-center gap-3"
+        >
+          <span class="text-gray-200 text-lg">&check;</span>
+          <span class="font-mono text-sm text-gray-300"
+            >{t("aboutMe.certKey6")}</span
+          >
         </div>
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey7")}</span>
+        <div
+          class="flex items-center gap-3"
+        >
+          <span class="text-gray-200 text-lg">&check;</span>
+          <span class="font-mono text-sm text-gray-300"
+            >{t("aboutMe.certKey7")}</span
+          >
         </div>
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey8")}</span>
+        <div
+          class="flex items-center gap-3"
+        >
+          <span class="text-gray-200 text-lg">&check;</span>
+          <span class="font-mono text-sm text-gray-300"
+            >{t("aboutMe.certKey8")}</span
+          >
         </div>
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey9")}</span>
+        <div
+          class="flex items-center gap-3"
+        >
+          <span class="text-gray-200 text-lg">&check;</span>
+          <span class="font-mono text-sm text-gray-300"
+            >{t("aboutMe.certKey9")}</span
+          >
         </div>
-        <div class="flex items-start gap-3 p-4 border border-gray-600/40 rounded-lg bg-black/20">
-          <span class="text-primary text-lg mt-0.5">&check;</span>
-          <span class="font-mono text-sm text-gray-300">{t("aboutMe.certKey10")}</span>
-        </div>
+       
       </div>
     </section>
 
     <!-- VALUES -->
     <section class="flex flex-col items-center px-6 pb-20 max-w-6xl mx-auto">
-      <h2 class="font-unbounded text-xl lg:text-2xl text-white text-center mb-10 uppercase tracking-wide">
+      <h2
+        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8"
+      >
         {t("aboutMe.valuesTitle")}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-        <div class="flex flex-col gap-3 p-8 border border-gray-500 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
-          <span class="text-primary font-unbounded text-lg">{t("aboutMe.value1")}</span>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">{t("aboutMe.value1Desc")}</p>
+        <div
+          class="flex flex-col gap-3 p-8 border border-gray-500 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
+          <span class="text-gray-200 font-unbounded text-sm lg:text-lg"
+            >{t("aboutMe.value1")}</span
+          >
+          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+            {t("aboutMe.value1Desc")}
+          </p>
         </div>
-        <div class="flex flex-col gap-3 p-8 border border-gray-500 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
-          <span class="text-primary font-unbounded text-lg">{t("aboutMe.value2")}</span>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">{t("aboutMe.value2Desc")}</p>
+        <div
+          class="flex flex-col gap-3 p-8 border border-gray-500 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
+          <span class="text-gray-200 font-unbounded text-sm lg:text-lg"
+            >{t("aboutMe.value2")}</span
+          >
+          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+            {t("aboutMe.value2Desc")}
+          </p>
         </div>
-        <div class="flex flex-col gap-3 p-8 border border-gray-500 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300">
-          <span class="text-primary font-unbounded text-lg">{t("aboutMe.value3")}</span>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">{t("aboutMe.value3Desc")}</p>
+        <div
+          class="flex flex-col gap-3 p-8 border border-gray-500 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+        >
+          <span class="text-gray-200 font-unbounded text-sm lg:text-lg"
+            >{t("aboutMe.value3")}</span
+          >
+          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+            {t("aboutMe.value3Desc")}
+          </p>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="flex flex-col items-center px-6 pb-32 max-w-6xl mx-auto text-center">
+    <section
+      class="flex flex-col items-center px-6 pb-32 max-w-6xl mx-auto text-center"
+    >
       <h2 class="font-unbounded text-2xl lg:text-3xl text-white mb-4">
         {t("aboutMe.cta")}
       </h2>
@@ -244,12 +409,12 @@ const { t } = useTranslations(lang);
       </p>
       <a
         href={lang === "en" ? "/contact/" : "/es/contact/"}
-        class="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-mono text-sm uppercase tracking-wider hover:bg-primary hover:text-white transition-all duration-300 rounded"
+        class="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-mono text-xl uppercase tracking-wider hover:bg-primary hover:text-white transition-all duration-300 rounded"
       >
         {t("nav.contact")}
-        <span aria-hidden="true">&rarr;</span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z"/></svg>
       </a>
     </section>
-
   </main>
+   <Footer lang={lang} pathname={pathname} />
 </Layout>

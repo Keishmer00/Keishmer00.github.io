@@ -2,7 +2,7 @@
 import type { Lang } from "../i18n/index";
 import { useTranslations } from "../i18n/index";
 import CTA from "./CTA.astro";
-import video from "../assets/videos/background.mp4";
+import BlackHoleBG from "./BlackHoleBG.astro";
 
 export interface Props {
   lang: Lang;
@@ -13,10 +13,11 @@ const { t } = useTranslations(lang);
 ---
 
 <header
-  class="flex flex-col justify-between p-4 pb-8 md:pb-8 pt-44 items-center h-svh lg:h-screen bg-radial from-black/85 via-black/97 to-black"
+  class="flex flex-col justify-between p-4 pb-8 md:pb-8 pt-32 items-center h-svh lg:h-screen relative overflow-hidden"
 >
-  <section class="flex flex-col justify-center items-center gap-2 md:gap-4">
+  <section class="flex flex-col justify-center items-center gap-2 md:gap-4 relative z-10">
     <span
+      data-anim="badge"
       class="hidden md:flex text-center max-w-72 md:max-w-none items-center gap-2 px-4 py-1 text-sm md:text-base font-mono uppercase text-white"
     >
       <div class="hidden md:block w-2 h-2 rounded-full bg-primary"></div>
@@ -24,21 +25,26 @@ const { t } = useTranslations(lang);
     </span>
 
     <p
-      class="lg:text-6xl text-transparent bg-clip-text bg-linear-to-r from-white/70 via-white to-white/70 text-center font-extrabold font-unbounded w-full text-3xl uppercase"
+      data-anim="name"
+      class="lg:text-8xl text-transparent bg-clip-text bg-linear-to-r from-white/80 via-white to-white/80 text-center font-extrabold font-unbounded w-full text-3xl uppercase"
     >
       {t("hero.name")}
     </p>
     <h1
-      class="text-white text-base md:text-lg font-mono text-center w-full max-w-3xl px-4"
+      data-anim="subtitle"
+      class="text-white text-base md:text-lg lg:text-xl font-mono text-center w-full max-w-4xl px-4"
     >
       {t("hero.subtitle")}
     </h1>
 
-    <CTA lang={lang} />
+    <div data-anim="cta">
+      <CTA lang={lang} />
+    </div>
   </section>
 
-  <div class="flex w-full justify-between px-4 self-end text-white">
+    <div class="flex w-full justify-between px-4 self-end text-white relative z-10">
     <div
+      data-anim="roles"
       class="flex flex-col w-full md:w-auto items-center gap-2 md:items-start text-left"
     >
       <p class="font-mono text-lg uppercase text-gray-300">
@@ -50,7 +56,7 @@ const { t } = useTranslations(lang);
         <p>{t("hero.roleProductDesigner")}</p>
       </div>
     </div>
-    <div class="hidden md:flex flex-col gap-2 items-end text-right">
+    <div data-anim="expertise" class="hidden md:flex flex-col gap-2 items-end text-right">
       <p class="font-mono text-lg uppercase text-gray-300">
         {t("hero.expertise")}
       </p>
@@ -62,13 +68,121 @@ const { t } = useTranslations(lang);
     </div>
   </div>
 
-  <video
-    autoplay
-    muted
-    loop
-    playsinline
-    class="absolute -z-10 w-full h-full object-cover inset-0"
-  >
-    <source src={video} type="video/mp4" />
-  </video>
+  <BlackHoleBG  />
+
+  <div
+    class="absolute inset-0 bg-radial from-black via-black/50
+     to-black pointer-events-none"
+    style="z-index: 1"
+  ></div>
 </header>
+
+<script>
+  import { gsap } from "gsap";
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    gsap.set("[data-anim]", { opacity: 0 });
+
+    var mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", function () {
+      gsap.set("[data-anim='blackhole']", { opacity: 0 });
+      gsap.set("[data-anim='navbar']", { y: "-100%" });
+      gsap.set("[data-anim='badge']", { y: -12 });
+      gsap.set("[data-anim='name']", { y: 35 });
+      gsap.set("[data-anim='subtitle']", { y: 25 });
+      gsap.set("[data-anim='cta']", { y: 20 });
+      gsap.set("[data-anim='roles']", { y: 20 });
+      gsap.set("[data-anim='expertise']", { y: 20 });
+
+      var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.to("[data-anim='blackhole']", { opacity: 1, duration: 0.8, ease: "power2.inOut" })
+        .to("[data-anim='navbar']", { y: "0%", opacity: 1, duration: 0.6 }, "-=0.5")
+        .to("[data-anim='badge']", { y: 0, opacity: 1, duration: 0.4 }, "-=0.3")
+        .to("[data-anim='name']", { y: 0, opacity: 1, duration: 0.65 }, "-=0.2")
+        .to("[data-anim='subtitle']", { y: 0, opacity: 1, duration: 0.5 }, "-=0.3")
+        .to("[data-anim='cta']", { y: 0, opacity: 1, duration: 0.01 }, "-=0.2")
+        .to("[data-anim='cta']", {
+          keyframes: [
+            { x: 2, duration: 0.04, ease: "steps(1)" },
+            { x: 0, duration: 0.12, ease: "steps(1)" },
+            { x: -2, duration: 0.03, ease: "steps(1)" },
+            { x: 0, duration: 0.08, ease: "steps(1)" },
+            { x: -5, skewX: 2, scaleX: 1.02, duration: 0.04, ease: "steps(1)" },
+            { x: -5, skewX: 2, scaleX: 1.02, duration: 0.08, ease: "steps(1)" },
+            { x: 7, skewX: -3, scaleX: 0.98, duration: 0.02, ease: "steps(1)" },
+            { x: 7, skewX: -3, scaleX: 0.98, duration: 0.06, ease: "steps(1)" },
+            { x: -3, skewX: 1, duration: 0.03, ease: "steps(1)" },
+            { x: 3, skewX: -1, duration: 0.04, ease: "steps(1)" },
+            { x: 0, skewX: 0, scaleX: 1, duration: 0.03, ease: "steps(1)" },
+            { x: 2, duration: 0.06, ease: "power1.out" },
+            { x: 0, duration: 0.15, ease: "power3.out" },
+          ],
+        })
+        .to("[data-anim='cta'] a", {
+          keyframes: [
+            { borderColor: "#FF6B6B", boxShadow: "0 0 20px #FF6B6B", duration: 0.04, ease: "steps(1)" },
+            { borderColor: "#FF6B6B", boxShadow: "0 0 20px #FF6B6B", duration: 0.08, ease: "steps(1)" },
+            { borderColor: "#67A6D8", boxShadow: "0 0 25px #67A6D8", duration: 0.02, ease: "steps(1)" },
+            { borderColor: "#67A6D8", boxShadow: "0 0 25px #67A6D8", duration: 0.06, ease: "steps(1)" },
+            { borderColor: "#FF6B6B", boxShadow: "0 0 15px #FF6B6B", duration: 0.03, ease: "steps(1)" },
+            { borderColor: "#67A6D8", boxShadow: "0 0 15px #67A6D8", duration: 0.04, ease: "steps(1)" },
+            { borderColor: "", boxShadow: "none", duration: 0.03, clearProps: "borderColor,boxShadow", ease: "steps(1)" },
+          ],
+          onComplete: function () {
+            gsap.set("[data-anim='cta'] a", { clearProps: "borderColor,boxShadow" });
+          },
+        }, "<0.27")
+        .to("[data-anim='roles'],[data-anim='expertise']", { y: 0, opacity: 1, duration: 0.5 }, "+=0.2");
+    });
+
+    mm.add("(max-width: 767px)", function () {
+      gsap.set("[data-anim='blackhole']", { opacity: 0 });
+      gsap.set("[data-anim='navbar']", { opacity: 0 });
+      gsap.set("[data-anim='name']", { y: 25 });
+      gsap.set("[data-anim='subtitle']", { y: 20 });
+      gsap.set("[data-anim='cta']", { y: 15 });
+      gsap.set("[data-anim='roles']", { y: 15 });
+
+      var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.to("[data-anim='blackhole']", { opacity: 1, duration: 0.7, ease: "power2.inOut" })
+        .to("[data-anim='navbar']", { opacity: 1, duration: 0.4 }, "-=0.4")
+        .to("[data-anim='name']", { y: 0, opacity: 1, duration: 0.5 }, "-=0.2")
+        .to("[data-anim='subtitle']", { y: 0, opacity: 1, duration: 0.4 }, "-=0.2")
+        .to("[data-anim='cta']", { y: 0, opacity: 1, duration: 0.01 }, "-=0.15")
+        .to("[data-anim='cta']", {
+          keyframes: [
+            { x: 1.5, duration: 0.03, ease: "steps(1)" },
+            { x: -4, skewX: 2, scaleX: 1.02, duration: 0.04, ease: "steps(1)" },
+            { x: -4, skewX: 2, scaleX: 1.02, duration: 0.06, ease: "steps(1)" },
+            { x: 5, skewX: -2, scaleX: 0.98, duration: 0.02, ease: "steps(1)" },
+            { x: 5, skewX: -2, scaleX: 0.98, duration: 0.05, ease: "steps(1)" },
+            { x: -2, skewX: 1, duration: 0.03, ease: "steps(1)" },
+            { x: 0, skewX: 0, scaleX: 1, duration: 0.03, ease: "steps(1)" },
+            { x: 1, duration: 0.05, ease: "power1.out" },
+            { x: 0, duration: 0.12, ease: "power3.out" },
+          ],
+        })
+        .to("[data-anim='cta'] a", {
+          keyframes: [
+            { borderColor: "#FF6B6B", boxShadow: "0 0 12px #FF6B6B", duration: 0.04, ease: "steps(1)" },
+            { borderColor: "#FF6B6B", boxShadow: "0 0 12px #FF6B6B", duration: 0.06, ease: "steps(1)" },
+            { borderColor: "#67A6D8", boxShadow: "0 0 15px #67A6D8", duration: 0.02, ease: "steps(1)" },
+            { borderColor: "#67A6D8", boxShadow: "0 0 15px #67A6D8", duration: 0.05, ease: "steps(1)" },
+            { borderColor: "#FF6B6B", boxShadow: "0 0 10px #FF6B6B", duration: 0.03, ease: "steps(1)" },
+            { borderColor: "", boxShadow: "none", duration: 0.03, clearProps: "borderColor,boxShadow", ease: "steps(1)" },
+          ],
+          onComplete: function () {
+            gsap.set("[data-anim='cta'] a", { clearProps: "borderColor,boxShadow" });
+          },
+        }, "<0.03")
+        .to("[data-anim='roles']", { y: 0, opacity: 1, duration: 0.4 }, "+=0.1");
+    });
+  } else {
+    gsap.set("[data-anim]", { opacity: 1, y: 0 });
+    gsap.set("[data-anim='blackhole']", { opacity: 1 });
+    gsap.set("[data-anim='navbar']", { y: "0%", opacity: 1 });
+  }
+</script>
