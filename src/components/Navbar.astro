@@ -17,7 +17,7 @@ const localizedPath = (path: string) => {
 };
 ---
 
-<nav class="fixed flex w-full justify-between px-4 md:px-8 py-4 items-center z-50" data-anim="navbar">
+<nav class="fixed flex w-full justify-between px-4 md:px-8 py-4 items-center z-50">
   <a
     href={localizedPath("/")}
     class="text-white hover:text-primary font-mono text-xl no-underline"
@@ -30,7 +30,7 @@ const localizedPath = (path: string) => {
     <LanguageSwitcher lang={lang} pathname={pathname} />
 
     <button
-      class="flex flex-col gap-2 w-auto h-auto z-50 relative group cursor-pointer"
+      class="flex flex-col gap-2 w-auto h-auto z-60 relative group cursor-pointer"
       id="openMenu"
       aria-label={t("nav.menu")}
     >
@@ -49,9 +49,10 @@ const localizedPath = (path: string) => {
 
   <div
     id="menuOverlay"
-    class="fixed inset-0 lg:left-72.5 bg-black/95 lg:border-l lg:border-gray-400 backdrop-blur-md transition-opacity duration-300 opacity-0 pointer-events-none z-40 flex items-center justify-center"
+    class="fixed inset-0 lg:left-72.5 lg:border-l lg:border-gray-400 transition-opacity duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center bg-black"
   >
     <div
+      id="menuContent"
       class="flex flex-col items-start justify-start py-24 w-full h-full relative"
     >
       <div
@@ -213,25 +214,40 @@ const localizedPath = (path: string) => {
   document.addEventListener("DOMContentLoaded", () => {
     const openMenuBtn = document.getElementById("openMenu");
     const menuOverlay = document.getElementById("menuOverlay");
+    const menuContent = document.getElementById("menuContent");
     const line1 = document.getElementById("line1");
     const line2 = document.getElementById("line2");
     let isMenuOpen = false;
 
-    if (openMenuBtn && menuOverlay && line1 && line2) {
-      openMenuBtn.addEventListener("click", () => {
-        isMenuOpen = !isMenuOpen;
+    function openMenu() {
+      isMenuOpen = true;
+      menuOverlay.classList.remove("opacity-0", "pointer-events-none");
+      menuOverlay.classList.add("opacity-100", "pointer-events-auto");
+      line1.classList.add("translate-y-[5px]", "rotate-45");
+      line2.classList.add("-translate-y-[5px]", "-rotate-45");
+    }
 
-        if (isMenuOpen) {
-          menuOverlay.classList.remove("opacity-0", "pointer-events-none");
-          menuOverlay.classList.add("opacity-100", "pointer-events-auto");
-          line1.classList.add("translate-y-[5px]", "rotate-45");
-          line2.classList.add("-translate-y-[5px]", "-rotate-45");
-        } else {
-          menuOverlay.classList.add("opacity-0", "pointer-events-none");
-          menuOverlay.classList.remove("opacity-100", "pointer-events-auto");
-          line1.classList.remove("translate-y-[5px]", "rotate-45");
-          line2.classList.remove("-translate-y-[5px]", "-rotate-45");
-        }
+    function closeMenu() {
+      isMenuOpen = false;
+      menuOverlay.classList.remove("opacity-100", "pointer-events-auto");
+      menuOverlay.classList.add("opacity-0", "pointer-events-none");
+      line1.classList.remove("translate-y-[5px]", "rotate-45");
+      line2.classList.remove("-translate-y-[5px]", "-rotate-45");
+    }
+
+    if (openMenuBtn && menuOverlay && menuContent && line1 && line2) {
+      openMenuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (isMenuOpen) closeMenu();
+        else openMenu();
+      });
+
+      menuContent.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+
+      menuOverlay.addEventListener("click", () => {
+        if (isMenuOpen) closeMenu();
       });
     }
   });

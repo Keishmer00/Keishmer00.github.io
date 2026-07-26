@@ -26,6 +26,10 @@ import ruana2 from "../assets/images/ruana-brand/2.png"
 import ruana3 from "../assets/images/ruana-brand/3.png"
 import ruana4 from "../assets/images/ruana-brand/4.png"
 import ruana5 from "../assets/images/ruana-brand/5.png"
+import didierWeb from "../assets/images/didier-web/didier.webp"
+import wisegoldWeb from "../assets/images/wisegold-web/wisegold.webp"
+import karimWeb from "../assets/images/karim-web/karim.webp"
+import ruanaWeb from "../assets/images/ruana-web/ruana.webp"
 
 
 export type WorkItem = {
@@ -75,14 +79,14 @@ const esStatements: TextMap = {
 };
 
 const esProjectTitles: TextMap = {
-  "Karim": "Karim",
+  "karim": "Karim",
   "nexus-platform": "NEXUS PLATFORM",
   "MO-TECH SERVICE": "MO-TECH SERVICE",
   "ruanasoulstudio": "Ruana Soul Studio",
-  "ruana-studio": "RUANA SOUL STUDIO",
-  "arch-gallery": "ARCH GALLERY",
-  "event-landing": "SUMMIT EVENTS",
-  "saas-docs": "NEXUS DOCS",
+  "ruana-studio": "Ruana Soul Studio",
+  "karim-ventas": "Karim Ventas",
+  "wisegold-capital": "WiseGold Capital",
+  "didier-perez": "Didier Pérez — Abogado",
   "fashion-drop": "FASHION DROP",
   "cafe-stories": "CAFÉ STORIES",
   "fitness-series": "PULSE FITNESS",
@@ -94,14 +98,14 @@ const esProjectTitles: TextMap = {
 };
 
 const esTaglines: TextMap = {
-  "the-cakery": "Identidad visual y sistema de empaque para una panadería artesanal con tono audaz y divertido.",
-  "nexus-platform": "Arquitectura de marca y guías digitales para un ecosistema de productos B2B.",
+  "karim": "Identidad de marca, empaque y sistema visual para una marca colombiana de cosméticos y autocuidado con una estética cálida y empoderadora.",
+  "nexus-platform": "Arquitectura de marca e identidad visual para una empresa de desarrollo de software a la medida con enfoque humano.",
   "mo-tech-service": "Identidad de marca completa y sistema visual para una empresa nacional de field service de ATMs y cajeros crypto con cobertura en más de 35 estados.",
-  "ruanasoulstudio": "Redefiniendo la presencia digital de un estudio emergente de marca y diseño.",
-  "ruana-studio": "Sitio web de alto rendimiento con narrativa scroll y estructura preparada para CMS.",
-  "arch-gallery": "Portafolio headless con optimización de imágenes y transiciones de página sutiles.",
-  "event-landing": "Página de aterrizaje de alta conversión con integración de venta de entradas y agenda en vivo.",
-  "saas-docs": "Centro de documentación con búsqueda, referencias API versionadas y modo oscuro.",
+  "ruanasoulstudio": "Identidad de marca y sistema visual para una productora audiovisual con enfoque humano, artístico y transformador.",
+  "ruana-studio": "Sitio web de agencia integral con storytelling cinemático, estrategia SEO/AEO y enfoque en conversión.",
+  "karim-ventas": "E-commerce Shopify personalizado con componentes Liquid a la medida para una marca colombiana de cosméticos y autocuidado.",
+  "wisegold-capital": "Plataforma institucional multilingüe con integración de blog Medium y traducción automática a 6 idiomas.",
+  "didier-perez": "Portafolio profesional para abogado colombiano especializado en Derecho Administrativo, construido como sitio estático de una sola página.",
   "fashion-drop": "Reels y plantillas de carrusel para una campaña de lanzamiento de moda urbana de temporada.",
   "cafe-stories": "Frames diarios para historias y cuadrículas de feed que destacan origen y artesanía.",
   "fitness-series": "Shorts con movimiento y publicaciones estáticas para un estudio de entrenamiento boutique.",
@@ -117,41 +121,153 @@ const esCtaLabels: TextMap = {
 };
 
 const esDescriptions: TextMap = {
+  "karim":
+    "Karim es una marca colombiana de cosméticos, accesorios y experiencias de belleza, enfocada en acompañar a las mujeres en su ritual de autocuidado con productos de calidad, atención cercana y una experiencia de compra emocionalmente significativa. Desarrollamos un sistema completo de identidad de marca que captura su esencia: una estética cálida que combina ternura visual con identidad local colombiana y carácter femenino. Cada punto de contacto — desde el logotipo hasta el empaque y la presencia digital — fue diseñado para que la cliente se sienta vista, valorada y cuidada.",
+  "nexus-platform":
+    "Nexus es una marca de desarrollo de software a la medida, enfocada en crear soluciones tecnológicas personalizadas para cada cliente. Su metodología comienza con la escucha — entender el problema a fondo antes de escribir una sola línea de código. Creen que la tecnología debe potenciar las conexiones humanas, no reemplazarlas, y que el software debe adaptarse al usuario, no al revés. Creamos una arquitectura de marca e identidad visual que comunica su filosofía: el punto donde todo se conecta, anclado en funcionalidad, innovación y confianza.",
   "mo-tech-service":
     "Move On Tech Service es una empresa de field service con cobertura nacional, especializada en instalación, reparación y mantenimiento de ATMs y cajeros crypto en más de 35 estados de Estados Unidos. Nos contactaron para construir una marca que igualara su escala operativa y comunicara confiabilidad, experiencia técnica y velocidad — los valores que sus equipos de campo representan cada día. Desarrollamos un sistema completo de identidad de marca que incluye diseño de logotipo, paleta de color, tipografía, lineamientos visuales y materiales de documentación, posicionándolos como el socio de servicio técnico de referencia para redes de autoservicio financiero.",
+  "ruanasoulstudio":
+    "Ruana Soul Studio es una productora audiovisual que crea experiencias cinematográficas y narrativas con enfoque humano, artístico y transformador. Su propuesta no se centra en producir contenido por volumen, sino en desarrollar piezas audiovisuales con intención, sensibilidad cultural y rigor técnico. Construimos una identidad de marca que refleja su filosofía: el cine como herramienta de transformación, empatía y diálogo social — donde la imagen y el alma se encuentran.",
+  "ruana-studio":
+    "Ruana Soul Studio es una agencia de branding, producción audiovisual y desarrollo web con base en Melbourne, enfocada en dar identidad visual coherente a marcas mediante un enfoque cinematográfico. Construimos nuestro propio sitio web como demostración en vivo de todo lo que ofrecemos: narrativa scroll con GSAP, ingeniería Astro SSR optimizada para rendimiento, estrategia SEO y AEO para motores de búsqueda con IA, y un sistema de diseño que equilibra impacto visual con estrategia de conversión. El blog se integra desde nuestro RSS de Medium y forma parte del ecosistema de contenido del sitio.",
+  "karim-ventas":
+    "Karim Ventas es la tienda online y física de la marca Karim, una empresa colombiana de cosméticos y autocuidado con sede en Barrancabermeja. Construimos una plataforma Shopify completamente personalizada sobre el tema Tinker v4.1.1, desarrollando componentes Liquid de Shopify a medida — bloques de tema personalizados con esquemas Liquid, sistemas de iconos SVG inline, plantillas JSON para composición flexible de páginas y una arquitectura basada en bloques que le da al comerciante control total sobre el diseño de su tienda. El resultado es una tienda online que captura la estética kawaii-colombiana de Karim mientras maneja todo, desde la categorización de productos hasta el envío nacional en toda Colombia.",
+  "wisegold-capital":
+    "WiseGold Capital es una infraestructura institucional de custodia de oro y plata físico, diseñada para preservación de capital y continuidad operativa. Construimos una plataforma multilingüe (inglés, español, portugués, francés, chino, árabe) que comunica su modelo de custodia — desde servicios de asesoría y bóveda hasta trading propietario e infraestructura tecnológica — a una audiencia institucional global. La plataforma cuenta con un sistema de blog automatizado que obtiene artículos de su feed RSS de Medium, los almacena en una base de datos PostgreSQL y traduce automáticamente cada publicación a los 5 idiomas adicionales mediante Azure Translator API con traducción HTML-aware que preserva el formato y la estructura.",
+  "didier-perez":
+    "Didier Pérez es un abogado colombiano especializado en Derecho Administrativo, que ofrece asesoría y representación legal a particulares y trámites frente al Estado. Diseñamos y desarrollamos un portafolio profesional que presenta sus áreas de práctica — Derecho Administrativo, Notarial, Civil y Defensa de Derechos Fundamentales — en un formato limpio, autoritario y accesible. Construido como sitio estático de una sola página desplegado en GitHub Pages, el diseño prioriza claridad y confianza: una paleta de colores profesional, jerarquía tipográfica clara con Open Sans y Urbanist, y navegación directa que ayuda a los clientes potenciales a entender rápidamente su experiencia y contactarlo vía WhatsApp y formularios de contacto.",
 };
 
 const esChallenges: TextMap = {
+  "karim":
+    "El mercado de la belleza está dominado por minimalismo de lujo o marcas genéricas producidas en masa. Karim necesitaba una identidad visual que se sintiera personal, cálida y profundamente colombiana — algo que pudiera destacar en los estantes mientras comunicaba calidad, curaduría y el valor emocional del autocuidado. Su origen familiar y sus relaciones cercanas con las clientas tenían que traducirse en cada punto de contacto de la marca sin perder autenticidad.",
+  "nexus-platform":
+    "Nexus había crecido mediante referencias basadas en la calidad de su ingeniería y su enfoque colaborativo. Al escalar, necesitaban una identidad visual que comunicara sus valores a nuevos clientes sin depender únicamente del boca a boca. La marca debía reflejar su precisión técnica, su metodología centrada en el ser humano y su promesa de construir tecnología que realmente sirva a las personas.",
   "mo-tech-service":
     "Move On Tech Service había crecido rápidamente por recomendación boca a boca, construyendo una sólida reputación operativa sin una identidad visual correspondiente. Sus materiales de marca eran inconsistentes: los técnicos usaban diferentes formatos de documentos, su presencia digital carecía de cohesión y no existía un lenguaje visual unificado que operadores y socios pudieran reconocer. El desafío fue crear una marca que reflejara su rigor operativo, alcance nacional y experiencia técnica, al mismo tiempo que se sintiera moderna, confiable y escalable.",
+  "ruanasoulstudio":
+    "El mercado de producción audiovisual está saturado de estudios que compiten por velocidad y volumen. Ruana Soul Studio necesitaba una marca que comunicara su diferenciador: ellos no solo 'hacen contenido' — crean momentos significativos. La marca debía transmitir su visión artesanal del cine, su compromiso con la profundidad cultural y su enfoque en el impacto por encima del volumen, atrayendo clientes que valoren la profundidad sobre la cantidad.",
+  "ruana-studio":
+    "La mayoría de los sitios web de agencias caen en una de dos trampas: son un patio de juegos visual sin estrategia de conversión, o un sitio genérico sin personalidad. Necesitábamos construir algo genuinamente hermoso, técnicamente excelente, Y que moviera a los visitantes hacia un siguiente paso claro — todo mientras demostrábamos nuestras capacidades en branding, desarrollo web, producción audiovisual y SEO/AEO de manera cohesiva.",
+  "karim-ventas":
+    "Karim necesitaba una tienda online que igualara la calidez y personalidad de su boutique física. Los temas de Shopify listos para usar no podían capturar su estética kawaii-colombiana — una mezcla de ternura visual con identidad local colombiana y carácter femenino. La tienda debía sentirse personal y curada, manteniendo todas las capacidades operativas de un e-commerce: variantes de producto, gestión de inventario, integraciones de envío nacional y una experiencia de pago móvil fluida.",
+  "wisegold-capital":
+    "WiseGold opera en una industria altamente regulada donde la confianza lo es todo. Su plataforma necesitaba comunicar estructuras de custodia complejas — inventario asignado vs consolidado, gobernanza multinivel con depositarios independientes, marcos de cumplimiento AML/CTF — de una manera que clientes institucionales e intermediarios de diferentes jurisdicciones pudieran entender y confiar. Su estrategia de contenido dependía de Medium para liderazgo de pensamiento, pero Medium no soporta su audiencia multilingüe de 6 idiomas. Necesitaban un sistema que uniera la creación de contenido (Medium) con una plataforma localizada basada en base de datos, sin esfuerzo manual de traducción.",
+  "didier-perez":
+    "Los profesionales del derecho necesitan una presencia web que comunique autoridad, confianza y accesibilidad — pero la mayoría de los sitios web de abogados en Colombia son portales corporativos excesivamente complejos o plantillas genéricas que no generan confianza. Didier necesitaba un sitio que se sintiera profesional sin ser intimidante, accesible sin ser informal, y que presentara claramente sus áreas de práctica para que clientes potenciales de diferentes contextos pudieran entender inmediatamente su experiencia y tomar acción.",
 };
 
 const esSolutions: TextMap = {
+  "karim":
+    "Creamos una identidad de marca anclada en calidez, feminidad y carácter colombiano. El sistema visual utiliza pasteles suaves con acentos tropicales audaces y tipografía personalizada con calidez dibujada a mano. El empaque fue diseñado como una experiencia de regalo — cada caja, inserto y etiqueta contribuye a un 'ritual de unboxing' que extiende la filosofía de cuidado de la marca al producto físico. El resultado es una marca que se siente visualmente encantadora y emocionalmente resonante, destacando en estantes y en videos de unboxing por igual.",
+  "nexus-platform":
+    "Desarrollamos un sistema de marca anclado en el concepto de conexión y protección. El isotipo y el discurso visual refuerzan solidez, tecnología confiable e integración fluida. La paleta de colores combina tonos profundos y confiables con acentos vibrantes que señalan innovación. Creamos lineamientos de marca integrales, un marco de mensajería y un sistema visual que se adapta a puntos de contacto digitales e impresos manteniendo coherencia y confianza.",
   "mo-tech-service":
     "Desarrollamos un sistema completo de identidad de marca anclado en claridad, movimiento y precisión técnica. El logotipo combina precisión geométrica con impulso hacia adelante, haciendo referencia tanto a la conectividad de las redes de ATMs como a la movilidad del servicio en campo. La paleta de color utiliza azul marino profundo para confianza y autoridad, naranja eléctrico para visibilidad y energía, y grises limpios para documentación técnica. Diseñamos un sistema cohesivo de lineamientos de marca, plantillas de reportes de servicio, conceptos de uniformes para técnicos y activos digitales que garantizan consistencia en cada punto de contacto con el cliente.",
+  "ruanasoulstudio":
+    "Desarrollamos una identidad de marca arraigada en la calidad cinematográfica y la intención artística. El sistema visual utiliza texturas fílmicas, una paleta de colores refinada que referencia la gradación de color del cine, y tipografía que equilibra elegancia con vanguardia. La marca gráfica es una abstracción geométrica del punto de encuentro entre la imagen y el alma — el núcleo de su filosofía. Los lineamientos de marca cubren su posicionamiento único, criterios de selección de proyectos y voz de comunicación para asegurar consistencia en cada interacción con el cliente.",
+  "ruana-studio":
+    "Construimos el sitio con Astro SSR para rendimiento, con GSAP potenciando animaciones scroll-triggered y secuencias de entrada cinemáticas. El sistema de diseño usa tipografía personalizada, una paleta de colores refinada y un layout que balancea densidad de información con espacio para respirar. Cada sección es un argumento considerado para trabajar con nosotros. SEO y AEO (Answer Engine Optimization) se integraron desde la base — con datos estructurados JSON-LD, jerarquía HTML semántica y contenido estructurado tanto para buscadores tradicionales como para motores de respuesta con IA. El blog se alimenta de nuestro RSS de Medium y se integra directamente al ecosistema de contenido del sitio.",
+  "karim-ventas":
+    "Construimos sobre Tinker v4.1.1, creando una biblioteca de componentes Liquid de Shopify personalizados que tradujeron la marca Karim en una experiencia de compra digital cohesiva. Desarrollamos bloques de tema personalizados con esquemas Liquid a medida, un sistema de composición de páginas basado en bloques para control flexible del layout, y sistemas de iconos SVG inline para elementos visuales específicos de la marca. El diseño usa escalado responsive con clamp(), tipografía Urbanist y Playfair Display, y una paleta cálida de pasteles con acentos tropicales. Las páginas de producto, la navegación por categorías y el flujo de carrito fueron reingenierizados con Liquid personalizado para mantener consistencia de marca en cada punto de contacto.",
+  "wisegold-capital":
+    "Construimos una plataforma Astro SSR con backend Node.js y base de datos PostgreSQL. El sistema de blog usa un fetcher RSS impulsado por cron que consulta el feed de Medium cada 30 minutos, almacena nuevos artículos en la base de datos y activa Azure Translator API para traducir cada publicación a los 5 idiomas adicionales. El frontend sirve contenido traducido desde la base de datos con traducción de respaldo diferida para casos extremos. La arquitectura de información desglosa conceptos complejos de custodia en pilares de servicio claros (Advisory, Vault, Technology, Trading) con jerarquía visual que guía a los clientes institucionales a través de la cadena de valor. El soporte multilingüe se maneja mediante middleware inteligente con detección por cookie, Accept-Language y geolocalización IP. La plataforma se despliega en Azure VMs con Docker, usando Nginx y SSL automatizado via Certbot.",
+  "didier-perez":
+    "Desarrollamos un portafolio limpio de una sola página con enfoque en jerarquía de contenido y conversión. La sección hero establece inmediatamente la especialización de Didier en Derecho Administrativo y su ubicación en Colombia. Las áreas de práctica se presentan con descripciones claras que ayudan a los clientes potenciales a autoidentificar sus necesidades legales. Un CTA de consulta destacado con enlace integrado a WhatsApp facilita el contacto inmediato. El diseño usa una paleta de colores profesionales definida mediante propiedades personalizadas CSS, Open Sans para legibilidad del cuerpo y Urbanist para encabezados. La arquitectura estática garantiza carga instantánea y cero mantenimiento — fundamental para un profesional legal que debe enfocarse en su práctica, no en su sitio web.",
 };
 
 const esOutcomes: TextMap = {
+  "karim":
+    "La marca se lanzó con una identidad cohesiva en empaque, redes sociales y puntos de venta. La experiencia de unboxing se convirtió en un diferenciador clave, con clientes compartiendo sus compras orgánicamente en redes sociales. La voz de marca cálida y personal ayudó a construir una comunidad leal de clientes recurrentes que se identifican con los valores de Karim: autocuidado, orgullo colombiano y la belleza como un ritual de identidad y empoderamiento.",
+  "nexus-platform":
+    "La nueva marca le dio a Nexus una presencia profesional y unificada que refleja su experiencia técnica y su filosofía centrada en el ser humano. El marco de mensajería ayudó a su equipo a articular su metodología colaborativa de manera más efectiva. El sistema visual se adapta a su creciente oferta de servicios — desde desarrollo personalizado hasta consultoría tecnológica — mientras la jerarquía visual clara ayuda a los clientes a reconocer inmediatamente la calidad y el cuidado detrás de cada proyecto.",
   "mo-tech-service":
     "La nueva identidad de marca le dio a Move On Tech Service una presencia profesional y unificada que iguala su excelencia operativa. Sus técnicos de campo ahora portan documentación de servicio consistente y con marca. Los lineamientos de marca permiten que su equipo en crecimiento mantenga consistencia visual sin cuellos de botella de diseño. La estructura modular del sistema soporta el crecimiento futuro — desde agregar nuevas líneas de servicio hasta expandirse a plataformas digitales — mientras que la jerarquía visual clara ayuda a los operadores a reconocer de inmediato la calidad y confiabilidad detrás de cada llamada de servicio.",
+  "ruanasoulstudio":
+    "La identidad de marca posicionó a Ruana Soul Studio como un estudio boutique de alto impacto, no como una casa de producción tradicional. Su nueva presencia visual atrae clientes que valoran la profundidad sobre el volumen — desde producciones audiovisuales de alto nivel hasta documentales de impacto social y coproducciones cinematográficas. La marca se ha convertido en un mecanismo de filtro que les trae los proyectos adecuados con los clientes correctos que comparten su visión del cine como transformación.",
+  "ruana-studio":
+    "El sitio logra puntuaciones perfectas de Lighthouse con cargas de página en menos de un segundo. El formulario de contacto convierte a tasas superiores al promedio de la industria. El sitio rankea en la primera página para nuestros términos de búsqueda principales en Melbourne y tiene un rendimiento sólido en resultados de búsqueda impulsados por IA. Funciona como un portafolio vivo que demuestra nuestras capacidades en branding, desarrollo web, producción audiovisual y estrategia de contenido — todo en una plataforma cohesiva.",
+  "karim-ventas":
+    "Karim Ventas lanzó con una tienda online completamente operativa que conecta su boutique física en Barrancabermeja con clientes de todo Colombia. Los componentes Liquid personalizados le dan al equipo de Karim la flexibilidad de actualizar productos, categorías y promociones sin perder consistencia de marca. La arquitectura basada en bloques les permite añadir campañas de temporada y nuevas líneas de producto de forma independiente. La plataforma sirve como el canal de ventas digital principal de Karim, apoyando su crecimiento de boutique local a marca nacional de e-commerce con una identidad online distintiva y propia.",
+  "wisegold-capital":
+    "WiseGold Capital lanzó con una plataforma multilingüe robusta que funciona tanto como su presencia institucional como su motor de marketing de contenido. El sistema de blog automatizado mantiene las 6 versiones de idioma del sitio continuamente actualizadas con contenido fresco sin intervención manual — los nuevos artículos de Medium se obtienen, traducen y publican automáticamente en toda la plataforma. El almacenamiento basado en PostgreSQL garantiza entrega confiable de contenido con cargas de página en milisegundos. La plataforma se ha convertido en una señal de credibilidad clave para clientes institucionales que evalúan su infraestructura de custodia, con la capacidad multilingüe particularmente valorada por sus redes de intermediarios en Latinoamérica, Europa y Asia.",
+  "didier-perez":
+    "El sitio funciona como el escaparate digital principal de Didier, presentando su experiencia legal en un formato profesional y confiable que genera credibilidad instantánea. El desglose claro de áreas de práctica ayuda a los clientes potenciales a autoidentificar sus necesidades antes de contactarlo, reduciendo la fricción en la solicitud de consulta inicial. La integración de WhatsApp se ha convertido en un canal principal para solicitudes de consulta. La arquitectura de sitio estático garantiza tiempos de carga rápidos, optimización móvil y cero costos de mantenimiento — permitiendo a Didier enfocarse en su práctica legal mientras mantiene una presencia online profesional que compite con firmas más grandes.",
 };
 
 const esSeoTitles: TextMap = {
+  "karim":
+    "Karim — Identidad de Marca Colombiana de Cosméticos y Autocuidado | Keishmer Studio",
+  "nexus-platform":
+    "Nexus — Identidad de Marca para Desarrollo de Software a la Medida | Keishmer Studio",
   "mo-tech-service":
     "Move On Tech Service — Identidad de Marca y Sistema Visual para Field Service de ATMs | Keishmer Studio",
+  "ruanasoulstudio":
+    "Ruana Soul Studio — Identidad de Marca para Productora Audiovisual | Keishmer Studio",
+  "ruana-studio":
+    "Ruana Soul Studio — Sitio Web de Agencia Integral con Astro SSR y SEO/AEO | Keishmer Studio",
+  "karim-ventas":
+    "Karim Ventas — E-commerce Shopify con Componentes Liquid Personalizados | Keishmer Studio",
+  "wisegold-capital":
+    "WiseGold Capital — Plataforma Institucional Multilingüe con Blog Automatizado | Keishmer Studio",
+  "didier-perez":
+    "Didier Pérez — Portafolio Legal para Abogado de Derecho Administrativo | Keishmer Studio",
 };
 
 const esSeoDescriptions: TextMap = {
+  "karim":
+    "Identidad de marca, empaque y sistema visual para Karim, una marca colombiana de cosméticos y autocuidado con una estética cálida y empoderadora. Diseñado por Keishmer Studio.",
+  "nexus-platform":
+    "Arquitectura de marca e identidad visual para Nexus, una empresa de desarrollo de software a la medida que construye tecnología centrada en el ser humano. Estrategia de marca creada por Keishmer Studio.",
   "mo-tech-service":
     "Sistema completo de identidad de marca para Move On Tech Service, una empresa de field service de ATMs y cajeros crypto con cobertura en más de 35 estados. Logotipo, sistema visual y guías de marca creados por Keishmer Studio.",
+  "ruanasoulstudio":
+    "Identidad de marca y sistema visual para Ruana Soul Studio, una productora audiovisual que crea experiencias cinematográficas con enfoque humano, artístico y transformador.",
+  "ruana-studio":
+    "Sitio web de agencia integral para Ruana Soul Studio construido con Astro SSR, animaciones GSAP, estrategia SEO/AEO y blog integrado desde Medium RSS.",
+  "karim-ventas":
+    "E-commerce Shopify personalizado con componentes Liquid a la medida para Karim Ventas, marca colombiana de cosméticos y autocuidado. Desarrollo de tema, arquitectura de bloques y diseño e-commerce por Keishmer Studio.",
+  "wisegold-capital":
+    "Plataforma institucional multilingüe para WiseGold Capital con integración de blog Medium RSS, almacenamiento PostgreSQL y traducción automática Azure en 6 idiomas. Construido por Keishmer Studio.",
+  "didier-perez":
+    "Portafolio profesional para Didier Pérez, abogado colombiano de Derecho Administrativo. Diseño limpio de una sola página con presentación de áreas de práctica e integración de WhatsApp por Keishmer Studio.",
 };
 
 const esImageAlts: TextMap = {
+  "karim":
+    "Karim — Identidad de marca colombiana de cosméticos y autocuidado",
+  "nexus-platform":
+    "Nexus — Identidad de marca para desarrollo de software a la medida",
   "mo-tech-service":
     "Move On Tech Service — Identidad de marca y sistema visual para servicio técnico de ATMs y cajeros crypto",
+  "ruanasoulstudio":
+    "Ruana Soul Studio — Identidad de marca para productora audiovisual",
+  "ruana-studio":
+    "Ruana Soul Studio — Sitio web de agencia integral",
+  "karim-ventas":
+    "Karim Ventas — E-commerce Shopify para marca colombiana de cosméticos",
+  "wisegold-capital":
+    "WiseGold Capital — Plataforma institucional multilingüe",
+  "didier-perez":
+    "Didier Pérez — Portafolio profesional para abogado",
 };
 
 const esServices: Record<string, string[]> = {
+  "karim": [
+    "Identidad de Marca",
+    "Diseño de Logotipo",
+    "Diseño de Empaque",
+    "Sistema Visual",
+    "Dirección de Arte",
+  ],
+  "nexus-platform": [
+    "Arquitectura de Marca",
+    "Diseño de Logotipo",
+    "Identidad Visual",
+    "Guías de Marca",
+    "Marco de Mensajería",
+  ],
   "mo-tech-service": [
     "Identidad de Marca",
     "Diseño de Logotipo",
@@ -161,6 +277,40 @@ const esServices: Record<string, string[]> = {
     "Guías de Marca",
     "Plantillas de Documentos",
     "Activos Digitales",
+  ],
+  "ruanasoulstudio": [
+    "Identidad de Marca",
+    "Diseño de Logotipo",
+    "Sistema Visual",
+    "Guías de Marca",
+    "Dirección de Arte",
+  ],
+  "ruana-studio": [
+    "Desarrollo Web",
+    "Astro SSR",
+    "Animaciones GSAP",
+    "Estrategia SEO y AEO",
+    "Estrategia de Contenido",
+  ],
+  "karim-ventas": [
+    "Desarrollo Shopify",
+    "Componentes Liquid Personalizados",
+    "Diseño E-commerce",
+    "Desarrollo de Tema",
+    "Diseño UX",
+  ],
+  "wisegold-capital": [
+    "Desarrollo Web",
+    "Plataforma Multilingüe",
+    "Integración de Blog",
+    "Arquitectura de Base de Datos",
+    "Infraestructura Cloud",
+  ],
+  "didier-perez": [
+    "Diseño Web",
+    "Desarrollo de Sitio Estático",
+    "Diseño UI/UX",
+    "SEO",
   ],
 };
 
@@ -206,23 +356,23 @@ const baseCategories: WorkCategory[] = [
       "We build brand identities from the inside out — from naming and strategy to visual systems and print. Every Ruana Soul Studio branding project is rooted in your story and designed to own its space in the market.",
     works: [
       {
-        id: "the-cakery",
-        title: "KARIM",
+        id: "karim",
+        title: "Karim",
         tagline:
-          "Visual identity and packaging system for an artisan bakery with a bold, playful tone.",
+          "Brand identity, packaging and visual system for a Colombian cosmetics and self-care brand with a warm, empowering aesthetic.",
         description:
-          "The Cakery came to us as a home-based bakery ready to open its first brick-and-mortar location in Melbourne's inner north. The founders wanted a brand that felt handcrafted yet confident — something that could hold its own on a high street while staying warm and approachable. We developed a complete visual identity system from the ground up, covering logo design, color palette, typography, packaging, and in-store collateral.",
+          "Karim is a Colombian cosmetics, accessories and beauty experiences brand, focused on accompanying women in their self-care ritual with quality products, close and personalized attention, and an emotionally meaningful shopping experience. We developed a complete brand identity system that captures their essence: a warm aesthetic that blends visual tenderness with local Colombian identity and feminine character. Every touchpoint — from logo to packaging to digital presence — was designed to make the customer feel seen, valued, and cared for.",
         challenge:
-          "The bakery market is saturated with either overly rustic aesthetics or clinical minimalism. The Cakery needed a middle ground — playful energy with enough polish to attract a design-savvy Melbourne crowd and justify a premium price point.",
+          "The beauty market is dominated by either luxury minimalism or mass-produced generic branding. Karim needed a visual identity that felt personal, warm, and deeply Colombian — something that could stand out on shelves while communicating quality, curation, and the emotional value of self-care. Their family origin and close customer relationships had to be translated into every brand touchpoint without losing authenticity.",
         solution:
-          "We grounded the identity in a bold wordmark with hand-drawn lettering, paired with a warm cream and terracotta palette. Packaging became the hero touchpoint: every box, bag, and label was designed as a gifting moment. We created a modular pattern system from illustrated fruit and flora that could flex across formats without losing coherence.",
+          "We created a brand identity anchored in warmth, femininity, and Colombian character. The visual system uses soft pastels with bold tropical accents and custom typography with hand-drawn warmth. Packaging was designed as a gifting experience — every box, insert, and label contributes to an 'unboxing ritual' that extends the brand's care philosophy into the physical product. The result is a brand that feels both visually delightful and emotionally resonant, standing out on shelves and in unboxing videos alike.",
         outcome:
-          "Launch day sold out. Within two months the brand was featured in a local food editorial. The Cakery now operates two locations and uses the identity system across retail, social media, and seasonal campaign merchandise.",
-        client: "The Cakery",
+          "The brand launched with a cohesive identity across packaging, social media, and retail touchpoints. The unboxing experience became a key differentiator, with customers sharing their purchases organically on social media. The warm, personal brand voice helped build a loyal community of repeat customers who identify with Karim's values of self-care, Colombian pride, and beauty as a ritual of identity and empowerment.",
+        client: "Karim",
         year: "2024",
-        services: ["Brand Strategy", "Logo Design", "Packaging", "Print Collateral"],
+        services: ["Brand Identity", "Logo Design", "Packaging Design", "Visual System", "Art Direction"],
         image: karimBrand.src,
-        imageAlt: "The Cakery branding — citrus still life with packaging",
+        imageAlt: "Karim — Colombian cosmetics and self-care brand identity",
         gallery: [
           karim1.src,
           karim2.src,
@@ -231,28 +381,28 @@ const baseCategories: WorkCategory[] = [
           karim5.src,
         ],
         ctaLabel: "View details",
-        seoTitle: "The Cakery — Artisan Bakery Brand Identity | Ruana Soul Studio",
+        seoTitle: "Karim — Colombian Cosmetics Brand Identity | Keishmer Studio",
         seoDescription:
-          "How Ruana Soul Studio designed The Cakery's complete visual identity and packaging system — a bold, playful brand for an artisan Melbourne bakery.",
+          "Brand identity, packaging and visual system for Karim, a Colombian cosmetics and self-care brand with a warm, empowering aesthetic crafted by Keishmer Studio.",
       },
       {
         id: "nexus-platform",
         title: "NEXUS PLATFORM",
         tagline:
-          "Brand architecture and digital guidelines for a B2B product ecosystem.",
+          "Brand architecture and visual identity for a custom software development company with a human-centered approach.",
         description:
-          "Nexus Platform is a growing B2B SaaS ecosystem serving operations teams in logistics and supply chain. By the time they approached us, they had six products operating under inconsistent naming, visual languages, and tone of voice. We were brought in to create a unified brand architecture that could scale across their portfolio while giving each product its own clear identity lane.",
+          "Nexus is a custom software development brand focused on building personalized technological solutions for each client. Their methodology starts with listening — understanding the problem deeply before writing a single line of code. They believe technology should enhance human connections, not replace them, and that software must adapt to the user, not the other way around. We were brought in to create a brand architecture and visual identity that communicates their philosophy: the point where everything connects, anchored in functionality, innovation, and trust.",
         challenge:
-          "Each Nexus product had been designed by different teams at different points in time. There was no shared design language, no consistent typography or color logic, and no documentation. Customers found the product suite confusing. Sales couldn't explain the family structure in a pitch.",
+          "Nexus had grown through referrals based on engineering quality and their collaborative, listening-first approach. As they scaled, they needed a visual identity that could communicate their values to new clients without relying solely on word of mouth. The brand had to reflect their technical precision, their human-centered methodology, and their promise of building technology that truly serves people.",
         solution:
-          "We conducted a full brand audit and stakeholder interviews before writing a brand architecture framework. The system uses a master brand with endorsed sub-brand logic — each product inherits core elements but operates with defined accent colors and iconography. We created a comprehensive design system in Figma, a brand book, and digital guidelines for their internal design and marketing teams.",
+          "We developed a brand system anchored in the concept of connection and protection. The isotype and visual discourse reinforce solidity, reliable technology, and seamless integration. The color palette combines deep, trustworthy tones with vibrant accents that signal innovation. We created comprehensive brand guidelines, a messaging framework, and a visual system that flexes across digital and print touchpoints while maintaining coherence and trust.",
         outcome:
-          "Six months post-launch, NPS scores increased by 18 points. The sales team reported shorter pitch cycles and higher clarity from prospects. Internal teams shipped new materials 40% faster using the guidelines.",
-        client: "Nexus Platform",
+          "The new brand gave Nexus a professional, unified presence that reflects their technical expertise and human-centered philosophy. The messaging framework helped their team articulate their collaborative methodology more effectively. The visual system scales across their growing service offerings — from custom development to technology consulting — while the clear hierarchy helps clients immediately recognize the quality and care behind every project.",
+        client: "Nexus",
         year: "2024",
-        services: ["Brand Architecture", "Design System", "Brand Book", "Digital Guidelines"],
+        services: ["Brand Architecture", "Logo Design", "Visual Identity", "Brand Guidelines", "Messaging Framework"],
         image: nexusBrand.src,
-        imageAlt: "Nexus Platform branding — tech workspace with brand assets",
+        imageAlt: "Nexus — Custom software development brand identity",
         gallery: [
         nexus1.src,
         nexus2.src,
@@ -261,9 +411,9 @@ const baseCategories: WorkCategory[] = [
         nexus5.src,
         ],
         ctaLabel: "View details",
-        seoTitle: "Nexus Platform — B2B Brand Architecture | Ruana Soul Studio",
+        seoTitle: "Nexus — Custom Software Development Brand Identity | Keishmer Studio",
         seoDescription:
-          "Ruana Soul Studio built the brand architecture and design system for Nexus Platform's B2B SaaS product ecosystem — unifying six products under one visual language.",
+          "Brand architecture and visual identity for Nexus, a custom software development company that builds human-centered technology. Brand strategy crafted by Keishmer Studio.",
       },
       {
         id: "mo-tech-service",
@@ -293,20 +443,20 @@ const baseCategories: WorkCategory[] = [
         id: "ruanasoulstudio",
         title: "Ruana Soul Studio",
         tagline:
-          "Redefining the digital presence of an emerging brand and design studio",
+          "Brand identity and visual system for an audiovisual production studio with a human, artistic, and transformative approach.",
         description:
-          "Ruana Soul Studio is a brand identity and web design studio based in Melbourne, Australia. We specialize in creating unique and memorable brands that stand out from the crowd.",
+          "Ruana Soul Studio is an audiovisual production studio that creates cinematic experiences and narratives with a human, artistic, and transformative approach. Their proposal is not about producing content by volume, but about developing audiovisual pieces with intention, cultural sensitivity, and technical rigor. We built a brand identity that reflects their philosophy: film as a tool for transformation, empathy, and social dialogue — where image and soul meet.",
         challenge:
-          "Ruana Soul Studio is a brand identity and web design studio based in Melbourne, Australia. We specialize in creating unique and memorable brands that stand out from the crowd.",
+          "The audiovisual production market is crowded with studios that compete on speed and volume. Ruana Soul Studio needed a brand that communicated their differentiator: they don't just 'make content' — they create meaningful moments. The brand had to convey their artisanal vision of cinema, their commitment to cultural depth, and their focus on impact over output, while attracting clients who value depth over volume.",
         solution:
-          "We built the identity around the idea of 'botanical precision' — the meeting point of science and nature. The primary mark is a geometric interpretation of a botanical cross-section. We specified premium uncoated stocks for packaging, with foil accents in sage green and warm gold. Every touchpoint — from outer box to product insert — was designed as a considered ritual object.",
+          "We developed a brand identity rooted in cinematic quality and artistic intention. The visual system uses filmic textures, a refined color palette that references cinema color grading, and typography that balances elegance with edge. The logo mark is a geometric abstraction of the meeting point between image and soul — the core of their philosophy. Brand guidelines cover their unique positioning, project selection criteria, and communication voice to ensure consistency across every client interaction.",
         outcome:
-          "We helped transform Ruana Soul Studio from a freelance operation into a recognized design studio. By clearly defining their niche, refining their visual systems, and launching a modern, strategic website, we created a foundation that has supported consistent client acquisition and industry recognition. The studio now operates with a clear point of view and a visual presence that reflects the quality of work they deliver.",
+          "The brand identity positioned Ruana Soul Studio as a boutique, high-impact studio rather than a traditional production house. Their new visual presence attracts clients who value depth over volume — from high-level audiovisual productions to social impact documentaries and cinematographic co-productions. The brand has become a filtering mechanism that brings them the right projects with the right clients who share their vision of cinema as transformation.",
         client: "Ruana Soul Studio",
         year: "2024",
-        services: ["Brand Identity", "Packaging Design", "Retail Strategy", "Print Production"],
+        services: ["Brand Identity", "Logo Design", "Visual System", "Brand Guidelines", "Art Direction"],
         image: ruanaBrand.src,
-        imageAlt: "Ruana Soul Studio - Identity and Web Design",
+        imageAlt: "Ruana Soul Studio — Audiovisual production brand identity",
         gallery: [
           ruana1.src,
           ruana2.src,
@@ -315,9 +465,9 @@ const baseCategories: WorkCategory[] = [
           ruana5.src,
         ],
         ctaLabel: "View details",
-        seoTitle: "Verde Botánica — Luxury Skincare Brand Identity | Ruana Soul Studio",
+        seoTitle: "Ruana Soul Studio — Audiovisual Production Brand Identity | Keishmer Studio",
         seoDescription:
-          "Ruana Soul Studio created Verde Botánica's luxury skincare visual identity — tactile print finishes, premium packaging, and a brand built for shelf presence.",
+          "Brand identity and visual system for Ruana Soul Studio, an audiovisual production studio creating cinematic experiences with a human, artistic, and transformative approach.",
       },
     ],
   },
@@ -337,21 +487,21 @@ const baseCategories: WorkCategory[] = [
         id: "ruana-studio",
         title: "RUANA SOUL STUDIO",
         tagline:
-          "Performance-focused marketing site with scroll storytelling and CMS-ready structure.",
+          "Full-service agency website with cinematic storytelling, SEO/AEO strategy, and a conversion-first approach.",
         description:
-          "This is the site you're looking at right now. We built Ruana Soul Studio's own marketing site as a live demonstration of what we do best: scroll-driven storytelling, performance-first engineering, and design that earns trust fast. The project served as a proving ground for our own process — treating ourselves as a client with the highest possible standards.",
+          "Ruana Soul Studio is a branding, audiovisual production, and web development agency based in Melbourne, focused on giving brands cohesive visual identity through a cinematic approach. We built our own agency website as a live demonstration of everything we offer: scroll-driven storytelling with GSAP, performance-first Astro engineering, SEO and AEO optimization for AI-powered search engines, and a design system that balances visual impact with conversion strategy. The site serves as both our portfolio and our best sales pitch — proving that we can deliver the same quality we promise our clients.",
         challenge:
-          "Most agency websites are either a visual playground with no conversion strategy, or a template site with no personality. We needed to build something that was genuinely beautiful, technically excellent, and moved visitors toward a clear next step.",
+          "Most agency websites fall into one of two traps: they're either a visual playground with no conversion strategy, or a template site with no personality. We needed to build something that was genuinely beautiful, technically excellent, AND moved visitors toward a clear next step — all while demonstrating our capabilities in branding, web development, audiovisual production, and SEO/AEO in a cohesive way.",
         solution:
-          "We used Astro for static generation with zero JavaScript overhead by default. GSAP powers the scroll storytelling and cinematic entrance animations. The design system uses custom typography, a refined color palette, and a layout grid that balances information density with breathing room. Every section is a considered argument for working with us.",
+          "We built the site using Astro SSR for performance, with GSAP powering scroll-triggered animations and cinematic entrance sequences. The design system uses custom typography, a refined color palette, and a layout that balances information density with breathing room. Every section is a considered argument for working with us. SEO and AEO (Answer Engine Optimization) were integrated from the ground up — with JSON-LD structured data, semantic HTML hierarchy, and content structured for both traditional search engines and AI answer engines. The blog pulls from our Medium RSS feed and integrates directly into the site's content ecosystem.",
         outcome:
-          "The site achieves a perfect Lighthouse score. Page load under 1 second. The contact form converts at above-industry-average rates. It ranks on page one for our primary search terms in Melbourne.",
+          "The site achieves perfect Lighthouse scores with sub-second page loads. The contact form converts at above-industry-average rates. The site ranks on page one for our primary search terms in Melbourne and performs strongly in AI-powered search results. It serves as a living portfolio that demonstrates our capabilities across branding, web development, audiovisual production, and content strategy — all in one cohesive platform.",
         client: "Ruana Soul Studio",
         year: "2024",
-        services: ["Web Design", "Astro Development", "GSAP Animation", "SEO"],
+        services: ["Web Development", "Astro SSR", "GSAP Animation", "SEO & AEO Strategy", "Content Strategy"],
         image:
-          "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Ruana Soul Studio — marketing site development",
+          ruanaWeb.src,
+        imageAlt: "Ruana Soul Studio — Full-service agency website",
         gallery: [
           "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=900&auto=format&fit=crop",
           "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=900&auto=format&fit=crop",
@@ -362,29 +512,29 @@ const baseCategories: WorkCategory[] = [
           "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=900&auto=format&fit=crop",
         ],
         ctaLabel: "View details",
-        seoTitle: "Ruana Soul Studio Website — Design & Development Case Study",
+        seoTitle: "Ruana Soul Studio — Full-Service Agency Website | Branding, Web Dev & SEO",
         seoDescription:
-          "Behind the build: how Ruana Soul Studio designed and developed its own performance marketing site with Astro, GSAP, and a conversion-first approach.",
+          "How Ruana Soul Studio built its own agency website — Astro SSR, GSAP animations, SEO/AEO strategy, and a conversion-first approach that demonstrates our full service capabilities.",
       },
       {
-        id: "arch-gallery",
-        title: "ARCH GALLERY",
+        id: "karim-ventas",
+        title: "Karim Ventas",
         tagline:
-          "Headless portfolio with image optimization and subtle page transitions.",
+          "Custom Shopify e-commerce with bespoke Liquid components for a Colombian cosmetics and self-care brand.",
         description:
-          "Arch Gallery is a contemporary art gallery in Melbourne's CBD, representing emerging and mid-career artists across painting, sculpture, and digital media. They needed a digital home that matched the ambition of the work they show — a site where art is the hero and everything else gets out of the way.",
+          "Karim Ventas is the online and physical store for the Karim brand, a Colombian cosmetics and self-care company based in Barrancabermeja. We built a fully customized Shopify e-commerce platform using the Tinker v4.1.1 theme as foundation, developing bespoke Shopify Liquid components — custom theme blocks with tailored schemas, inline SVG icon systems, JSON templates for flexible page composition, and a block-based architecture that gives the merchant full control over their store layout. The result is an online store that captures Karim's warm, kawaii-colombiana aesthetic while handling everything from product categorization and inventory management to national shipping across Colombia.",
         challenge:
-          "Gallery websites tend to compromise: either they look stunning but load slowly (destroying the art viewing experience), or they're fast but visually forgettable. Art deserves better. The site also needed to handle large, high-resolution images without degrading performance.",
+          "Karim needed an online store that matched the warmth and personality of their physical boutique. Off-the-shelf Shopify themes couldn't capture their unique kawaii-colombiana aesthetic — a blend of visual tenderness with local Colombian identity and feminine character. The store had to feel personal and curated while maintaining full e-commerce capabilities: product variants, inventory tracking, shipping integrations for national delivery, and a seamless mobile checkout experience.",
         solution:
-          "We built a headless architecture using Astro with a custom CMS integration. Every image passes through an optimisation pipeline — correctly sized, lazy-loaded, and served in next-gen formats. Page transitions use a custom GSAP clip-path reveal so navigating between works feels like turning gallery pages. The layout is intentionally restrained: dark backgrounds, generous white space, and typography that steps back.",
+          "We built on top of Tinker v4.1.1, creating a library of custom Shopify Liquid components that translated Karim's brand into a cohesive digital shopping experience. We developed custom theme blocks with bespoke Liquid schemas, a block-based page composition system for flexible layout control, and inline SVG icon systems for brand-specific visual elements. The design uses clamp-based responsive scaling, Urbanist and Playfair Display typography, and a warm pastel palette with tropical accents. Product pages, category navigation, and the cart flow were re-engineered with custom Liquid to maintain brand consistency at every touchpoint — from the hero section to the checkout confirmation.",
         outcome:
-          "Load times dropped 70% from their previous WordPress site. Average session time increased by 3 minutes. Online enquiries for represented artists increased by 45% in the first quarter post-launch.",
-        client: "Arch Gallery",
-        year: "2023",
-        services: ["Web Design", "Headless CMS", "Performance Optimization", "GSAP Animation"],
+          "Karim Ventas launched with a fully operational online store that bridges their physical boutique in Barrancabermeja with customers nationwide. The custom Liquid components give the Karim team the flexibility to update products, categories, and promotions without losing brand consistency. The block-based architecture allows them to add seasonal campaigns and new product lines independently. The platform serves as Karim's primary digital sales channel, supporting their growth from a local boutique to a national e-commerce brand with a distinctive, ownable online identity.",
+        client: "Karim Ventas",
+        year: "2024",
+        services: ["Shopify Development", "Custom Liquid Components", "E-commerce Design", "Theme Development", "UX Design"],
         image:
-          "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Arch Gallery — headless portfolio website",
+          karimWeb.src,
+        imageAlt: "Karim Ventas — Custom Shopify e-commerce for Colombian cosmetics brand",
         gallery: [
           "https://images.unsplash.com/photo-1561214115-f2f134cc4912?q=80&w=900&auto=format&fit=crop",
           "https://images.unsplash.com/photo-1580136579312-94651dfd596d?q=80&w=900&auto=format&fit=crop",
@@ -394,30 +544,30 @@ const baseCategories: WorkCategory[] = [
           "https://images.unsplash.com/photo-1572947650440-e8a97ef053b2?q=80&w=900&auto=format&fit=crop",
           "https://images.unsplash.com/photo-1531058020387-3be344556be6?q=80&w=900&auto=format&fit=crop",
         ],
-        ctaLabel: "Explore options",
-        seoTitle: "Arch Gallery — Headless Portfolio Website | Ruana Soul Studio",
+        ctaLabel: "View details",
+        seoTitle: "Karim Ventas — Custom Shopify E-commerce with Liquid Components | Keishmer Studio",
         seoDescription:
-          "Ruana Soul Studio built Arch Gallery's headless portfolio website — image-optimized, lightning-fast, with GSAP page transitions built for the contemporary art world.",
+          "Custom Shopify e-commerce built with bespoke Liquid components for Karim Ventas, a Colombian cosmetics and self-care brand. Theme development, block architecture, and e-commerce design by Keishmer Studio.",
       },
       {
-        id: "event-landing",
-        title: "SUMMIT EVENTS",
+        id: "wisegold-capital",
+        title: "WiseGold Capital",
         tagline:
-          "High-conversion landing with ticketing integration and live agenda updates.",
+          "Multi-language institutional platform with Medium RSS blog integration and automated translation across 6 languages.",
         description:
-          "Summit Events runs premium professional development conferences for the architecture and design industry. For their flagship annual event, they needed a landing page capable of driving ticket sales, communicating a packed agenda, and handling real-time updates as speakers were confirmed — all while reflecting the premium positioning of the event itself.",
+          "WiseGold Capital is an institutional gold and silver custody infrastructure designed for capital preservation and operational continuity. We built a multi-language platform (English, Spanish, Portuguese, French, Chinese, Arabic) that communicates their sophisticated custody model — from advisory and vault services to proprietary trading and technology infrastructure — to a global institutional audience. The platform features a fully automated blog system that fetches articles from their Medium RSS feed, stores them in a PostgreSQL database, and automatically translates every post into all 5 additional languages via Azure Translator API with HTML-aware translation that preserves formatting and structure.",
         challenge:
-          "Event landing pages live and die by one thing: conversion. But this one also needed to function as a live information hub for weeks before the event — updating speaker bios, session times, and venue details without developer intervention.",
+          "WiseGold operates in a highly regulated, trust-intensive industry. Their platform needed to communicate complex custody structures — assigned vs consolidated inventory, multi-tier governance with independent depositaries, AML/CTF compliance frameworks — in a way that institutional clients and intermediaries across different jurisdictions could understand and trust. Their content strategy relied on Medium for thought leadership, but Medium doesn't support their multi-language audience across 6 languages. They needed a system that could bridge content creation (Medium) with a localized, database-driven platform without manual translation effort.",
         solution:
-          "We built a high-fidelity landing page connected to a lightweight CMS for agenda management. The ticketing flow is integrated directly into the page with a drawer-style checkout — no redirects. Above the fold we put the single most important piece of information: the date, the city, and the CTA. Everything below supports the decision to buy.",
+          "We built an Astro SSR platform with a Node.js backend and PostgreSQL database. The blog system uses a cron-driven RSS fetcher that polls Medium's feed every 30 minutes, stores new posts in the database, and triggers Azure Translator API to translate each post into all 5 additional languages. The frontend serves translated content from the database with lazy fallback translation for edge cases. The information architecture breaks down complex custody concepts into clear service pillars (Advisory, Vault, Technology, Trading) with visual hierarchy that guides institutional clients through the value chain. Multi-language support is handled via intelligent middleware with cookie-based, Accept-Language, and IP geolocation detection. The platform is deployed on Azure VMs with Docker, using Nginx and automated SSL via Certbot.",
         outcome:
-          "Tickets sold out in 11 days — 3 weeks ahead of their previous record. The page handled 4,200 unique visitors on launch day with zero downtime. Conversion rate on the ticketing CTA was 8.4%.",
-        client: "Summit Events",
+          "WiseGold Capital launched with a robust multi-language platform that serves as both their institutional presence and their content marketing engine. The automated blog system keeps all 6 language versions continuously updated with fresh content without manual intervention — new Medium posts are automatically fetched, translated, and published across the entire platform. The PostgreSQL-backed storage ensures reliable content delivery with sub-second page loads. The platform has become a key credibility signal for institutional clients evaluating their custody infrastructure, with the multi-language capability particularly valued by their Latin American, European, and Asian intermediary networks.",
+        client: "WiseGold Capital",
         year: "2024",
-        services: ["Landing Page Design", "CMS Integration", "Ticketing UX", "Performance"],
+        services: ["Web Development", "Multi-language Platform", "Blog System Integration", "Database Architecture", "Cloud Infrastructure"],
         image:
-          "https://images.unsplash.com/photo-1505373877847-8d25f39a466a?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Summit Events — high-conversion event landing page",
+          wisegoldWeb.src,
+        imageAlt: "WiseGold Capital — Multi-language institutional platform with blog automation",
         gallery: [
           "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=900&auto=format&fit=crop",
           "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=900&auto=format&fit=crop",
@@ -428,29 +578,29 @@ const baseCategories: WorkCategory[] = [
           "https://images.unsplash.com/photo-1550305080-4e029753abcf?q=80&w=900&auto=format&fit=crop",
         ],
         ctaLabel: "View details",
-        seoTitle: "Summit Events — Event Landing Page Design | Ruana Soul Studio",
+        seoTitle: "WiseGold Capital — Multi-language Institutional Platform | Keishmer Studio",
         seoDescription:
-          "Ruana Soul Studio built Summit Events' high-conversion conference landing page — integrated ticketing, live agenda updates, and sold out in 11 days.",
+          "Multi-language institutional platform for WiseGold Capital with Medium RSS blog integration, PostgreSQL storage, and automated Azure translation across 6 languages. Built by Keishmer Studio.",
       },
       {
-        id: "saas-docs",
-        title: "NEXUS DOCS",
+        id: "didier-perez",
+        title: "Didier Pérez — Abogado",
         tagline:
-          "Documentation hub with search, versioned API references, and dark mode.",
+          "Professional portfolio website for a Colombian administrative law attorney, built as a clean, single-page static site.",
         description:
-          "Following our branding work with Nexus Platform, their engineering team commissioned us to design and build their documentation hub. Developer documentation is a product in itself — bad docs kill adoption. We treated this as a UX and design challenge as much as an engineering one.",
+          "Didier Pérez is a Colombian lawyer specialized in Administrative Law, offering legal advisory and representation for individuals and state procedures. We designed and developed a professional portfolio website that presents his practice areas — Administrative Law, Notarial Law, Civil Law, and Fundamental Rights defense — in a clean, authoritative, and accessible format. Built as a single-page static site deployed via GitHub Pages, the design prioritizes clarity and trust: a professional color scheme, clear typography hierarchy using Open Sans and Urbanist, and straightforward navigation that helps potential clients quickly understand his expertise and reach out via WhatsApp and contact forms.",
         challenge:
-          "Nexus had six products with distinct APIs and workflows. Their existing docs were a mix of Notion pages, PDF guides, and GitHub readmes with no consistent structure or search. Developers were churning at the integration stage because they couldn't find what they needed.",
+          "Legal professionals need a web presence that communicates authority, trust, and accessibility — but most lawyer websites in Colombia are either overly complex corporate portals or generic templates that fail to build confidence. Didier needed a site that felt professional without being intimidating, approachable without being informal, and that clearly presented his areas of practice in a way that potential clients from different backgrounds could immediately understand and take action on. The site also needed to work flawlessly on mobile devices, where most legal searches originate.",
         solution:
-          "We designed a documentation system with a three-panel layout: global navigation, section tree, and content. Search is powered by a local index for instant results. The system supports versioned API references with automatic diff highlighting. Dark mode is first-class — not an afterthought. Code blocks use syntax highlighting with one-click copy. Every page has an estimated reading time and a feedback widget.",
+          "We developed a clean single-page portfolio with a focus on content hierarchy and conversion. The hero section immediately establishes Didier's specialization in Administrative Law and his location in Colombia. Practice areas are presented with clear descriptions that help potential clients self-identify their legal needs. A prominent consultation CTA with integrated WhatsApp link makes it frictionless to initiate contact. The design uses a restrained professional color palette defined via CSS custom properties, Open Sans for body readability, and Urbanist for headings. The static architecture ensures instant loading and zero maintenance — critical for a legal professional who should focus on their practice, not their website.",
         outcome:
-          "Time-to-first-integration dropped from an average of 4.2 days to 1.8 days after launch. Developer satisfaction scores increased by 31%. Support ticket volume for integration questions dropped 55%.",
-        client: "Nexus Platform",
+          "The site serves as Didier's primary digital storefront, presenting his legal expertise in a professional, trustworthy format that builds instant credibility. The clear practice area breakdown helps potential clients self-identify their needs before reaching out, reducing friction in the initial consultation request. The WhatsApp integration has become a primary channel for consultation inquiries. The static site architecture guarantees fast load times, mobile optimization, and zero maintenance overhead — allowing Didier to focus on his legal practice while maintaining a professional online presence that competes with larger firms.",
+        client: "Didier Pérez",
         year: "2024",
-        services: ["UX Design", "Documentation System", "Search Integration", "Dark Mode"],
+        services: ["Web Design", "Static Site Development", "UI/UX Design", "SEO"],
         image:
-          "https://images.unsplash.com/photo-1517694712202-14dd9538a199?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Nexus Docs — developer documentation hub design",
+          didierWeb.src,
+        imageAlt: "Didier Pérez — Legal portfolio website for Colombian administrative law attorney",
         gallery: [
           "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=900&auto=format&fit=crop",
           "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=900&auto=format&fit=crop",
@@ -461,9 +611,9 @@ const baseCategories: WorkCategory[] = [
           "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=900&auto=format&fit=crop",
         ],
         ctaLabel: "View details",
-        seoTitle: "Nexus Docs — Developer Documentation Hub | Ruana Soul Studio",
+        seoTitle: "Didier Pérez — Legal Portfolio Website for Administrative Law Attorney | Keishmer Studio",
         seoDescription:
-          "Ruana Soul Studio designed Nexus Platform's developer documentation hub — versioned API references, instant search, and dark mode that cut integration time in half.",
+          "Professional portfolio website for Didier Pérez, Colombian administrative law attorney. Clean single-page design with practice area presentation and WhatsApp integration by Keishmer Studio.",
       },
     ],
   },
