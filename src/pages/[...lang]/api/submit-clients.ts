@@ -145,7 +145,7 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ success: false, message: "Invalid project details" }, 400);
   }
 
-  const recaptcha = text(body.recaptcha, 400, true);
+  const recaptcha = text(body.recaptcha, 2000, true);
   const recaptchaSecretKey = import.meta.env.RECAPTCHA_SECRET_KEY;
   if (!recaptcha || !recaptchaSecretKey) {
     return json({ success: false, message: "Security validation unavailable" }, 500);
