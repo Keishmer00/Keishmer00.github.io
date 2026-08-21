@@ -201,6 +201,9 @@ export const POST: APIRoute = async ({ request }) => {
           hostname: recaptchaData.hostname,
           allowedHosts,
           errorCodes: recaptchaData["error-codes"] || null,
+          tokenLength: recaptcha?.length,
+          tokenPrefix: recaptcha?.slice(0, 30),
+          hasSecretKey: !!recaptchaSecretKey,
         },
       },
       403
