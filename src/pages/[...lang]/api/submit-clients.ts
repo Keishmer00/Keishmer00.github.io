@@ -157,10 +157,43 @@ export const POST: APIRoute = async ({ request }) => {
     body: new URLSearchParams({ secret: recaptchaSecretKey, response: recaptcha }),
   });
   const recaptchaData = await verifyResponse.json();
+  console.log("reCAPTCHA response:", recaptchaData);
+
   const allowedHosts = (import.meta.env.RECAPTCHA_ALLOWED_HOSTNAMES || "keishmerstudio.com,localhost").split(",").map((host: string) => host.trim());
   const validHost = !recaptchaData.hostname || allowedHosts.includes(recaptchaData.hostname);
-  if (!recaptchaData.success || recaptchaData.score < 0.5 || recaptchaData.action !== "submit" || !validHost) {
-    return json({ success: false, message: "Security validation failed" }, 403);
+
+  console.log("reCAPTCHA checks:", {
+    success: recaptchaData.success,
+    score: recaptchaData.score,
+    action: recaptchaData.action,
+    hostname: recaptchaData.hostname,
+    validHost,
+    allowedHosts,
+  });
+
+  const failedChecks = {
+    success: !recaptchaData.success,
+    lowScore: (recaptchaData.score ?? 0) < 0.5,
+    wrongAction: recaptchaData.action !== "submit",
+    invalidHost: !validHost,
+  };
+
+  if (Object.values(failedChecks).some(Boolean)) {
+    return json(
+      {
+        success: false,
+        message: "Security validation failed",
+        debug: {
+          ...failedChecks,
+          score: recaptchaData.score,
+          action: recaptchaData.action,
+          hostname: recaptchaData.hostname,
+          allowedHosts,
+          errorCodes: recaptchaData["error-codes"] || null,
+        },
+      },
+      403
+    );
   }
 
   const supabaseUrl = import.meta.env.SUPABASE_URL;
