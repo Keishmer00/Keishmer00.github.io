@@ -147,6 +147,13 @@ export const POST: APIRoute = async ({ request }) => {
 
   const recaptcha = text(body.recaptcha, 2000, true);
   const recaptchaSecretKey = import.meta.env.RECAPTCHA_SECRET_KEY;
+
+  console.log("Token received:", {
+    length: recaptcha?.length,
+    prefix: recaptcha?.slice(0, 30),
+    hasSecret: !!recaptchaSecretKey,
+  });
+
   if (!recaptcha || !recaptchaSecretKey) {
     return json({ success: false, message: "Security validation unavailable" }, 500);
   }
@@ -154,7 +161,11 @@ export const POST: APIRoute = async ({ request }) => {
   const verifyResponse = await fetch("https://www.google.com/recaptcha/api/siteverify", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({ secret: recaptchaSecretKey, response: recaptcha }),
+    body: new URLSearchParams({
+      secret: recaptchaSecretKey,
+      response: recaptcha,
+      remoteip: clientIp,
+    }),
   });
   const recaptchaData = await verifyResponse.json();
   console.log("reCAPTCHA response:", recaptchaData);
