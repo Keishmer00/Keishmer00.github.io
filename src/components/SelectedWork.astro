@@ -1,0 +1,50 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+import { getCategories, getProjectUrl } from "../lib/projects";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+const selectedIds = lang === "en"
+  ? ["mo-tech-service", "nexus-platform", "karim"]
+  : ["ruanasoulstudio", "karim", "mo-tech-service"];
+const selectedWorks = getCategories(lang)
+  .flatMap((category) => category.works.map((work) => ({ work, category })))
+  .filter(({ work }) => selectedIds.includes(work.id))
+  .sort((a, b) => selectedIds.indexOf(a.work.id) - selectedIds.indexOf(b.work.id));
+---
+
+<section id="selected-work" class="bg-black px-4 py-20 md:px-8 lg:px-24 lg:py-28">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="font-mono text-sm uppercase tracking-widest text-gray-400">{t("selectedWork.eyebrow")}</p>
+        <h2 class="mt-3 font-unbounded text-2xl uppercase text-white md:text-4xl">{t("selectedWork.title")}</h2>
+      </div>
+      <p class="max-w-xl font-mono text-base leading-relaxed text-gray-300">{t("selectedWork.description")}</p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-3">
+      {selectedWorks.map(({ work, category }) => (
+        <article class="flex flex-col overflow-hidden border border-white/20 bg-white/[0.03]">
+          <img src={work.image} alt={work.imageAlt} loading="lazy" class="aspect-[4/3] w-full object-cover grayscale" />
+          <div class="flex flex-1 flex-col gap-4 p-5">
+            <p class="font-mono text-xs uppercase tracking-widest text-gray-400">{category.label} · {work.year}</p>
+            <h3 class="font-unbounded text-lg uppercase text-white">{work.title}</h3>
+            <p class="font-mono text-sm leading-relaxed text-gray-300">{work.tagline}</p>
+            <a
+              href={getProjectUrl(category.id, work.id, lang)}
+              data-analytics-event="case_study_click"
+              data-analytics-label={work.id}
+              class="mt-auto inline-flex w-fit items-center gap-2 border-b border-white py-2 font-mono text-sm text-white transition-colors hover:border-primary hover:text-primary"
+            >{work.ctaLabel} <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

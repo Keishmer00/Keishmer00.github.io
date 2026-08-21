@@ -1,0 +1,33 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+
+export interface Props { lang: Lang }
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+---
+
+<section class="bg-white px-4 py-20 lg:px-0 lg:py-0 md:px-8 flex flex-row justify-between ">
+  <div class="hidden lg:flex  flex-col justify-between">
+    <div class="h-8 w-44 bg-black"></div>
+    <div class="h-8 w-44 bg-black"></div>
+  </div>
+  <div class="flex flex-col lg:flex-row lg:px-16 gap-10 items-center justify-between lg:py-28 lg:items-end">
+    <div>
+      <p class="font-mono text-sm uppercase tracking-widest text-primary-inverse">{t("idealClients.eyebrow")}</p>
+      <h2 class="mt-4 font-unbounded text-2xl font-bold uppercase leading-tight text-black md:text-3xl lg:text-4xl">{t("idealClients.title")}</h2>
+    </div>
+    <div class="grid gap-4 md:grid-cols-3">
+      {(["one", "two", "three" ] as const).map((item) => (
+        <div class="border border-gray-300 p-5 hover:border-black transition-colors duration-300 ease-in-out">
+          
+          <p class="font-albert text-lg leading-relaxed text-gray-800">{t(`idealClients.${item}`)}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="hidden lg:flex  flex-col justify-between">
+    <div class="h-8 w-44 bg-black"></div>
+    <div class="h-8 w-44 bg-black"></div>
+  </div>
+</section>

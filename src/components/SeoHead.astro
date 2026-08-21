@@ -1,6 +1,6 @@
 ---
 import type { Lang } from "../i18n/index";
-import { useTranslations } from "../i18n/index";
+import { getAlternatePaths, useTranslations } from "../i18n/index";
 
 export interface Props {
   lang: Lang;
@@ -16,17 +16,25 @@ const { t, tArray } = useTranslations(lang);
 const seoKey = page === "home" ? "home" : page === "about-me" ? "aboutMe" : page;
 const title = customTitle || t(`seo.${seoKey}.title`);
 const description = customDescription || t(`seo.${seoKey}.description`);
-const canonical = `https://keishmerstudio.com${pathname}`;
-const alternateEn = `https://keishmerstudio.com${page === "home" ? "/" : `/${pathname.replace(/^\/es\//, "")}`}`;
-const alternateEs = `https://keishmerstudio.com${page === "home" && lang === "en" ? "/es/" : pathname.startsWith("/es/") ? `/${pathname}` : `/es${pathname === "/" ? "/" : pathname}`}`;
+const siteUrl = "https://keishmerstudio.com";
+const normalizePath = (path: string) => {
+  const cleanPath = path.replace(/\/{2,}/g, "/");
+  if (cleanPath === "/") return "/";
+  return cleanPath.endsWith("/") ? cleanPath : `${cleanPath}/`;
+};
+const alternatePaths = getAlternatePaths(pathname);
+const canonical = `${siteUrl}${normalizePath(pathname)}`;
+const alternateEn = `${siteUrl}${normalizePath(alternatePaths.en)}`;
+const alternateEs = `${siteUrl}${normalizePath(alternatePaths.es)}`;
 ---
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="description" content={description} />
 <meta name="author" content={t("site.author")} />
-<meta name="theme-color" content="#0a0a0a" />
-<meta name="robots" content={page === "error" || page === "uxui" || page === "frontend" || page === "visualArtist" ? "noindex" : "index, follow"} />
+<meta name="theme-color" content="#121314" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="robots" content={page === "error" || page === "visualArtist" ? "noindex" : "index, follow"} />
 <link rel="canonical" href={canonical} />
 
 <!-- Alternate language links -->
@@ -66,9 +74,37 @@ const alternateEs = `https://keishmerstudio.com${page === "home" && lang === "en
   "url": "https://keishmerstudio.com",
   "image": "https://keishmerstudio.com/og-image.png",
   "sameAs": [
+    "https://www.linkedin.com/in/keishmer-p%C3%A9rez-torres/",
+    "https://github.com/Keishmer00",
+    "https://www.instagram.com/keishmer00/",
     "https://twitter.com/keishmer00"
   ],
-  "knowsAbout": tArray("jsonld.knowsAbout")
+  "email": "kshmr044@gmail.com",
+  "knowsAbout": tArray("jsonld.knowsAbout"),
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Move On Tech Service",
+    "url": "https://moveonts.com/"
+  },
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Universidad Internacional de La Rioja" },
+    { "@type": "CollegeOrUniversity", "name": "Universidad de Pamplona" }
+  ]
+})} />
+)}
+
+{page === "home" && (
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://keishmerstudio.com/#service",
+  "name": "Keishmer Studio",
+  "url": siteUrl,
+  "email": "kshmr044@gmail.com",
+  "areaServed": ["United States", "Colombia", "Latin America"],
+  "availableLanguage": ["English", "Spanish"],
+  "serviceType": ["UX/UI Design", "Frontend Development", "Branding", "Design Systems"],
+  "provider": { "@id": "https://keishmerstudio.com/#person" }
 })} />
 )}
 
@@ -80,15 +116,7 @@ const alternateEs = `https://keishmerstudio.com${page === "home" && lang === "en
   "url": "https://keishmerstudio.com",
   "description": t("site.description"),
   "image": "https://keishmerstudio.com/og-image.png",
-  "inLanguage": lang === "en" ? "en-US" : "es-ES",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://keishmerstudio.com/search?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  }
+  "inLanguage": lang === "en" ? "en-US" : "es-ES"
 })} />
 
 <script type="application/ld+json" set:html={JSON.stringify({

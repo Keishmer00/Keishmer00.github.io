@@ -11,19 +11,121 @@ const { lang } = Astro.props;
 const { t } = useTranslations(lang);
 ---
 
-<section class="flex flex-col items-center p-8 py-16 pb-8 justify-between h-svh lg:h-screen bg-black ">
+<section class="flex flex-col items-center p-8 py-16 pb-8 lg:px-16 lg:pt-32 justify-between h-svh lg:h-screen bg-black ">
   
     <p class="text-left font-mono text-xl self-start text-gray-300">{t("about.title")}</p>
-    <h2 class=" text-left font-unbounded pt-4 md:pt-0 text-xl md:text-2xl lg:text-4xl  self-center">{t("about.subtitle")}</h2>
-    <div class="flex flex-col lg:flex-row gap-4 justify-between w-full pt-8">
-      <p class=" hidden md:block text-gray-300 text-left font-mono text-base max-w-sm self-start">{t("about.text1")}</p>
-      <img src={Selfie.src} alt={t("about.imageAlt")} class="w-44 lg:w-50 h-auto grayscale border-[0.2px] rounded-lg [corner-shape:scoop] border-white shadow-md shadow-[#000000] self-end">
+    <h2 class=" text-left font-unbounded leading-normal pt-4 md:pt-0 text-xl md:text-2xl lg:text-4xl  self-center">{t("about.subtitle")}</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 justify-between items-center w-full pt-8">
+      <p class=" hidden md:block text-gray-300 text-left font-mono text-xl max-w-sm self-start">{t("about.text1")}</p>
+      <div class="tilt-card w-44 lg:w-50 justify-self-end lg:justify-self-center" data-tilt>
+        <img src={Selfie.src} alt={t("about.imageAlt")} 
+        class="tilt-img w-full h-auto grayscale border-[0.2px] rounded-lg [corner-shape:scoop] border-white shadow-md shadow-[#000000]">
+        <div class="tilt-glare" aria-hidden="true"></div>
+      </div>
       <div class="flex flex-col gap-2 self-end">
         <a class="flex items-center gap-1 py-1 border-b group hover:text-primary hover:border-primary border-white w-fit self-end" href={getLocalizedPath("/about-me/", lang)}>
           {t("about.cta")} 
-          <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor"><path d="m243-240-51-51 405-405H240v-72h480v480h-72v-357L243-240Z"/></svg></a>
+          <svg class="cta-launch-icon" xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor"><path d="m243-240-51-51 405-405H240v-72h480v480h-72v-357L243-240Z"/></svg></a>
         <p class="text-end font-mono text-gray-300 text-base max-w-xs self-end">{t("about.text2")}</p>
       </div>
     </div>
   
 </section>
+
+<style>
+  .tilt-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .tilt-img {
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .tilt-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.5rem;
+    background: linear-gradient(
+      105deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.18) 42%,
+      rgba(255, 255, 255, 0.38) 50%,
+      rgba(255, 255, 255, 0.18) 58%,
+      transparent 65%
+    );
+    background-size: 200% 200%;
+    background-position: 0% center;
+    transform: translateZ(1px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .tilt-card:hover .tilt-glare {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  (function initTilt() {
+    const cards = document.querySelectorAll('[data-tilt]');
+
+    cards.forEach((card) => {
+      const img = card.querySelector('.tilt-img');
+      const glare = card.querySelector('.tilt-glare');
+      if (!img) return;
+
+      const maxRotation = 25;
+      const scale = 1.22;
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -maxRotation;
+        const rotateY = ((x - centerX) / centerX) * maxRotation;
+
+        img.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale}) translateZ(24px)`;
+        img.style.boxShadow = `${-rotateY * 1.6}px ${rotateX * 1.6}px 36px rgba(0, 0, 0, 0.75)`;
+
+        if (glare) {
+          const glarePos = 50 + ((x / rect.width) * 100 - 50) * 1.8;
+          glare.style.backgroundPosition = `${glarePos}% center`;
+        }
+      });
+
+      card.addEventListener('mouseleave', () => {
+        img.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+        img.style.boxShadow = '';
+      });
+    });
+  })();
+</script>
+
+<script>
+  import { gsap } from "gsap";
+
+  (function initAboutLaunchHover() {
+    const icons = document.querySelectorAll('.cta-launch-icon');
+    if (!icons.length) return;
+
+    icons.forEach((icon) => {
+      const link = icon.closest('a');
+      if (!link) return;
+
+      gsap.set(icon, { transformOrigin: "center center" });
+
+      link.addEventListener('mouseenter', () => {
+        gsap.to(icon, { x: 5, y: -5, duration: 0.35, ease: "power2.out" });
+      });
+
+      link.addEventListener('mouseleave', () => {
+        gsap.to(icon, { x: 0, y: 0, duration: 0.35, ease: "power2.out" });
+      });
+    });
+  })();
+</script>

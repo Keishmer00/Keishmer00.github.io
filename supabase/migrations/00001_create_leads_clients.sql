@@ -6,11 +6,22 @@ create table if not exists public.leads_clients (
     created_at timestamp with time zone default now() not null,
     legal_name text not null,
     client_email text not null,
-    phone_number text not null,
+    phone_number text,
     message text,
+    project_type text,
+    budget_range text,
+    timeline text,
+    language text,
+    source_path text,
+    referrer text,
+    utm_source text,
+    utm_medium text,
+    utm_campaign text,
     constraint legal_name_check check (char_length(legal_name) <= 100),
     constraint client_email_check check (char_length(client_email) <= 100),
-    constraint phone_number_check check (char_length(phone_number) <= 20)
+    constraint phone_number_check check (char_length(phone_number) <= 30),
+    constraint message_check check (char_length(message) <= 3000),
+    constraint language_check check (language in ('en', 'es'))
 );
 
 -- Enable Row Level Security

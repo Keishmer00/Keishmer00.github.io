@@ -1,7 +1,7 @@
 {
   "site": {
-    "title": "Keishmer Pérez Torres - Diseñador UX/UI, Artista Visual y Desarrollador Frontend",
-    "description": "Keishmer Perez es un Artista Visual y Diseñador Multimedia especializado en UX/UI y desarrollo frontend. Explora mi portafolio y proyectos.",
+    "title": "Diseñador UX/UI y Desarrollador Frontend Freelance | Keishmer Pérez",
+    "description": "Keishmer Pérez diseña y desarrolla experiencias digitales claras, sistemas de marca y sitios frontend para startups, negocios de servicios y marcas.",
     "url": "https://keishmerstudio.com",
     "author": "Keishmer Pérez Torres"
   },
@@ -17,34 +17,51 @@
   },
   "hero": {
     "available": "Disponible para proyectos de diseño, SEO, desarrollo frontend y branding",
-    "name": "Keishmer Perez",
-    "subtitle": "UX/UI Designer, Frontend Developer y Artista Visual en Colombia. Creo experiencias digitales, branding y sitios web optimizados para SEO, con enfoque en claridad, conversión y valor visual.",
-    "cta": "Escríbeme",
+    "headline": "Diseñador UX/UI y Desarrollador Frontend para empresas",
+    "subtitle": "Diseño y desarrollo sitios, interfaces y sistemas visuales para negocios que quieren verse profesionales, comunicar mejor su valor y convertir su sistema de negocio",
+    "cta": "Cuéntame tu proyecto",
+    "secondaryCta": "Ver proyectos seleccionados",
     "whatIAm": "Qué soy",
     "expertise": "Expertise",
-    "roleVisualArtist": "Artista Visual",
-    "roleFrontendDev": "Programador Web",
-    "roleProductDesigner": "Diseñador UX/UI",
+    "roleVisualArtist": "Artista",
+    "roleFrontendDev": "Programador",
+    "roleProductDesigner": "Diseñador",
     "expAIGenerative": "IA Generativa",
     "expBranding": "Diseño de Marca",
     "expResearch": "Investigación Estratégica"
   },
   "about": {
-    "title": "Diseño desde la intersección entre arte, estrategia y tecnología",
-    "subtitle": "Mi trabajo une UX/UI, desarrollo frontend, branding y pensamiento visual para crear experiencias digitales claras, funcionales y con intención.",
-    "text1": "Con formación en artes visuales y experiencia en diseño, investigación y entornos digitales, abordo cada proyecto con una mirada conceptual y técnica",
-    "text2": "Me interesa construir soluciones que comuniquen mejor, funcionen mejor y generen valor real para las personas y las marcas",
-    "cta":"Saber Más Sobre Mí",
+    "title": "Diseño y ejecución sin perder claridad en el camino",
+    "subtitle": "Conecto UX/UI, sistemas de marca y desarrollo frontend para que tu presencia digital se sienta clara, confiable y lista para crecer.",
+    "text1": "Con más de 4 años de experiencia y un Máster en Diseño y Producción Multimedia, ayudo a convertir marcas y productos digitales confusos en experiencias enfocadas.",
+    "text2": "Obtienes un solo socio para estrategia, diseño y ejecución, sin dividir el proyecto entre varios freelancers.",
+    "cta":"Conoce cómo trabajo",
     "imageAlt": "Foto de perfil"
+  },
+  "serviceBanner": {
+    "items": [
+      "Fotografía",
+      "Video",
+      "Branding",
+      "UX/UI",
+      "Desarrollo Web",
+      "Social Media",
+      "SEO",
+      "Creación de Contenido",
+      "Email Marketing",
+      "Estrategia de Marketing",
+      "Analytics",
+      "Consultoría & Crecimiento"
+    ]
   },
   "aboutMe": {
     "title": "Sobre Mí",
-    "subtitle": "Product Designer & Artista Visual",
+    "subtitle": "Product Designer & Desarrollador Frontend",
     "breadcrumb": "Sobre Mí",
     "imageAlt": "Keishmer Pérez Torres — Product Designer, UX/UI y Artista Visual",
     "role": "Product Designer · Diseñador UX/UI · Artista Visual",
     "location": "Pamplona, Norte de Santander, Colombia",
-    "intro": "Soy Product Designer y Artista Visual. Construyo experiencias digitales desde la intersección entre arte, estrategia y tecnología. Me especializo en diseño UX/UI, diseño con inteligencia artificial, branding y desarrollo front-end — creando productos intuitivos, eficientes y visualmente sólidos.",
+    "intro": "Soy Keishmer Pérez Torres, Product Designer y Desarrollador Frontend. Ayudo a marcas, negocios de servicios y proyectos premium a convertir una presencia digital confusa en experiencias más claras, confiables y listas para crecer. Mi trabajo conecta UX/UI, sistemas de marca y ejecución frontend para que el proyecto avance con coherencia, sin dividir estrategia, diseño e implementación entre varios proveedores.",
     "professionalSummary": "Keishmer Pérez Torres es Product Designer y Artista Visual con más de 4 años de experiencia en diseño de productos digitales, docencia universitaria y producción multimedia. Posee un Máster en Diseño y Producción Multimedia de la Universidad Internacional de la Rioja (España) y una Licenciatura en Artes Visuales de la Universidad de Pamplona (Colombia). Actualmente trabaja como Product Designer en Move On Tech Service, liderando el diseño visual y funcional de soluciones digitales para el sector de seguridad y logística. Anteriormente se desempeñó como docente universitario de Diseño Industrial, coordinador de bibliotecas digitales y diseñador multimedia para instituciones educativas y culturales. Con más de 40 certificaciones en diseño, desarrollo, IA, SEO y marketing, aporta un enfoque multidisciplinario a cada proyecto — combinando sensibilidad artística, precisión técnica y pensamiento estratégico para entregar soluciones que generan valor real para las personas y las marcas.",
     "skillsTitle": "Habilidades & Especialidades",
     "skillAI": "Diseño con IA",
@@ -59,6 +76,20 @@
     "skillReact": "React · Next.js · Astro",
     "skillHTML": "HTML · CSS · JavaScript",
     "skillCyber": "Fundamentos de Ciberseguridad",
+    "skills": [
+      "Diseño con IA",
+      "UX Research & Diseño UI",
+      "Diseño de Producto",
+      "Branding e Identidad",
+      "Desarrollo Frontend",
+      "SEO / AEO / GEO",
+      "Figma & Sistemas de Diseño",
+      "Diseño iOS & Android",
+      "Estrategia de Contenido y Marketing",
+      "React · Next.js · Astro",
+      "HTML · CSS · JavaScript",
+      "Fundamentos de Ciberseguridad"
+    ],
     "experienceTitle": "Experiencia Laboral",
     "exp1Role": "Product Designer / Diseñador UX/UI",
     "exp1Company": "Move On Tech Service",
@@ -108,18 +139,78 @@
     "cta": "Trabajemos Juntos",
     "ctaSubtext": "¿Tienes un proyecto en mente? Estoy disponible para proyectos de diseño, desarrollo y branding en todo el mundo."
   },
+  "trust": {
+    "experience": "Más de 10 años de experiencia",
+    "role": "Product Designer en Move On Tech Service",
+    "certifications": "Más de 40 certificaciones",
+    "availability": "Disponible en Colombia y el exterior",
+    "response": "Normalmente respondo en menos de 24 horas."
+  },
+  "idealClients": {
+    "eyebrow": "A quién ayudo",
+    "title": "Para equipos que necesitan claridad antes de agregar más funciones",
+    "one": "Startups que preparan un producto, lanzamiento o una historia digital más clara.",
+    "two": "Negocios de servicios que necesitan verse tan confiables en internet como lo son en su operación.",
+    "three": "Marcas que buscan diseño estratégico y ejecución sin coordinar varios freelancers."
+  },
+  "selectedWork": {
+    "eyebrow": "Proyectos seleccionados",
+    "title": "Evidencia para el tipo de proyecto que quieres construir",
+    "description": "Una selección enfocada de proyectos de marca, producto y sistemas digitales. Cada caso explica el problema, las decisiones y el resultado."
+  },
+  "process": {
+    "eyebrow": "Cómo trabajo",
+    "title": "Un proceso enfocado para mantener visibles las decisiones y constante el avance",
+    "oneTitle": "Alinear",
+    "oneText": "Definimos el problema de negocio, la audiencia, el alcance y los criterios de éxito antes de producir.",
+    "twoTitle": "Diseñar",
+    "twoText": "Convierto la dirección en una interfaz, identidad o sistema que puede revisarse y mejorarse rápidamente.",
+    "threeTitle": "Construir",
+    "threeText": "Llevo la dirección aprobada a una experiencia frontend responsive y dejo claros los siguientes pasos."
+  },
+  "faq": {
+    "eyebrow": "Antes de empezar",
+    "title": "Preguntas frecuentes del proyecto",
+    "oneQuestion": "¿Qué tipo de proyectos encajan mejor?",
+    "oneAnswer": "Trabajo mejor con startups, negocios de servicios y marcas que necesitan UX/UI, desarrollo frontend, branding o una combinación conectada de estos servicios.",
+    "twoQuestion": "¿Cuál es el presupuesto inicial?",
+    "twoAnswer": "Puedo considerar proyectos menores de US$1,000 según el alcance. El formulario solicita un rango para recomendarte el siguiente paso más realista.",
+    "threeQuestion": "¿Trabajas remoto y en ambos idiomas?",
+    "threeAnswer": "Sí. Trabajo de forma remota con clientes de Colombia, Latinoamérica y otros países en español e inglés.",
+    "fourQuestion": "¿En cuánto tiempo respondes?",
+    "fourAnswer": "Normalmente respondo en menos de 24 horas con una pregunta de seguimiento o una recomendación sobre el siguiente paso.",
+    "fiveQuestion": "¿Qué necesitas de mi parte para empezar?",
+    "fiveAnswer": "Una descripción clara del problema, materiales de marca o producto existentes, y acceso a quienes puedan dar feedback. Mientras más contexto compartas, más rápido podré proponer la dirección correcta.",
+    "sixQuestion": "¿Cuánto dura un proyecto típico?",
+    "sixAnswer": "Una landing enfocada o identidad de marca puede tomar 2–4 semanas. Un sitio completo o interfaz de producto suele estar entre 4–8 semanas según alcance y revisiones.",
+    "sevenQuestion": "¿Qué entregables recibo?",
+    "sevenAnswer": "Recibes los archivos fuente, sistema de diseño, prototipos responsive y una construcción frontend mantenible con documentación para los siguientes pasos.",
+    "eightQuestion": "¿Trabajas con equipos o desarrolladores existentes?",
+    "eightAnswer": "Sí. Puedo integrarme a equipos de producto, marketing o desarrollo existentes y encargarme de la capa de diseño mientras tu equipo se enfoca en ingeniería, contenido u operaciones."
+  },
+  "finalCta": {
+    "eyebrow": "Cuando estés listo",
+    "title": "Cuéntame qué necesita volverse más claro",
+    "text": "Comparte el contexto, el problema y lo que quieres mejorar. Lo revisaré y responderé con el siguiente paso más útil.",
+    "button": "Iniciar consulta"
+  },
+  "consent": {
+    "text": "Este sitio usa analítica respetuosa con la privacidad para entender qué páginas y acciones ayudan a iniciar un proyecto. Puedes aceptar o rechazar.",
+    "accept": "Aceptar analítica",
+    "decline": "Rechazar"
+  },
   "seo": {
     "home": {
-      "title": "Keishmer Pérez Torres - Diseñador UX/UI, Artista Visual y Desarrollador Frontend",
-      "description": "Keishmer Perez es un Artista Visual y Diseñador Multimedia especializado en UX/UI y desarrollo frontend. Explora mi portafolio y proyectos."
+      "title": "Diseñador UX/UI y Desarrollador Frontend Freelance | Keishmer Pérez",
+      "description": "Contrata un diseñador UX/UI y desarrollador frontend freelance para sitios, interfaces y sistemas visuales que convierten visitas en oportunidades de negocio."
     },
     "uxui": {
-      "title": "Portafolio de Diseño UX/UI - Keishmer Pérez Torres",
-      "description": "Explora proyectos de diseño UX/UI de Keishmer Perez: interfaces de usuario, sistemas de diseño, wireframes y prototipos creados con Figma."
+      "title": "Diseño UX/UI Freelance para Startups y Negocios de Servicios | Keishmer Pérez",
+      "description": "Contrata un diseñador UX/UI freelance para aclarar flujos, interfaces y experiencias digitales de startups y negocios de servicios."
     },
     "frontend": {
-      "title": "Portafolio de Desarrollo Frontend - Keishmer Pérez Torres",
-      "description": "Proyectos de desarrollo frontend de Keishmer Perez: sitios web responsivos, aplicaciones web y experiencias interactivas con tecnologías modernas."
+      "title": "Desarrollador Frontend Freelance para Sitios Claros y Rápidos | Keishmer Pérez",
+      "description": "Contrata un desarrollador frontend freelance para sitios Astro responsive, interfaces accesibles, SEO técnico e implementación mantenible."
     },
     "visualArtist": {
       "title": "Portafolio de Arte Visual - Keishmer Pérez Torres",
@@ -134,8 +225,8 @@
       "description": "Explora proyectos del portafolio de Keishmer Perez: branding, desarrollo web, diseño UX/UI y proyectos de arte visual."
     },
     "contact": {
-      "title": "Contacto - Keishmer Pérez Torres",
-      "description": "Ponte en contacto con Keishmer Pérez Torres para proyectos de diseño UX/UI, desarrollo frontend, branding y arte visual."
+      "title": "Cuéntame tu proyecto | Keishmer Pérez",
+      "description": "Cuéntale a Keishmer Pérez sobre tu proyecto de UX/UI, frontend, branding o sistema digital. Normalmente recibirás respuesta en menos de 24 horas."
     },
     "terms": {
       "title": "Términos y Condiciones - Keishmer Studio",
@@ -177,28 +268,52 @@
     "solution": "Nuestra Solución",
     "outcome": "El Resultado"
   },
+  "projectCta": {
+    "title": "¿Tu marca necesita verse al nivel de lo que quieres cobrar?",
+    "text": "Cuéntame qué quieres aclarar, mejorar o lanzar. Podemos empezar por el problema antes de decidir los entregables.",
+    "button": "Cuéntame tu proyecto"
+  },
   "contact": {
-    "title": "Trabajemos Juntos",
-    "description": "¿Tienes un proyecto en mente o solo quieres saludar? Completa el formulario y te responderé lo antes posible.",
+    "title": "Hablemos de tu proyecto",
+    "description": "Si necesitas diseño UX/UI, desarrollo frontend, branding o una presencia digital más clara para tu negocio, cuéntame brevemente qué estás buscando. Normalmente respondo en menos de 24 horas.",
     "namePlaceholder": "Tu Nombre",
     "emailPlaceholder": "Tu Email",
     "subjectPlaceholder": "Asunto",
     "messagePlaceholder": "Cuéntame sobre tu proyecto...",
     "submit": "Enviar Mensaje",
     "success": "¡Gracias por escribirme! Te responderé pronto.",
-    "error": "Algo salió mal. Intenta de nuevo o envía un email directamente."
+    "error": "Algo salió mal. Intenta de nuevo o envía un email directamente.",
+    "bestFit": "Ideal para marcas, negocios de servicios y proyectos que buscan diseño estratégico y ejecución."
   },
   "form": {
-    "title": "Inicia Tu Proyecto",
-    "description": "Cuéntame sobre tu proyecto y te responderé en menos de 24 horas.",
-    "name": "Nombre Legal",
-    "email": "Correo Electrónico",
-    "phone": "Teléfono",
-    "text": "Asunto o Idea del Proyecto",
-    "submit": "Enviar Solicitud",
+    "title": "Cuéntame tu proyecto",
+    "description": "Ideal para marcas, negocios de servicios y proyectos premium que buscan diseño estratégico y ejecución.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "phone": "Teléfono (opcional)",
+    "projectType": "Tipo de proyecto",
+    "projectTypePlaceholder": "Elige una opción",
+    "projectTypeUx": "Diseño UX/UI",
+    "projectTypeWeb": "Diseño web y frontend",
+    "projectTypeBranding": "Branding y sistema visual",
+    "projectTypeSupport": "Soporte de diseño continuo",
+    "budget": "Rango de presupuesto",
+    "budgetPlaceholder": "Elige una opción",
+    "budgetUnder": "Menos de US$1,000",
+    "budgetOneThree": "US$1,000–3,000",
+    "budgetOver": "Más de US$3,000",
+    "timeline": "¿Cuándo te gustaría empezar?",
+    "timelinePlaceholder": "Elige una opción",
+    "timelineNow": "Lo antes posible",
+    "timelineMonth": "En menos de 1 mes",
+    "timelineLater": "En 1–3 meses",
+    "timelineExploring": "Todavía estoy explorando",
+    "message": "Descripción breve del proyecto",
+    "submit": "Enviar consulta",
     "privacy": "Política de Privacidad",
     "terms": "Términos del Servicio",
-    "apply": "aplica."
+    "apply": "aplica.",
+    "recaptcha": "Este sitio está protegido por Google reCAPTCHA."
   },
   "terms": {
     "title": "Términos y Condiciones",
@@ -243,6 +358,44 @@
     "section7Text": "Podemos actualizar esta Política de Privacidad de vez en cuando. Te notificaremos cualquier cambio publicando la nueva política en esta página.",
     "section8Title": "8. Contacto",
     "section8Text": "Si tienes preguntas sobre esta Política de Privacidad, comunícate a través del formulario de contacto en nuestro sitio web."
+  },
+  "servicePages": {
+    "uxui": {
+      "eyebrow": "Diseño UX/UI",
+      "title": "Diseño UX/UI para productos y sitios que necesitan volverse más fáciles de entender",
+      "description": "Convierto ideas complejas, flujos confusos e interfaces inconsistentes en experiencias enfocadas, listas para probar, construir y mejorar.",
+      "cta": "Consultar sobre UX/UI",
+      "audienceTitle": "Ideal para",
+      "audience": "Startups y negocios de servicios que necesitan aclarar un producto, validar una dirección o hacer que una experiencia digital se sienta más confiable.",
+      "deliverablesTitle": "Puede incluir",
+      "deliverables": ["Auditoría UX y dirección de investigación", "Arquitectura de información y flujos", "Wireframes, prototipos y diseño UI", "Sistemas de diseño y colaboración frontend"],
+      "oneTitle": "Entender",
+      "oneText": "Mapeamos al usuario, el contexto de negocio, la fricción y la decisión que la experiencia debe apoyar.",
+      "twoTitle": "Dar forma",
+      "twoText": "Creo una estructura y dirección visual clara que puede revisarse antes de implementar.",
+      "threeTitle": "Validar",
+      "threeText": "Probamos los supuestos importantes y documentamos las decisiones necesarias para construir con confianza.",
+      "closingTitle": "Tu interfaz debería explicar el valor antes de la llamada",
+      "closingText": "Si usuarios, clientes o equipos internos tienen problemas para entender el producto, cuéntame el contexto y definiremos el siguiente paso más útil."
+    },
+    "frontend": {
+      "eyebrow": "Desarrollo frontend",
+      "title": "Desarrollo frontend para marcas que necesitan un sitio rápido, confiable y mantenible",
+      "description": "Construyo sitios responsive con Astro y experiencias frontend que conservan la intención del diseño mientras mejoran claridad, accesibilidad, rendimiento y visibilidad en buscadores.",
+      "cta": "Consultar sobre frontend",
+      "audienceTitle": "Ideal para",
+      "audience": "Marcas y negocios de servicios que tienen una dirección, prototipo o sitio existente que necesita una mejor implementación y un camino más claro hacia la consulta.",
+      "deliverablesTitle": "Puede incluir",
+      "deliverables": ["Desarrollo de sitios responsive con Astro", "Implementación desde diseño a código", "Componentes accesibles y estructura semántica", "SEO técnico, metadata y mejoras de rendimiento"],
+      "oneTitle": "Planificar",
+      "oneText": "Definimos páginas, contenido, integraciones, restricciones técnicas y criterios de éxito.",
+      "twoTitle": "Construir",
+      "twoText": "Implemento la experiencia responsive con estructura reutilizable, HTML semántico y código mantenible.",
+      "threeTitle": "Lanzar",
+      "threeText": "Revisamos la experiencia en distintos dispositivos, validamos formularios y metadata, y preparamos el lanzamiento.",
+      "closingTitle": "Un mejor sitio debería hacer evidente el siguiente paso",
+      "closingText": "Comparte tu sitio actual, prototipo o idea. Te ayudaré a identificar qué debe aclararse antes de agregar más código."
+    }
   },
   "subpages": {
     "uxuiTitle": "Diseño UX/UI",

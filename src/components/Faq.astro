@@ -1,0 +1,56 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+
+export interface Props { lang: Lang }
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+const questions = ["one", "two", "three", "four", "five", "six", "seven", "eight"] as const;
+---
+
+<section class="bg-black px-4 py-20 md:px-8 lg:px-64 lg:py-28">
+  <div class="mx-auto ">
+    <p class="font-mono text-sm uppercase tracking-widest text-primary">{t("faq.eyebrow")}</p>
+    <h5 class="mt-4 font-unbounded text-2xl uppercase text-white md:text-4xl">{t("faq.title")}</h5>
+    <div class="mt-8 divide-y divide-gray-800/80 border-y border-gray-800/80">
+      {questions.map((question) => (
+        <details class="group py-5">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 pr-2 font-unbounded text-sm text-white marker:hidden">
+            <span>{t(`faq.${question}Question`)}</span>
+            <span class="faq-icon relative inline-flex h-6 w-6 shrink-0 items-center justify-center transition-transform duration-300 ease-out group-open:rotate-45" aria-hidden="true">
+              <span class="absolute h-3.5 w-0.5 bg-white transition-colors duration-300 group-open:bg-primary"></span>
+              <span class="absolute h-0.5 w-3.5 bg-white transition-colors duration-300 group-open:bg-primary"></span>
+            </span>
+          </summary>
+          <div class="faq-answer overflow-hidden">
+            <p class="pt-4 font-albert text-xl leading-relaxed text-gray-300">{t(`faq.${question}Answer`)}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease-out;
+  }
+
+  details[open] .faq-answer {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-answer > p {
+    min-height: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease-out 0.05s, transform 0.3s ease-out 0.05s;
+  }
+
+  details[open] .faq-answer > p {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

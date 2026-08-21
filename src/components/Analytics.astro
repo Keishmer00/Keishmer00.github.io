@@ -1,0 +1,54 @@
+<script is:inline>
+  const hasConsent = () => localStorage.getItem("keishmer-analytics-consent") === "accepted";
+
+  window.va = window.va || function () {
+    (window.vaq = window.vaq || []).push(arguments);
+  };
+
+  const track = (name, properties = {}) => {
+    if (!hasConsent()) return;
+    window.va("event", name, properties);
+    if (typeof window.clarity === "function") window.clarity("event", name);
+  };
+
+  const loadAnalytics = () => {
+    if (!hasConsent() || document.querySelector("script[data-keishmer-analytics]") ) return;
+
+    const clarity = document.createElement("script");
+    clarity.async = true;
+    clarity.src = "https://www.clarity.ms/tag/tfbwgxewkn";
+    clarity.dataset.keishmerAnalytics = "clarity";
+    document.head.appendChild(clarity);
+
+    const vercel = document.createElement("script");
+    vercel.defer = true;
+    vercel.src = "/_vercel/insights/script.js";
+    vercel.dataset.keishmerAnalytics = "vercel";
+    document.head.appendChild(vercel);
+  };
+
+  loadAnalytics();
+  window.addEventListener("keishmer:analytics-consent", loadAnalytics);
+
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest("[data-analytics-event]");
+    if (!target) return;
+
+    track(target.dataset.analyticsEvent, {
+      path: window.location.pathname,
+      label: target.dataset.analyticsLabel || target.textContent.trim().slice(0, 80),
+    });
+  });
+
+  document.addEventListener("focusin", (event) => {
+    const form = event.target.closest("form[data-analytics-form]");
+    if (!form || form.dataset.analyticsStarted === "true") return;
+
+    form.dataset.analyticsStarted = "true";
+    track("contact_form_start", { path: window.location.pathname });
+  });
+
+  window.addEventListener("keishmer:form-success", () => {
+    track("contact_form_submit", { path: window.location.pathname });
+  });
+</script>

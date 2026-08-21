@@ -1,0 +1,58 @@
+---
+import { useTranslations, type Lang } from "../i18n/index";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { tArray } = useTranslations(lang);
+const skills = tArray("aboutMe.skills");
+---
+
+<section
+  id="skills-banner"
+  class="relative w-full bg-black overflow-hidden select-none"
+>
+  <div class="relative flex py-3 md:py-4">
+    <!-- Edge fade masks -->
+    <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-linear-to-r from-brand-tertiary to-transparent"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-linear-to-l from-brand-tertiary to-transparent"></div>
+
+    <div class="marquee-track flex shrink-0 items-center gap-0 whitespace-nowrap will-change-transform">
+      {[0, 1].map((_) => (
+        <span class="flex items-center gap-3 md:gap-5">
+          {skills.map((skill, i) => (
+            <span class="inline-flex items-center gap-3 md:gap-4">
+              <span class="inline-flex items-center px-4 py-2 border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white hover:border-gray-400 transition-colors duration-200">
+                {skill}
+              </span>
+              <svg class={`h-3 w-3 lg:h-4 lg:w-4 ${i === skills.length - 1 ? "mr-4 md:mr-8" : ""}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#3a3a3a"><path d="M440-80v-800h80v800h-80Zm160-200v-400h120v400H600Zm-360 0v-400h120v400H240Z"/></svg>
+            </span>
+          ))}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
+
+  section:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+</style>

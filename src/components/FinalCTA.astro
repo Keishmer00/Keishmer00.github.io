@@ -1,0 +1,23 @@
+---
+import type { Lang } from "../i18n/index";
+import { getLocalizedPath, useTranslations } from "../i18n/index";
+
+export interface Props { lang: Lang }
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+---
+
+<section class="bg-black px-4 pb-20 pt-8 md:px-8 lg:px-24 lg:pb-28">
+  <div class="mx-auto flex max-w-6xl flex-col gap-6 border border-primary/60 bg-primary/5 p-6 md:p-10 lg:flex-row lg:items-end lg:justify-between">
+    <div>
+      <p class="font-mono text-sm uppercase tracking-widest text-primary">{t("finalCta.eyebrow")}</p>
+      <h2 class="mt-4 max-w-3xl font-unbounded text-2xl uppercase leading-tight text-white md:text-4xl">{t("finalCta.title")}</h2>
+      <p class="mt-4 max-w-2xl font-mono text-base leading-relaxed text-gray-300">{t("finalCta.text")}</p>
+    </div>
+    <a
+      href={getLocalizedPath("/contact/", lang)}
+      data-analytics-event="cta_final_click"
+      class="inline-flex w-fit shrink-0 items-center border border-white bg-white px-5 py-3 font-mono text-sm uppercase text-black transition-colors hover:bg-primary hover:text-white"
+    >{t("finalCta.button")} ↗</a>
+  </div>
+</section>

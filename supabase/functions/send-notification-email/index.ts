@@ -1,15 +1,33 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
-const ENV = Deno.env.get('ENVIRONMENT') || 'production'
+const ALLOWED_ORIGIN = Deno.env.get('ALLOWED_ORIGIN') || 'https://keishmerstudio.com'
+const WEBHOOK_SECRET = Deno.env.get('WEBHOOK_SECRET')
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-webhook-secret',
+}
+
+const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, (character) => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  "'": '&#39;',
+  '"': '&quot;',
+}[character] || character))
 
 serve(async (req: any) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { 
-      headers: { 
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-      } 
+      headers: corsHeaders
+    })
+  }
+
+  if (!WEBHOOK_SECRET || req.headers.get('x-webhook-secret') !== WEBHOOK_SECRET) {
+    return new Response(JSON.stringify({ success: false, error: 'Unauthorized' }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 401,
     })
   }
 
@@ -19,15 +37,22 @@ serve(async (req: any) => {
 
     if (!record) {
       return new Response(JSON.stringify({ success: false, error: "No record in payload" }), {
-        headers: { 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 400,
       })
     }
 
-    const nombreCliente  = record.legal_name   || 'No especificado';
-    const correoCliente = record.client_email || 'No especificado';
-    const telefono       = record.phone_number || 'No especificado';
-    const mensaje       = record.message || 'No especificado';
+    const correoRaw = String(record.client_email || '')
+    if (!/^\S+@\S+\.\S+$/.test(correoRaw)) {
+      return new Response(JSON.stringify({ success: false, error: "Invalid client email" }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
+    const nombreCliente  = escapeHtml(record.legal_name   || 'No especificado');
+    const correoCliente = escapeHtml(correoRaw);
+    const telefono       = escapeHtml(record.phone_number || 'No especificado');
+    const mensaje       = escapeHtml(record.message || 'No especificado');
     const correosDestinatarios = ['kshmr044@gmail.com'];   
     const subtituloTexto = 'New client application. A potential client has submitted a request through the Keishmer Studio form in the landing page.';
     const colorBannerBackground = '#f7fafc';
@@ -82,20 +107,20 @@ serve(async (req: any) => {
 
           </div>
         `,
-      reply_to: correoCliente 
+       reply_to: correoRaw
       }),
     })
 
     const responseData = await response.json()
 
-    return new Response(JSON.stringify({ success: true, data: responseData }), {
-      headers: { 'Content-Type': 'application/json' },
-      status: 200,
+    return new Response(JSON.stringify({ success: response.ok, data: responseData }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: response.ok ? 200 : 502,
     })
 
   } catch (error: any) {
-    return new Response(JSON.stringify({ success: false, error: error.message }), {
-      headers: { 'Content-Type': 'application/json' },
+    return new Response(JSON.stringify({ success: false, error: 'Notification failed' }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,
     })
   }

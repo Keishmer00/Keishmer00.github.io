@@ -4,11 +4,14 @@ import Navbar from "../../components/Navbar.astro";
 import Hero from "../../components/Hero.astro";
 import type { Lang } from "../../i18n/index";
 import About from "../../components/About.astro";
-import Strategic from "../../components/Strategic.astro";
-import Works from "../../components/Works.astro";
+import IdealClients from "../../components/IdealClients.astro";
+import Process from "../../components/Process.astro";
+import Faq from "../../components/Faq.astro";
 import Footer from "../../components/Footer.astro";
-import Form from "../../components/Form.astro";
 import ServiceBanner from "../../components/ServiceBanner.astro";
+import Form from "../../components/Form.astro";
+import Works from "../../components/Works.astro";
+import SkillsBanner from "../../components/SkillsBanner.astro";
 
 export const prerender = true;
 
@@ -22,13 +25,16 @@ const pathname = lang === "en" ? "/" : "/es/";
 
 <Layout lang={lang} page="home" pathname={pathname}>
   <main>
-    <Navbar lang={lang} pathname={pathname} />
-    <Hero lang={lang} />
-    <About lang={lang} />
-    <Works lang={lang} />
-    <Strategic lang={lang} />
-    <Form lang={lang} />
-    <ServiceBanner lang={lang} />
-    <Footer lang={lang} pathname={pathname} />
+      <Navbar lang={lang} pathname={pathname} />
+      <Hero lang={lang} />
+      <IdealClients lang={lang} />
+      <About lang={lang} />
+      <Works lang={lang} />
+      <Process lang={lang} />
+      <ServiceBanner lang={lang} />
+      <Faq lang={lang} />
+      <SkillsBanner lang={lang} />
+      <Form lang={lang} />
+      <Footer lang={lang} pathname={pathname} />
   </main>
 </Layout>

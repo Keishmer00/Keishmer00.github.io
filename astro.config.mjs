@@ -13,7 +13,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   integrations: [
-    sitemap({
+   sitemap({
+      filter: (page) => !/[\/]((es)[/])?visual-artist[/]?$/.test(new URL(page).pathname),
       i18n: {
         defaultLocale: 'en',
         locales: {

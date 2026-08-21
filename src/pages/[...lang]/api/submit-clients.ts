@@ -3,137 +3,185 @@ import { createClient } from "@supabase/supabase-js";
 
 export const prerender = false;
 
+const requestLog = new Map<string, number[]>();
+const maxRequestsPerMinute = 5;
+
+type LeadPayload = {
+  legal_name?: unknown;
+  client_email?: unknown;
+  phone_number?: unknown;
+  project_type?: unknown;
+  budget_range?: unknown;
+  timeline?: unknown;
+  message?: unknown;
+  language?: unknown;
+  source_path?: unknown;
+  referrer?: unknown;
+  utm_source?: unknown;
+  utm_medium?: unknown;
+  utm_campaign?: unknown;
+  recaptcha?: unknown;
+};
+
+const json = (body: Record<string, unknown>, status: number) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+
+const text = (value: unknown, maxLength: number, required = false) => {
+  if (typeof value !== "string") return required ? null : "";
+  const result = value.trim();
+  if (required && !result) return null;
+  return result.slice(0, maxLength);
+};
+
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>'"]/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "'": "&#39;",
+    '"': "&quot;",
+  })[character] || character);
+
+const isRateLimited = (key: string) => {
+  const now = Date.now();
+  const recent = (requestLog.get(key) || []).filter((time) => now - time < 60_000);
+  if (recent.length >= maxRequestsPerMinute) {
+    requestLog.set(key, recent);
+    return true;
+  }
+  recent.push(now);
+  requestLog.set(key, recent);
+  return false;
+};
+
+const sendNotification = async (lead: Record<string, string>) => {
+  const apiKey = import.meta.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.warn("RESEND_API_KEY is not configured; lead was stored without email notification.");
+    return;
+  }
+
+  const from = import.meta.env.RESEND_FROM_EMAIL || "Keishmer Studio <onboarding@resend.dev>";
+  const recipient = import.meta.env.LEAD_NOTIFICATION_EMAIL || "kshmr044@gmail.com";
+  const safe = Object.fromEntries(Object.entries(lead).map(([key, value]) => [key, escapeHtml(value)]));
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [recipient],
+      reply_to: lead.client_email,
+      subject: `New Keishmer Studio project inquiry: ${lead.legal_name}`,
+      html: `
+        <h2>New project inquiry</h2>
+        <p><strong>Name:</strong> ${safe.legal_name}</p>
+        <p><strong>Email:</strong> ${safe.client_email}</p>
+        <p><strong>Phone:</strong> ${safe.phone_number || "Not provided"}</p>
+        <p><strong>Project type:</strong> ${safe.project_type}</p>
+        <p><strong>Budget:</strong> ${safe.budget_range}</p>
+        <p><strong>Timeline:</strong> ${safe.timeline}</p>
+        <p><strong>Language:</strong> ${safe.language}</p>
+        <p><strong>Source:</strong> ${safe.source_path}</p>
+        <p><strong>Message:</strong></p>
+        <p>${safe.message.replace(/\n/g, "<br />")}</p>
+      `,
+    }),
+  });
+
+  if (!response.ok) {
+    console.error("Resend notification failed", response.status);
+  }
+};
+
 export const POST: APIRoute = async ({ request }) => {
-    try {
-        const body = await request.json();
-        const { legal_name, client_email, phone_number, text, recaptcha } = body;
+  const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  if (isRateLimited(clientIp)) return json({ success: false, message: "Too many requests" }, 429);
 
-        // 1. Validar que todos los campos existan
-        if (!legal_name || !client_email || !phone_number || !text || !recaptcha) {
-            return new Response(JSON.stringify({ success: false, message: "Missing required fields" }), {
-                status: 400,
-                headers: { "Content-Type": "application/json" }
-            });
-        }
+  let body: LeadPayload;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ success: false, message: "Invalid request" }, 400);
+  }
 
+  const lead = {
+    legal_name: text(body.legal_name, 100, true),
+    client_email: text(body.client_email, 100, true),
+    phone_number: text(body.phone_number, 30),
+    project_type: text(body.project_type, 40, true),
+    budget_range: text(body.budget_range, 40, true),
+    timeline: text(body.timeline, 40, true),
+    message: text(body.message, 3000, true),
+    language: text(body.language, 2, true),
+    source_path: text(body.source_path, 200, true),
+    referrer: text(body.referrer, 500),
+    utm_source: text(body.utm_source, 100),
+    utm_medium: text(body.utm_medium, 100),
+    utm_campaign: text(body.utm_campaign, 100),
+  };
 
-        // 2. Prevenir payloads masivos (Basic sanitization & limit)
-        if (
-            legal_name.length > 100 ||
-            client_email.length > 100 ||
-            phone_number.length > 20
-        ) {
-            return new Response(JSON.stringify({ success: false, message: "Input fields are too long" }), {
-                status: 400,
-                headers: { "Content-Type": "application/json" }
-            });
-        }
+  if (Object.values(lead).some((value, index) => index < 9 && value === null)) {
+    return json({ success: false, message: "Please complete the required fields" }, 400);
+  }
 
-        // 3. Validar el token de reCAPTCHA con Google
-        const recaptchaSecretKey = import.meta.env.RECAPTCHA_SECRET_KEY;
-        if (!recaptchaSecretKey) {
-            console.error("Server misconfiguration: missing RECAPTCHA_SECRET_KEY");
-            return new Response(JSON.stringify({ success: false, message: "Server misconfiguration" }), {
-                status: 500,
-                headers: { "Content-Type": "application/json" }
-            });
-        }
+  if (lead.language !== "en" && lead.language !== "es") {
+    return json({ success: false, message: "Invalid language" }, 400);
+  }
 
-        const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey}&response=${recaptcha}`;
-        const recaptchaResponse = await fetch(verifyURL, { method: "POST" });
-        const recaptchaData = await recaptchaResponse.json();
+  if (!/^\S+@\S+\.\S+$/.test(lead.client_email || "")) {
+    return json({ success: false, message: "Invalid email" }, 400);
+  }
 
-        // reCAPTCHA v3 devuelve un "score" (0.0 a 1.0). 0.5 o mayor suele ser humano.
-        if (!recaptchaData.success || recaptchaData.score < 0.5) {
-            console.warn("reCAPTCHA validation failed or score too low:", recaptchaData);
-            return new Response(JSON.stringify({ success: false, message: "Security validation failed. Please try again." }), {
-                status: 403,
-                headers: { "Content-Type": "application/json" }
-            });
-        }
+  const allowedProjectTypes = ["ux-ui", "web-frontend", "branding", "ongoing-support"];
+  const allowedBudgets = ["under-1000", "1000-3000", "over-3000"];
+  const allowedTimelines = ["asap", "within-month", "one-to-three-months", "exploring"];
+  if (!allowedProjectTypes.includes(lead.project_type || "") || !allowedBudgets.includes(lead.budget_range || "") || !allowedTimelines.includes(lead.timeline || "")) {
+    return json({ success: false, message: "Invalid project details" }, 400);
+  }
 
-        // 4. Conectar con Supabase e Insertar los datos
-        const supabaseUrl = import.meta.env.SUPABASE_URL;
-        const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  const recaptcha = text(body.recaptcha, 400, true);
+  const recaptchaSecretKey = import.meta.env.RECAPTCHA_SECRET_KEY;
+  if (!recaptcha || !recaptchaSecretKey) {
+    return json({ success: false, message: "Security validation unavailable" }, 500);
+  }
 
-        if (!supabaseUrl || !supabaseKey) {
-            console.error("Server misconfiguration: missing SUPABASE credentials");
-            return new Response(JSON.stringify({ success: false, message: "Server misconfiguration" }), {
-                status: 500,
-                headers: { "Content-Type": "application/json" }
-            });
-        }
+  const verifyResponse = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({ secret: recaptchaSecretKey, response: recaptcha }),
+  });
+  const recaptchaData = await verifyResponse.json();
+  const allowedHosts = (import.meta.env.RECAPTCHA_ALLOWED_HOSTNAMES || "keishmerstudio.com,localhost").split(",").map((host: string) => host.trim());
+  const validHost = !recaptchaData.hostname || allowedHosts.includes(recaptchaData.hostname);
+  if (!recaptchaData.success || recaptchaData.score < 0.5 || recaptchaData.action !== "submit" || !validHost) {
+    return json({ success: false, message: "Security validation failed" }, 403);
+  }
 
-        const keyFormat = supabaseKey.startsWith("sb_secret_") ? "new" : supabaseKey.startsWith("eyJ") ? "jwt" : "unknown";
-        console.log(`[submit-clients] Key format: ${keyFormat}, length: ${supabaseKey.length}`);
+  const supabaseUrl = import.meta.env.SUPABASE_URL;
+  const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  if (!supabaseUrl || !supabaseKey) {
+    console.error("Supabase credentials are not configured");
+    return json({ success: false, message: "Server unavailable" }, 500);
+  }
 
-        const supabase = createClient(supabaseUrl, supabaseKey);
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  const { error } = await supabase.from("leads_clients").insert([lead]);
+  if (error) {
+    console.error("Lead insert failed", error.code, error.message);
+    return json({ success: false, message: "We could not save your inquiry" }, 500);
+  }
 
-        // Quick auth check: service role should be able to query even with RLS enabled
-        const { error: authCheckError } = await supabase
-            .from("leads_clients")
-            .select("id", { count: "exact", head: true });
+  try {
+    await sendNotification(lead as Record<string, string>);
+  } catch (error) {
+    console.error("Lead notification failed", error);
+  }
 
-        if (authCheckError) {
-            console.error("[submit-clients] Auth check FAILED:", authCheckError.message, authCheckError.code);
-            return new Response(JSON.stringify({
-                success: false,
-                message: `Supabase auth check failed (${authCheckError.code}): ${authCheckError.message} — verify SUPABASE_SERVICE_ROLE_KEY in Vercel env vars`,
-            }), { status: 500, headers: { "Content-Type": "application/json" } });
-        }
-
-        console.log("[submit-clients] Auth check PASSED — service role key is valid");
-        const client_email_normalized = String(client_email).trim();
-
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(client_email_normalized)) {
-            return new Response(
-                JSON.stringify({ success: false, message: "Invalid client_email" }),
-                { status: 400, headers: { "Content-Type": "application/json" } }
-            );
-        }
-        const { error } = await supabase
-            .from('leads_clients')
-            .insert([
-                {
-                    legal_name,
-                    client_email: client_email_normalized,
-                    phone_number,
-                    message: text || null
-                }
-            ]);
-
-        if (error) {
-            // ESTO IMPRIMIRÁ EL ERROR REAL EN TU TERMINAL (VS Code)
-            console.error("--- DETALLES DEL ERROR DE SUPABASE ---");
-            console.error("Mensaje:", error.message);
-            console.error("Detalles:", error.details);
-            console.error("Sugerencia (Hint):", error.hint);
-            console.error("Código de error:", error.code);
-            console.error("--------------------------------------");
-
-            // ESTO ENVIARÁ EL ERROR REAL AL NAVEGADOR PARA QUE LO VEAS EN LA PESTAÑA 'NETWORK'
-            return new Response(JSON.stringify({
-                success: false,
-                message: `Error real de Supabase: ${error.message}`,
-                details: error.details
-            }), {
-                status: 500,
-                headers: { "Content-Type": "application/json" }
-            });
-        }
-
-        // 5. Retornar éxito
-        return new Response(JSON.stringify({ success: true, message: "Application submitted successfully" }), {
-            status: 200,
-            headers: { "Content-Type": "application/json" }
-        });
-
-    } catch (error) {
-        console.error("API Route Error:", error);
-        return new Response(JSON.stringify({ success: false, message: "Internal server error" }), {
-            status: 500,
-            headers: { "Content-Type": "application/json" }
-        });
-    }
-
+  return json({ success: true, message: lead.language === "es" ? "Gracias. Te responderé en menos de 24 horas." : "Thanks. I will reply within 24 hours." }, 200);
 };

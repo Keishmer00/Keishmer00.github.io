@@ -1,0 +1,59 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "./Navbar.astro";
+import Footer from "./Footer.astro";
+import type { Lang } from "../i18n/index";
+import { getLocalizedPath, useTranslations } from "../i18n/index";
+
+export interface Props {
+  lang: Lang;
+  service: "uxui" | "frontend";
+}
+
+const { lang, service } = Astro.props;
+const { t, tArray } = useTranslations(lang);
+const pathname = lang === "en" ? `/${service === "uxui" ? "ux-ui-design" : "frontend-dev"}/` : `/es/${service === "uxui" ? "ux-ui-design" : "frontend-dev"}/`;
+const serviceData = `servicePages.${service}`;
+---
+
+<Layout lang={lang} page={service} pathname={pathname}>
+  <Navbar lang={lang} pathname={pathname} />
+  <main class="bg-black px-4 pb-24 pt-36 md:px-8 lg:px-24 lg:pt-48">
+    <div class="mx-auto max-w-6xl">
+      <p class="font-mono text-sm uppercase tracking-widest text-primary">{t(`${serviceData}.eyebrow`)}</p>
+      <h1 class="mt-5 max-w-5xl font-unbounded text-3xl uppercase leading-tight text-white md:text-6xl">{t(`${serviceData}.title`)}</h1>
+      <p class="mt-6 max-w-3xl font-mono text-base leading-relaxed text-gray-300 md:text-xl">{t(`${serviceData}.description`)}</p>
+      <a href={getLocalizedPath("/contact/", lang)} data-analytics-event="cta_service_primary_click" data-analytics-label={service} class="mt-8 inline-flex border border-white bg-white px-5 py-3 font-mono text-sm uppercase text-black hover:bg-primary hover:text-white">{t(`${serviceData}.cta`)} ↗</a>
+
+      <section class="mt-24 grid gap-10 border-y border-white/20 py-12 lg:grid-cols-2">
+        <div>
+          <h2 class="font-unbounded text-2xl uppercase text-white">{t(`${serviceData}.audienceTitle`)}</h2>
+          <p class="mt-4 max-w-xl font-mono text-base leading-relaxed text-gray-300">{t(`${serviceData}.audience`)}</p>
+        </div>
+        <div>
+          <h2 class="font-unbounded text-2xl uppercase text-white">{t(`${serviceData}.deliverablesTitle`)}</h2>
+          <ul class="mt-4 grid gap-3 font-mono text-base text-gray-300">
+            {tArray(`${serviceData}.deliverables`).map((item) => <li class="border-l border-primary pl-3">{item}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="mt-20 grid gap-6 md:grid-cols-3">
+        {(["one", "two", "three"] as const).map((step, index) => (
+          <article class="border-t border-primary pt-4">
+            <p class="font-mono text-sm text-primary">0{index + 1}</p>
+            <h2 class="mt-4 font-unbounded text-lg uppercase text-white">{t(`${serviceData}.${step}Title`)}</h2>
+            <p class="mt-3 font-mono text-sm leading-relaxed text-gray-300">{t(`${serviceData}.${step}Text`)}</p>
+          </article>
+        ))}
+      </section>
+
+      <section class="mt-24 border border-primary/60 bg-primary/5 p-6 md:p-10">
+        <h2 class="font-unbounded text-2xl uppercase text-white md:text-3xl">{t(`${serviceData}.closingTitle`)}</h2>
+        <p class="mt-4 max-w-3xl font-mono text-base leading-relaxed text-gray-300">{t(`${serviceData}.closingText`)}</p>
+        <a href={getLocalizedPath("/contact/", lang)} data-analytics-event="cta_service_final_click" data-analytics-label={service} class="mt-6 inline-flex border border-white px-5 py-3 font-mono text-sm uppercase text-white hover:bg-white hover:text-black">{t(`${serviceData}.cta`)} ↗</a>
+      </section>
+    </div>
+  </main>
+  <Footer lang={lang} pathname={pathname} />
+</Layout>

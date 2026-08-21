@@ -45,8 +45,14 @@ API route `submit-clients.ts` requires these env vars (all in `.env`, gitignored
 SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
 RESEND_API_KEY=
+RESEND_FROM_EMAIL=Keishmer Studio <onboarding@resend.dev>
+LEAD_NOTIFICATION_EMAIL=kshmr044@gmail.com
+RECAPTCHA_ALLOWED_HOSTNAMES=keishmerstudio.com,localhost
 RECAPTCHA_SECRET_KEY=
+PUBLIC_RECAPTCHA_SITE_KEY=
 ```
+
+The contact API stores lead attribution fields and sends the notification through Resend after the Supabase insert. The legacy Supabase Edge Function also requires `WEBHOOK_SECRET` and `ALLOWED_ORIGIN` if it is used by an external webhook.
 
 The API route disables prerender (`export const prerender = false`). The form uses Supabase `leads_clients` table and ReCAPTCHA v3 score (>0.5).
 

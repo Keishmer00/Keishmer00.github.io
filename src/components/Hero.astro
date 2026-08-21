@@ -1,6 +1,6 @@
 ---
 import type { Lang } from "../i18n/index";
-import { useTranslations } from "../i18n/index";
+import { getLocalizedPath, useTranslations } from "../i18n/index";
 import CTA from "./CTA.astro";
 import BlackHoleBG from "./BlackHoleBG.astro";
 
@@ -13,36 +13,56 @@ const { t } = useTranslations(lang);
 ---
 
 <header
-  class="flex flex-col justify-between p-4 pb-8 md:pb-8 pt-32 items-center h-svh lg:h-screen relative overflow-hidden"
+  class="flex flex-col justify-between p-4 pb-8 md:pb-8 pt-24 items-center h-svh lg:h-screen relative overflow-hidden"
 >
-  <section class="flex flex-col justify-center items-center gap-2 md:gap-4 relative z-10">
+  <section
+    class="flex flex-col justify-center items-center gap-6 md:gap-4 relative z-10"
+  >
     <span
       data-anim="badge"
-      class="hidden md:flex text-center max-w-72 md:max-w-none items-center gap-2 px-4 py-1 text-sm md:text-base font-mono uppercase text-white"
+      class="flex lg:text-center max-w-56 md:max-w-none items-center gap-2 text-sm md:text-base font-mono uppercase text-gray-300"
     >
       <div class="hidden md:block w-2 h-2 rounded-full bg-primary"></div>
       {t("hero.available")}
     </span>
 
-    <p
-      data-anim="name"
-      class="lg:text-8xl text-transparent bg-clip-text bg-linear-to-r from-white/80 via-white to-white/80 text-center font-extrabold font-unbounded w-full text-3xl uppercase"
-    >
-      {t("hero.name")}
-    </p>
     <h1
       data-anim="subtitle"
-      class="text-white text-base md:text-lg lg:text-xl font-mono text-center w-full max-w-4xl px-4"
+      class="text-white text-2xl md:text-3xl self-start md:self-center lg:text-5xl font-unbounded font-bold md:text-center uppercase leading-relaxed lg:leading-tight w-full max-w-7xl pb-8 md:pb-0 md:px-16"
+    >
+      {t("hero.headline")}
+    </h1>
+    <p
+      class="md:max-w-3xl lg:max-w-5xl md:text-center self-end md:self-center max-w-60 md:px-24 font-albert text-md leading-relaxed text-gray-200 md:text-xl"
     >
       {t("hero.subtitle")}
-    </h1>
+    </p>
 
-    <div data-anim="cta">
+    <div
+      data-anim="cta"
+      class="flex flex-col items-center mt-16 md:mt-4 lg:mt-8 justify-center gap-3 sm:flex-row"
+    >
       <CTA lang={lang} />
+      <a
+        href={getLocalizedPath("/projects/", lang)}
+        data-analytics-event="cta_hero_secondary_click"
+        class="hidden lg:flex items-center w-fit p-4 text-xl font-mono leading-6 text-white border border-white/30 gap-2 cursor-pointer transition-colors duration-300 ease-in-out hover:border-white hover:bg-white/10"
+        >{t("hero.secondaryCta")} 
+        <svg class="hero-launch-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z"/></svg></a
+      >
+    </div>
+    <div
+      class="mt-4 hidden lg:flex flex-col lg:flex-row max-w-4xl flex-wrap justify-center gap-x-4 gap-y-1 px-4 text-center font-mono text-[10px] uppercase tracking-wider text-gray-300 md:text-xs"
+    >
+      <span>{t("trust.experience")}</span><span aria-hidden="true">·</span>
+      <span>{t("trust.certifications")}</span><span aria-hidden="true">·</span>
+      <span>{t("trust.availability")}</span>
     </div>
   </section>
 
-    <div class="flex w-full justify-between px-4 self-end text-white relative z-10">
+  <div
+    class="flex w-full justify-between px-4 self-end text-white relative z-10"
+  >
     <div
       data-anim="roles"
       class="flex flex-col w-full md:w-auto items-center gap-2 md:items-start text-left"
@@ -50,13 +70,18 @@ const { t } = useTranslations(lang);
       <p class="font-mono text-lg uppercase text-gray-300">
         {t("hero.whatIAm")}
       </p>
-      <div class="font-mono text-center md:text-left text-lg flex md:flex-col justify-between w-full">
+      <div
+        class="font-mono text-center md:text-left text-lg flex md:flex-col justify-between w-full"
+      >
         <p>{t("hero.roleVisualArtist")}</p>
         <p>{t("hero.roleFrontendDev")}</p>
         <p>{t("hero.roleProductDesigner")}</p>
       </div>
     </div>
-    <div data-anim="expertise" class="hidden md:flex flex-col gap-2 items-end text-right">
+    <div
+      data-anim="expertise"
+      class="hidden md:flex flex-col gap-2 items-end text-right"
+    >
       <p class="font-mono text-lg uppercase text-gray-300">
         {t("hero.expertise")}
       </p>
@@ -68,20 +93,21 @@ const { t } = useTranslations(lang);
     </div>
   </div>
 
-  <BlackHoleBG  />
+  <BlackHoleBG />
 
   <div
     class="absolute inset-0 bg-radial from-black via-black/50
      to-black pointer-events-none"
     style="z-index: 1"
-  ></div>
+  >
+  </div>
 </header>
 
 <script>
   import { gsap } from "gsap";
 
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    gsap.set("[data-anim]", { opacity: 0 });
+    gsap.set("[data-anim]", { opacity: 1, y: 0 });
 
     var mm = gsap.matchMedia();
 
@@ -97,11 +123,23 @@ const { t } = useTranslations(lang);
 
       var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.to("[data-anim='blackhole']", { opacity: 1, duration: 0.8, ease: "power2.inOut" })
-        .to("[data-anim='navbar']", { y: "0%", opacity: 1, duration: 0.6 }, "-=0.5")
+      tl.to("[data-anim='blackhole']", {
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.inOut",
+      })
+        .to(
+          "[data-anim='navbar']",
+          { y: "0%", opacity: 1, duration: 0.6 },
+          "-=0.5",
+        )
         .to("[data-anim='badge']", { y: 0, opacity: 1, duration: 0.4 }, "-=0.3")
         .to("[data-anim='name']", { y: 0, opacity: 1, duration: 0.65 }, "-=0.2")
-        .to("[data-anim='subtitle']", { y: 0, opacity: 1, duration: 0.5 }, "-=0.3")
+        .to(
+          "[data-anim='subtitle']",
+          { y: 0, opacity: 1, duration: 0.5 },
+          "-=0.3",
+        )
         .to("[data-anim='cta']", { y: 0, opacity: 1, duration: 0.01 }, "-=0.2")
         .to("[data-anim='cta']", {
           keyframes: [
@@ -120,21 +158,67 @@ const { t } = useTranslations(lang);
             { x: 0, duration: 0.15, ease: "power3.out" },
           ],
         })
-        .to("[data-anim='cta'] a", {
-          keyframes: [
-            { borderColor: "#FF6B6B", boxShadow: "0 0 20px #FF6B6B", duration: 0.04, ease: "steps(1)" },
-            { borderColor: "#FF6B6B", boxShadow: "0 0 20px #FF6B6B", duration: 0.08, ease: "steps(1)" },
-            { borderColor: "#67A6D8", boxShadow: "0 0 25px #67A6D8", duration: 0.02, ease: "steps(1)" },
-            { borderColor: "#67A6D8", boxShadow: "0 0 25px #67A6D8", duration: 0.06, ease: "steps(1)" },
-            { borderColor: "#FF6B6B", boxShadow: "0 0 15px #FF6B6B", duration: 0.03, ease: "steps(1)" },
-            { borderColor: "#67A6D8", boxShadow: "0 0 15px #67A6D8", duration: 0.04, ease: "steps(1)" },
-            { borderColor: "", boxShadow: "none", duration: 0.03, clearProps: "borderColor,boxShadow", ease: "steps(1)" },
-          ],
-          onComplete: function () {
-            gsap.set("[data-anim='cta'] a", { clearProps: "borderColor,boxShadow" });
+        .to(
+          "[data-anim='cta'] a",
+          {
+            keyframes: [
+              {
+                borderColor: "#FF6B6B",
+                boxShadow: "0 0 20px #FF6B6B",
+                duration: 0.04,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "#FF6B6B",
+                boxShadow: "0 0 20px #FF6B6B",
+                duration: 0.08,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "#67A6D8",
+                boxShadow: "0 0 25px #67A6D8",
+                duration: 0.02,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "#67A6D8",
+                boxShadow: "0 0 25px #67A6D8",
+                duration: 0.06,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "#FF6B6B",
+                boxShadow: "0 0 15px #FF6B6B",
+                duration: 0.03,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "#67A6D8",
+                boxShadow: "0 0 15px #67A6D8",
+                duration: 0.04,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "",
+                boxShadow: "none",
+                duration: 0.03,
+                clearProps: "borderColor,boxShadow",
+                ease: "steps(1)",
+              },
+            ],
+            onComplete: function () {
+              gsap.set("[data-anim='cta'] a", {
+                clearProps: "borderColor,boxShadow",
+              });
+            },
           },
-        }, "<0.27")
-        .to("[data-anim='roles'],[data-anim='expertise']", { y: 0, opacity: 1, duration: 0.5 }, "+=0.2");
+          "<0.27",
+        )
+        .to(
+          "[data-anim='roles'],[data-anim='expertise']",
+          { y: 0, opacity: 1, duration: 0.5 },
+          "+=0.2",
+        );
     });
 
     mm.add("(max-width: 767px)", function () {
@@ -147,10 +231,18 @@ const { t } = useTranslations(lang);
 
       var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.to("[data-anim='blackhole']", { opacity: 1, duration: 0.7, ease: "power2.inOut" })
+      tl.to("[data-anim='blackhole']", {
+        opacity: 1,
+        duration: 0.7,
+        ease: "power2.inOut",
+      })
         .to("[data-anim='navbar']", { opacity: 1, duration: 0.4 }, "-=0.4")
         .to("[data-anim='name']", { y: 0, opacity: 1, duration: 0.5 }, "-=0.2")
-        .to("[data-anim='subtitle']", { y: 0, opacity: 1, duration: 0.4 }, "-=0.2")
+        .to(
+          "[data-anim='subtitle']",
+          { y: 0, opacity: 1, duration: 0.4 },
+          "-=0.2",
+        )
         .to("[data-anim='cta']", { y: 0, opacity: 1, duration: 0.01 }, "-=0.15")
         .to("[data-anim='cta']", {
           keyframes: [
@@ -165,24 +257,91 @@ const { t } = useTranslations(lang);
             { x: 0, duration: 0.12, ease: "power3.out" },
           ],
         })
-        .to("[data-anim='cta'] a", {
-          keyframes: [
-            { borderColor: "#FF6B6B", boxShadow: "0 0 12px #FF6B6B", duration: 0.04, ease: "steps(1)" },
-            { borderColor: "#FF6B6B", boxShadow: "0 0 12px #FF6B6B", duration: 0.06, ease: "steps(1)" },
-            { borderColor: "#67A6D8", boxShadow: "0 0 15px #67A6D8", duration: 0.02, ease: "steps(1)" },
-            { borderColor: "#67A6D8", boxShadow: "0 0 15px #67A6D8", duration: 0.05, ease: "steps(1)" },
-            { borderColor: "#FF6B6B", boxShadow: "0 0 10px #FF6B6B", duration: 0.03, ease: "steps(1)" },
-            { borderColor: "", boxShadow: "none", duration: 0.03, clearProps: "borderColor,boxShadow", ease: "steps(1)" },
-          ],
-          onComplete: function () {
-            gsap.set("[data-anim='cta'] a", { clearProps: "borderColor,boxShadow" });
+        .to(
+          "[data-anim='cta'] a",
+          {
+            keyframes: [
+              {
+                borderColor: "#FF6B6B",
+                boxShadow: "0 0 12px #FF6B6B",
+                duration: 0.04,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "#FF6B6B",
+                boxShadow: "0 0 12px #FF6B6B",
+                duration: 0.06,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "#67A6D8",
+                boxShadow: "0 0 15px #67A6D8",
+                duration: 0.02,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "#67A6D8",
+                boxShadow: "0 0 15px #67A6D8",
+                duration: 0.05,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "#FF6B6B",
+                boxShadow: "0 0 10px #FF6B6B",
+                duration: 0.03,
+                ease: "steps(1)",
+              },
+              {
+                borderColor: "",
+                boxShadow: "none",
+                duration: 0.03,
+                clearProps: "borderColor,boxShadow",
+                ease: "steps(1)",
+              },
+            ],
+            onComplete: function () {
+              gsap.set("[data-anim='cta'] a", {
+                clearProps: "borderColor,boxShadow",
+              });
+            },
           },
-        }, "<0.03")
-        .to("[data-anim='roles']", { y: 0, opacity: 1, duration: 0.4 }, "+=0.1");
+          "<0.03",
+        )
+        .to(
+          "[data-anim='roles']",
+          { y: 0, opacity: 1, duration: 0.4 },
+          "+=0.1",
+        );
     });
   } else {
     gsap.set("[data-anim]", { opacity: 1, y: 0 });
     gsap.set("[data-anim='blackhole']", { opacity: 1 });
     gsap.set("[data-anim='navbar']", { y: "0%", opacity: 1 });
   }
+</script>
+
+<script>
+  import { gsap } from "gsap";
+
+  (function initHeroLaunchHover() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const icons = document.querySelectorAll('.hero-launch-icon');
+    if (!icons.length) return;
+
+    icons.forEach((icon) => {
+      const link = icon.closest('a');
+      if (!link) return;
+
+      gsap.set(icon, { transformOrigin: "center center" });
+
+      link.addEventListener('mouseenter', () => {
+        gsap.to(icon, { x: 5, y: -5, duration: 0.35, ease: "power2.out" });
+      });
+
+      link.addEventListener('mouseleave', () => {
+        gsap.to(icon, { x: 0, y: 0, duration: 0.35, ease: "power2.out" });
+      });
+    });
+  })();
 </script>

@@ -2,7 +2,16 @@
 // Cursor Particle System - Trail on movement, idle orbit ring on desktop only
 ---
 
-<canvas id="cursor-particles" class="fixed inset-0 pointer-events-none z-50 hidden lg:block"></canvas>
+<canvas id="cursor-particles" class="fixed inset-0 pointer-events-none z-[100] hidden lg:block"></canvas>
+
+<style>
+  @media (min-width: 1024px) and (pointer: fine) {
+    :global(body.cursor-custom),
+    :global(body.cursor-custom *) {
+      cursor: none !important;
+    }
+  }
+</style>
 
 <script>
   // Desktop-only: mouse pointer + large screen
@@ -20,13 +29,28 @@
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('Could not get 2D context');
 
+  // Hide native cursor on desktop once the custom cursor is active
+  document.body.classList.add('cursor-custom');
+
+  const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() || '#FF6B6B';
+  const BASE_CURSOR_RADIUS = 10;
+  const HOVER_CURSOR_RADIUS = 12;
+  const RING_EXTRA_RADIUS = 8;
+  const RING_STROKE_WIDTH = 1.5;
+
+  let currentCursorRadius = BASE_CURSOR_RADIUS;
+  let targetCursorRadius = BASE_CURSOR_RADIUS;
+  let currentRingRadius = 0;
+  let targetRingRadius = 0;
+  let currentRingAlpha = 0;
+  let targetRingAlpha = 0;
+  let isOverPrimaryBackground = false;
+
   let width = window.innerWidth;
   let height = window.innerHeight;
   canvas.width = width;
   canvas.height = height;
 
-  let mouseX = width / 2;
-  let mouseY = height / 2;
   let targetX = width / 2;
   let targetY = height / 2;
   let lastMoveTime = Date.now();
@@ -171,9 +195,10 @@
   function animate() {
     ctx!.clearRect(0, 0, width, height);
 
-    // Smooth cursor following
-    mouseX += (targetX - mouseX) * 0.1;
-    mouseY += (targetY - mouseY) * 0.1;
+    // Smooth cursor radius transitions
+    currentCursorRadius += (targetCursorRadius - currentCursorRadius) * 0.15;
+    currentRingRadius += (targetRingRadius - currentRingRadius) * 0.12;
+    currentRingAlpha += (targetRingAlpha - currentRingAlpha) * 0.12;
 
     const timeSinceLastMove = Date.now() - lastMoveTime;
     const isIdle = timeSinceLastMove > IDLE_THRESHOLD;
@@ -183,7 +208,7 @@
       const idleParticles = particles.filter(p => p.mode === 'idle');
       if (idleParticles.length < IDLE_COUNT && Math.random() < 0.4) {
         const angle = (idleParticles.length / IDLE_COUNT) * Math.PI * 2;
-        particles.push(new Particle(mouseX, mouseY, 'idle', angle));
+        particles.push(new Particle(targetX, targetY, 'idle', angle));
       }
 
       // Convert surviving trail particles into idle orbiters
@@ -198,7 +223,7 @@
     } else {
       // Cursor is moving: spawn trail
       if (Math.random() < 0.7) {
-        createTrailParticle(mouseX, mouseY);
+        createTrailParticle(targetX, targetY);
       }
 
       // Burst idle ring particles into trail
@@ -213,7 +238,7 @@
 
     // Update and draw particles
     for (let i = particles.length - 1; i >= 0; i--) {
-      particles[i].update(mouseX, mouseY);
+      particles[i].update(targetX, targetY);
       particles[i].draw();
 
       // Remove dead trail particles
@@ -234,7 +259,75 @@
     }
 
     connectParticles();
+
+    // Switch cursor color to black when over primary background for contrast
+    const cursorColor = isOverPrimaryBackground ? '#121314' : primaryColor;
+
+    // Draw hover ring (border only)
+    if (currentRingAlpha > 0.01) {
+      ctx!.beginPath();
+      ctx!.arc(targetX, targetY, currentRingRadius, 0, Math.PI * 2);
+      ctx!.strokeStyle = cursorColor;
+      ctx!.lineWidth = RING_STROKE_WIDTH;
+      ctx!.globalAlpha = currentRingAlpha;
+      ctx!.stroke();
+      ctx!.globalAlpha = 1;
+    }
+
+    // Draw cursor dot at exact mouse position
+    ctx!.beginPath();
+    ctx!.arc(targetX, targetY, currentCursorRadius, 0, Math.PI * 2);
+    ctx!.fillStyle = cursorColor;
+    ctx!.fill();
+
     requestAnimationFrame(animate);
+  }
+
+  function isPointerElement(el: EventTarget | null): boolean {
+    if (!el || !(el instanceof Element)) return false;
+    let current: Element | null = el;
+    while (current && current !== document.body) {
+      const style = getComputedStyle(current);
+      if (style.cursor === 'pointer') return true;
+
+      const tag = current.tagName.toLowerCase();
+      if (
+        tag === 'a' ||
+        tag === 'button' ||
+        tag === 'input' ||
+        tag === 'textarea' ||
+        tag === 'select' ||
+        tag === 'label' ||
+        current.hasAttribute('onclick') ||
+        current.getAttribute('role') === 'button' ||
+        current.getAttribute('role') === 'link'
+      ) {
+        return true;
+      }
+
+      current = current.parentElement;
+    }
+    return false;
+  }
+
+  function isOverPrimary(el: EventTarget | null): boolean {
+    if (!el || !(el instanceof Element)) return false;
+    let current: Element | null = el;
+    while (current && current !== document.body) {
+      if (current.classList.contains('bg-primary')) return true;
+      const style = getComputedStyle(current);
+      const bg = style.backgroundColor;
+      if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+        // Convert rgb/rgba to hex for comparison
+        const rgb = bg.match(/\d+/g);
+        if (rgb && rgb.length >= 3) {
+          const hex = `#${((1 << 24) + (parseInt(rgb[0]) << 16) + (parseInt(rgb[1]) << 8) + parseInt(rgb[2])).toString(16).slice(1).toUpperCase()}`;
+          if (hex === primaryColor.toUpperCase()) return true;
+        }
+      }
+      current = current.parentElement;
+    }
+    return false;
   }
 
   // Mouse move handler (desktop only)
@@ -242,6 +335,19 @@
     targetX = e.clientX;
     targetY = e.clientY;
     lastMoveTime = Date.now();
+
+    const hovered = document.elementFromPoint(e.clientX, e.clientY);
+    isOverPrimaryBackground = isOverPrimary(hovered);
+
+    if (isPointerElement(hovered)) {
+      targetCursorRadius = HOVER_CURSOR_RADIUS;
+      targetRingRadius = HOVER_CURSOR_RADIUS + RING_EXTRA_RADIUS;
+      targetRingAlpha = 1;
+    } else {
+      targetCursorRadius = BASE_CURSOR_RADIUS;
+      targetRingRadius = 0;
+      targetRingAlpha = 0;
+    }
   });
 
   // Resize handler

@@ -6,6 +6,7 @@ import type { Lang } from "../../i18n/index";
 import Selfie from "../../assets/images/selfie.jpg";
 import { useTranslations } from "../../i18n/index";
 import Footer from "../../components/Footer.astro";
+import SkillsBanner from "../../components/SkillsBanner.astro";
 
 export const prerender = true;
 
@@ -38,12 +39,13 @@ const { t } = useTranslations(lang);
       <div
         class="flex flex-col lg:flex-row gap-6 lg:gap-none lg:justify-between items-center  w-full"
       >
-        <div class="w-fit">
+        <div class="tilt-card w-fit" data-tilt>
           <img
             src={Selfie.src}
             alt={t("aboutMe.imageAlt")}
-            class="w-64 h-auto grayscale border-[0.2px] rounded-lg [corner-shape:scoop] border-white shadow-md shadow-[#000000]"
+            class="tilt-img w-64 h-auto grayscale border-[0.2px] rounded-lg [corner-shape:scoop] border-white shadow-md shadow-[#000000]"
           />
+          <div class="tilt-glare" aria-hidden="true"></div>
         </div>
 
         <div class="flex flex-col w-full max-w-4xl gap-6 text-white">
@@ -65,65 +67,16 @@ const { t } = useTranslations(lang);
         </div>
       </div>
     </section>
-    <!-- SKILLS GRID -->
-    <section class="flex flex-col items-center px-6 md:px-12 lg:py-16 lg:px-0 pb-8 max-w-7xl mx-auto">
+    <!-- SKILLS BANNER -->
+    <section class="flex flex-col items-center px-6 md:px-12 lg:pt-16 lg:px-0 pb-2 max-w-7xl mx-auto">
       <h2
-        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8 "
+        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8"
       >
         {t("aboutMe.skillsTitle")}
       </h2>
-      <div class="flex flex-wrap justify-center items-center gap-1.5 lg:gap-5 w-full">
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillAI")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillUX")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillProduct")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillBranding")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillFrontend")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillSEO")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillFigma")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillMobile")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillMarketing")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillReact")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillHTML")}</span
-        >
-        <span
-          class="flex  md:px-3 px-3 text-center md:py-2 py-1 items-center border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white transition-colors duration-200"
-          >{t("aboutMe.skillCyber")}</span
-        >
-      </div>
     </section>
-    
+    <SkillsBanner lang={lang} />
+
     <!-- PROFESSIONAL SUMMARY -->
     <section class="flex flex-col items-center px-6 lg:px-0 pb-8 max-w-7xl mx-auto">
       <p class="font-mono text-base lg:text-lg text-gray-300 leading-relaxed">
@@ -180,7 +133,7 @@ const { t } = useTranslations(lang);
           class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
         >
           <div class="flex flex-col gap-1">
-            <span class="text-gray-300 font-unbounded text-smlg:text-lg"
+            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
               >{t("aboutMe.exp3Role")}</span
             >
             <span class="font-mono text-sm text-gray-400"
@@ -409,6 +362,7 @@ const { t } = useTranslations(lang);
       </p>
       <a
         href={lang === "en" ? "/contact/" : "/es/contact/"}
+        data-analytics-event="cta_about_click"
         class="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-mono text-xl uppercase tracking-wider hover:bg-primary hover:text-white transition-all duration-300 rounded"
       >
         {t("nav.contact")}
@@ -416,5 +370,80 @@ const { t } = useTranslations(lang);
       </a>
     </section>
   </main>
+
+  <style>
+    .tilt-card {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .tilt-img {
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .tilt-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: 0.5rem;
+      background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.18) 42%,
+        rgba(255, 255, 255, 0.38) 50%,
+        rgba(255, 255, 255, 0.18) 58%,
+        transparent 65%
+      );
+      background-size: 200% 200%;
+      background-position: 0% center;
+      transform: translateZ(1px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .tilt-card:hover .tilt-glare {
+      opacity: 1;
+    }
+  </style>
+
+  <script>
+    (function initTilt() {
+      const cards = document.querySelectorAll('[data-tilt]');
+
+      cards.forEach((card) => {
+        const img = card.querySelector('.tilt-img');
+        const glare = card.querySelector('.tilt-glare');
+        if (!img) return;
+
+        const maxRotation = 25;
+        const scale = 1.22;
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const rotateX = ((y - centerY) / centerY) * -maxRotation;
+          const rotateY = ((x - centerX) / centerX) * maxRotation;
+
+          img.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale}) translateZ(24px)`;
+          img.style.boxShadow = `${-rotateY * 1.6}px ${rotateX * 1.6}px 36px rgba(0, 0, 0, 0.75)`;
+
+          if (glare) {
+            const glarePos = 50 + ((x / rect.width) * 100 - 50) * 1.8;
+            glare.style.backgroundPosition = `${glarePos}% center`;
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          img.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+          img.style.boxShadow = '';
+        });
+      });
+    })();
+  </script>
+
    <Footer lang={lang} pathname={pathname} />
 </Layout>
