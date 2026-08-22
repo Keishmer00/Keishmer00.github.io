@@ -101,6 +101,21 @@ const localizedCategories = getCategories(lang);
       }
     </projects-page>
   </main>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": localizedCategories.flatMap((category) =>
+      category.works.map((work, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": work.title,
+        "url": `https://keishmerstudio.com${getProjectUrl(category.id, work.id, lang)}`,
+        "image": work.image.startsWith("http") ? work.image : `https://keishmerstudio.com${work.image}`,
+      }))
+    ),
+  })} />
+
   <Footer lang={lang} pathname={pathname} />
 </Layout>
 

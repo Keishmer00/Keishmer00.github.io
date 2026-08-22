@@ -198,40 +198,72 @@ const esOutcomes: TextMap = {
 
 const esSeoTitles: TextMap = {
   "karim":
-    "Karim — Identidad de Marca Colombiana de Cosméticos y Autocuidado | Keishmer Studio",
+    "Karim — Identidad de Marca | Keishmer Studio",
   "nexus-platform":
-    "Nexus — Identidad de Marca para Desarrollo de Software a la Medida | Keishmer Studio",
+    "Nexus — Identidad de Marca | Keishmer Studio",
   "mo-tech-service":
-    "Move On Tech Service — Identidad de Marca y Sistema Visual para Field Service de ATMs | Keishmer Studio",
+    "Move On Tech Service — Identidad de Marca | Keishmer Studio",
   "ruanasoulstudio":
-    "Ruana Soul Studio — Identidad de Marca para Productora Audiovisual | Keishmer Studio",
+    "Ruana Soul Studio — Identidad de Marca | Keishmer Studio",
   "ruana-studio":
-    "Ruana Soul Studio — Sitio Web de Agencia Integral con Astro SSR y SEO/AEO | Keishmer Studio",
+    "Ruana Soul Studio — Sitio Web de Agencia | Keishmer Studio",
   "karim-ventas":
-    "Karim Ventas — E-commerce Shopify con Componentes Liquid Personalizados | Keishmer Studio",
+    "Karim Ventas — E-commerce Shopify | Keishmer Studio",
   "wisegold-capital":
-    "WiseGold Capital — Plataforma Institucional Multilingüe con Blog Automatizado | Keishmer Studio",
+    "WiseGold Capital — Plataforma Institucional | Keishmer Studio",
   "didier-perez":
-    "Didier Pérez — Portafolio Legal para Abogado de Derecho Administrativo | Keishmer Studio",
+    "Didier Pérez — Portafolio Legal | Keishmer Studio",
+  "fashion-drop":
+    "Fashion Drop — Campaña de Redes Sociales para Streetwear | Ruana Soul Studio",
+  "cafe-stories":
+    "Café Stories — Estrategia de Redes Sociales para Cafetería | Ruana Soul Studio",
+  "fitness-series":
+    "Pulse Fitness — Redes Sociales para Estudio Boutique | Ruana Soul Studio",
+  "wedding-reel":
+    "Ever After — Redes Sociales y Reels para Bodas | Ruana Soul Studio",
+  "wedding-film":
+    "Amalfi Vows — Video de Boda Destino en la Costa de Amalfi | Ruana Soul Studio",
+  "brand-spot":
+    "Roast Spot — Producción de Spot para Marca de Café | Ruana Soul Studio",
+  "event-recap":
+    "Design Week — Video de Evento y Documentación | Ruana Soul Studio",
+  "product-bts":
+    "Verde BTS — Serie Documental para Marca de Skincare | Ruana Soul Studio",
 };
 
 const esSeoDescriptions: TextMap = {
   "karim":
-    "Identidad de marca, empaque y sistema visual para Karim, una marca colombiana de cosméticos y autocuidado con una estética cálida y empoderadora. Diseñado por Keishmer Studio.",
+    "Identidad de marca, empaque y sistema visual para Karim, una marca colombiana de cosméticos y autocuidado.",
   "nexus-platform":
-    "Arquitectura de marca e identidad visual para Nexus, una empresa de desarrollo de software a la medida que construye tecnología centrada en el ser humano. Estrategia de marca creada por Keishmer Studio.",
+    "Arquitectura de marca e identidad visual para una empresa de desarrollo de software a la medida.",
   "mo-tech-service":
-    "Sistema completo de identidad de marca para Move On Tech Service, una empresa de field service de ATMs y cajeros crypto con cobertura en más de 35 estados. Logotipo, sistema visual y guías de marca creados por Keishmer Studio.",
+    "Sistema completo de identidad de marca para field service de ATMs y cajeros crypto con cobertura nacional.",
   "ruanasoulstudio":
-    "Identidad de marca y sistema visual para Ruana Soul Studio, una productora audiovisual que crea experiencias cinematográficas con enfoque humano, artístico y transformador.",
+    "Identidad de marca y sistema visual para una productora audiovisual que crea experiencias cinematográficas.",
   "ruana-studio":
-    "Sitio web de agencia integral para Ruana Soul Studio construido con Astro SSR, animaciones GSAP, estrategia SEO/AEO y blog integrado desde Medium RSS.",
+    "Sitio web de agencia integral con Astro SSR, animaciones GSAP, estrategia SEO/AEO y blog RSS.",
   "karim-ventas":
-    "E-commerce Shopify personalizado con componentes Liquid a la medida para Karim Ventas, marca colombiana de cosméticos y autocuidado. Desarrollo de tema, arquitectura de bloques y diseño e-commerce por Keishmer Studio.",
+    "E-commerce Shopify personalizado con componentes Liquid para marca colombiana de cosméticos y autocuidado.",
   "wisegold-capital":
-    "Plataforma institucional multilingüe para WiseGold Capital con integración de blog Medium RSS, almacenamiento PostgreSQL y traducción automática Azure en 6 idiomas. Construido por Keishmer Studio.",
+    "Plataforma institucional multilingüe con blog RSS, PostgreSQL y traducción automática en varios idiomas.",
   "didier-perez":
-    "Portafolio profesional para Didier Pérez, abogado colombiano de Derecho Administrativo. Diseño limpio de una sola página con presentación de áreas de práctica e integración de WhatsApp por Keishmer Studio.",
+    "Portafolio profesional para abogado colombiano de Derecho Administrativo con integración de WhatsApp.",
+  "fashion-drop":
+    "Campaña de redes sociales que agotó un lanzamiento de verano en 4 horas y alcanzó 280K cuentas.",
+  "cafe-stories":
+    "Sistema de contenido para redes sociales que hizo crecer una cafetería 340% en tres meses.",
+  "fitness-series":
+    "Estrategia de contenido en movimiento que aumentó la membresía de un estudio boutique 28% en seis meses.",
+  "wedding-reel":
+    "Identidad social cinematográfica y estrategia en Pinterest que transformó las consultas de una marca de bodas.",
+  "wedding-film":
+    "Video de boda destino en la Costa de Amalfi con cobertura aérea y diseño sonoro cinematográfico.",
+  "brand-spot":
+    "Spot de marca y versiones para redes pagadas que duplicaron las tasas de visualización del sector.",
+  "event-recap":
+    "Documentación de festival de diseño con resúmenes diarios, destacados de speakers y video completo.",
+  "product-bts":
+    "Serie documental de lanzamiento que extendió una campaña y obtuvo menciones en prensa.",
 };
 
 const esImageAlts: TextMap = {
@@ -381,9 +413,9 @@ const baseCategories: WorkCategory[] = [
           karim5.src,
         ],
         ctaLabel: "View details",
-        seoTitle: "Karim — Colombian Cosmetics Brand Identity | Keishmer Studio",
+        seoTitle: "Karim — Cosmetics Brand Identity | Keishmer Studio",
         seoDescription:
-          "Brand identity, packaging and visual system for Karim, a Colombian cosmetics and self-care brand with a warm, empowering aesthetic crafted by Keishmer Studio.",
+          "Brand identity, packaging, and visual system for Karim, a Colombian cosmetics and self-care brand.",
       },
       {
         id: "nexus-platform",
@@ -411,9 +443,9 @@ const baseCategories: WorkCategory[] = [
         nexus5.src,
         ],
         ctaLabel: "View details",
-        seoTitle: "Nexus — Custom Software Development Brand Identity | Keishmer Studio",
+        seoTitle: "Nexus — Software Development Brand Identity | Keishmer Studio",
         seoDescription:
-          "Brand architecture and visual identity for Nexus, a custom software development company that builds human-centered technology. Brand strategy crafted by Keishmer Studio.",
+          "Brand architecture and visual identity for a custom software development company.",
       },
       {
         id: "mo-tech-service",
@@ -435,9 +467,9 @@ const baseCategories: WorkCategory[] = [
         imageAlt: "Move On Tech Service — Brand identity and visual system for ATM and crypto ATM field service",
         gallery: [mo1.src, mo2.src, mo3.src, mo4.src, mo5.src],
         ctaLabel: "View details",
-        seoTitle: "Move On Tech Service — Brand Identity & Visual System for ATM Field Service | Keishmer Studio",
+        seoTitle: "Move On Tech Service — Brand Identity | Keishmer Studio",
         seoDescription:
-          "Complete brand identity system for Move On Tech Service, a nationwide ATM and crypto ATM field service company operating in 35+ states. Logo design, visual system, and brand guidelines crafted by Keishmer Studio.",
+          "Complete brand identity system for a nationwide ATM and crypto ATM field service company.",
       },
       {
         id: "ruanasoulstudio",
@@ -465,9 +497,9 @@ const baseCategories: WorkCategory[] = [
           ruana5.src,
         ],
         ctaLabel: "View details",
-        seoTitle: "Ruana Soul Studio — Audiovisual Production Brand Identity | Keishmer Studio",
+        seoTitle: "Ruana Soul Studio — Audiovisual Brand Identity | Keishmer Studio",
         seoDescription:
-          "Brand identity and visual system for Ruana Soul Studio, an audiovisual production studio creating cinematic experiences with a human, artistic, and transformative approach.",
+          "Brand identity and visual system for an audiovisual production studio creating cinematic experiences.",
       },
     ],
   },
@@ -512,9 +544,9 @@ const baseCategories: WorkCategory[] = [
           "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=900&auto=format&fit=crop",
         ],
         ctaLabel: "View details",
-        seoTitle: "Ruana Soul Studio — Full-Service Agency Website | Branding, Web Dev & SEO",
+        seoTitle: "Ruana Soul Studio — Agency Website | Keishmer Studio",
         seoDescription:
-          "How Ruana Soul Studio built its own agency website — Astro SSR, GSAP animations, SEO/AEO strategy, and a conversion-first approach that demonstrates our full service capabilities.",
+          "Agency website built with Astro SSR, GSAP animations, SEO/AEO strategy, and conversion-first design.",
       },
       {
         id: "karim-ventas",
@@ -545,9 +577,9 @@ const baseCategories: WorkCategory[] = [
           "https://images.unsplash.com/photo-1531058020387-3be344556be6?q=80&w=900&auto=format&fit=crop",
         ],
         ctaLabel: "View details",
-        seoTitle: "Karim Ventas — Custom Shopify E-commerce with Liquid Components | Keishmer Studio",
+        seoTitle: "Karim Ventas — Shopify E-commerce | Keishmer Studio",
         seoDescription:
-          "Custom Shopify e-commerce built with bespoke Liquid components for Karim Ventas, a Colombian cosmetics and self-care brand. Theme development, block architecture, and e-commerce design by Keishmer Studio.",
+          "Custom Shopify e-commerce with Liquid components for a Colombian cosmetics and self-care brand.",
       },
       {
         id: "wisegold-capital",
@@ -578,9 +610,9 @@ const baseCategories: WorkCategory[] = [
           "https://images.unsplash.com/photo-1550305080-4e029753abcf?q=80&w=900&auto=format&fit=crop",
         ],
         ctaLabel: "View details",
-        seoTitle: "WiseGold Capital — Multi-language Institutional Platform | Keishmer Studio",
+        seoTitle: "WiseGold Capital — Institutional Platform | Keishmer Studio",
         seoDescription:
-          "Multi-language institutional platform for WiseGold Capital with Medium RSS blog integration, PostgreSQL storage, and automated Azure translation across 6 languages. Built by Keishmer Studio.",
+          "Multi-language institutional platform with RSS blog integration, PostgreSQL storage, and automated translation.",
       },
       {
         id: "didier-perez",
@@ -611,9 +643,9 @@ const baseCategories: WorkCategory[] = [
           "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=900&auto=format&fit=crop",
         ],
         ctaLabel: "View details",
-        seoTitle: "Didier Pérez — Legal Portfolio Website for Administrative Law Attorney | Keishmer Studio",
+        seoTitle: "Didier Pérez — Legal Portfolio Website | Keishmer Studio",
         seoDescription:
-          "Professional portfolio website for Didier Pérez, Colombian administrative law attorney. Clean single-page design with practice area presentation and WhatsApp integration by Keishmer Studio.",
+          "Professional portfolio website for a Colombian administrative law attorney with WhatsApp integration.",
       },
     ],
   },
@@ -660,7 +692,7 @@ const baseCategories: WorkCategory[] = [
         ctaLabel: "View details",
         seoTitle: "Fashion Drop — Streetwear Social Media Campaign | Ruana Soul Studio",
         seoDescription:
-          "Ruana Soul Studio ran Fashion Drop's Summer 2024 launch campaign — Reels, carousels, and content strategy that sold out in 4 hours and reached 280K accounts.",
+          "Social media campaign that sold out a summer launch in 4 hours and reached 280K accounts.",
       },
       {
         id: "cafe-stories",
@@ -693,7 +725,7 @@ const baseCategories: WorkCategory[] = [
         ctaLabel: "Explore options",
         seoTitle: "Café Stories — Coffee Shop Social Media Strategy | Ruana Soul Studio",
         seoDescription:
-          "Ruana Soul Studio built Café Stories' social media content system — templates, strategy, and training that grew their following 340% in three months.",
+          "Social media content system that grew a coffee shop's following 340% in three months.",
       },
       {
         id: "fitness-series",
@@ -726,7 +758,7 @@ const baseCategories: WorkCategory[] = [
         ctaLabel: "View details",
         seoTitle: "Pulse Fitness — Boutique Studio Social Media | Ruana Soul Studio",
         seoDescription:
-          "Ruana Soul Studio created Pulse Fitness' social content strategy — motion-led Reels and photography that grew studio membership by 28% in six months.",
+          "Motion-led social content strategy that grew a boutique studio's membership 28% in six months.",
       },
       {
         id: "wedding-reel",
@@ -759,7 +791,7 @@ const baseCategories: WorkCategory[] = [
         ctaLabel: "View details",
         seoTitle: "Ever After — Wedding Social Media & Reel Direction | Ruana Soul Studio",
         seoDescription:
-          "Ruana Soul Studio created Ever After's cinematic social identity — editorial reels, Pinterest strategy, and brand voice that transformed their client enquiries.",
+          "Cinematic social identity and Pinterest strategy that transformed a wedding brand's enquiries.",
       },
     ],
   },
@@ -806,7 +838,7 @@ const baseCategories: WorkCategory[] = [
         ctaLabel: "View details",
         seoTitle: "Amalfi Vows — Cinematic Destination Wedding Film | Ruana Soul Studio",
         seoDescription:
-          "Ruana Soul Studio filmed Amalfi Vows — a three-day destination wedding on the Amalfi Coast, with drone coverage, colour grading, and cinematic sound design.",
+          "Destination wedding film on the Amalfi Coast with drone coverage and cinematic sound design.",
       },
       {
         id: "brand-spot",
@@ -839,7 +871,7 @@ const baseCategories: WorkCategory[] = [
         ctaLabel: "Explore options",
         seoTitle: "Roast Spot — Coffee Brand Film Production | Ruana Soul Studio",
         seoDescription:
-          "Ruana Soul Studio produced Roast Collective's brand film — a 30-second hero spot and paid social cut-downs that doubled industry view-through rates.",
+          "Brand film and paid social cut-downs that doubled industry view-through rates.",
       },
       {
         id: "event-recap",
@@ -870,9 +902,9 @@ const baseCategories: WorkCategory[] = [
           "https://images.unsplash.com/photo-1550305080-4e029753abcf?q=80&w=900&auto=format&fit=crop",
         ],
         ctaLabel: "View details",
-        seoTitle: "Design Week Melbourne — Event Film & Documentation | Ruana Soul Studio",
+        seoTitle: "Design Week — Event Film & Documentation | Ruana Soul Studio",
         seoDescription:
-          "Ruana Soul Studio documented Design Week Melbourne — same-day social recaps, speaker highlights, and a full festival film for one of Melbourne's leading design events.",
+          "Design festival documentation with same-day social recaps, speaker highlights, and a full festival film.",
       },
       {
         id: "product-bts",
@@ -905,7 +937,7 @@ const baseCategories: WorkCategory[] = [
         ctaLabel: "View details",
         seoTitle: "Verde BTS — Skincare Brand Documentary Series | Ruana Soul Studio",
         seoDescription:
-          "Ruana Soul Studio produced Verde Botánica's behind-the-scenes launch series — a three-episode documentary that extended the campaign and earned press features.",
+          "Product launch documentary series that extended a campaign and earned press features.",
       },
     ],
   },

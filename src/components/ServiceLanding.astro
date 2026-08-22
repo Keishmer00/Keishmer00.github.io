@@ -2,22 +2,31 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "./Navbar.astro";
 import Footer from "./Footer.astro";
+import Breadcrumbs from "./atoms/Breadcrumbs.astro";
 import type { Lang } from "../i18n/index";
 import { getLocalizedPath, useTranslations } from "../i18n/index";
 
 export interface Props {
   lang: Lang;
-  service: "uxui" | "frontend";
+  service: "uxui" | "frontend" | "visual";
 }
 
 const { lang, service } = Astro.props;
 const { t, tArray } = useTranslations(lang);
-const pathname = lang === "en" ? `/${service === "uxui" ? "ux-ui-design" : "frontend-dev"}/` : `/es/${service === "uxui" ? "ux-ui-design" : "frontend-dev"}/`;
+const serviceSlug = service === "uxui" ? "ux-ui-design" : service === "frontend" ? "frontend-dev" : "visual-artist";
+const pathname = lang === "en" ? `/${serviceSlug}/` : `/es/${serviceSlug}/`;
 const serviceData = `servicePages.${service}`;
 ---
 
-<Layout lang={lang} page={service} pathname={pathname}>
+<Layout lang={lang} page={service === "visual" ? "visualArtist" : service} pathname={pathname}>
   <Navbar lang={lang} pathname={pathname} />
+  <Breadcrumbs
+    items={[
+      { label: t("projects.breadcrumbHome"), href: lang === "en" ? "/" : "/es/" },
+      { label: t(`${serviceData}.breadcrumb`) },
+    ]}
+    light
+  />
   <main class="bg-black px-4 pb-24 pt-36 md:px-8 lg:px-24 lg:pt-48">
     <div class="mx-auto max-w-6xl">
       <p class="font-mono text-sm uppercase tracking-widest text-primary">{t(`${serviceData}.eyebrow`)}</p>

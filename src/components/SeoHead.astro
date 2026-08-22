@@ -34,7 +34,7 @@ const alternateEs = `${siteUrl}${normalizePath(alternatePaths.es)}`;
 <meta name="author" content={t("site.author")} />
 <meta name="theme-color" content="#121314" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="robots" content={page === "error" || page === "visualArtist" ? "noindex" : "index, follow"} />
+  <meta name="robots" content={page === "error" ? "noindex" : "index, follow"} />
 <link rel="canonical" href={canonical} />
 
 <!-- Alternate language links -->
@@ -54,15 +54,6 @@ const alternateEs = `${siteUrl}${normalizePath(alternatePaths.es)}`;
 <meta property="og:url" content={canonical} />
 <meta property="og:locale" content={lang === "en" ? "en_US" : "es_ES"} />
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content="https://keishmerstudio.com/og-image.png" />
-<meta name="twitter:image:alt" content={description} />
-<meta name="twitter:creator" content="@keishmer00" />
-<meta name="twitter:site" content="@keishmer00" />
-
 <!-- JSON-LD Person -->
 {(page === "home" || page === "about-me") && (
 <script type="application/ld+json" set:html={JSON.stringify({
@@ -76,11 +67,20 @@ const alternateEs = `${siteUrl}${normalizePath(alternatePaths.es)}`;
   "sameAs": [
     "https://www.linkedin.com/in/keishmer-p%C3%A9rez-torres/",
     "https://github.com/Keishmer00",
-    "https://www.instagram.com/keishmer00/",
-    "https://twitter.com/keishmer00"
+    "https://www.instagram.com/keishmer00/"
   ],
   "email": "kshmr044@gmail.com",
   "knowsAbout": tArray("jsonld.knowsAbout"),
+  "homeLocation": {
+    "@type": "Place",
+    "name": "Cúcuta, Norte de Santander, Colombia"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Cúcuta",
+    "addressRegion": "Norte de Santander",
+    "addressCountry": "CO"
+  },
   "worksFor": {
     "@type": "Organization",
     "name": "Move On Tech Service",
@@ -101,9 +101,15 @@ const alternateEs = `${siteUrl}${normalizePath(alternatePaths.es)}`;
   "name": "Keishmer Studio",
   "url": siteUrl,
   "email": "kshmr044@gmail.com",
-  "areaServed": ["United States", "Colombia", "Latin America"],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Cúcuta",
+    "addressRegion": "Norte de Santander",
+    "addressCountry": "CO"
+  },
+  "areaServed": ["Colombia", "United States", "Latin America", "Worldwide"],
   "availableLanguage": ["English", "Spanish"],
-  "serviceType": ["UX/UI Design", "Frontend Development", "Branding", "Design Systems"],
+  "serviceType": ["UX/UI Design", "Frontend Development", "Branding", "Design Systems", "Visual Art"],
   "provider": { "@id": "https://keishmerstudio.com/#person" }
 })} />
 )}

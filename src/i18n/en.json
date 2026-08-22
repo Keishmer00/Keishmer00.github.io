@@ -60,7 +60,7 @@
     "breadcrumb": "About Me",
     "imageAlt": "Keishmer Pérez Torres — Product Designer, UX/UI and Visual Artist portrait",
     "role": "Product Designer · UX/UI Designer · Visual Artist",
-    "location": "Pamplona, Norte de Santander, Colombia",
+    "location": "Cúcuta, Norte de Santander, Colombia",
     "intro": "I'm Keishmer Pérez Torres, a Product Designer and Frontend Developer who helps startups, service companies, and premium brands turn an unclear digital presence into experiences that feel credible, strategic, and ready to grow. My work combines UX/UI, brand systems, and frontend execution so clients can move faster without splitting strategy, design, and implementation across multiple freelancers.",
     "professionalSummary": "Keishmer Pérez Torres is a Product Designer and Visual Artist with over 4 years of experience across digital product design, university teaching, and multimedia production. He holds a Master's degree in Multimedia Design and Production from Universidad Internacional de la Rioja (Spain) and a Bachelor's in Visual Arts from Universidad de Pamplona (Colombia). He currently works as a Product Designer at Move On Tech Service, leading visual and functional design for digital solutions in the security and logistics sector. Previously, he served as a university lecturer in Industrial Design, coordinated digital library services, and created multimedia content for educational and cultural institutions. With 40+ certifications in design, development, AI, SEO, and marketing, he brings a multidisciplinary approach to every project — combining artistic sensibility, technical precision, and strategic thinking to deliver solutions that create real value for people and brands.",
     "skillsTitle": "Skills & Specialties",
@@ -203,24 +203,24 @@
   },
   "seo": {
     "home": {
-      "title": "Freelance UX/UI Designer & Frontend Developer | Keishmer Pérez",
-      "description": "Hire a freelance UX/UI designer and frontend developer for websites, interfaces, and brand systems that turn visitors into qualified inquiries. Available worldwide."
+      "title": "Freelance UX/UI Designer & Frontend Dev | Keishmer Pérez",
+      "description": "Freelance UX/UI designer and frontend developer for websites and brand systems that turn visitors into leads. Available worldwide."
     },
     "uxui": {
-      "title": "Freelance UX/UI Design for Startups & Service Companies | Keishmer Pérez",
+      "title": "Freelance UX/UI Design | Keishmer Pérez",
       "description": "Hire a freelance UX/UI designer to clarify product flows, interfaces, and digital experiences for startups and service companies."
     },
     "frontend": {
-      "title": "Freelance Frontend Developer for Clear, Fast Websites | Keishmer Pérez",
+      "title": "Freelance Frontend Development | Keishmer Pérez",
       "description": "Hire a freelance frontend developer for responsive Astro websites, accessible interfaces, technical SEO, and maintainable implementation."
     },
     "visualArtist": {
-      "title": "Visual Art Portfolio - Keishmer Pérez Torres",
-      "description": "Visual art portfolio by Keishmer Perez: digital art, illustrations, and creative visual projects."
+      "title": "Freelance Visual Art & Creative Direction | Keishmer Pérez",
+      "description": "Freelance visual artist and art director for digital illustration, campaign visuals, and brand imagery. Available worldwide."
     },
     "aboutMe": {
-      "title": "About Keishmer Pérez Torres — Product Designer, UX/UI & Visual Artist | Pamplona, Colombia",
-      "description": "Product Designer and Visual Artist based in Pamplona, Colombia. Specialized in UX/UI design, AI design, branding, and front-end development. 40+ certifications, Master's in Multimedia Design. Available for projects worldwide."
+      "title": "Keishmer Pérez — UX/UI, Frontend & Visual Artist | Cúcuta",
+      "description": "UX/UI designer, frontend developer, and visual artist based in Cúcuta, Colombia. Available for remote projects worldwide in English and Spanish."
     },
     "projects": {
       "title": "Projects Portfolio - Keishmer Pérez Torres",
@@ -363,6 +363,7 @@
   },
   "servicePages": {
     "uxui": {
+      "breadcrumb": "UX/UI Design",
       "eyebrow": "UX/UI design",
       "title": "UX/UI design for products and websites that need to become easier to understand",
       "description": "I turn complex ideas, unclear flows, and inconsistent interfaces into focused user experiences that are ready to test, build, and improve.",
@@ -381,6 +382,7 @@
       "closingText": "If users, clients, or internal teams are struggling to understand the product, send me the context and I will help define the most useful next step."
     },
     "frontend": {
+      "breadcrumb": "Frontend Development",
       "eyebrow": "Frontend development",
       "title": "Frontend development for brands that need a fast, credible, and maintainable website",
       "description": "I build responsive Astro websites and frontend experiences that preserve the design intent while improving clarity, accessibility, performance, and search visibility.",
@@ -397,6 +399,25 @@
       "threeText": "We review the experience across devices, validate forms and metadata, and prepare the site for launch.",
       "closingTitle": "A better website should make the next action obvious",
       "closingText": "Share the current site, prototype, or idea. I will help identify what should be clarified before more code is added."
+    },
+    "visual": {
+      "breadcrumb": "Visual Art",
+      "eyebrow": "Visual art",
+      "title": "Visual art and creative direction for brands that need a distinct visual voice",
+      "description": "I create digital illustrations, multimedia pieces, and art direction that help brands, campaigns, and cultural projects stand out with a coherent and memorable visual language.",
+      "cta": "Start a visual art inquiry",
+      "audienceTitle": "A good fit for",
+      "audience": "Brands, cultural projects, and campaigns that need original visuals, editorial illustration, or art direction to communicate with more personality.",
+      "deliverablesTitle": "What this can include",
+      "deliverables": ["Digital illustration and editorial art", "Art direction for campaigns and content", "Multimedia visuals and motion support", "Brand imagery and visual storytelling"],
+      "oneTitle": "Define",
+      "oneText": "We clarify the mood, audience, and message the visual work needs to communicate.",
+      "twoTitle": "Create",
+      "twoText": "I develop the illustrations, visual systems, or art direction needed to support the narrative.",
+      "threeTitle": "Apply",
+      "threeText": "We adapt the visuals across the required formats and touchpoints while keeping the visual voice consistent.",
+      "closingTitle": "Strong visuals should make the message impossible to ignore",
+      "closingText": "Share the concept, campaign, or story you need to visualize. I will help define the most effective visual direction."
     }
   },
   "subpages": {

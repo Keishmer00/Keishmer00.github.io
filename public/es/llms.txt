@@ -1,0 +1,36 @@
+# Keishmer Studio — Keishmer Pérez Torres
+
+> Product Designer, Diseñador UX/UI, Desarrollador Frontend y Artista Visual con base en Cúcuta, Norte de Santander, Colombia. Trabajo de forma remota con startups, negocios de servicios y marcas en todo el mundo en español e inglés. Conecto UX/UI, sistemas de marca y desarrollo frontend para que los proyectos avancen con coherencia, sin dividir estrategia, diseño e implementación entre varios proveedores.
+
+## Acerca de
+
+- [Sobre mí](https://keishmerstudio.com/es/about-me/)
+- [Proyectos seleccionados](https://keishmerstudio.com/es/projects/)
+- [Contacto](https://keishmerstudio.com/es/contact/)
+
+## Servicios
+
+- Diseño UX/UI — flujos de producto, diseño de interfaces, sistemas de diseño y prototipos
+- Desarrollo frontend — sitios responsive con Astro, componentes accesibles, SEO técnico
+- Branding e identidad — sistemas visuales, empaque y dirección de arte
+- Arte visual — ilustración digital, contenido multimedia y dirección creativa
+
+## Stack
+
+- Astro, React, Next.js
+- HTML, CSS, JavaScript, TypeScript
+- Figma, sistemas de diseño
+- SEO, AEO, GEO
+- Flujos de diseño asistidos por IA
+
+## Perfiles
+
+- [LinkedIn](https://www.linkedin.com/in/keishmer-p%C3%A9rez-torres/)
+- [GitHub](https://github.com/Keishmer00)
+- [Instagram](https://www.instagram.com/keishmer00/)
+
+## Contacto
+
+- Correo: kshmr044@gmail.com
+- Ubicación: Cúcuta, Norte de Santander, Colombia
+- Disponibilidad: Remoto, todo el mundo, español e inglés
