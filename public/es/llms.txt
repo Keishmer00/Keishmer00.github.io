@@ -8,6 +8,13 @@
 - [Proyectos seleccionados](https://keishmerstudio.com/es/projects/)
 - [Contacto](https://keishmerstudio.com/es/contact/)
 
+## Proyectos destacados (marca, UX/UI y desarrollo, contados como proceso)
+
+- [WiseGold Capital — plataforma de custodia multilingüe](https://keishmerstudio.com/es/projects/wisegold/)
+- [Karim — identidad de marca y tienda Shopify](https://keishmerstudio.com/es/projects/karim/)
+- [Ruana Soul Studio — identidad y sitio cinematográfico](https://keishmerstudio.com/es/projects/ruana-soul-studio/)
+- [Nexus — arquitectura de marca e identidad digital](https://keishmerstudio.com/es/projects/nexus/)
+
 ## Servicios
 
 - Diseño UX/UI — flujos de producto, diseño de interfaces, sistemas de diseño y prototipos

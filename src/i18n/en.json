@@ -33,7 +33,7 @@
   "about": {
     "title": "Design and implementation without the handoff gaps",
     "subtitle": "I connect UX/UI, brand systems, and frontend execution so your digital presence feels clear, credible, and ready to grow.",
-    "text1": "With 4+ years of experience and a Master's in Multimedia Design, I help teams turn unclear digital products and brands into focused experiences.",
+    "text1": "With 10+ years of experience and a Master's in Multimedia Design, I help teams turn unclear digital products and brands into focused experiences.",
     "text2": "You get one partner across strategy, design, and implementation instead of splitting the project between several freelancers.",
     "cta":"See how I work",
     "imageAlt": "Selfie"
@@ -155,11 +155,6 @@
     
 
   },
-  "selectedWork": {
-    "eyebrow": "Selected work",
-    "title": "Evidence for the kind of project you want to build",
-    "description": "A focused selection of brand, product, and digital system work. Each case explains the problem, the decisions, and the outcome."
-  },
   "process": {
     "eyebrow": "How I work",
     "title": "A focused process that keeps decisions visible and momentum steady",
@@ -254,9 +249,6 @@
     "text1": "I design interfaces, brands, and digital experiences with visual clarity and strategic focus",
     "text2": "I create visual systems and digital experiences that connect identity, function, and value"
   },
-  "works": {
-    "title": "Best Projects"
-  },
   "projects": {
     "title": "Best Projects",
     "description": "A curated selection of work I am proud of. Each project reflects a partnership built on trust, creativity, and a relentless attention to detail.",
@@ -264,16 +256,55 @@
     "breadcrumbProjects": "Best Projects",
     "client": "Client",
     "services": "Services",
-    "website": "Website",
-    "overview": "Project Overview",
-    "challenge": "The Challenge",
-    "solution": "Our Solution",
-    "outcome": "The Outcome"
+    "website": "Website"
   },
   "projectCta": {
     "title": "Need a system that supports your next stage?",
     "text": "Tell me what you are trying to clarify, improve, or launch. We can start with the problem before deciding the deliverables.",
     "button": "Start a project inquiry"
+  },
+  "featured": {
+    "eyebrow": "Featured work",
+    "regionLabel": "Featured projects. Scroll to move from one project to the next.",
+    "counterLabel": "Project",
+    "cta": "View project",
+    "stagesLabel": "Process",
+    "stages": {
+      "briefing": "Briefing",
+      "research": "Research",
+      "branding": "Branding",
+      "uxui": "UX/UI",
+      "development": "Development"
+    },
+    "list": {
+      "intro": "Four brands, one process — briefing, research, branding, UX/UI and development — told as the story of each one."
+    },
+    "gallery": {
+      "eyebrow": "Gallery",
+      "regionLabel": "Project gallery. Use the arrow keys to move between images; Enter expands the selected image and Escape closes it.",
+      "imageLabel": "Image",
+      "expand": "Expand image",
+      "close": "Close",
+      "prev": "Previous image",
+      "next": "Next image",
+      "mapLabel": "Gallery map",
+      "goTo": "Go to image"
+    },
+    "detail": {
+      "eyebrow": "Featured project",
+      "year": "Year",
+      "sector": "Sector",
+      "visitSite": "Visit website",
+      "processTitle": "The process",
+      "processIntro": "Every brand goes through the same five stages. This is how the story unfolded here.",
+      "stageLabel": "Stage",
+      "outcomeTitle": "Where it landed",
+      "galleryTitle": "Gallery",
+      "galleryImageAlt": "Gallery image",
+      "prev": "Previous project",
+      "next": "Next project",
+      "allProjects": "All featured projects"
+    }
   },
   "contact": {
     "title": "Let's talk about your project",

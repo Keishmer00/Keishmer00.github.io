@@ -54,8 +54,25 @@ const { lang, page, pathname, title, description } = Astro.props;
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
-		overflow-x: hidden;
+		/* `clip` recorta el desbordamiento horizontal SIN convertir html/body en contenedor de
+		   scroll (con `hidden`, el body pasaba a ser el scroller y ningún ScrollTrigger —
+		   ni el pin de FeaturedProjects — recibía el scroll de la ventana). Spec 008. */
+		overflow-x: clip;
 		font-family: var(--albert);
 		color: var(--text-white);
+	}
+
+	/* Navegadores sin `clip` (Safari < 16): mejor recortar como antes que dejar scroll horizontal. */
+	@supports not (overflow: clip) {
+		html,
+		body {
+			overflow-x: hidden;
+		}
+	}
+
+	body {
+		/* Fondo negro también bajo las secciones fijadas (pin) cuando la barra de
+		   direcciones móvil cambia el alto del viewport. */
+		background-color: var(--black);
 	}
 </style>

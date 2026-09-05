@@ -1,11 +1,14 @@
 ---
+// /projects/ (spec 008): lista los proyectos destacados de src/lib/featured.ts con su
+// narrativa de proceso. El listado por categorías (spec 004) vive en
+// components/ProjectsCatalog.astro y ya no se monta aquí.
 import Footer from "../../components/Footer.astro";
 import Navbar from "../../components/Navbar.astro";
 import Breadcrumbs from "../../components/atoms/Breadcrumbs.astro";
 import Layout from "../../layouts/Layout.astro";
 import type { Lang } from "../../i18n/index";
-import { useTranslations } from "../../i18n/index";
-import { getCategories, getProjectUrl } from "../../lib/projects";
+import { getLocalizedPath, useTranslations } from "../../i18n/index";
+import { getFeaturedProjects, getFeaturedProjectUrl } from "../../lib/featured";
 
 export const prerender = true;
 
@@ -16,146 +19,215 @@ export function getStaticPaths() {
 const { lang = "en" } = Astro.params as { lang?: Lang };
 const { t } = useTranslations(lang);
 const pathname = lang === "en" ? "/projects/" : "/es/projects/";
-const localizedCategories = getCategories(lang);
+const projects = getFeaturedProjects(lang).map((project) => ({
+  ...project,
+  href: getFeaturedProjectUrl(project.id, lang),
+}));
+const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
 <Layout lang={lang} page="projects" pathname={pathname}>
   <Navbar lang={lang} pathname={pathname} />
   <Breadcrumbs
     items={[
-      { label: t("projects.breadcrumbHome"), href: lang === "en" ? "/" : "/es/" },
+      {
+        label: t("projects.breadcrumbHome"),
+        href: getLocalizedPath("/", lang),
+      },
       { label: t("projects.breadcrumbProjects") },
     ]}
     light
   />
-  <main class="pt-32 lg:pt-40 pb-8 px-4 md:px-8 lg:px-24 bg-black">
-    <section class="max-w-6xl mx-auto mb-16 ">
-      <h1 class="text-3xl md:text-5xl text-white font-unbounded font-bold uppercase leading-tight">
+  <main class="bg-black px-4 pb-8 pt-32 md:px-8 lg:px-24 lg:pt-40">
+    <section class="mx-auto mb-16 max-w-6xl">
+      <h1
+        class="font-unbounded text-3xl font-bold uppercase leading-tight text-white md:text-5xl"
+      >
         {t("projects.title")}
       </h1>
-      <p class="text-xs font-mono md:text-xl text-gray-300 mt-4">
+      <p class="mt-4 font-mono text-xs text-gray-300 md:text-xl">
         {t("projects.description")}
+      </p>
+      <p
+        class="mt-6 max-w-3xl font-albert text-base leading-relaxed text-gray-200 md:text-lg"
+      >
+        {t("featured.list.intro")}
       </p>
     </section>
 
-    <projects-page
-      id="projects-page"
-      class="max-w-6xl mx-auto flex flex-col"
-    >
-      { 
-        localizedCategories.map((category, catIndex) => (
-          <section
-            class="category-section pb-8 lg:pb-16"
-            data-category-id={category.id}
-          >
-            <div class="mb-8">
-              <h2 class="text-xl md:text-2xl font-unbounded font-black text-gray-200 uppercase">
-                {category.label}
-              </h2>
-              <p class="text-gray-300 font-mono text-base mt-2 w-full leading-relaxed">
-                {category.statement}
-              </p>
-            </div>
+    <projects-page id="projects-page" class="mx-auto flex max-w-6xl flex-col">
+      <ol class="flex flex-col gap-16 lg:gap-24">
+        {
+          projects.map((project, index) => (
+            <li>
+              <article
+                class="featured-item group grid gap-8 border-t border-white/10 pt-8 lg:grid-cols-12 lg:gap-12 lg:pt-12"
+                data-project={project.id}
+              >
+                <a
+                  href={project.href}
+                  aria-label={`${t("featured.cta")}: ${project.brand}`}
+                  data-analytics-event="case_study_click"
+                  data-analytics-label={project.id}
+                  class={`relative isolate block aspect-4/3 overflow-hidden bg-secondary lg:col-span-5 lg:aspect-auto lg:min-h-105
+                 ${index % 2 === 1 ? "lg:order-2" : ""}`}
+                >
+                  <img
+                    src={project.image.src}
+                    alt={project.imageAlt}
+                    width={project.image.width}
+                    height={project.image.height}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    class="absolute inset-0 -z-10 h-full w-full object-cover grayscale transition-[filter,transform] duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
+                  />
+                  <div
+                    class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/85 via-black/40 to-black/20"
+                    aria-hidden="true"
+                  />
+                  <img
+                    src={project.logo.src}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    class="absolute left-1/2 top-1/2 h-auto max-h-20 w-[48%] max-w-60 -translate-x-1/2 -translate-y-1/2 object-contain brightness-0 invert drop-shadow-[0_2px_24px_rgba(0,0,0,0.65)] lg:max-h-28"
+                  />
+                </a>
 
-            <div
-              class="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
-            >
-              {
-                category.works.map((work) => (
-                  <article class="work-card group bg-secondary hover:border hover:border-primary/50 overflow-hidden shadow-lg shadow-black/5 border border-black/5">
-                    <div class="relative aspect-4/3 overflow-hidden">
-                      <img
-                        src={work.image}
-                        alt={work.imageAlt}
-                        width="400"
-                        height="300"
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div class="p-5">
-                      <h3 class="text-base font-medium uppercase font-unbounded tracking-wide text-gray-200">
-                        {work.title}
-                      </h3>
-                      <p class="text-base text-gray-500 mt-2 font-mono leading-relaxed line-clamp-2">
-                        {work.tagline}
-                      </p>
-                      <a
-                        href={getProjectUrl(category.id, work.id, lang)}
-                        class="inline-flex items-center gap-1 mt-4 text-sm font-bold font-mono hover:text-gray-300 transition-colors duration-200 group/link"
-                      >
-                        {work.ctaLabel}
-                        <span
-                          class="transition-transform duration-200 group-hover/link:translate-x-1"
-                          aria-hidden="true"
-                          >→</span>
-                      </a>
-                    </div>
-                  </article>
-                ))
-              }
-            </div>
-          </section>
-        ))
-      }
+                <div
+                  class={`flex flex-col gap-4 lg:col-span-7 lg:justify-center lg:gap-5 ${index % 2 === 1 ? "lg:order-1" : ""}`}
+                >
+                  <p class="font-mono text-sm uppercase tracking-widest text-gray-200 md:text-base">
+                    <span class="text-primary">{pad(index + 1)}</span>
+                    <span class="mx-2 text-gray-300" aria-hidden="true">
+                      —
+                    </span>
+                    <span class="text-white">{project.brand}</span>
+                    <span class="mx-2 text-gray-300" aria-hidden="true">
+                      ·
+                    </span>
+                    <span>{project.sector}</span>
+                    <span class="mx-2 text-gray-300" aria-hidden="true">
+                      ·
+                    </span>
+                    <span>{project.year}</span>
+                  </p>
+
+                  <h2 class="max-w-2xl font-unbounded text-2xl font-bold uppercase leading-tight text-white md:text-3xl">
+                    <a
+                      href={project.href}
+                      class="transition-colors hover:text-primary"
+                    >
+                      {project.title}
+                    </a>
+                  </h2>
+
+                  <p class="max-w-2xl font-albert text-base leading-relaxed text-gray-100 md:text-lg">
+                    {project.description}
+                  </p>
+
+                  <div class="flex flex-col gap-2 md:flex-row md:items-baseline md:gap-4">
+                    <p class="shrink-0 font-mono text-xs uppercase tracking-widest text-gray-300">
+                      {t("featured.stagesLabel")}
+                    </p>
+                    <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs uppercase tracking-wider text-gray-200 md:text-sm">
+                      {project.stages.map((stage, stageIndex) => (
+                        <li class="flex items-center gap-2">
+                          {stageIndex > 0 && (
+                            <span class="text-gray-300" aria-hidden="true">
+                              →
+                            </span>
+                          )}
+                          <span>{t(`featured.stages.${stage.id}`)}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+
+                  <a
+                    href={project.href}
+                    data-analytics-event="case_study_click"
+                    data-analytics-label={project.id}
+                    class="group/cta mt-2 inline-flex w-fit items-center gap-2 border border-white/40 px-4 py-3 font-mono text-base text-white transition-colors duration-300 hover:border-primary hover:text-primary"
+                  >
+                    <span>{t("featured.cta")}</span>
+                    <span
+                      class="transition-transform duration-300 group-hover/cta:-translate-y-0.5 group-hover/cta:translate-x-0.5"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
+                  </a>
+                </div>
+              </article>
+            </li>
+          ))
+        }
+      </ol>
     </projects-page>
   </main>
 
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "itemListElement": localizedCategories.flatMap((category) =>
-      category.works.map((work, index) => ({
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      itemListElement: projects.map((project, index) => ({
         "@type": "ListItem",
-        "position": index + 1,
-        "name": work.title,
-        "url": `https://keishmerstudio.com${getProjectUrl(category.id, work.id, lang)}`,
-        "image": work.image.startsWith("http") ? work.image : `https://keishmerstudio.com${work.image}`,
-      }))
-    ),
-  })} />
+        position: index + 1,
+        name: project.brand,
+        url: `https://keishmerstudio.com${project.href}`,
+        image: `https://keishmerstudio.com${project.image.src}`,
+      })),
+    })}
+  />
 
   <Footer lang={lang} pathname={pathname} />
 </Layout>
 
 <script>
   import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   class ProjectsPage extends HTMLElement {
+    private cleanup: (() => void) | null = null;
+
     connectedCallback() {
       if (this.dataset.initialized === "true") return;
       this.dataset.initialized = "true";
 
-      const sections = this.querySelectorAll(".category-section");
-      if (!sections.length) return;
-
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
+      const items = Array.from(
+        this.querySelectorAll<HTMLElement>(".featured-item"),
       );
-      if (prefersReducedMotion.matches) return;
+      if (!items.length) return;
 
-      // Animate each category section sequentially
-      sections.forEach((section, index) => {
-        const heading = section.querySelector("h2");
-        const statement = section.querySelector("p");
-        const cards = section.querySelectorAll(".work-card");
+      gsap.registerPlugin(ScrollTrigger);
+      const mm = gsap.matchMedia();
 
-        const tl = gsap.timeline({
-          delay: index * 0.15,
-          defaults: { ease: "power3.out" },
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        items.forEach((item) => {
+          gsap.from(item.children, {
+            y: 32,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          });
         });
-
-        if (heading) tl.from(heading, { y: 24, opacity: 0, duration: 0.5 });
-        if (statement)
-          tl.from(statement, { y: 16, opacity: 0, duration: 0.4 }, "-=0.3");
-        if (cards.length)
-          tl.from(
-            cards,
-            { y: 30, opacity: 0, duration: 0.5, stagger: 0.06 },
-            "-=0.2"
-          );
       });
+
+      this.cleanup = () => mm.revert();
+    }
+
+    disconnectedCallback() {
+      this.cleanup?.();
+      this.cleanup = null;
+      delete this.dataset.initialized;
     }
   }
 

@@ -1,0 +1,694 @@
+---
+// Galería del detalle de un destacado (spec 008): adaptación a Astro + vanilla JS + GSAP del
+// "canvas gallery" de Giovanni Antonio. Una sola pantalla: las imágenes son celdas 16:9 en una
+// rejilla que se ve alejada (viewport escalado) con la seleccionada centrada y a color; se navega
+// con clic, teclado, swipe o el minimapa; la seleccionada se amplía a pantalla completa (overlay
+// fijo) y en ese modo las flechas/swipe pasan de imagen como en un lightbox. Escape / "Cerrar" vuelve.
+// Sin JS o con prefers-reduced-motion todo sigue funcionando, sin animaciones.
+import type { ImageMetadata } from "astro";
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+
+export interface Props {
+  lang: Lang;
+  images: ImageMetadata[]; // imports de src/assets/images/<slug>-brand/N.webp (16:9)
+  brand: string;
+}
+
+const { lang, images, brand } = Astro.props;
+const { t } = useTranslations(lang);
+
+const count = images.length;
+const cols = Math.min(4, Math.max(1, Math.ceil(Math.sqrt(count))));
+const rows = Math.max(1, Math.ceil(count / cols));
+// Arranca en la imagen central del orden lineal: hay vecinas a ambos lados y anterior/siguiente activos.
+const initial = Math.floor((count - 1) / 2);
+const pad = (n: number) => String(n).padStart(2, "0");
+const altOf = (index: number) =>
+  `${brand} — ${t("featured.detail.galleryImageAlt")} ${index + 1}`;
+---
+
+{
+  count > 0 && (
+    <project-gallery
+      class="block"
+      data-count={count}
+      data-cols={cols}
+      data-rows={rows}
+      data-initial={initial}
+      style={`--gallery-cols: ${cols}; --gallery-rows: ${rows};`}
+    >
+      {/* El placeholder conserva el alto en la página cuando el escenario pasa a `fixed` (pantalla completa) */}
+      <div data-placeholder class="relative h-[80svh] w-full bg-black lg:h-svh">
+        <div
+          data-stage
+          role="region"
+          aria-label={t("featured.gallery.regionLabel")}
+          class="gallery-stage absolute inset-0 select-none overflow-hidden bg-black text-white"
+        >
+          {/* Viewport escalado (vista alejada) → canvas con la rejilla de celdas */}
+          <div data-viewport class="gallery-viewport absolute inset-0">
+            <div
+              data-canvas
+              class="gallery-canvas"
+              style={`--sel-col: ${initial % cols}; --sel-row: ${Math.floor(initial / cols)};`}
+            >
+              {images.map((image, index) => (
+                <button
+                  type="button"
+                  data-cell
+                  data-index={index}
+                  class={`gallery-cell ${index === initial ? "is-selected" : ""}`}
+                  aria-label={`${t("featured.gallery.imageLabel")} ${index + 1} / ${count}`}
+                  aria-current={index === initial ? "true" : "false"}
+                  tabindex={index === initial ? 0 : -1}
+                >
+                  <img
+                    src={image.src}
+                    alt={altOf(index)}
+                    loading="lazy"
+                    decoding="async"
+                    draggable="false"
+                    width={image.width}
+                    height={image.height}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* HUD: cabecera, controles y minimapa (no se escalan) */}
+          <div class="pointer-events-none absolute inset-0 z-20">
+            <div class="absolute left-5 top-16 flex items-center gap-3 border border-white/15 bg-black/50 px-3 py-2 font-mono text-xs uppercase tracking-widest text-gray-200 backdrop-blur-sm md:left-8 md:top-20 md:text-sm">
+              <span class="flex items-center gap-2">
+                <span
+                  class="h-2 w-2 rounded-full bg-primary"
+                  aria-hidden="true"
+                />
+                {t("featured.gallery.eyebrow")}
+              </span>
+              <span class="text-gray-300" aria-hidden="true">
+                ·
+              </span>
+              <p aria-live="polite">
+                <span data-counter class="text-white">
+                  {pad(initial + 1)}
+                </span>
+                <span class="mx-1 text-gray-300">/</span>
+                <span>{pad(count)}</span>
+              </p>
+            </div>
+
+            <button
+              type="button"
+              data-close
+              class="pointer-events-auto absolute right-5 top-16 inline-flex items-center gap-2 border border-white/40 bg-black/50 px-4 py-2 font-mono text-sm uppercase tracking-wider text-white opacity-0 backdrop-blur-sm transition-colors hover:border-primary hover:text-primary md:right-8 md:top-20"
+              aria-hidden="true"
+              tabindex="-1"
+            >
+              {t("featured.gallery.close")}
+              <span aria-hidden="true">×</span>
+            </button>
+
+            <div class="absolute bottom-5 left-5 flex items-center gap-2 md:bottom-8 md:left-8">
+              <button
+                type="button"
+                data-prev
+                class="pointer-events-auto inline-flex h-10 w-10 items-center justify-center border border-white/40 bg-black/50 font-mono text-lg text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary disabled:cursor-default disabled:opacity-30 disabled:hover:border-white/40 disabled:hover:text-white"
+                aria-label={t("featured.gallery.prev")}
+              >
+                <span aria-hidden="true">←</span>
+              </button>
+              <button
+                type="button"
+                data-next
+                class="pointer-events-auto inline-flex h-10 w-10 items-center justify-center border border-white/40 bg-black/50 font-mono text-lg text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary disabled:cursor-default disabled:opacity-30 disabled:hover:border-white/40 disabled:hover:text-white"
+                aria-label={t("featured.gallery.next")}
+              >
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+
+            <div class="absolute inset-x-0 bottom-5 flex flex-col items-center gap-3 px-24 md:bottom-8">
+              <p
+                data-caption
+                class="max-w-xl bg-black/50 px-3 py-1 text-center font-albert text-sm text-gray-100 opacity-0 backdrop-blur-sm md:text-base"
+                aria-hidden="true"
+              >
+                {altOf(initial)}
+              </p>
+              <button
+                type="button"
+                data-expand
+                class="pointer-events-auto inline-flex items-center gap-2 border border-white/40 bg-black/50 px-4 py-2 font-mono text-sm uppercase tracking-wider text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
+              >
+                {t("featured.gallery.expand")}
+                <span aria-hidden="true">↗</span>
+              </button>
+            </div>
+
+            <div
+              data-minimap
+              role="group"
+              aria-label={t("featured.gallery.mapLabel")}
+              class="pointer-events-auto absolute bottom-5 right-5 grid gap-1 border border-white/15 bg-black/50 p-2 backdrop-blur-sm md:bottom-8 md:right-8"
+              style="grid-template-columns: repeat(var(--gallery-cols), 1.5rem);"
+            >
+              {images.map((_, index) => (
+                <button
+                  type="button"
+                  data-map-index={index}
+                  class={`aspect-video transition-colors duration-300 ${index === initial ? "bg-white" : "bg-white/20 hover:bg-white/60"}`}
+                  aria-label={`${t("featured.gallery.goTo")} ${index + 1}`}
+                  tabindex="-1"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </project-gallery>
+  )
+}
+
+<style>
+  project-gallery {
+    display: block;
+  }
+
+  /* El escenario es el contenedor de tamaño: las celdas se miden en cq* para que la caja 16:9
+     más grande que quepa en él sea SIEMPRE la celda (= la imagen a pantalla completa al abrir). */
+  .gallery-stage {
+    container-type: size;
+    --gap: 2rem;
+    --cell-w: min(100cqw, calc(100cqh * 16 / 9));
+    --cell-h: calc(var(--cell-w) * 9 / 16);
+  }
+
+  .gallery-stage.is-open {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    touch-action: none;
+    overscroll-behavior: contain;
+  }
+
+  .gallery-viewport {
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  .gallery-canvas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: grid;
+    grid-template-columns: repeat(var(--gallery-cols, 1), var(--cell-w));
+    grid-auto-rows: var(--cell-h);
+    gap: var(--gap);
+    /* Sin JS: centra la celda inicial con la propiedad `translate` (el JS la pone a 0 y anima `transform`). */
+    translate: calc(
+        (var(--sel-col, 0) * (var(--cell-w) + var(--gap)) + var(--cell-w) / 2) *
+          -1
+      )
+      calc(
+        (var(--sel-row, 0) * (var(--cell-h) + var(--gap)) + var(--cell-h) / 2) *
+          -1
+      );
+    will-change: transform;
+  }
+
+  .gallery-cell {
+    position: relative;
+    width: var(--cell-w);
+    height: var(--cell-h);
+    overflow: hidden;
+    background-color: var(--color-secondary);
+    opacity: 0.35;
+    filter: grayscale(1);
+    transition: filter 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+    cursor: pointer;
+  }
+  .gallery-cell:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: -3px;
+  }
+  .gallery-cell.is-selected {
+    opacity: 1;
+    filter: grayscale(0);
+    cursor: zoom-in;
+  }
+  .gallery-stage.is-open .gallery-cell.is-selected {
+    cursor: zoom-out;
+  }
+  .gallery-cell img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    will-change: transform;
+    pointer-events: none;
+  }
+  .gallery-cell img[data-loaded] {
+    opacity: 1;
+  }
+
+  /* Sin JS: vista alejada fija; la selección inicial queda centrada por el `translate` de arriba. */
+  .gallery-viewport:not([data-ready]) {
+    transform: scale(0.42);
+  }
+
+  /* En la vista alejada el gesto vertical hace scroll de página; a pantalla completa, navega. */
+  .gallery-stage {
+    touch-action: pan-y;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  class ProjectGallery extends HTMLElement {
+    private cleanup: (() => void) | null = null;
+
+    connectedCallback() {
+      if (this.dataset.initialized === "true") return;
+      this.dataset.initialized = "true";
+
+      const stage = this.querySelector<HTMLElement>("[data-stage]");
+      const viewport = this.querySelector<HTMLElement>("[data-viewport]");
+      const canvas = this.querySelector<HTMLElement>("[data-canvas]");
+      const cells = Array.from(
+        this.querySelectorAll<HTMLButtonElement>("[data-cell]"),
+      );
+      const images = cells.map((cell) =>
+        cell.querySelector<HTMLImageElement>("img")!,
+      );
+      const mapButtons = Array.from(
+        this.querySelectorAll<HTMLButtonElement>("[data-map-index]"),
+      );
+      const minimap = this.querySelector<HTMLElement>("[data-minimap]");
+      const counter = this.querySelector<HTMLElement>("[data-counter]");
+      const caption = this.querySelector<HTMLElement>("[data-caption]");
+      const expandBtn = this.querySelector<HTMLButtonElement>("[data-expand]");
+      const closeBtn = this.querySelector<HTMLButtonElement>("[data-close]");
+      const prevBtn = this.querySelector<HTMLButtonElement>("[data-prev]");
+      const nextBtn = this.querySelector<HTMLButtonElement>("[data-next]");
+
+      if (!stage || !viewport || !canvas || !cells.length) return;
+
+      const count = cells.length;
+      const cols = Number(this.dataset.cols) || 1;
+      const rows = Number(this.dataset.rows) || 1;
+      const pad = (n: number) => String(n).padStart(2, "0");
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const desktop = window.matchMedia("(min-width: 1024px)");
+      // Con movimiento reducido las duraciones son 0 (todo sigue funcionando, sin animar).
+      const speed = () => (reduced.matches ? 0 : 1);
+      const overviewScale = () => (desktop.matches ? 0.42 : 0.58);
+
+      let selected = Number(this.dataset.initial) || 0;
+      let open = false;
+      let busy = false;
+      let suppressClick = false;
+      let timeline: gsap.core.Timeline | null = null;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ─── Geometría: la celda seleccionada queda centrada en el escenario ───
+      const metrics = () => {
+        const cell = cells[0];
+        const styles = getComputedStyle(canvas);
+        return {
+          w: cell.offsetWidth,
+          h: cell.offsetHeight,
+          gap: parseFloat(styles.columnGap) || 0,
+        };
+      };
+      const targetFor = (index: number) => {
+        const { w, h, gap } = metrics();
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+        return { x: -(col * (w + gap)) - w / 2, y: -(row * (h + gap)) - h / 2 };
+      };
+
+      // ─── Bloqueo del scroll de la página mientras la imagen está a pantalla completa ───
+      const lockScroll = () => {
+        document.documentElement.style.overflow = "hidden";
+      };
+      const unlockScroll = () => {
+        document.documentElement.style.overflow = "";
+      };
+
+      // ─── Selección ───
+      const updateHud = () => {
+        if (counter) counter.textContent = pad(selected + 1);
+        if (caption) caption.textContent = images[selected]?.alt ?? "";
+        if (prevBtn) prevBtn.disabled = selected === 0;
+        if (nextBtn) nextBtn.disabled = selected === count - 1;
+      };
+
+      const select = (index: number, animate = true) => {
+        const next = Math.min(count - 1, Math.max(0, index));
+        if (next === selected && animate) return;
+        selected = next;
+
+        cells.forEach((cell, i) => {
+          const active = i === selected;
+          cell.classList.toggle("is-selected", active);
+          cell.tabIndex = active ? 0 : -1;
+          cell.setAttribute("aria-current", active ? "true" : "false");
+        });
+        mapButtons.forEach((button, i) => {
+          const active = i === selected;
+          button.classList.toggle("bg-white", active);
+          button.classList.toggle("bg-white/20", !active);
+          button.classList.toggle("hover:bg-white/60", !active);
+        });
+        updateHud();
+
+        const duration = animate ? 0.9 * speed() : 0;
+        const { x, y } = targetFor(selected);
+        gsap.to(canvas, {
+          x,
+          y,
+          duration,
+          ease: "power3.inOut",
+          overwrite: "auto",
+        });
+        cells.forEach((cell, i) => {
+          gsap.to(cell, {
+            opacity: i === selected ? 1 : open ? 0 : 0.35,
+            duration: animate ? 0.6 * speed() : 0,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        });
+        if (open) {
+          gsap.to(images, {
+            scale: 1,
+            duration: animate ? 0.6 * speed() : 0,
+            overwrite: "auto",
+          });
+        }
+      };
+
+      // Lineal (orden de la historia): ←/→, swipe horizontal y botones. Por fila: ↑/↓ y swipe vertical abierto.
+      const move = (delta: number) => {
+        if (busy) return;
+        select(Math.min(count - 1, Math.max(0, selected + delta)));
+      };
+      const moveRow = (direction: number) => {
+        if (busy) return;
+        const row = Math.min(
+          rows - 1,
+          Math.max(0, Math.floor(selected / cols) + direction),
+        );
+        select(Math.min(count - 1, row * cols + (selected % cols)));
+      };
+
+      // ─── Abrir / cerrar a pantalla completa ───
+      const openImage = () => {
+        if (busy || open) return;
+        busy = true;
+        open = true;
+
+        // El escenario pasa a `fixed`: si cambia de alto (mobile), el centro se desplaza y se compensa.
+        const before = stage.getBoundingClientRect().height;
+        stage.classList.add("is-open");
+        lockScroll();
+        const after = stage.getBoundingClientRect().height;
+        const target = targetFor(selected);
+        gsap.set(canvas, { x: target.x, y: target.y - (after - before) / 2 });
+
+        const others = cells.filter((_, i) => i !== selected);
+        const s = speed();
+        timeline?.kill();
+        timeline = gsap
+          .timeline({
+            defaults: { ease: "power3.inOut" },
+            onComplete: () => {
+              busy = false;
+              closeBtn?.removeAttribute("aria-hidden");
+              closeBtn?.removeAttribute("tabindex");
+              caption?.removeAttribute("aria-hidden");
+              closeBtn?.focus({ preventScroll: true });
+            },
+          })
+          .to(viewport, { scale: 1, duration: 0.9 * s }, 0)
+          .to(canvas, { y: target.y, duration: 0.9 * s }, 0)
+          .fromTo(
+            images[selected],
+            { scale: 1.12 },
+            { scale: 1, duration: 0.9 * s },
+            0,
+          )
+          .to(others, { opacity: 0, duration: 0.5 * s, ease: "power2.out" }, 0)
+          .to(
+            [expandBtn, minimap].filter(Boolean),
+            { autoAlpha: 0, duration: 0.3 * s, ease: "power2.out" },
+            0,
+          )
+          .to(
+            [closeBtn, caption].filter(Boolean),
+            { autoAlpha: 1, duration: 0.4 * s, ease: "power2.out" },
+            0.4 * s,
+          );
+      };
+
+      const closeImage = () => {
+        if (busy || !open) return;
+        busy = true;
+        open = false;
+
+        const others = cells.filter((_, i) => i !== selected);
+        const s = speed();
+        closeBtn?.setAttribute("aria-hidden", "true");
+        closeBtn?.setAttribute("tabindex", "-1");
+        caption?.setAttribute("aria-hidden", "true");
+
+        timeline?.kill();
+        timeline = gsap
+          .timeline({
+            defaults: { ease: "power3.inOut" },
+            onComplete: () => {
+              // Vuelve al flujo de la página compensando el cambio de alto del escenario.
+              const before = stage.getBoundingClientRect().height;
+              stage.classList.remove("is-open");
+              unlockScroll();
+              const after = stage.getBoundingClientRect().height;
+              const target = targetFor(selected);
+              gsap.set(canvas, {
+                x: target.x,
+                y: target.y - (after - before) / 2,
+              });
+              gsap.to(canvas, {
+                y: target.y,
+                duration: 0.5 * s,
+                ease: "power3.out",
+              });
+              busy = false;
+              cells[selected]?.focus({ preventScroll: true });
+            },
+          })
+          .to(
+            [closeBtn, caption].filter(Boolean),
+            { autoAlpha: 0, duration: 0.3 * s, ease: "power2.out" },
+            0,
+          )
+          .to(viewport, { scale: overviewScale(), duration: 0.9 * s }, 0)
+          .to(images[selected], { scale: 1.1, duration: 0.9 * s }, 0)
+          .to(
+            others,
+            { opacity: 0.35, duration: 0.6 * s, ease: "power2.out" },
+            0.3 * s,
+          )
+          .to(
+            [expandBtn, minimap].filter(Boolean),
+            { autoAlpha: 1, duration: 0.4 * s, ease: "power2.out" },
+            0.5 * s,
+          );
+      };
+
+      const toggleImage = () => (open ? closeImage() : openImage());
+
+      // ─── Eventos ───
+      const onCellClick = (event: MouseEvent) => {
+        if (suppressClick) return;
+        const cell = (
+          event.currentTarget as HTMLElement
+        ).closest<HTMLButtonElement>("[data-cell]");
+        if (!cell) return;
+        const index = Number(cell.dataset.index);
+        if (index === selected) toggleImage();
+        else if (!busy) select(index);
+      };
+      cells.forEach((cell) => cell.addEventListener("click", onCellClick));
+
+      const onMapClick = (event: MouseEvent) => {
+        const index = Number(
+          (event.currentTarget as HTMLElement).dataset.mapIndex,
+        );
+        if (!busy) select(index);
+      };
+      mapButtons.forEach((button) =>
+        button.addEventListener("click", onMapClick),
+      );
+
+      const onExpand = () => openImage();
+      const onClose = () => closeImage();
+      const onPrev = () => move(-1);
+      const onNext = () => move(1);
+      expandBtn?.addEventListener("click", onExpand);
+      closeBtn?.addEventListener("click", onClose);
+      prevBtn?.addEventListener("click", onPrev);
+      nextBtn?.addEventListener("click", onNext);
+
+      // Teclado: flechas para moverse, Escape para cerrar (Enter/Espacio los resuelve el botón de la celda).
+      const onKeyDown = (event: KeyboardEvent) => {
+        switch (event.key) {
+          case "ArrowLeft":
+            event.preventDefault();
+            move(-1);
+            break;
+          case "ArrowRight":
+            event.preventDefault();
+            move(1);
+            break;
+          case "ArrowUp":
+            event.preventDefault();
+            moveRow(-1);
+            break;
+          case "ArrowDown":
+            event.preventDefault();
+            moveRow(1);
+            break;
+          case "Escape":
+            if (open) {
+              event.preventDefault();
+              closeImage();
+            }
+            break;
+        }
+      };
+      stage.addEventListener("keydown", onKeyDown);
+      // Escape debe cerrar aunque el foco no esté dentro del escenario.
+      const onDocKeyDown = (event: KeyboardEvent) => {
+        if (
+          open &&
+          event.key === "Escape" &&
+          !stage.contains(document.activeElement)
+        )
+          closeImage();
+      };
+      document.addEventListener("keydown", onDocKeyDown);
+
+      // Swipe / arrastre: un desplazamiento > 40 px mueve la selección en el eje dominante.
+      let pointer: { x: number; y: number; id: number } | null = null;
+      const onPointerDown = (event: PointerEvent) => {
+        if (event.button !== 0) return;
+        pointer = { x: event.clientX, y: event.clientY, id: event.pointerId };
+      };
+      const onPointerUp = (event: PointerEvent) => {
+        if (!pointer || pointer.id !== event.pointerId) return;
+        const dx = event.clientX - pointer.x;
+        const dy = event.clientY - pointer.y;
+        pointer = null;
+        if (Math.hypot(dx, dy) < 40) return;
+        suppressClick = true;
+        setTimeout(() => (suppressClick = false), 0);
+        if (Math.abs(dx) > Math.abs(dy)) move(dx < 0 ? 1 : -1);
+        else if (open) moveRow(dy < 0 ? 1 : -1);
+      };
+      // A pantalla completa, un clic fuera de la imagen también cierra.
+      const onViewportClick = (event: MouseEvent) => {
+        if (!open || suppressClick) return;
+        if ((event.target as HTMLElement).closest("[data-cell]")) return;
+        closeImage();
+      };
+      viewport.addEventListener("click", onViewportClick);
+      const onPointerCancel = () => (pointer = null);
+      viewport.addEventListener("pointerdown", onPointerDown);
+      viewport.addEventListener("pointerup", onPointerUp);
+      viewport.addEventListener("pointercancel", onPointerCancel);
+
+      // Imágenes: aparecen al cargar.
+      const onImageLoad = (event: Event) =>
+        ((event.currentTarget as HTMLElement).dataset.loaded = "true");
+      images.forEach((img) => {
+        if (img.complete && img.naturalWidth > 0) img.dataset.loaded = "true";
+        else img.addEventListener("load", onImageLoad);
+      });
+
+      // Redimensión: recolocar sin animar.
+      const observer = new ResizeObserver(() => {
+        if (busy) return;
+        if (!open) gsap.set(viewport, { scale: overviewScale() });
+        gsap.set(canvas, targetFor(selected));
+      });
+      observer.observe(stage);
+
+      // ─── Estado inicial + entrada ───
+      canvas.style.setProperty("translate", "0px 0px"); // el centrado pasa a GSAP (transform)
+      gsap.set(viewport, { scale: overviewScale() });
+      gsap.set(canvas, targetFor(selected));
+      gsap.set(images, { scale: 1.1 });
+      gsap.set([closeBtn, caption].filter(Boolean), { autoAlpha: 0 });
+      cells.forEach((cell, i) =>
+        gsap.set(cell, { opacity: i === selected ? 1 : 0.35 }),
+      );
+      viewport.dataset.ready = "true";
+      updateHud();
+
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(cells, {
+          scale: 0.92,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: { each: 0.06, from: selected },
+          scrollTrigger: {
+            trigger: stage,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+      });
+
+      this.cleanup = () => {
+        observer.disconnect();
+        timeline?.kill();
+        mm.revert();
+        cells.forEach((cell) => cell.removeEventListener("click", onCellClick));
+        mapButtons.forEach((button) =>
+          button.removeEventListener("click", onMapClick),
+        );
+        expandBtn?.removeEventListener("click", onExpand);
+        closeBtn?.removeEventListener("click", onClose);
+        prevBtn?.removeEventListener("click", onPrev);
+        nextBtn?.removeEventListener("click", onNext);
+        stage.removeEventListener("keydown", onKeyDown);
+        document.removeEventListener("keydown", onDocKeyDown);
+        viewport.removeEventListener("pointerdown", onPointerDown);
+        viewport.removeEventListener("pointerup", onPointerUp);
+        viewport.removeEventListener("pointercancel", onPointerCancel);
+        viewport.removeEventListener("click", onViewportClick);
+        images.forEach((img) => img.removeEventListener("load", onImageLoad));
+        if (open) unlockScroll();
+      };
+    }
+
+    disconnectedCallback() {
+      this.cleanup?.();
+      this.cleanup = null;
+      delete this.dataset.initialized;
+    }
+  }
+
+  if (!customElements.get("project-gallery")) {
+    customElements.define("project-gallery", ProjectGallery);
+  }
+</script>

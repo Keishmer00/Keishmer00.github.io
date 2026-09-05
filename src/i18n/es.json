@@ -33,7 +33,7 @@
   "about": {
     "title": "Diseño y ejecución sin perder claridad en el camino",
     "subtitle": "Conecto UX/UI, sistemas de marca y desarrollo frontend para que tu presencia digital se sienta clara, confiable y lista para crecer.",
-    "text1": "Con más de 4 años de experiencia y un Máster en Diseño y Producción Multimedia, ayudo a convertir marcas y productos digitales confusos en experiencias enfocadas.",
+    "text1": "Con más de 10 años de experiencia y un Máster en Diseño y Producción Multimedia, ayudo a convertir marcas y productos digitales confusos en experiencias enfocadas.",
     "text2": "Obtienes un solo socio para estrategia, diseño y ejecución, sin dividir el proyecto entre varios freelancers.",
     "cta":"Conoce cómo trabajo",
     "imageAlt": "Foto de perfil"
@@ -153,11 +153,6 @@
     "two": "Negocios de servicios que necesitan verse tan confiables en internet como lo son en su operación.",
     "three": "Marcas que buscan diseño estratégico y ejecución sin coordinar varios freelancers."
   },
-  "selectedWork": {
-    "eyebrow": "Proyectos seleccionados",
-    "title": "Evidencia para el tipo de proyecto que quieres construir",
-    "description": "Una selección enfocada de proyectos de marca, producto y sistemas digitales. Cada caso explica el problema, las decisiones y el resultado."
-  },
   "process": {
     "eyebrow": "Cómo trabajo",
     "title": "Un proceso enfocado para mantener visibles las decisiones y constante el avance",
@@ -252,9 +247,6 @@
     "text1": "Diseño interfaces, marcas y experiencias digitales con claridad visual y enfoque estratégico",
     "text2": "Creo sistemas visuales y experiencias digitales que conectan identidad, función y valor"
   },
-  "works": {
-    "title": "Mejores Proyectos"
-  },
   "projects": {
     "title": "Mejores Proyectos",
     "description": "Una selección curada de trabajos de los que estoy orgulloso. Cada proyecto refleja una alianza construida sobre confianza, creatividad y una atención implacable al detalle.",
@@ -262,16 +254,55 @@
     "breadcrumbProjects": "Mejores Proyectos",
     "client": "Cliente",
     "services": "Servicios",
-    "website": "Sitio Web",
-    "overview": "Resumen del Proyecto",
-    "challenge": "El Desafío",
-    "solution": "Nuestra Solución",
-    "outcome": "El Resultado"
+    "website": "Sitio Web"
   },
   "projectCta": {
     "title": "¿Tu marca necesita verse al nivel de lo que quieres cobrar?",
     "text": "Cuéntame qué quieres aclarar, mejorar o lanzar. Podemos empezar por el problema antes de decidir los entregables.",
     "button": "Cuéntame tu proyecto"
+  },
+  "featured": {
+    "eyebrow": "Proyectos destacados",
+    "regionLabel": "Proyectos destacados. Haz scroll para pasar de un proyecto al siguiente.",
+    "counterLabel": "Proyecto",
+    "cta": "Ver proyecto",
+    "stagesLabel": "Proceso",
+    "stages": {
+      "briefing": "Briefing",
+      "research": "Investigación",
+      "branding": "Branding",
+      "uxui": "UX/UI",
+      "development": "Desarrollo"
+    },
+    "list": {
+      "intro": "Cuatro marcas, un mismo proceso — briefing, investigación, branding, UX/UI y desarrollo — contado como la historia de cada una."
+    },
+    "gallery": {
+      "eyebrow": "Galería",
+      "regionLabel": "Galería del proyecto. Usa las flechas para moverte entre imágenes; Enter amplía la imagen seleccionada y Escape la cierra.",
+      "imageLabel": "Imagen",
+      "expand": "Ampliar imagen",
+      "close": "Cerrar",
+      "prev": "Imagen anterior",
+      "next": "Siguiente imagen",
+      "mapLabel": "Mapa de la galería",
+      "goTo": "Ir a la imagen"
+    },
+    "detail": {
+      "eyebrow": "Proyecto destacado",
+      "year": "Año",
+      "sector": "Sector",
+      "visitSite": "Visitar sitio web",
+      "processTitle": "El proceso",
+      "processIntro": "Toda marca pasa por las mismas cinco etapas. Así se contó la historia en este caso.",
+      "stageLabel": "Etapa",
+      "outcomeTitle": "Dónde aterrizó",
+      "galleryTitle": "Galería",
+      "galleryImageAlt": "Imagen de galería",
+      "prev": "Proyecto anterior",
+      "next": "Siguiente proyecto",
+      "allProjects": "Todos los proyectos destacados"
+    }
   },
   "contact": {
     "title": "Hablemos de tu proyecto",

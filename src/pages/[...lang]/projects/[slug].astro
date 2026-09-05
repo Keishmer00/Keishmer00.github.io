@@ -1,0 +1,551 @@
+---
+// Detalle de un proyecto destacado (spec 008): /projects/{slug}/ y /es/projects/{slug}/.
+// Amplía la narrativa del panel de la home: hero con imagen + logo, meta, las cinco etapas
+// del proceso, cierre, galería opcional y "siguiente proyecto". Plantilla basada en
+// projects/[category]/[slug].astro (catálogo por categorías, spec 004), que sigue existiendo.
+import Layout from "../../../layouts/Layout.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import Breadcrumbs from "../../../components/atoms/Breadcrumbs.astro";
+import ProjectGallery from "../../../components/ProjectGallery.astro";
+import type { Lang } from "../../../i18n/index";
+import { getLocalizedPath, useTranslations } from "../../../i18n/index";
+import {
+  allFeaturedProjects,
+  findFeaturedProject,
+  getAdjacentFeatured,
+  getFeaturedProjectUrl,
+} from "../../../lib/featured";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  const langs: Array<{ lang: string | undefined }> = [
+    { lang: undefined },
+    { lang: "es" },
+  ];
+  return langs.flatMap(({ lang }) =>
+    allFeaturedProjects.map((project) => ({
+      params: { lang, slug: project.id },
+    })),
+  );
+}
+
+const { lang = "en" } = Astro.params as { lang?: Lang };
+const { t } = useTranslations(lang);
+const slug = Astro.params.slug!;
+
+const project = findFeaturedProject(slug, lang);
+if (!project) {
+  return Astro.redirect(lang === "en" ? "/404" : "/es/404");
+}
+
+const adjacent = getAdjacentFeatured(project.id, lang);
+const pathname = getFeaturedProjectUrl(project.id, lang);
+const homePath = getLocalizedPath("/", lang);
+const projectsPath = getLocalizedPath("/projects/", lang);
+const pad = (n: number) => String(n).padStart(2, "0");
+const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project.image).src}`;
+---
+
+<Layout
+  lang={lang}
+  page="projects"
+  pathname={pathname}
+  title={project.seoTitle}
+  description={project.seoDescription}
+>
+  <Navbar lang={lang} pathname={pathname} />
+  <Breadcrumbs
+    items={[
+      { label: t("projects.breadcrumbHome"), href: homePath },
+      { label: t("projects.breadcrumbProjects"), href: projectsPath },
+      { label: project.brand },
+    ]}
+    light
+  />
+
+  <featured-case-study>
+    <main class="bg-black text-white">
+      <!-- HERO: la imagen del panel de la home, con el logo y el titular -->
+      <section
+        class="relative isolate flex min-h-svh flex-col justify-end overflow-hidden px-4 pb-14 pt-32 md:px-8 lg:min-h-screen lg:px-24 lg:pb-20"
+      >
+        {
+          /* Art direction: en ≥ lg el hero usa heroImage (16:9) si existe; en mobile, la imagen del panel (4:5) */
+        }
+        <picture>
+          {
+            project.heroImage && (
+              <source
+                media="(min-width: 1024px)"
+                srcset={project.heroImage.src}
+                width={project.heroImage.width}
+                height={project.heroImage.height}
+              />
+            )
+          }
+          <img
+            data-hero-image
+            src={project.image.src}
+            alt={project.imageAlt}
+            width={project.image.width}
+            height={project.image.height}
+            fetchpriority="high"
+            decoding="async"
+            class="absolute inset-0 -z-10 h-full w-full object-cover grayscale"
+          />
+        </picture>
+        <div
+          class="pointer-events-none absolute inset-0 bg-linear-to-t from-black via-black/70 to-black/30"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div
+          class="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16"
+        >
+          <div class="flex max-w-4xl flex-col gap-5" data-hero-copy>
+            <p
+              class="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-widest text-gray-200 md:text-sm"
+            >
+              <span class="flex items-center gap-2">
+                <span class="h-2 w-2 rounded-full bg-primary" aria-hidden="true"
+                ></span>
+                {t("featured.detail.eyebrow")}
+              </span>
+              <span class="text-gray-300" aria-hidden="true">·</span>
+              <span>{project.sector}</span>
+              <span class="text-gray-300" aria-hidden="true">·</span>
+              <span>{project.year}</span>
+            </p>
+            <h1
+              class="font-unbounded text-3xl font-bold uppercase leading-tight text-white md:text-5xl lg:text-6xl"
+            >
+              {project.title}
+            </h1>
+          </div>
+          <img
+            data-hero-logo
+            src={project.logo.src}
+            alt={project.logoAlt}
+            decoding="async"
+            class="h-14 w-auto max-w-55 shrink-0 object-contain object-left brightness-0 invert drop-shadow-[0_2px_24px_rgba(0,0,0,0.65)] md:h-20 lg:h-24 lg:max-w-xs lg:object-right"
+          />
+        </div>
+      </section>
+
+      <!-- INTRO + META -->
+      <section
+        class="flex w-full flex-col gap-12 px-4 py-16 md:px-8 lg:flex-row lg:gap-24 lg:px-24 lg:py-24"
+      >
+        <aside class="flex w-full flex-col gap-8 lg:w-1/3" data-reveal>
+          <div class="flex flex-col gap-2">
+            <h2
+              class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300"
+            >
+              {t("projects.client")}
+            </h2>
+            <p class="font-unbounded text-lg text-white">{project.client}</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-8">
+            <div class="flex flex-col gap-2">
+              <h2
+                class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300"
+              >
+                {t("featured.detail.year")}
+              </h2>
+              <p class="font-mono text-base text-white">{project.year}</p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <h2
+                class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300"
+              >
+                {t("featured.detail.sector")}
+              </h2>
+              <p class="font-mono text-base text-white">{project.sector}</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <h2
+              class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300"
+            >
+              {t("projects.services")}
+            </h2>
+            <ul class="flex flex-col gap-1">
+              {
+                project.services.map((service) => (
+                  <li class="font-mono text-base text-white">{service}</li>
+                ))
+              }
+            </ul>
+          </div>
+
+          {
+            project.url && (
+              <div class="flex flex-col gap-2">
+                <h2 class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300">
+                  {t("projects.website")}
+                </h2>
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex w-fit items-center gap-2 break-all font-mono text-base text-primary hover:underline"
+                >
+                  {t("featured.detail.visitSite")}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            )
+          }
+        </aside>
+
+        <article class="w-full lg:w-2/3" data-reveal>
+          <p
+            class="max-w-3xl font-albert text-xl leading-relaxed text-gray-50 md:text-2xl"
+          >
+            {project.intro}
+          </p>
+        </article>
+      </section>
+
+      <!-- PROCESO: una sección por etapa, en orden de lectura -->
+      <section
+        class="w-full px-4 pb-16 md:px-8 lg:px-24 lg:pb-24"
+        aria-labelledby="process-title"
+      >
+        <header
+          class="flex flex-col gap-4 border-b border-white/10 pb-10"
+          data-reveal
+        >
+          <h2
+            id="process-title"
+            class="font-unbounded text-2xl uppercase text-white md:text-4xl"
+          >
+            {t("featured.detail.processTitle")}
+          </h2>
+          <p
+            class="max-w-2xl font-albert text-base leading-relaxed text-gray-200 md:text-lg"
+          >
+            {t("featured.detail.processIntro")}
+          </p>
+          <ol
+            class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs uppercase tracking-wider text-gray-200 md:text-sm"
+          >
+            {
+              project.stages.map((stage, index) => (
+                <li class="flex items-center gap-2">
+                  {index > 0 && (
+                    <span class="text-gray-300" aria-hidden="true">
+                      →
+                    </span>
+                  )}
+                  <a
+                    href={`#stage-${stage.id}`}
+                    class="transition-colors hover:text-primary"
+                  >
+                    {t(`featured.stages.${stage.id}`)}
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </header>
+
+        <ol class="flex flex-col">
+          {
+            project.stages.map((stage, index) => (
+              <li
+                id={`stage-${stage.id}`}
+                class="grid scroll-mt-32 gap-6 border-b border-white/10 py-10 lg:grid-cols-12 lg:gap-12 lg:py-16"
+                data-stage
+              >
+                <div class="flex flex-row items-baseline gap-4 self-start lg:sticky lg:top-32 lg:col-span-4 lg:flex-col lg:gap-3">
+                  <p class="font-mono text-sm uppercase tracking-widest text-gray-300">
+                    {t("featured.detail.stageLabel")}{" "}
+                    <span class="text-primary">{pad(index + 1)}</span>
+                  </p>
+                  <p class="font-unbounded text-lg uppercase text-white md:text-xl">
+                    {t(`featured.stages.${stage.id}`)}
+                  </p>
+                </div>
+
+                <div class="flex flex-col gap-5 lg:col-span-8">
+                  <h3 class="max-w-3xl font-unbounded text-xl font-bold uppercase leading-tight text-white md:text-2xl lg:text-3xl">
+                    {stage.title}
+                  </h3>
+                  <p class="max-w-3xl font-albert text-base leading-relaxed text-gray-100 md:text-lg">
+                    {stage.body}
+                  </p>
+                  {stage.images && stage.images.length > 0 && (
+                    <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+                      {stage.images.map((image, imageIndex) => (
+                        <div
+                          class="aspect-4/3 overflow-hidden bg-secondary"
+                          data-gallery-image
+                        >
+                          <img
+                            src={image.src}
+                            width={image.width}
+                            height={image.height}
+                            alt={`${project.brand} — ${t(`featured.stages.${stage.id}`)} ${imageIndex + 1}`}
+                            loading="lazy"
+                            decoding="async"
+                            class="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <!-- CIERRE -->
+      <section class="w-full px-4 pb-16 md:px-8 lg:px-24 lg:pb-24">
+        <div
+          class="max-w-4xl border-l-2 border-primary pl-6 lg:pl-10"
+          data-reveal
+        >
+          <h2 class="font-unbounded text-2xl uppercase text-white md:text-3xl">
+            {t("featured.detail.outcomeTitle")}
+          </h2>
+          <p
+            class="mt-5 font-albert text-lg leading-relaxed text-gray-50 md:text-xl"
+          >
+            {project.outcome}
+          </p>
+        </div>
+      </section>
+
+      <!-- GALERÍA (opcional): rejilla navegable de una pantalla; la imagen seleccionada se amplía a pantalla completa -->
+      {
+        project.gallery && project.gallery.length > 0 && (
+          <section
+            id="gallery"
+            class="w-full pb-16 lg:pb-24"
+            aria-label={t("featured.detail.galleryTitle")}
+          >
+            <ProjectGallery
+              lang={lang}
+              images={project.gallery}
+              brand={project.brand}
+            />
+          </section>
+        )
+      }
+
+      <!-- SIGUIENTE PROYECTO -->
+      {
+        adjacent && (
+          <section class="w-full px-4 pb-16 md:px-8 lg:px-24 lg:pb-24">
+            <a
+              href={getFeaturedProjectUrl(adjacent.next.id, lang)}
+              data-analytics-event="case_study_click"
+              data-analytics-label={adjacent.next.id}
+              class="group relative isolate flex flex-col gap-4 overflow-hidden border border-white/15 p-8 transition-colors duration-300 hover:border-primary md:p-12 lg:flex-row lg:items-end lg:justify-between lg:gap-12"
+              data-reveal
+            >
+              <picture>
+                {adjacent.next.heroImage && (
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset={adjacent.next.heroImage.src}
+                    width={adjacent.next.heroImage.width}
+                    height={adjacent.next.heroImage.height}
+                  />
+                )}
+                <img
+                  src={adjacent.next.image.src}
+                  alt=""
+                  width={adjacent.next.image.width}
+                  height={adjacent.next.image.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="absolute inset-0 -z-10 h-full w-full object-cover opacity-30 grayscale transition-opacity duration-500 group-hover:opacity-50"
+                />
+              </picture>
+              <div class="flex flex-col gap-3">
+                <p class="font-mono text-xs uppercase tracking-widest text-gray-200 md:text-sm">
+                  {t("featured.detail.next")}
+                </p>
+                <p class="font-unbounded text-2xl font-bold uppercase text-white md:text-4xl">
+                  {adjacent.next.brand}
+                </p>
+                <p class="max-w-2xl font-albert text-base text-gray-100 md:text-lg">
+                  {adjacent.next.title}
+                </p>
+              </div>
+              <span class="inline-flex shrink-0 items-center gap-2 font-mono text-lg text-white transition-colors group-hover:text-primary">
+                {t("featured.cta")}
+                <span
+                  class="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                >
+                  ↗
+                </span>
+              </span>
+            </a>
+            <a
+              href={projectsPath}
+              class="mt-6 inline-flex items-center gap-2 font-mono text-base text-gray-200 transition-colors hover:text-primary"
+            >
+              <span aria-hidden="true">←</span>
+              {t("featured.detail.allProjects")}
+            </a>
+          </section>
+        )
+      }
+
+      <!-- CTA a contacto (misma pieza que el catálogo, spec 004) -->
+      <section class="w-full px-4 pb-24 md:px-8 lg:px-24">
+        <div
+          class="mx-auto flex max-w-6xl flex-col gap-5 border border-primary/60 bg-primary p-6 md:p-10 lg:flex-row lg:items-end lg:justify-between"
+          data-reveal
+        >
+          <div>
+            <h2
+              class="font-unbounded text-2xl uppercase text-black md:text-3xl"
+            >
+              {t("projectCta.title")}
+            </h2>
+            <p
+              class="mt-3 max-w-2xl font-mono text-sm lg:text-xl text-gray-400"
+            >
+              {t("projectCta.text")}
+            </p>
+          </div>
+          <a
+            href={getLocalizedPath("/contact/", lang)}
+            data-analytics-event="cta_case_study_click"
+            data-analytics-label={project.id}
+            class="inline-flex w-fit shrink-0 border border-black  px-5 py-3 font-mono text-sm uppercase text-black  hover:text-white hover:bg-black"
+          >
+            {t("projectCta.button")} ↗
+          </a>
+        </div>
+      </section>
+
+      <Footer lang={lang} pathname={pathname} />
+    </main>
+  </featured-case-study>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: project.title,
+      alternateName: project.brand,
+      description: project.seoDescription,
+      author: { "@id": "https://keishmerstudio.com/#person" },
+      image: absoluteImage,
+      dateCreated: project.year,
+      about: {
+        "@type": "Organization",
+        name: project.brand,
+        ...(project.url ? { url: project.url } : {}),
+      },
+      keywords: project.services.join(", "),
+      inLanguage: lang,
+      url: `https://keishmerstudio.com${pathname}`,
+      provider: {
+        "@type": "Person",
+        "@id": "https://keishmerstudio.com/#person",
+      },
+    })}
+  />
+</Layout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  class FeaturedCaseStudy extends HTMLElement {
+    private cleanup: (() => void) | null = null;
+
+    connectedCallback() {
+      if (this.dataset.initialized === "true") return;
+      this.dataset.initialized = "true";
+
+      gsap.registerPlugin(ScrollTrigger);
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const heroImage = this.querySelector<HTMLElement>("[data-hero-image]");
+        const heroCopy = this.querySelectorAll<HTMLElement>(
+          "[data-hero-copy] > *",
+        );
+        const heroLogo = this.querySelector<HTMLElement>("[data-hero-logo]");
+
+        if (heroImage) {
+          gsap.set(heroImage, { scale: 1.1 });
+          gsap.to(heroImage, {
+            yPercent: 12,
+            ease: "none",
+            scrollTrigger: {
+              trigger: heroImage.parentElement ?? heroImage,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        }
+
+        const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+        if (heroCopy.length) {
+          intro.from(heroCopy, {
+            y: 30,
+            opacity: 0,
+            duration: 0.9,
+            stagger: 0.12,
+            delay: 0.15,
+          });
+        }
+        if (heroLogo) {
+          intro.from(heroLogo, { y: 20, opacity: 0, duration: 0.8 }, "-=0.5");
+        }
+
+        this.querySelectorAll<HTMLElement>(
+          "[data-reveal], [data-stage], [data-gallery-image]",
+        ).forEach((el) => {
+          gsap.from(el, {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 92%",
+              toggleActions: "play none none none",
+            },
+          });
+        });
+      });
+
+      this.cleanup = () => mm.revert();
+    }
+
+    disconnectedCallback() {
+      this.cleanup?.();
+      this.cleanup = null;
+      delete this.dataset.initialized;
+    }
+  }
+
+  if (!customElements.get("featured-case-study")) {
+    customElements.define("featured-case-study", FeaturedCaseStudy);
+  }
+</script>
+
+<style>
+  featured-case-study {
+    display: block;
+  }
+</style>
