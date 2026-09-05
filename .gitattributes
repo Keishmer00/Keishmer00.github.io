@@ -1,0 +1,31 @@
+# Finales de línea: LF en el repositorio, sea cual sea el editor/SO del checkout.
+# Evita que un cambio CRLF/LF aparezca como archivo modificado (spec 008, 2026-09-05).
+* text=auto
+
+# Texto
+*.astro text
+*.ts text
+*.js text
+*.mjs text
+*.json text
+*.css text
+*.md text
+*.svg text
+*.txt text
+*.toml text
+*.sql text
+*.yaml text
+*.yml text
+*.html text
+
+# Binarios
+*.webp binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.mp4 binary
