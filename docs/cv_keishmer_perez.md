@@ -8,10 +8,8 @@ Su perfil combina sensibilidad estética y tecnología para crear experiencias d
 ## Titular profesional
 **Product Designer**
 
-## Ubicación y red profesional
+## Ubicación
 - Ubicación: Pamplona, Norte de Santander, Colombia.
-- Seguidores en LinkedIn: 390.
-- Conexiones en LinkedIn: 385.
 
 ## Contacto
 - Nombre: Keishmer Pérez.
@@ -48,12 +46,11 @@ Artista visual y diseñador multimedia especializado en UX/UI y desarrollo front
 | Institución | Programa | Periodo |
 |---|---|---|
 | Universidad Internacional de la Rioja | Máster en Diseño y Producción Multimedia | 2023 - 2024  |
-| Universidad EAN | Diplomado en Gestión y formulación de proyectos culturales | 2022  |
 | Universidad de Pamplona | Maestro en Artes Visuales | 2016 - 2021 |
 
 ## Experiencia laboral
 ### Product Designer / UX/UI Designer - SEO - Frontend
-**Move On Security / Move On Tech Service** · 2024 - Ahora.
+**Move On Security / Move On Tech Service** · 2024 - 2026.
 
 Lidera el diseño visual y funcional de soluciones digitales enfocadas en seguridad y logística de valor. Desarrolla prototipos interactivos en Figma para optimizar la experiencia del usuario en plataformas móviles, web y otros dispositivos. También mantiene un enfoque práctico en diseño de producto, UX research y colaboración con desarrollo front-end.
 
