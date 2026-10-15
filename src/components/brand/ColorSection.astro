@@ -1,0 +1,101 @@
+---
+import type { Lang } from "../../i18n/index";
+import { useTranslations } from "../../i18n/index";
+import {
+  colorGroups,
+  PAGE_BACKGROUND,
+  contrastRatio,
+  contrastRating,
+  type ColorToken,
+} from "../../lib/tokens";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+
+const ratingLabel = (rating: string) => {
+  if (rating === "aaa") return t("brand.contrast.aaa");
+  if (rating === "aa") return t("brand.contrast.aa");
+  if (rating === "aa-large") return t("brand.contrast.aaLarge");
+  return t("brand.contrast.fail");
+};
+
+/** Best legible ink (near-black or off-white) for a swatch background. */
+const inkFor = (hex: string) =>
+  contrastRatio(hex, "#121314") >= contrastRatio(hex, "#F2F4FF")
+    ? "#121314"
+    : "#F2F4FF";
+
+const swatches = (colors: ColorToken[]) =>
+  colors.map((color) => {
+    const ratio = contrastRatio(color.hex, PAGE_BACKGROUND);
+    const rating = contrastRating(ratio);
+    return {
+      ...color,
+      ratio,
+      ratingLabel: ratingLabel(rating),
+      ink: inkFor(color.hex),
+      note: color.noteKey ? t(`brand.sections.color.notes.${color.noteKey}`) : null,
+    };
+  });
+---
+
+<section id="color" class="scroll-mt-28">
+  <SectionHeading
+    eyebrow={t("brand.sections.color.eyebrow")}
+    title={t("brand.sections.color.title")}
+    intro={t("brand.sections.color.intro")}
+  />
+
+  <p class="mt-6 max-w-3xl font-mono text-sm leading-relaxed text-gray-300">
+    <span class="text-white">{t("brand.howToRead.title")}</span>
+    — {t("brand.howToRead.body")}
+  </p>
+
+  {
+    colorGroups.map((group) => (
+      <div class="mt-12">
+        <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+          {t(`brand.sections.color.groups.${group.id}.title`)}
+        </h3>
+        <p class="mt-2 max-w-2xl font-albert text-sm leading-relaxed text-gray-300 md:text-base">
+          {t(`brand.sections.color.groups.${group.id}.desc`)}
+        </p>
+        <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {swatches(group.colors).map((swatch) => (
+            <li class="flex flex-col gap-2">
+              <button
+                type="button"
+                data-copy={swatch.hex}
+                aria-label={`${swatch.name} — ${swatch.hex}`}
+                class="group relative flex h-28 w-full cursor-pointer flex-col justify-between overflow-hidden border border-white/10 p-3 text-left transition-transform duration-300 hover:-translate-y-0.5 hover:border-white/30 md:h-32"
+                style={`background:${swatch.hex}; color:${swatch.ink}`}
+              >
+                <span class="font-mono text-xs font-bold uppercase leading-tight">
+                  {swatch.name}
+                </span>
+                <span class="flex flex-col gap-0.5">
+                  <span class="font-mono text-[11px] opacity-80">
+                    {swatch.hex}
+                  </span>
+                  <span class="font-mono text-[10px] opacity-80">
+                    {swatch.ratio.toFixed(2)} · {swatch.ratingLabel}
+                  </span>
+                </span>
+              </button>
+              {swatch.note && (
+                <p class="font-albert text-xs leading-snug text-gray-300">
+                  {swatch.note}
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</section>

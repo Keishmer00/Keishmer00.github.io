@@ -1,0 +1,31 @@
+---
+import type { Lang } from "../../i18n/index";
+import { useTranslations } from "../../i18n/index";
+
+interface Props {
+  lang: Lang;
+  items: { id: string }[];
+}
+
+const { lang, items } = Astro.props;
+const { t } = useTranslations(lang);
+---
+
+<nav aria-label={t("brand.toc.label")} class="font-mono text-sm">
+  <p class="mb-4 text-xs uppercase tracking-widest text-gray-300">{t("brand.toc.label")}</p>
+  <ul class="flex flex-col gap-2.5">
+    {
+      items.map((item) => (
+        <li>
+          <a
+            href={`#${item.id}`}
+            data-toc-link={item.id}
+            class="uppercase tracking-wider text-gray-300 transition-colors hover:text-primary"
+          >
+            {t(`brand.sections.${item.id}.nav`)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

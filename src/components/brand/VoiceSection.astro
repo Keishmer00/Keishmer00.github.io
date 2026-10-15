@@ -1,0 +1,51 @@
+---
+import type { Lang } from "../../i18n/index";
+import { useTranslations } from "../../i18n/index";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { t, tArray } = useTranslations(lang);
+---
+
+<section id="voice" class="scroll-mt-28">
+  <SectionHeading
+    eyebrow={t("brand.sections.voice.eyebrow")}
+    title={t("brand.sections.voice.title")}
+    intro={t("brand.sections.voice.intro")}
+  />
+  <div class="mt-12 grid gap-10 md:grid-cols-2">
+    <div>
+      <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+        {t("brand.sections.voice.rulesTitle")}
+      </h3>
+      <ul class="mt-6 flex flex-col gap-3">
+        {
+          tArray("brand.sections.voice.rules").map((rule) => (
+            <li class="flex items-start gap-3 font-albert text-sm leading-relaxed text-gray-200 md:text-base">
+              <span class="text-primary" aria-hidden="true">✓</span>
+              {rule}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+        {t("brand.sections.voice.terminologyTitle")}
+      </h3>
+      <ul class="mt-6 flex flex-col gap-3">
+        {
+          tArray("brand.sections.voice.terminology").map((term) => (
+            <li class="border-b border-white/10 pb-3 font-mono text-sm text-gray-200">
+              {term}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

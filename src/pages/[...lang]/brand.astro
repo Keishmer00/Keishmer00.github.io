@@ -1,0 +1,322 @@
+---
+// /brand/ (spec 009): manual de marca y sistema de diseño. Los valores se generan
+// desde src/lib/tokens.ts para que la documentación no se desincronice del sitio.
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Breadcrumbs from "../../components/atoms/Breadcrumbs.astro";
+import Footer from "../../components/Footer.astro";
+import TocNav from "../../components/brand/TocNav.astro";
+import LogoSection from "../../components/brand/LogoSection.astro";
+import ColorSection from "../../components/brand/ColorSection.astro";
+import TypographySection from "../../components/brand/TypographySection.astro";
+import Foundations from "../../components/brand/Foundations.astro";
+import ComponentsSection from "../../components/brand/ComponentsSection.astro";
+import VoiceSection from "../../components/brand/VoiceSection.astro";
+import type { Lang } from "../../i18n/index";
+import { useTranslations } from "../../i18n/index";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return [{ params: { lang: undefined } }, { params: { lang: "es" } }];
+}
+
+const { lang = "en" } = Astro.params as { lang?: Lang };
+const { t } = useTranslations(lang);
+const pathname = lang === "en" ? "/brand/" : "/es/brand/";
+
+const tocItems = [
+  { id: "logo" },
+  { id: "color" },
+  { id: "typography" },
+  { id: "spacing" },
+  { id: "radius" },
+  { id: "elevation" },
+  { id: "motion" },
+  { id: "layout" },
+  { id: "iconography" },
+  { id: "effects" },
+  { id: "components" },
+  { id: "voice" },
+];
+---
+
+<Layout lang={lang} page="brand" pathname={pathname}>
+  <Navbar lang={lang} pathname={pathname} />
+  <Breadcrumbs
+    items={[
+      {
+        label: t("projects.breadcrumbHome"),
+        href: lang === "en" ? "/" : "/es/",
+      },
+      { label: t("brand.breadcrumb") },
+    ]}
+    light
+  />
+
+  <brand-manual data-copied={t("brand.copy.copied")} class="block bg-black">
+    <main class="bg-black px-4 pb-24 pt-32 md:px-8 lg:px-24 lg:pb-8 lg:pt-40">
+      <!-- Header -->
+      <header class="mx-auto max-w-6xl">
+        <p class="flex items-center gap-2 font-mono text-sm uppercase tracking-widest text-primary">
+          <span class="inline-block h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
+          {t("brand.kicker")}
+        </p>
+        <h1 class="mt-4 font-unbounded text-3xl font-bold uppercase leading-tight text-white md:text-5xl">
+          {t("brand.title")}
+        </h1>
+        <p class="mt-6 max-w-3xl font-albert text-base leading-relaxed text-gray-200 md:text-lg">
+          {t("brand.lede")}
+        </p>
+        <p class="mt-6 font-mono text-xs uppercase tracking-widest text-gray-300">
+          {t("brand.metaLine")}
+        </p>
+      </header>
+
+      <!-- Body: TOC + sections -->
+      <div class="mx-auto mt-16 grid max-w-6xl gap-12 lg:grid-cols-[220px_1fr] lg:gap-16">
+        <aside class="hidden lg:block">
+          <div class="sticky top-28">
+            <TocNav lang={lang} items={tocItems} />
+          </div>
+        </aside>
+
+        <div class="flex min-w-0 flex-col gap-24">
+          <LogoSection lang={lang} />
+          <ColorSection lang={lang} />
+          <TypographySection lang={lang} />
+          <Foundations lang={lang} />
+          <ComponentsSection lang={lang} />
+          <VoiceSection lang={lang} />
+        </div>
+      </div>
+
+      <!-- Mobile section bar: fixed, horizontal, at the bottom; hides on footer -->
+      <nav
+        aria-label={t("brand.toc.label")}
+        data-mobile-toc
+        class="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/90 backdrop-blur-sm lg:hidden"
+      >
+        <ul
+          data-toc-scroll
+          class="flex items-center gap-6 overflow-x-auto whitespace-nowrap px-4 py-3.5 font-mono text-sm uppercase tracking-wider [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {
+            tocItems.map((item) => (
+              <li class="shrink-0">
+                <a
+                  href={`#${item.id}`}
+                  data-toc-link={item.id}
+                  class="text-gray-300 transition-colors hover:text-primary"
+                >
+                  {t(`brand.sections.${item.id}.nav`)}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </main>
+  </brand-manual>
+
+  <Footer lang={lang} pathname={pathname} />
+</Layout>
+
+<style is:global>
+  [data-toc-link] {
+    position: relative;
+    display: inline-block;
+    padding-left: 0;
+    transition:
+      color 0.3s ease,
+      padding-left 0.3s ease;
+  }
+
+  [data-toc-link]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--color-primary);
+    transform: translateY(-50%);
+    transition: width 0.3s ease;
+  }
+
+  [data-toc-link].is-active {
+    color: var(--color-primary);
+    padding-left: 1.25rem;
+  }
+
+  [data-toc-link].is-active::before {
+    width: 0.875rem;
+  }
+
+  [data-mobile-toc] {
+    transition: transform 0.3s ease;
+  }
+
+  [data-mobile-toc].is-hidden {
+    transform: translateY(100%);
+  }
+
+  .brand-copied-tip {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 10;
+    background: var(--black);
+    color: var(--text-white);
+    border: 1px solid var(--color-primary);
+    padding: 0.125rem 0.5rem;
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  class BrandManual extends HTMLElement {
+    private cleanupScroll: (() => void) | null = null;
+    private footerObserver: IntersectionObserver | null = null;
+
+    connectedCallback() {
+      if (this.dataset.initialized === "true") return;
+      this.dataset.initialized = "true";
+
+      this.initCopy();
+      this.initScrollspy();
+      this.initFooterHide();
+    }
+
+    disconnectedCallback() {
+      this.cleanupScroll?.();
+      this.cleanupScroll = null;
+      this.footerObserver?.disconnect();
+      this.footerObserver = null;
+      delete this.dataset.initialized;
+    }
+
+    private initCopy() {
+      const copiedLabel = this.dataset.copied || "Copied";
+      this.querySelectorAll<HTMLElement>("[data-copy]").forEach((el) => {
+        el.addEventListener("click", async () => {
+          const value = el.getAttribute("data-copy");
+          if (!value) return;
+          try {
+            await navigator.clipboard.writeText(value);
+          } catch {
+            return;
+          }
+          el.querySelector(".brand-copied-tip")?.remove();
+          const tip = document.createElement("span");
+          tip.className = "brand-copied-tip";
+          tip.textContent = copiedLabel;
+          el.appendChild(tip);
+          window.setTimeout(() => tip.remove(), 1200);
+        });
+      });
+    }
+
+    // Marca en el sidebar la sección visible. Una "línea de lectura" al 35% del
+    // viewport decide la sección activa; al llegar al fondo se fuerza la última.
+    private initScrollspy() {
+      const links = Array.from(
+        this.querySelectorAll<HTMLElement>("[data-toc-link]")
+      );
+      if (!links.length) return;
+
+      const sections = links
+        .map((link) => document.getElementById(link.dataset.tocLink || ""))
+        .filter((s): s is HTMLElement => Boolean(s));
+      if (!sections.length) return;
+
+      // Barra móvil (scroll horizontal): se mantiene centrada sobre el ítem activo.
+      const scroller = this.querySelector<HTMLElement>("[data-toc-scroll]");
+      let lastActiveId: string | null = null;
+      let ticking = false;
+
+      const centerActive = () => {
+        if (!scroller) return;
+        const active = scroller.querySelector<HTMLElement>(
+          "[data-toc-link].is-active"
+        );
+        if (!active) return;
+        const sRect = scroller.getBoundingClientRect();
+        const aRect = active.getBoundingClientRect();
+        const target =
+          scroller.scrollLeft +
+          (aRect.left - sRect.left) -
+          sRect.width / 2 +
+          aRect.width / 2;
+        scroller.scrollTo({ left: target, behavior: "smooth" });
+      };
+
+      const update = () => {
+        ticking = false;
+        const line = window.innerHeight * 0.35;
+
+        let currentId = sections[0].id;
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= line) currentId = section.id;
+          else break;
+        }
+
+        const atBottom =
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 2;
+        if (atBottom) currentId = sections[sections.length - 1].id;
+
+        links.forEach((link) =>
+          link.classList.toggle(
+            "is-active",
+            link.dataset.tocLink === currentId
+          )
+        );
+
+        // Solo recentra cuando cambia la sección activa (no en cada frame).
+        if (currentId !== lastActiveId) {
+          lastActiveId = currentId;
+          centerActive();
+        }
+      };
+
+      const onScroll = () => {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(update);
+        }
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      update();
+
+      this.cleanupScroll = () => {
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+      };
+    }
+
+    // La barra móvil fija abajo se desliza fuera de vista cuando el footer
+    // entra en pantalla, y vuelve cuando sale.
+    private initFooterHide() {
+      const bar = this.querySelector<HTMLElement>("[data-mobile-toc]");
+      const footer = document.querySelector("footer");
+      if (!bar || !footer) return;
+
+      this.footerObserver = new IntersectionObserver(
+        ([entry]) => bar.classList.toggle("is-hidden", entry.isIntersecting),
+        { threshold: 0 }
+      );
+      this.footerObserver.observe(footer);
+    }
+  }
+
+  if (!customElements.get("brand-manual")) {
+    customElements.define("brand-manual", BrandManual);
+  }
+</script>

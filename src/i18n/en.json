@@ -13,6 +13,7 @@
     "downloadCV": "Download CV",
     "projects": "Projects",
     "contact": "Contact",
+    "brand": "Brand",
     "logo": "KEISHMER STUDIO"
   },
   "hero": {
@@ -232,6 +233,10 @@
     "privacy": {
       "title": "Privacy Policy - Keishmer Studio",
       "description": "Learn how Keishmer Studio collects, uses, and protects your personal data."
+    },
+    "brand": {
+      "title": "Design System & Brand Manual | Keishmer Studio",
+      "description": "The Keishmer Studio design system: color, typography, spacing, motion, and components — the single source of truth behind keishmerstudio.com."
     },
     "error": {
       "title": "404 - Page Not Found - Keishmer Studio",
@@ -460,6 +465,194 @@
     "visualDescription": "Browse my visual art portfolio including digital art, illustrations, and creative projects. Coming soon.",
     "comingSoon": "Coming soon",
     "comingSoonDescription": "This page is under construction. New content will be available soon."
+  },
+  "brand": {
+    "kicker": "Keishmer Studio",
+    "breadcrumb": "Brand",
+    "title": "Design system & brand manual",
+    "lede": "The single source of truth for how this site looks and reads. Every value here is generated from the tokens the site actually ships, so this page stays in sync with production.",
+    "metaLine": "One dark theme · EN/ES · Astro + Tailwind v4 + GSAP",
+    "toc": {
+      "label": "Contents"
+    },
+    "howToRead": {
+      "title": "How to read the swatches",
+      "body": "Each swatch shows the token name, its hex value, and its contrast ratio against the page background. Click any swatch to copy the hex. AA needs 4.5:1 for text; 3:1 is only acceptable for large text and decorative elements."
+    },
+    "contrast": {
+      "label": "vs background",
+      "aaa": "AAA",
+      "aa": "AA",
+      "aaLarge": "AA large",
+      "fail": "Decorative only"
+    },
+    "copy": {
+      "hint": "Click to copy",
+      "copied": "Copied"
+    },
+    "sections": {
+      "logo": {
+        "nav": "Logo",
+        "eyebrow": "01 — Identity",
+        "title": "Logo & brandmark",
+        "intro": "The public mark is the KEISHMER STUDIO wordmark — Unbounded for display, VT323 Mono for the nav — plus the K monogram, the letter K in Unbounded, for tight spaces and the favicon.",
+        "wordmarkLabel": "Primary wordmark · Unbounded",
+        "wordmarkSecondaryLabel": "Secondary wordmark · Mono",
+        "monogramLabel": "K monogram · Unbounded",
+        "clearSpaceTitle": "Clear space",
+        "clearSpaceBody": "Keep at least the cap height of the wordmark clear on every side. Nothing crowds the mark.",
+        "minSizeTitle": "Minimum size",
+        "minSizeBody": "18px tall for the monogram, 140px wide for the full wordmark. Below that, use the monogram alone.",
+        "dontsTitle": "Never",
+        "donts": ["Stretch, rotate, or recolor the mark", "Set it on a low-contrast background", "Add shadows, outlines, or gradients to it", "Rebuild it in another typeface"]
+      },
+      "color": {
+        "nav": "Color",
+        "eyebrow": "02 — Foundations",
+        "title": "Color",
+        "intro": "A single dark theme built on near-black surfaces, a light icy-gray text ramp, and one coral accent. Color is classified by role, not by hue.",
+        "groups": {
+          "brand": { "title": "Brand & accent", "desc": "The coral primary is the single accent. Blue appears only inside the call-to-action glow; pink is a soft tint reserved for highlights." },
+          "surface": { "title": "Surfaces", "desc": "Near-black neutrals. The page always paints black; panels lift with slightly lighter grays." },
+          "text": { "title": "Text", "desc": "A light ramp for dark surfaces. text-white is the default body voice; white is for icons and the wordmark." },
+          "neutral": { "title": "Neutral grays", "desc": "The working scale for borders, muted text, dividers, and secondary surfaces." },
+          "state": { "title": "State", "desc": "Feedback for forms and system messages. Never the only signal — always paired with text." }
+        },
+        "notes": {
+          "primary": "The only accent. One per view.",
+          "primaryInverse": "Deeper coral for strong hover / pressed states.",
+          "accentBlue": "Used only in the CTA glow animation.",
+          "accentPink": "Soft tint for subtle highlights.",
+          "black": "The page background everywhere.",
+          "secondary": "Image placeholder and quiet panels.",
+          "textWhite": "Default body text.",
+          "white": "Icons and the wordmark.",
+          "offWhite": "Canvas and shader tint.",
+          "textBlack": "Dark text on light accents.",
+          "success": "Form validation — success.",
+          "danger": "Form validation — errors.",
+          "info": "Informational messages."
+        }
+      },
+      "typography": {
+        "nav": "Typography",
+        "eyebrow": "03 — Foundations",
+        "title": "Typography",
+        "intro": "Three voices: Unbounded for display, Albert Sans for body, and VT323 Mono for labels and the wordmark. Size and weight are independent axes.",
+        "familiesTitle": "Families",
+        "scaleTitle": "Scale",
+        "weightsTitle": "Weights",
+        "familyNotes": {
+          "unbounded": "Display. Headlines, hero, big numbers.",
+          "albert": "Body. Paragraphs and long-form text.",
+          "albertItalic": "Body italic. Emphasis within paragraphs.",
+          "mono": "Labels. Buttons, breadcrumbs, eyebrows, the wordmark — always uppercase with wide tracking."
+        },
+        "uppercaseNote": "Mono labels are set uppercase with tracking-widest. Display headlines are uppercase in Unbounded bold.",
+        "specimen": "Design systems that convert"
+      },
+      "spacing": {
+        "nav": "Spacing",
+        "eyebrow": "04 — Foundations",
+        "title": "Spacing",
+        "intro": "A 4px base scale from Tailwind. Component padding lives between 8 and 32px; section rhythm is larger and consistent.",
+        "scaleTitle": "Scale",
+        "rhythmTitle": "Section rhythm",
+        "rhythmBody": "Horizontal padding steps up with the viewport: px-4 → md:px-8 → lg:px-24. Vertical sections open with py-16 → lg:py-20. Content is capped at max-w-6xl."
+      },
+      "radius": {
+        "nav": "Radius & stroke",
+        "eyebrow": "05 — Foundations",
+        "title": "Radius & stroke",
+        "intro": "Mostly sharp edges. Radius is reserved for chips and pills; borders are thin hairlines.",
+        "radiusTitle": "Radius",
+        "strokeTitle": "Stroke",
+        "note": "Borders lean on opacity (border-white/10 → /40) instead of new colors. Hairline is the default for dividers and cards."
+      },
+      "elevation": {
+        "nav": "Elevation",
+        "eyebrow": "06 — Foundations",
+        "title": "Elevation & shadow",
+        "intro": "Depth is built with surfaces first and shadows second. The only branded shadow is the coral glow on the primary CTA hover.",
+        "notes": {
+          "flat": "Flat by default — surfaces and borders carry hierarchy.",
+          "glow": "hover:shadow-lg shadow-primary/50 — the coral glow, reserved for the primary action.",
+          "drop": "drop-shadow on logos over imagery for legibility."
+        }
+      },
+      "motion": {
+        "nav": "Motion",
+        "eyebrow": "07 — Foundations",
+        "title": "Motion",
+        "intro": "GSAP drives entrances, scroll-scrub, and the featured-projects pin. Everything collapses to no motion under prefers-reduced-motion.",
+        "durationTitle": "Durations",
+        "easingTitle": "Easings",
+        "reducedNote": "With prefers-reduced-motion, animations are skipped and content is shown in its final state.",
+        "easingNotes": {
+          "power2Out": "Micro-interactions and hovers.",
+          "power3Out": "Standard entrances.",
+          "power3InOut": "Large panels and the menu overlay.",
+          "power4Out": "Menu reveal and emphasized entrances."
+        }
+      },
+      "layout": {
+        "nav": "Layout",
+        "eyebrow": "08 — Foundations",
+        "title": "Layout & breakpoints",
+        "intro": "Tailwind's canonical five breakpoints. Content is centered and capped; the featured-projects rail scrolls horizontally below lg.",
+        "breakpointsTitle": "Breakpoints",
+        "containerNote": "Sections use mx-auto max-w-6xl as the main measure. The featured carousel swaps to a horizontal scroll-snap rail under lg."
+      },
+      "iconography": {
+        "nav": "Iconography",
+        "eyebrow": "09 — Foundations",
+        "title": "Iconography",
+        "intro": "Inline SVG in the Material Symbols style, always filled with currentColor so icons inherit the color of the text they accompany.",
+        "note": "Sizes pair with the type scale: 20px inside buttons, 24px in navigation and lists. Decorative icons are aria-hidden; informative icons carry a label."
+      },
+      "effects": {
+        "nav": "Effects",
+        "eyebrow": "10 — Foundations",
+        "title": "Effects",
+        "intro": "The quiet layer: gradients, the marquee, and generative canvas backgrounds.",
+        "gradientsTitle": "Gradients",
+        "gradientsBody": "Tailwind v4 linear and radial gradients (bg-linear-to-*, bg-radial). Used to fade edges and to sit type over imagery.",
+        "marqueeTitle": "Marquee",
+        "marqueeBody": "An infinite scroll of services (ServiceBanner). Pauses on hover and disables under prefers-reduced-motion.",
+        "canvasTitle": "Canvas backgrounds",
+        "canvasBody": "BlackHoleBG, CursorParticles, and MeshText render generative visuals. They are decorative and always sit behind content."
+      },
+      "components": {
+        "nav": "Components",
+        "eyebrow": "11 — Patterns",
+        "title": "Components",
+        "intro": "The live building blocks, rendered with the same classes the site ships.",
+        "buttonsTitle": "Buttons",
+        "buttonPrimary": "Primary",
+        "buttonSecondary": "Secondary",
+        "buttonGhost": "Ghost / bordered",
+        "cardsTitle": "Cards & blocks",
+        "formsTitle": "Form fields",
+        "navTitle": "Navigation",
+        "miscTitle": "Consent & feedback",
+        "fieldName": "Name",
+        "fieldEmail": "Email",
+        "submitLabel": "Send inquiry",
+        "consentText": "This site uses privacy-friendly analytics. Accept or decline.",
+        "consentAccept": "Accept",
+        "consentDecline": "Decline"
+      },
+      "voice": {
+        "nav": "Voice",
+        "eyebrow": "12 — Voice",
+        "title": "Voice & terminology",
+        "intro": "Clear, direct, and confident. The brand is Keishmer Studio; the author is Keishmer Pérez Torres.",
+        "rulesTitle": "Writing rules",
+        "rules": ["Active voice, short sentences", "Show the work before the adjectives", "No filler or buzzwords", "Design, frontend, branding, and visual art — described plainly", "Spanish and English carry the same meaning, not a literal translation"],
+        "terminologyTitle": "Terminology",
+        "terminology": ["Keishmer Studio — the public brand", "Keishmer Pérez Torres — the author", "Never invent another studio name in copy or SEO"]
+      }
+    }
   },
   "error": {
     "title": "404 - Page Not Found",

@@ -34,6 +34,9 @@ export default defineConfig({
         } else if (item.url.includes('/contact/')) {
           item.priority = 0.9;
           item.changefreq = 'monthly';
+        } else if (item.url.includes('/brand/')) {
+          item.priority = 0.6;
+          item.changefreq = 'yearly';
         } else {
           item.priority = 0.7;
           item.changefreq = 'monthly';

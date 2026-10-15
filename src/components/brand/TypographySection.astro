@@ -1,0 +1,112 @@
+---
+import type { Lang } from "../../i18n/index";
+import { useTranslations } from "../../i18n/index";
+import { typeFamilies, typeScale, typeWeights } from "../../lib/tokens";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { t } = useTranslations(lang);
+
+const familyClass: Record<string, string> = {
+  unbounded: "font-unbounded",
+  albert: "font-albert",
+  albertItalic: "font-albert-italic",
+  mono: "font-mono",
+};
+
+const specimen = t("brand.sections.typography.specimen");
+---
+
+<section id="typography" class="scroll-mt-28">
+  <SectionHeading
+    eyebrow={t("brand.sections.typography.eyebrow")}
+    title={t("brand.sections.typography.title")}
+    intro={t("brand.sections.typography.intro")}
+  />
+
+  <!-- Families -->
+  <div class="mt-12">
+    <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+      {t("brand.sections.typography.familiesTitle")}
+    </h3>
+    <ul class="mt-6 flex flex-col gap-6">
+      {
+        typeFamilies.map((family) => (
+          <li class="border-b border-white/10 pb-6">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <span class="font-mono text-xs uppercase tracking-widest text-primary">
+                {family.stack}
+              </span>
+            </div>
+            <p
+              class={`mt-3 text-white ${familyClass[family.id]} text-2xl leading-tight md:text-4xl`}
+            >
+              {specimen}
+            </p>
+            <p class="mt-3 font-albert text-sm leading-relaxed text-gray-300 md:text-base">
+              {t(`brand.sections.typography.familyNotes.${family.id}`)}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-4 font-mono text-xs uppercase tracking-wider text-gray-300">
+      {t("brand.sections.typography.uppercaseNote")}
+    </p>
+  </div>
+
+  <!-- Scale -->
+  <div class="mt-12">
+    <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+      {t("brand.sections.typography.scaleTitle")}
+    </h3>
+    <ul class="mt-6 flex flex-col border-t border-white/10">
+      {
+        typeScale.map((step) => (
+          <li class="flex items-baseline justify-between gap-4 border-b border-white/10 py-3">
+            <span class="font-mono text-xs text-gray-300 md:text-sm">
+              {step.cls}
+              <span class="text-gray-400">
+                · {step.rem}rem / {step.px}px
+              </span>
+            </span>
+            <span
+              class="truncate font-albert text-white"
+              style={`font-size:${step.rem}rem; line-height:1.1`}
+            >
+              {specimen}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <!-- Weights -->
+  <div class="mt-12">
+    <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+      {t("brand.sections.typography.weightsTitle")}
+    </h3>
+    <ul class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+      {
+        typeWeights.map((weight) => (
+          <li class="border border-white/10 p-4">
+            <p
+              class="font-unbounded text-4xl text-white"
+              style={`font-weight:${weight.value}`}
+            >
+              Aa
+            </p>
+            <p class="mt-2 font-mono text-[11px] uppercase text-gray-300">
+              {weight.value}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

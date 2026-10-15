@@ -178,6 +178,25 @@ const localizedPath = (path: string) => {
               {t("nav.contact")}
             </a>
           </li>
+          <li>
+            <a
+              href={localizedPath("/brand/")}
+              class="flex items-center gap-4 hover:text-primary transition-colors group"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="currentColor"
+                class="group-hover:fill-primary transition-colors"
+                ><path
+                  d="m260-520 220-360 220 360H260ZM700-80q-75 0-127.5-52.5T520-260q0-75 52.5-127.5T700-440q75 0 127.5 52.5T880-260q0 75-52.5 127.5T700-80Zm-580-20v-320h320v320H120Zm580.1-220q-17.9 0-29.9 12t-12 29.9q0 17.9 12 29.9t29.9 12q17.9 0 29.9-12t12-29.9q0-17.9-12-29.9t-29.9-12ZM200-180h160v-160H200v160Zm202-420h156l-78-126-78 126Z"
+                ></path></svg
+              >
+              {t("nav.brand")}
+            </a>
+          </li>
         </ul>
       </div>
       <div class="flex flex-col gap-4 p-12 justify-center lg:justify-start">

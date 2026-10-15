@@ -31,6 +31,7 @@ Metadata en una línea · **1.** Objetivo en una frase · **2.** Alcance in/out 
 | 006 | [Infra y deploy](./006-infra-and-deploy/spec.md) | hecha (as-built) | Vercel adapter, páginas prerender + API serverless, envs, Supabase CLI, residuos de GitHub Pages |
 | 007 | [Landings de servicio](./007-service-landings/spec.md) | hecha (as-built) | `ServiceLanding` ×3 (`ux-ui-design`, `frontend-dev`, `visual-artist`), claves `servicePages.*`, indexables |
 | 008 | [Proyectos destacados con narrativa de proceso](./008-featured-projects/spec.md) | hecha (copy provisional) | `src/lib/featured.ts` (4 marcas × 5 etapas, overrides ES, imágenes por marca en `<slug>-brand/`), `FeaturedProjects` fullscreen con scroll horizontal (GSAP pin), `ProjectGallery`, `/projects/{slug}/`, `/projects/` solo destacados; reemplaza a 004 |
+| 009 | [Sistema de diseño y manual de marca](./009-brand-design-system/spec.md) | hecha | `/brand/` pública, `src/lib/tokens.ts` (fuente única + contraste WCAG), secciones en `src/components/brand/`, `<brand-manual>` (copiar hex, scrollspy), logo K., galería de componentes en vivo, EN/ES |
 
 > **as-built**: escritas retroactivamente documentando lo que existe, verificadas contra el código el 2026-08-22. Son la línea base — los cambios futuros de esas áreas las enmiendan.
 

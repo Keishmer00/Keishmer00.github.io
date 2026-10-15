@@ -11,7 +11,7 @@ import SpeedInsights from "@vercel/speed-insights/astro"
 
 export interface Props {
   lang: Lang;
-  page: "home" | "about-me" | "uxui" | "frontend" | "visualArtist" | "projects" | "contact" | "terms" | "privacy" | "error";
+  page: "home" | "about-me" | "uxui" | "frontend" | "visualArtist" | "projects" | "contact" | "terms" | "privacy" | "brand" | "error";
   pathname: string;
   title?: string;
   description?: string;
@@ -60,6 +60,11 @@ const { lang, page, pathname, title, description } = Astro.props;
 		overflow-x: clip;
 		font-family: var(--albert);
 		color: var(--text-white);
+		/* Fondo negro en el canvas del documento: el overscroll (elástico en macOS/iOS,
+		   pull-to-refresh en móvil) muestra el fondo del `html`, no del `body`; y cubre
+		   bajo las secciones fijadas (pin) cuando la barra de direcciones móvil cambia
+		   el alto del viewport. */
+		background-color: var(--black);
 	}
 
 	/* Navegadores sin `clip` (Safari < 16): mejor recortar como antes que dejar scroll horizontal. */
@@ -68,11 +73,5 @@ const { lang, page, pathname, title, description } = Astro.props;
 		body {
 			overflow-x: hidden;
 		}
-	}
-
-	body {
-		/* Fondo negro también bajo las secciones fijadas (pin) cuando la barra de
-		   direcciones móvil cambia el alto del viewport. */
-		background-color: var(--black);
 	}
 </style>
