@@ -14,7 +14,7 @@ export interface Props {
 
 const {
   text,
-  color = "#c6d2d4",
+  color = "var(--text-primary)",
   fontFamily = "Unbounded",
   fontWeight = 700,
   fontStyle = "normal",
@@ -118,7 +118,15 @@ const customColorsStr = JSON.stringify(customColors);
     var wrapper = canvas.parentElement;
 
     var text = canvas.dataset.text || "MESH";
-    var color = canvas.dataset.color || "#ffffff";
+    // `color` may be a CSS token (`var(--text-primary)`); resolve it now and
+    // again on theme change (spec 010).
+    var rawColor = canvas.dataset.color || "#ffffff";
+    function resolveColor(v) {
+      var m = /^var\(\s*(--[^)\s]+)\s*\)$/.exec(v);
+      if (!m) return v;
+      return getComputedStyle(document.documentElement).getPropertyValue(m[1]).trim() || "#ffffff";
+    }
+    var color = resolveColor(rawColor);
     var fontFamily = canvas.dataset.fontFamily || "Unbounded";
     var fontWeight = parseInt(canvas.dataset.fontWeight) || 700;
     var fontStyle = canvas.dataset.fontStyle || "normal";
@@ -458,6 +466,13 @@ const customColorsStr = JSON.stringify(customColors);
       rafId = requestAnimationFrame(tick);
     }
     rafId = requestAnimationFrame(tick);
+
+    window.addEventListener("keishmer:theme-change", function () {
+      var next = resolveColor(rawColor);
+      if (next === color) return;
+      color = next;
+      if (canvas.width > 2 && canvas.height > 2) rebuildTex(canvas.width, canvas.height);
+    });
   }
 })();
 </script>

@@ -21,15 +21,28 @@ const target = targetPaths[targetLang];
     href={target}
     hreflang={targetLang}
     data-analytics-event="language_switch"
+    data-lang-switch={targetLang}
     aria-label={targetLang === "en" ? "Switch to English" : "Cambiar a Español"}
-    class="flex items-center gap-1 p-1 bg-white/5 rounded-full border border-white/20 cursor-pointer transition-all duration-300 w-auto"
+    class="flex items-center gap-1 p-1 bg-text-primary/5 rounded-full border border-text-primary/20 cursor-pointer transition-all duration-300 w-auto"
   >
-    <span class={`flex items-center justify-center h-4 px-1.5 rounded-full text-[11px] text-gray-300 font-medium leading-none transition-all duration-300 ${lang === "en" ? "bg-white/20 text-white shadow-sm" : "text-gray-300"}`}>
+    <span class={`flex items-center justify-center h-4 px-1.5 rounded-full text-[11px] font-medium leading-none transition-all duration-300 ${lang === "en" ? "bg-text-primary/20 text-text-primary shadow-sm" : "text-text-muted"}`}>
       <span class="translate-y-px">EN</span>
     </span>
 
-    <span class={`flex items-center justify-center h-4 px-1.5 rounded-full text-[11px] text-gray-300 font-medium leading-none transition-all duration-300 ${lang === "es" ? "bg-white/20 text-white shadow-sm" : "text-gray-300"}`}>
+    <span class={`flex items-center justify-center h-4 px-1.5 rounded-full text-[11px] font-medium leading-none transition-all duration-300 ${lang === "es" ? "bg-text-primary/20 text-text-primary shadow-sm" : "text-text-muted"}`}>
       <span class="translate-y-px">ES</span>
     </span>
   </a>
 </div>
+
+<script>
+  // La elección manual de idioma se guarda y gana a la detección automática del
+  // navegador en visitas futuras (ver script de idioma en Layout, spec 001).
+  document.querySelectorAll<HTMLAnchorElement>("[data-lang-switch]").forEach((link) => {
+    link.addEventListener("click", () => {
+      try {
+        localStorage.setItem("keishmer-lang", link.dataset.langSwitch || "en");
+      } catch {}
+    });
+  });
+</script>

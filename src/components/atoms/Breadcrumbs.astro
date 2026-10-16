@@ -14,12 +14,12 @@ export interface Props {
 const { items, class: className = "",  light = false } = Astro.props;
 
 const linkClass = light
-  ? "text-gray-200 hover:text-primary transition-colors font-bold"
-  : "text-primary hover:text-primary transition-colors";
+  ? "text-text-secondary hover:text-text-accent transition-colors font-bold"
+  : "text-text-accent hover:text-text-accent transition-colors";
 
-const separatorClass = light ? "gray-700" : "opacity-50 text-primary/50";
+const separatorClass = light ? "text-text-muted" : "opacity-50 text-text-accent/50";
 
-const currentClass = light ? "text-primary font-bold" : "text-primary font-bold";
+const currentClass = light ? "text-text-accent font-bold" : "text-text-accent font-bold";
 ---
 
 <div class={`absolute z-50 w-fit mx-4 md:mx-52 lg:mx-64 pt-16 md:pt-6 ${className}`}>

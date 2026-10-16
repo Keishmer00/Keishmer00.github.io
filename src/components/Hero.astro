@@ -20,7 +20,7 @@ const { t } = useTranslations(lang);
   >
     <span
       data-anim="badge"
-      class="flex lg:text-center max-w-56 md:max-w-none items-center gap-2 text-sm md:text-base font-mono uppercase text-gray-300"
+      class="flex lg:text-center max-w-56 md:max-w-none items-center gap-2 text-sm md:text-base font-mono uppercase text-text-muted"
     >
       <div class="hidden md:block w-2 h-2 rounded-full bg-primary"></div>
       {t("hero.available")}
@@ -28,12 +28,12 @@ const { t } = useTranslations(lang);
 
     <h1
       data-anim="subtitle"
-      class="text-white text-2xl md:text-3xl self-start md:self-center lg:text-5xl font-unbounded font-bold md:text-center uppercase leading-relaxed lg:leading-tight w-full max-w-7xl pb-8 md:pb-0 md:px-16"
+      class="text-text-primary text-2xl md:text-3xl self-start md:self-center lg:text-5xl font-unbounded font-bold md:text-center uppercase leading-relaxed lg:leading-tight w-full max-w-7xl pb-8 md:pb-0 md:px-16"
     >
       {t("hero.headline")}
     </h1>
     <p
-      class="md:max-w-3xl lg:max-w-5xl md:text-center self-end md:self-center max-w-60 md:px-24 font-albert text-md leading-relaxed text-gray-200 md:text-xl"
+      class="md:max-w-3xl lg:max-w-5xl md:text-center self-end md:self-center max-w-60 md:px-24 font-albert text-md leading-relaxed text-text-secondary md:text-xl"
     >
       {t("hero.subtitle")}
     </p>
@@ -46,13 +46,13 @@ const { t } = useTranslations(lang);
       <a
         href={getLocalizedPath("/projects/", lang)}
         data-analytics-event="cta_hero_secondary_click"
-        class="hidden lg:flex items-center w-fit p-4 text-xl font-mono leading-6 text-white border border-white/30 gap-2 cursor-pointer transition-colors duration-300 ease-in-out hover:border-white hover:bg-white/10"
-        >{t("hero.secondaryCta")} 
+        class="hidden lg:flex items-center w-fit p-4 text-xl font-mono leading-6 text-text-primary border border-border-default gap-2 cursor-pointer transition-colors duration-300 ease-in-out hover:border-text-primary hover:bg-surface-muted"
+        >{t("hero.secondaryCta")}
         <svg class="hero-launch-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z"/></svg></a
       >
     </div>
     <div
-      class="mt-4 hidden lg:flex flex-col lg:flex-row max-w-4xl flex-wrap justify-center gap-x-4 gap-y-1 px-4 text-center font-mono text-[10px] uppercase tracking-wider text-gray-300 md:text-xs"
+      class="mt-4 hidden lg:flex flex-col lg:flex-row max-w-4xl flex-wrap justify-center gap-x-4 gap-y-1 px-4 text-center font-mono text-[10px] uppercase tracking-wider text-text-muted md:text-xs"
     >
       <span>{t("trust.experience")}</span><span aria-hidden="true">·</span>
       <span>{t("trust.certifications")}</span><span aria-hidden="true">·</span>
@@ -61,13 +61,13 @@ const { t } = useTranslations(lang);
   </section>
 
   <div
-    class="flex w-full justify-between px-4 self-end text-white relative z-10"
+    class="flex w-full justify-between px-4 self-end text-text-primary relative z-10"
   >
     <div
       data-anim="roles"
       class="flex flex-col w-full md:w-auto items-center gap-2 md:items-start text-left"
     >
-      <p class="font-mono text-lg uppercase text-gray-300">
+      <p class="font-mono text-lg uppercase text-text-muted">
         {t("hero.whatIAm")}
       </p>
       <div
@@ -82,7 +82,7 @@ const { t } = useTranslations(lang);
       data-anim="expertise"
       class="hidden md:flex flex-col gap-2 items-end text-right"
     >
-      <p class="font-mono text-lg uppercase text-gray-300">
+      <p class="font-mono text-lg uppercase text-text-muted">
         {t("hero.expertise")}
       </p>
       <h2 class="font-mono text-lg">
@@ -96,8 +96,8 @@ const { t } = useTranslations(lang);
   <BlackHoleBG />
 
   <div
-    class="absolute inset-0 bg-radial from-black via-black/50
-     to-black pointer-events-none"
+    class="absolute inset-0 bg-radial from-surface-page via-surface-page/50
+     to-surface-page pointer-events-none"
     style="z-index: 1"
   >
   </div>

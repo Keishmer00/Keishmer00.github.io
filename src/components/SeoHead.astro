@@ -32,8 +32,9 @@ const alternateEs = `${siteUrl}${normalizePath(alternatePaths.es)}`;
 <title>{title}</title>
 <meta name="description" content={description} />
 <meta name="author" content={t("site.author")} />
-<meta name="theme-color" content="#121314" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#F2F4FF" media="(prefers-color-scheme: light)" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="robots" content={page === "error" ? "noindex" : "index, follow"} />
 <link rel="canonical" href={canonical} />
 

@@ -255,3 +255,83 @@ export function contrastRating(ratio: number): "aaa" | "aa" | "aa-large" | "fail
   if (ratio >= 3) return "aa-large";
   return "fail";
 }
+
+/* ------------------------------------------------------------------ */
+/* Semantic theme tokens (spec 010)                                    */
+/* ------------------------------------------------------------------ */
+
+// Mirrors the semantic block of src/styles/global.css. Dark is the baseline
+// (visually identical to the original dark-only site); light mirrors every key.
+// Components use these through Tailwind utilities (`bg-surface-page`,
+// `text-text-primary`, `border-border-subtle`…), never raw hex.
+
+export type ThemeMode = "dark" | "light";
+
+export type SemanticGroup = "surface" | "text" | "border" | "state" | "effect";
+
+export interface SemanticToken {
+  /** CSS custom property, e.g. "--surface-page". */
+  cssVar: string;
+  group: SemanticGroup;
+  dark: string;
+  light: string;
+  /** Text-like token: show its WCAG contrast against each theme's page. */
+  checkContrast?: boolean;
+}
+
+export const semanticTokens: SemanticToken[] = [
+  { cssVar: "--surface-page", group: "surface", dark: "#121314", light: "#F2F4FF" },
+  { cssVar: "--surface-default", group: "surface", dark: "#121314", light: "#FFFFFF" },
+  { cssVar: "--surface-panel", group: "surface", dark: "#161617", light: "#FFFFFF" },
+  { cssVar: "--surface-elevated", group: "surface", dark: "#171717", light: "#FFFFFF" },
+  { cssVar: "--surface-muted", group: "surface", dark: "#222222", light: "#E4E7F2" },
+  { cssVar: "--surface-inverse", group: "surface", dark: "#C6D2D4", light: "#121314" },
+  { cssVar: "--surface-primary", group: "surface", dark: "#FF6B6B", light: "#FF6B6B" },
+
+  { cssVar: "--text-primary", group: "text", dark: "#C6D2D4", light: "#121314", checkContrast: true },
+  { cssVar: "--text-secondary", group: "text", dark: "#949494", light: "#4A4A4A", checkContrast: true },
+  { cssVar: "--text-muted", group: "text", dark: "#6E6E6E", light: "#5F6068", checkContrast: true },
+  { cssVar: "--text-subtle", group: "text", dark: "#4A4A4A", light: "#6B6C75", checkContrast: true },
+  { cssVar: "--text-accent", group: "text", dark: "#FF6B6B", light: "#C42B2B", checkContrast: true },
+  { cssVar: "--text-accent-blue", group: "text", dark: "#67A6D8", light: "#1A5F9E", checkContrast: true },
+  { cssVar: "--text-inverse", group: "text", dark: "#121314", light: "#F2F4FF" },
+  { cssVar: "--text-on-primary", group: "text", dark: "#121314", light: "#121314" },
+
+  { cssVar: "--border-subtle", group: "border", dark: "rgba(198, 210, 212, 0.1)", light: "rgba(18, 19, 20, 0.1)" },
+  { cssVar: "--border-default", group: "border", dark: "rgba(198, 210, 212, 0.3)", light: "rgba(18, 19, 20, 0.22)" },
+  { cssVar: "--border-strong", group: "border", dark: "rgba(198, 210, 212, 0.4)", light: "rgba(18, 19, 20, 0.35)" },
+  { cssVar: "--border-inverse", group: "border", dark: "rgba(18, 19, 20, 0.45)", light: "rgba(242, 244, 255, 0.25)" },
+
+  { cssVar: "--state-success", group: "state", dark: "#4ADE80", light: "#15803D", checkContrast: true },
+  { cssVar: "--state-danger", group: "state", dark: "#F87171", light: "#B91C1C", checkContrast: true },
+  { cssVar: "--state-info", group: "state", dark: "#67A6D8", light: "#1D4ED8", checkContrast: true },
+
+  { cssVar: "--fx-line", group: "effect", dark: "#292929", light: "#B1B6CA" },
+  { cssVar: "--fx-particle", group: "effect", dark: "#E99B9B", light: "#6E7389" },
+  { cssVar: "--fx-glow", group: "effect", dark: "#FFF7F7", light: "#FFF4F4" },
+  { cssVar: "--fx-scanline", group: "effect", dark: "#726666", light: "#D9DCE8" },
+  { cssVar: "--fx-cursor", group: "effect", dark: "#C6D2D4", light: "#4A4A4A" },
+];
+
+export const semanticGroups: SemanticGroup[] = ["surface", "text", "border", "state", "effect"];
+
+/** Page background per theme (also the browser `theme-color`). */
+export const THEME_PAGE_BACKGROUND: Record<ThemeMode, string> = {
+  dark: "#121314",
+  light: "#F2F4FF",
+};
+
+/** Flat `{ "--token": value }` map for one theme. */
+export function getThemePalette(mode: ThemeMode): Record<string, string> {
+  return Object.fromEntries(semanticTokens.map((tk) => [tk.cssVar, tk[mode]]));
+}
+
+export const themePalettes: Record<ThemeMode, Record<string, string>> = {
+  dark: getThemePalette("dark"),
+  light: getThemePalette("light"),
+};
+
+/** True when the value is a plain #RRGGBB (contrast can be computed). */
+export function isHex(value: string): boolean {
+  return /^#[0-9a-f]{6}$/i.test(value);
+}

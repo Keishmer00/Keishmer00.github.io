@@ -16,6 +16,15 @@
     "brand": "Marca",
     "logo": "KEISHMER STUDIO"
   },
+  "theme": {
+    "label": "Tema",
+    "system": "Sistema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "switchToLight": "Cambiar a modo claro",
+    "switchToDark": "Cambiar a modo oscuro",
+    "switchToSystem": "Usar tema del sistema"
+  },
   "hero": {
     "available": "Disponible para proyectos de diseño, SEO, desarrollo frontend y branding",
     "headline": "Diseñador UX/UI y Desarrollador Frontend para empresas",
@@ -469,7 +478,7 @@
     "breadcrumb": "Marca",
     "title": "Sistema de diseño y manual de marca",
     "lede": "La única fuente de verdad sobre cómo se ve y se lee este sitio. Cada valor aquí se genera desde los tokens que el sitio realmente publica, así que esta página se mantiene sincronizada con producción.",
-    "metaLine": "Un solo tema oscuro · EN/ES · Astro + Tailwind v4 + GSAP",
+    "metaLine": "Dos temas · EN/ES · Astro + Tailwind v4 + GSAP",
     "toc": {
       "label": "Contenido"
     },
@@ -508,7 +517,23 @@
         "nav": "Color",
         "eyebrow": "02 — Fundamentos",
         "title": "Color",
-        "intro": "Un solo tema oscuro construido sobre superficies casi negras, una rampa de texto gris hielo claro y un acento coral. El color se clasifica por rol, no por tono.",
+        "intro": "Dos temas — oscuro (la base) y claro — construidos con los mismos roles: superficies, una rampa de texto y un acento coral. Los componentes usan tokens semánticos, así que cada rol resuelve al valor correcto en cada tema.",
+        "semantic": {
+          "title": "Tokens semánticos",
+          "desc": "Lo que usan de verdad los componentes. Cada rol tiene un valor oscuro y uno claro; el sitio sigue la preferencia del sistema y el selector de tema del menú puede forzar cualquiera de los dos. El contraste se mide contra el fondo de página de cada tema.",
+          "token": "Token",
+          "dark": "Oscuro",
+          "light": "Claro",
+          "groups": {
+            "surface": "Superficies",
+            "text": "Texto",
+            "border": "Bordes",
+            "state": "Estado",
+            "effect": "Efectos (canvas)"
+          },
+          "primitivesTitle": "Paleta primitiva",
+          "primitivesDesc": "Los valores crudos detrás del tema oscuro. Se mantienen como referencia y para decoración; la UI nueva debe usar los tokens semánticos de arriba."
+        },
         "groups": {
           "brand": { "title": "Marca y acento", "desc": "El coral primario es el único acento. El azul aparece solo en el brillo del call-to-action; el rosa es un tinte suave reservado para destacados." },
           "surface": { "title": "Superficies", "desc": "Neutros casi negros. La página siempre pinta negro; los paneles se elevan con grises ligeramente más claros." },
@@ -565,7 +590,7 @@
         "intro": "Bordes casi siempre rectos. El radio se reserva para chips y pills; los bordes son líneas finas.",
         "radiusTitle": "Radio",
         "strokeTitle": "Borde",
-        "note": "Los bordes usan opacidad (border-white/10 → /40) en lugar de colores nuevos. La línea fina es el default para divisores y tarjetas."
+        "note": "Los bordes usan opacidad mediante tres tokens (border-subtle → default → strong) que cambian con el tema. La línea fina es el default para divisores y tarjetas."
       },
       "elevation": {
         "nav": "Elevación",

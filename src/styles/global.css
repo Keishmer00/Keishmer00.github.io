@@ -37,13 +37,14 @@
 }
 
 :root {
+    /* Primitive palette — kept for backwards compatibility and internal use. */
     --white: #c6d2d4;
     --white-2: #f8f5f0;
     --color-primary: #FF6B6B;
     --color-primary-inverse: #ea1313;
     --color-secondary: #171717;
     --black: #121314;
-    --text-white: #d0e2e4; 
+    --text-white: #d0e2e4;
     --text-black: #121314;
     --unbounded: 'Unbounded', sans-serif;
     --albert: 'Albert', sans-serif;
@@ -60,10 +61,177 @@
     --black-1: #0a0a0a;
     --bg-2: #161617;
     --bg-3: #e99b9b;
+
+    /* Semantic tokens (spec 010). Dark is the baseline and must stay visually
+       identical to the original dark-only site; light mirrors every key. */
+    color-scheme: dark;
+    --surface-page: #121314;
+    --surface-default: #121314;
+    --surface-panel: #161617;
+    --surface-elevated: #171717;
+    --surface-inverse: #C6D2D4;
+    --surface-primary: #FF6B6B;
+    --surface-muted: #222222;
+
+    --text-primary: #C6D2D4;
+    --text-secondary: #949494;
+    --text-muted: #6E6E6E;
+    --text-subtle: #4A4A4A;
+    --text-inverse: #121314;
+    --text-on-primary: #121314;
+    --text-accent: #FF6B6B;
+    --text-accent-blue: #67A6D8;
+
+    --border-default: rgba(198, 210, 212, 0.3);
+    --border-subtle: rgba(198, 210, 212, 0.1);
+    --border-strong: rgba(198, 210, 212, 0.4);
+    --border-inverse: rgba(18, 19, 20, 0.45);
+
+    --state-success: #4ADE80;
+    --state-danger: #F87171;
+    --state-info: #67A6D8;
+
+    /* Canvas / decorative effects (BlackHoleBG, CursorParticles). */
+    --fx-line: #292929;
+    --fx-particle: #E99B9B;
+    --fx-glow: #FFF7F7;
+    --fx-scanline: #726666;
+    --fx-cursor: #C6D2D4;
+    --fx-blend: overlay;
+
+    --focus-ring: #FF6B6B;
+    --shadow-glow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+/* Explicit dark override (keeps dark even if the OS prefers light). */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-page: #121314;
+    --surface-default: #121314;
+    --surface-panel: #161617;
+    --surface-elevated: #171717;
+    --surface-inverse: #C6D2D4;
+    --surface-primary: #FF6B6B;
+    --surface-muted: #222222;
+
+    --text-primary: #C6D2D4;
+    --text-secondary: #949494;
+    --text-muted: #6E6E6E;
+    --text-subtle: #4A4A4A;
+    --text-inverse: #121314;
+    --text-on-primary: #121314;
+    --text-accent: #FF6B6B;
+    --text-accent-blue: #67A6D8;
+
+    --border-default: rgba(198, 210, 212, 0.3);
+    --border-subtle: rgba(198, 210, 212, 0.1);
+    --border-strong: rgba(198, 210, 212, 0.4);
+    --border-inverse: rgba(18, 19, 20, 0.45);
+
+    --state-success: #4ADE80;
+    --state-danger: #F87171;
+    --state-info: #67A6D8;
+
+    /* Canvas / decorative effects (BlackHoleBG, CursorParticles). */
+    --fx-line: #292929;
+    --fx-particle: #E99B9B;
+    --fx-glow: #FFF7F7;
+    --fx-scanline: #726666;
+    --fx-cursor: #C6D2D4;
+    --fx-blend: overlay;
+}
+
+/* Automatic light theme when there is no manual dark override (also covers no-JS). */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+        color-scheme: light;
+        --surface-page: #F2F4FF;
+        --surface-default: #FFFFFF;
+        --surface-panel: #FFFFFF;
+        --surface-elevated: #FFFFFF;
+        --surface-inverse: #121314;
+        --surface-primary: #FF6B6B;
+        --surface-muted: #E4E7F2;
+
+        --text-primary: #121314;
+        --text-secondary: #4A4A4A;
+        --text-muted: #5F6068;
+        --text-subtle: #6B6C75;
+    --text-subtle: #6B6C75;
+        --text-inverse: #F2F4FF;
+        --text-on-primary: #121314;
+        --text-accent: #C42B2B;
+        --text-accent-blue: #1A5F9E;
+
+        --border-default: rgba(18, 19, 20, 0.22);
+        --border-subtle: rgba(18, 19, 20, 0.1);
+        --border-strong: rgba(18, 19, 20, 0.35);
+        --border-inverse: rgba(242, 244, 255, 0.25);
+
+        --state-success: #15803D;
+        --state-danger: #B91C1C;
+        --state-info: #1D4ED8;
+
+        --fx-line: #B1B6CA;
+        --fx-particle: #6E7389;
+        --fx-glow: #FFF4F4;
+        --fx-scanline: #D9DCE8;
+        --fx-cursor: #4A4A4A;
+        --fx-blend: multiply;
+    }
+}
+
+/* Explicit light override. */
+:root[data-theme="light"] {
+    color-scheme: light;
+    --surface-page: #F2F4FF;
+    --surface-default: #FFFFFF;
+    --surface-panel: #FFFFFF;
+    --surface-elevated: #FFFFFF;
+    --surface-inverse: #121314;
+    --surface-primary: #FF6B6B;
+    --surface-muted: #E4E7F2;
+
+    --text-primary: #121314;
+    --text-secondary: #4A4A4A;
+    --text-muted: #5F6068;
+    --text-subtle: #6B6C75;
+    --text-inverse: #F2F4FF;
+    --text-on-primary: #121314;
+    --text-accent: #C42B2B;
+    --text-accent-blue: #1A5F9E;
+
+    --border-default: rgba(18, 19, 20, 0.22);
+    --border-subtle: rgba(18, 19, 20, 0.1);
+    --border-strong: rgba(18, 19, 20, 0.35);
+    --border-inverse: rgba(242, 244, 255, 0.25);
+
+    --state-success: #15803D;
+    --state-danger: #B91C1C;
+    --state-info: #1D4ED8;
+
+    --fx-line: #B1B6CA;
+    --fx-particle: #6E7389;
+    --fx-glow: #FFF4F4;
+    --fx-scanline: #D9DCE8;
+    --fx-cursor: #4A4A4A;
+    --fx-blend: multiply;
+}
+
+/* `light:` variant (spec 010): styles that only apply when the effective theme is light,
+   e.g. `brightness-0 invert light:invert-0` for white logos over imagery. */
+@custom-variant light {
+    &:where([data-theme="light"], [data-theme="light"] *) {
+        @slot;
+    }
+    @media (prefers-color-scheme: light) {
+        &:where(:root:not([data-theme]), :root:not([data-theme]) *) {
+            @slot;
+        }
+    }
 }
 
 @theme {
-    
     --font-unbounded: var(--unbounded);
     --font-albert: var(--albert);
     --font-albert-italic: var(--albert-italic);
@@ -80,21 +248,54 @@
     --color-gray-600: var(--gray-600);
     --color-gray-800: var(--gray-800);
     --color-white: var(--white);
+
+    /* Semantic colors exposed as Tailwind utilities. */
+    --color-surface-page: var(--surface-page);
+    --color-surface-default: var(--surface-default);
+    --color-surface-panel: var(--surface-panel);
+    --color-surface-elevated: var(--surface-elevated);
+    --color-surface-inverse: var(--surface-inverse);
+    --color-surface-primary: var(--surface-primary);
+    --color-surface-muted: var(--surface-muted);
+
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-muted: var(--text-muted);
+    --color-text-subtle: var(--text-subtle);
+    --color-text-inverse: var(--text-inverse);
+    --color-text-on-primary: var(--text-on-primary);
+    --color-text-accent: var(--text-accent);
+    --color-text-accent-blue: var(--text-accent-blue);
+
+    --color-border-default: var(--border-default);
+    --color-border-subtle: var(--border-subtle);
+    --color-border-strong: var(--border-strong);
+    --color-border-inverse: var(--border-inverse);
+
+    --color-state-success: var(--state-success);
+    --color-state-danger: var(--state-danger);
+    --color-state-info: var(--state-info);
 }
 
 ::-webkit-scrollbar {
     width: 4px;
-    background-color: var(--color-black);
+    background-color: var(--surface-page);
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--color-black);
+    background: var(--surface-page);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--color-gray-300);
+    background: var(--text-muted);
     border-radius: 4px;
     width: 3px;
+}
+
+/* Focus-visible ring using the theme accent. */
+:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
 }
 
 /* Ocultar el badge de reCAPTCHA v3 */

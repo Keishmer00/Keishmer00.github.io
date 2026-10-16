@@ -31,7 +31,7 @@ const { t } = useTranslations(lang);
     ]}
     light
   />
-  <main class="bg-black">
+  <main class="bg-surface-page">
     <!-- HERO SECTION -->
     <section
       class="flex flex-col items-center px-6 md:px-12 lg:px-0 pt-44 pb-8 max-w-7xl mx-auto"
@@ -43,15 +43,15 @@ const { t } = useTranslations(lang);
           <img
             src={Selfie.src}
             alt={t("aboutMe.imageAlt")}
-            class="tilt-img w-64 h-auto grayscale border-[0.2px] rounded-lg [corner-shape:scoop] border-white shadow-md shadow-[#000000]"
+            class="tilt-img w-64 h-auto grayscale border-[0.2px] rounded-lg [corner-shape:scoop] border-text-primary shadow-md shadow-[#000000]"
           />
           <div class="tilt-glare" aria-hidden="true"></div>
         </div>
 
-        <div class="flex flex-col w-full max-w-4xl gap-6 text-white">
+        <div class="flex flex-col w-full max-w-4xl gap-6 text-text-primary">
           <div class="flex flex-col gap-2">
             <p
-              class="font-mono text-xs text-center lg:text-left md:text-base lg:text-lg uppercase text-gray-300 tracking-widest"
+              class="font-mono text-xs text-center lg:text-left md:text-base lg:text-lg uppercase text-text-muted tracking-widest"
             >
               {t("aboutMe.role")}
             </p>
@@ -60,7 +60,7 @@ const { t } = useTranslations(lang);
             {t("aboutMe.title")}
           </h1>
           <p
-            class="font-mono text-xl lg:text-2xl text-gray-200 leading-relaxed "
+            class="font-mono text-xl lg:text-2xl text-text-secondary leading-relaxed "
           >
             {t("aboutMe.intro")}
           </p>
@@ -70,7 +70,7 @@ const { t } = useTranslations(lang);
     <!-- SKILLS BANNER -->
     <section class="flex flex-col items-center px-6 md:px-12 lg:pt-16 lg:px-0 pb-2 max-w-7xl mx-auto">
       <h2
-        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8"
+        class="font-unbounded text-xl lg:text-xl text-text-primary text-center mb-8"
       >
         {t("aboutMe.skillsTitle")}
       </h2>
@@ -79,7 +79,7 @@ const { t } = useTranslations(lang);
 
     <!-- PROFESSIONAL SUMMARY -->
     <section class="flex flex-col items-center px-6 lg:px-0 pb-8 max-w-7xl mx-auto">
-      <p class="font-mono text-base lg:text-lg text-gray-300 leading-relaxed">
+      <p class="font-mono text-base lg:text-lg text-text-muted leading-relaxed">
         {t("aboutMe.professionalSummary")}
       </p>
     </section>
@@ -88,80 +88,80 @@ const { t } = useTranslations(lang);
     <!-- WORK EXPERIENCE -->
     <section class="flex flex-col items-center px-6 pb-8 lg:py-16  max-w-6xl mx-auto">
       <h2
-        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8 "
+        class="font-unbounded text-xl lg:text-xl text-text-primary text-center mb-8 "
       >
         {t("aboutMe.experienceTitle")}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
         <div
-          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-6 border border-border-subtle rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
           <div class="flex flex-col gap-1">
-            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+            <span class="text-text-muted font-unbounded text-sm lg:text-lg"
               >{t("aboutMe.exp1Role")}</span
             >
-            <span class="font-mono text-sm text-gray-400"
+            <span class="font-mono text-sm text-text-subtle"
               >{t("aboutMe.exp1Company")}</span
             >
-            <span class="font-mono text-xs text-gray-500"
+            <span class="font-mono text-xs text-text-subtle"
               >{t("aboutMe.exp1Period")}</span
             >
           </div>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+          <p class="font-mono text-sm text-text-muted leading-relaxed">
             {t("aboutMe.exp1Desc")}
           </p>
         </div>
         <div
-          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-6 border border-border-subtle rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
           <div class="flex flex-col gap-1">
-            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+            <span class="text-text-muted font-unbounded text-sm lg:text-lg"
               >{t("aboutMe.exp2Role")}</span
             >
-            <span class="font-mono text-sm text-gray-400"
+            <span class="font-mono text-sm text-text-subtle"
               >{t("aboutMe.exp2Company")}</span
             >
-            <span class="font-mono text-xs text-gray-500"
+            <span class="font-mono text-xs text-text-subtle"
               >{t("aboutMe.exp2Period")}</span
             >
           </div>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+          <p class="font-mono text-sm text-text-muted leading-relaxed">
             {t("aboutMe.exp2Desc")}
           </p>
         </div>
         <div
-          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-6 border border-border-subtle rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
           <div class="flex flex-col gap-1">
-            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+            <span class="text-text-muted font-unbounded text-sm lg:text-lg"
               >{t("aboutMe.exp3Role")}</span
             >
-            <span class="font-mono text-sm text-gray-400"
+            <span class="font-mono text-sm text-text-subtle"
               >{t("aboutMe.exp3Company")}</span
             >
-            <span class="font-mono text-xs text-gray-500"
+            <span class="font-mono text-xs text-text-subtle"
               >{t("aboutMe.exp3Period")}</span
             >
           </div>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+          <p class="font-mono text-sm text-text-muted leading-relaxed">
             {t("aboutMe.exp3Desc")}
           </p>
         </div>
         <div
-          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-6 border border-border-subtle rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
           <div class="flex flex-col gap-1">
-            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+            <span class="text-text-muted font-unbounded text-sm lg:text-lg"
               >{t("aboutMe.exp4Role")}</span
             >
-            <span class="font-mono text-sm text-gray-400"
+            <span class="font-mono text-sm text-text-subtle"
               >{t("aboutMe.exp4Company")}</span
             >
-            <span class="font-mono text-xs text-gray-500"
+            <span class="font-mono text-xs text-text-subtle"
               >{t("aboutMe.exp4Period")}</span
             >
           </div>
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+          <p class="font-mono text-sm text-text-muted leading-relaxed">
             {t("aboutMe.exp4Desc")}
           </p>
         </div>
@@ -171,52 +171,52 @@ const { t } = useTranslations(lang);
     <!-- EDUCATION -->
     <section class="flex flex-col items-center px-6 pb-8 lg:py-16 max-w-6xl mx-auto">
       <h2
-        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8"
+        class="font-unbounded text-xl lg:text-xl text-text-primary text-center mb-8"
       >
         {t("aboutMe.educationTitle")}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
         <div
-          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-6 border border-border-subtle rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
           <div class="flex flex-col gap-1">
-            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+            <span class="text-text-muted font-unbounded text-sm lg:text-lg"
               >{t("aboutMe.edu1Degree")}</span
             >
-            <span class="font-mono text-sm text-gray-400"
+            <span class="font-mono text-sm text-text-subtle"
               >{t("aboutMe.edu1School")}</span
             >
-            <span class="font-mono text-xs text-gray-500"
+            <span class="font-mono text-xs text-text-subtle"
               >{t("aboutMe.edu1Period")}</span
             >
           </div>
         </div>
         <div
-          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-6 border border-border-subtle rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
           <div class="flex flex-col gap-1">
-            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+            <span class="text-text-muted font-unbounded text-sm lg:text-lg"
               >{t("aboutMe.edu2Degree")}</span
             >
-            <span class="font-mono text-sm text-gray-400"
+            <span class="font-mono text-sm text-text-subtle"
               >{t("aboutMe.edu2School")}</span
             >
-            <span class="font-mono text-xs text-gray-500"
+            <span class="font-mono text-xs text-text-subtle"
               >{t("aboutMe.edu2Period")}</span
             >
           </div>
         </div>
         <div
-          class="flex flex-col gap-3 p-6 border border-gray-500/50 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-6 border border-border-subtle rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
           <div class="flex flex-col gap-1">
-            <span class="text-gray-300 font-unbounded text-sm lg:text-lg"
+            <span class="text-text-muted font-unbounded text-sm lg:text-lg"
               >{t("aboutMe.edu3Degree")}</span
             >
-            <span class="font-mono text-sm text-gray-400"
+            <span class="font-mono text-sm text-text-subtle"
               >{t("aboutMe.edu3School")}</span
             >
-            <span class="font-mono text-xs text-gray-500"
+            <span class="font-mono text-xs text-text-subtle"
               >{t("aboutMe.edu3Period")}</span
             >
           </div>
@@ -227,7 +227,7 @@ const { t } = useTranslations(lang);
     <!-- CERTIFICATIONS -->
     <section class="flex flex-col items-center px-6 pb-8 lg:py-16 max-w-6xl mx-auto">
       <h2
-        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8"
+        class="font-unbounded text-xl lg:text-xl text-text-primary text-center mb-8"
       >
         {t("aboutMe.certificationsTitle")}
       </h2>
@@ -236,72 +236,72 @@ const { t } = useTranslations(lang);
         <div
           class="flex items-center gap-3"
         >
-          <span class="text-gray-200 text-lg">&check;</span>
-          <span class="font-mono text-sm text-gray-300"
+          <span class="text-text-secondary text-lg">&check;</span>
+          <span class="font-mono text-sm text-text-muted"
             >{t("aboutMe.certKey1")}</span
           >
         </div>
         <div
           class="flex items-center gap-3"
         >
-          <span class="text-gray-200 text-lg">&check;</span>
-          <span class="font-mono text-sm text-gray-300"
+          <span class="text-text-secondary text-lg">&check;</span>
+          <span class="font-mono text-sm text-text-muted"
             >{t("aboutMe.certKey2")}</span
           >
         </div>
         <div
           class="flex items-center gap-3"
         >
-          <span class="text-gray-200 text-lg">&check;</span>
-          <span class="font-mono text-sm text-gray-300"
+          <span class="text-text-secondary text-lg">&check;</span>
+          <span class="font-mono text-sm text-text-muted"
             >{t("aboutMe.certKey3")}</span
           >
         </div>
         <div
           class="flex items-center gap-3"
         >
-          <span class="text-gray-200 text-lg">&check;</span>
-          <span class="font-mono text-sm text-gray-300"
+          <span class="text-text-secondary text-lg">&check;</span>
+          <span class="font-mono text-sm text-text-muted"
             >{t("aboutMe.certKey4")}</span
           >
         </div>
         <div
           class="flex items-center gap-3"
         >
-          <span class="text-gray-200 text-lg">&check;</span>
-          <span class="font-mono text-sm text-gray-300"
+          <span class="text-text-secondary text-lg">&check;</span>
+          <span class="font-mono text-sm text-text-muted"
             >{t("aboutMe.certKey5")}</span
           >
         </div>
         <div
           class="flex items-center gap-3"
         >
-          <span class="text-gray-200 text-lg">&check;</span>
-          <span class="font-mono text-sm text-gray-300"
+          <span class="text-text-secondary text-lg">&check;</span>
+          <span class="font-mono text-sm text-text-muted"
             >{t("aboutMe.certKey6")}</span
           >
         </div>
         <div
           class="flex items-center gap-3"
         >
-          <span class="text-gray-200 text-lg">&check;</span>
-          <span class="font-mono text-sm text-gray-300"
+          <span class="text-text-secondary text-lg">&check;</span>
+          <span class="font-mono text-sm text-text-muted"
             >{t("aboutMe.certKey7")}</span
           >
         </div>
         <div
           class="flex items-center gap-3"
         >
-          <span class="text-gray-200 text-lg">&check;</span>
-          <span class="font-mono text-sm text-gray-300"
+          <span class="text-text-secondary text-lg">&check;</span>
+          <span class="font-mono text-sm text-text-muted"
             >{t("aboutMe.certKey8")}</span
           >
         </div>
         <div
           class="flex items-center gap-3"
         >
-          <span class="text-gray-200 text-lg">&check;</span>
-          <span class="font-mono text-sm text-gray-300"
+          <span class="text-text-secondary text-lg">&check;</span>
+          <span class="font-mono text-sm text-text-muted"
             >{t("aboutMe.certKey9")}</span
           >
         </div>
@@ -312,38 +312,38 @@ const { t } = useTranslations(lang);
     <!-- VALUES -->
     <section class="flex flex-col items-center px-6 pb-20 max-w-6xl mx-auto">
       <h2
-        class="font-unbounded text-xl lg:text-xl text-white text-center mb-8"
+        class="font-unbounded text-xl lg:text-xl text-text-primary text-center mb-8"
       >
         {t("aboutMe.valuesTitle")}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
         <div
-          class="flex flex-col gap-3 p-8 border border-gray-500 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-8 border border-border-default rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
-          <span class="text-gray-200 font-unbounded text-sm lg:text-lg"
+          <span class="text-text-secondary font-unbounded text-sm lg:text-lg"
             >{t("aboutMe.value1")}</span
           >
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+          <p class="font-mono text-sm text-text-muted leading-relaxed">
             {t("aboutMe.value1Desc")}
           </p>
         </div>
         <div
-          class="flex flex-col gap-3 p-8 border border-gray-500 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-8 border border-border-default rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
-          <span class="text-gray-200 font-unbounded text-sm lg:text-lg"
+          <span class="text-text-secondary font-unbounded text-sm lg:text-lg"
             >{t("aboutMe.value2")}</span
           >
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+          <p class="font-mono text-sm text-text-muted leading-relaxed">
             {t("aboutMe.value2Desc")}
           </p>
         </div>
         <div
-          class="flex flex-col gap-3 p-8 border border-gray-500 rounded-lg bg-black/30 hover:border-gray-400 transition-colors duration-300"
+          class="flex flex-col gap-3 p-8 border border-border-default rounded-lg bg-surface-default/70 hover:border-border-default transition-colors duration-300"
         >
-          <span class="text-gray-200 font-unbounded text-sm lg:text-lg"
+          <span class="text-text-secondary font-unbounded text-sm lg:text-lg"
             >{t("aboutMe.value3")}</span
           >
-          <p class="font-mono text-sm text-gray-300 leading-relaxed">
+          <p class="font-mono text-sm text-text-muted leading-relaxed">
             {t("aboutMe.value3Desc")}
           </p>
         </div>
@@ -354,16 +354,16 @@ const { t } = useTranslations(lang);
     <section
       class="flex flex-col items-center px-6 pb-32 max-w-6xl mx-auto text-center"
     >
-      <h2 class="font-unbounded text-2xl lg:text-3xl text-white mb-4">
+      <h2 class="font-unbounded text-2xl lg:text-3xl text-text-primary mb-4">
         {t("aboutMe.cta")}
       </h2>
-      <p class="font-mono text-lg text-gray-300 mb-8">
+      <p class="font-mono text-lg text-text-muted mb-8">
         {t("aboutMe.ctaSubtext")}
       </p>
       <a
         href={lang === "en" ? "/contact/" : "/es/contact/"}
         data-analytics-event="cta_about_click"
-        class="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-mono text-xl uppercase tracking-wider hover:bg-primary hover:text-white transition-all duration-300 rounded"
+        class="inline-flex items-center gap-2 px-8 py-3 bg-surface-inverse text-text-inverse font-mono text-xl uppercase tracking-wider hover:bg-primary hover:text-text-on-primary transition-all duration-300 rounded"
       >
         {t("nav.contact")}
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z"/></svg>

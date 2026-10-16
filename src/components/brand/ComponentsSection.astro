@@ -2,6 +2,7 @@
 import type { Lang } from "../../i18n/index";
 import { useTranslations } from "../../i18n/index";
 import SectionHeading from "./SectionHeading.astro";
+import ThemeController from "../ThemeController.astro";
 
 interface Props {
   lang: Lang;
@@ -20,26 +21,26 @@ const { t } = useTranslations(lang);
 
   <!-- Buttons -->
   <div class="mt-12">
-    <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+    <h3 class="font-unbounded text-lg font-bold uppercase text-text-primary">
       {t("brand.sections.components.buttonsTitle")}
     </h3>
-    <div class="mt-6 flex flex-wrap items-center gap-4 border border-white/10 bg-white/5 p-6">
+    <div class="mt-6 flex flex-wrap items-center gap-4 border border-border-subtle bg-surface-inverse/5 p-6">
       <button
         type="button"
-        class="inline-flex w-fit shrink-0 items-center border border-white bg-white px-5 py-3 font-mono text-sm uppercase text-black transition-colors hover:bg-primary hover:text-white"
+        class="inline-flex w-fit shrink-0 items-center border border-surface-inverse bg-surface-inverse px-5 py-3 font-mono text-sm uppercase text-text-inverse transition-colors hover:bg-primary hover:text-text-on-primary"
       >
         {t("brand.sections.components.buttonPrimary")} ↗
       </button>
       <button
         type="button"
-        class="inline-flex w-fit items-center gap-2 border border-white/40 px-4 py-3 font-mono text-base text-white transition-colors duration-300 hover:border-primary hover:text-primary"
+        class="inline-flex w-fit items-center gap-2 border border-border-strong px-4 py-3 font-mono text-base text-text-primary transition-colors duration-300 hover:border-primary hover:text-text-accent"
       >
         {t("brand.sections.components.buttonSecondary")}
         <span aria-hidden="true">↗</span>
       </button>
       <button
         type="button"
-        class="flex w-fit items-center gap-2 border border-gray-200 bg-black p-4 font-mono text-xl leading-6 text-white transition-transform duration-300 ease-in-out hover:scale-105 hover:border-primary hover:shadow-lg hover:shadow-primary/50 active:scale-95"
+        class="flex w-fit items-center gap-2 border border-border-strong bg-surface-page p-4 font-mono text-xl leading-6 text-text-primary transition-transform duration-300 ease-in-out hover:scale-105 hover:border-primary hover:shadow-lg hover:shadow-primary/50 active:scale-95"
       >
         {t("brand.sections.components.buttonGhost")}
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor" aria-hidden="true"><path d="m264-213 73-36q-9-30-16.5-60.5T308-371l-44 34v124Zm144-51h144q16-47 26-94.5t10-97.5q0-88-22.5-173T480-776q-63 63-85.5 147.5T372-456q0 50 10.5 97.5T408-264Zm21-213q-21-21-21-51t21-51q21-21 51-21t51 21q21 21 21 51t-21 51q-21 21-51 21t-51-21Zm267 264v-124l-44-34q-5 31-12.5 61.5T623-249l73 36ZM480-864q95 57 137.5 166T660-480v24l80 62q13 11 20.5 25.5T768-337v241l-192-96H384L192-96v-241q0-17 7-32t21-25l80-62v-24q0-109 43-218t137-166Z"/></svg>
@@ -49,25 +50,25 @@ const { t } = useTranslations(lang);
 
   <!-- Form fields -->
   <div class="mt-14">
-    <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+    <h3 class="font-unbounded text-lg font-bold uppercase text-text-primary">
       {t("brand.sections.components.formsTitle")}
     </h3>
-    <div class="mt-6 grid gap-x-16 gap-y-5 border border-gray-300 bg-linear-to-br from-white/5 via-black to-white/5 px-6 py-10 md:grid-cols-2 md:px-10">
-      <label class="flex flex-col gap-2 border-b border-white/25 pb-2">
-        <span class="text-[10px] font-bold uppercase tracking-widest text-white">
+    <div class="mt-6 grid gap-x-16 gap-y-5 border border-border-strong bg-linear-to-br from-text-primary/5 via-surface-page to-text-primary/5 px-6 py-10 md:grid-cols-2 md:px-10">
+      <label class="flex flex-col gap-2 border-b border-border-default pb-2">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-text-primary">
           {t("brand.sections.components.fieldName")}
         </span>
-        <input type="text" class="bg-transparent text-sm text-white outline-none placeholder:text-white/40 md:text-base" />
+        <input type="text" class="bg-transparent text-sm text-text-primary outline-none placeholder:text-text-primary/40 md:text-base" />
       </label>
-      <label class="flex flex-col gap-2 border-b border-white/25 pb-2">
-        <span class="text-[10px] font-bold uppercase tracking-widest text-white">
+      <label class="flex flex-col gap-2 border-b border-border-default pb-2">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-text-primary">
           {t("brand.sections.components.fieldEmail")}
         </span>
-        <input type="email" class="bg-transparent text-sm text-white outline-none placeholder:text-white/40 md:text-base" />
+        <input type="email" class="bg-transparent text-sm text-text-primary outline-none placeholder:text-text-primary/40 md:text-base" />
       </label>
       <button
         type="button"
-        class="flex w-full items-center justify-between gap-3 bg-white px-4 py-2 font-mono text-xl text-black transition-colors duration-300 hover:bg-primary hover:text-white md:col-span-2 md:px-6 md:py-4"
+        class="flex w-full items-center justify-between gap-3 bg-surface-inverse px-4 py-2 font-mono text-xl text-text-inverse transition-colors duration-300 hover:bg-primary hover:text-text-on-primary md:col-span-2 md:px-6 md:py-4"
       >
         <span>{t("brand.sections.components.submitLabel")}</span>
         <span aria-hidden="true">→</span>
@@ -77,21 +78,21 @@ const { t } = useTranslations(lang);
 
   <!-- Cards & blocks -->
   <div class="mt-14">
-    <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+    <h3 class="font-unbounded text-lg font-bold uppercase text-text-primary">
       {t("brand.sections.components.cardsTitle")}
     </h3>
     <div class="mt-6 flex flex-col gap-6 border border-primary/60 bg-primary/5 p-6 md:p-8 lg:flex-row lg:items-end lg:justify-between">
       <div>
-        <p class="font-mono text-sm uppercase tracking-widest text-primary">
+        <p class="font-mono text-sm uppercase tracking-widest text-text-accent">
           {t("finalCta.eyebrow")}
         </p>
-        <p class="mt-4 max-w-3xl font-unbounded text-xl uppercase leading-tight text-white md:text-2xl">
+        <p class="mt-4 max-w-3xl font-unbounded text-xl uppercase leading-tight text-text-primary md:text-2xl">
           {t("finalCta.title")}
         </p>
       </div>
       <button
         type="button"
-        class="inline-flex w-fit shrink-0 items-center border border-white bg-white px-5 py-3 font-mono text-sm uppercase text-black transition-colors hover:bg-primary hover:text-white"
+        class="inline-flex w-fit shrink-0 items-center border border-surface-inverse bg-surface-inverse px-5 py-3 font-mono text-sm uppercase text-text-inverse transition-colors hover:bg-primary hover:text-text-on-primary"
       >
         {t("finalCta.button")} ↗
       </button>
@@ -100,19 +101,20 @@ const { t } = useTranslations(lang);
 
   <!-- Navigation -->
   <div class="mt-14">
-    <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+    <h3 class="font-unbounded text-lg font-bold uppercase text-text-primary">
       {t("brand.sections.components.navTitle")}
     </h3>
-    <div class="mt-6 flex flex-wrap items-center justify-between gap-6 border border-white/10 bg-black px-4 py-4 md:px-8">
-      <span class="font-mono text-xl text-white">{t("nav.logo")}</span>
-      <div class="flex items-center gap-3">
-        <span class="flex items-center gap-1 rounded-full border border-white/20 bg-white/5 p-1">
-          <span class="flex h-4 items-center rounded-full bg-white/20 px-1.5 text-[11px] font-medium leading-none text-white">EN</span>
-          <span class="flex h-4 items-center px-1.5 text-[11px] font-medium leading-none text-gray-300">ES</span>
+    <div class="mt-6 flex flex-wrap items-center justify-between gap-6 border border-border-subtle bg-surface-page px-4 py-4 md:px-8">
+      <span class="font-mono text-xl text-text-primary">{t("nav.logo")}</span>
+      <div class="flex flex-wrap items-center gap-3">
+        <ThemeController lang={lang} />
+        <span class="flex items-center gap-1 rounded-full border border-border-default bg-surface-inverse/5 p-1">
+          <span class="flex h-4 items-center rounded-full bg-surface-inverse/20 px-1.5 text-[11px] font-medium leading-none text-text-primary">EN</span>
+          <span class="flex h-4 items-center px-1.5 text-[11px] font-medium leading-none text-text-muted">ES</span>
         </span>
         <span class="flex flex-col gap-2">
-          <span class="h-0.5 w-6 bg-white"></span>
-          <span class="h-0.5 w-6 bg-white"></span>
+          <span class="h-0.5 w-6 bg-surface-inverse"></span>
+          <span class="h-0.5 w-6 bg-surface-inverse"></span>
         </span>
       </div>
     </div>
@@ -120,18 +122,18 @@ const { t } = useTranslations(lang);
 
   <!-- Consent & feedback -->
   <div class="mt-14">
-    <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+    <h3 class="font-unbounded text-lg font-bold uppercase text-text-primary">
       {t("brand.sections.components.miscTitle")}
     </h3>
-    <div class="mt-6 flex flex-col gap-3 border border-white/10 bg-black p-4">
-      <p class="font-mono text-xs leading-relaxed text-gray-300">
+    <div class="mt-6 flex flex-col gap-3 border border-border-subtle bg-surface-page p-4">
+      <p class="font-mono text-xs leading-relaxed text-text-muted">
         {t("brand.sections.components.consentText")}
       </p>
       <div class="flex gap-2">
-        <button type="button" class="bg-white px-3 py-2 font-mono text-xs uppercase text-black hover:bg-primary hover:text-white">
+        <button type="button" class="bg-surface-inverse px-3 py-2 font-mono text-xs uppercase text-text-inverse hover:bg-primary hover:text-text-on-primary">
           {t("brand.sections.components.consentAccept")}
         </button>
-        <button type="button" class="border border-white/40 px-3 py-2 font-mono text-xs uppercase text-white hover:border-white">
+        <button type="button" class="border border-border-strong px-3 py-2 font-mono text-xs uppercase text-text-primary hover:border-text-primary">
           {t("brand.sections.components.consentDecline")}
         </button>
       </div>

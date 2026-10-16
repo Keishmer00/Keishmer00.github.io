@@ -54,21 +54,21 @@ const tocItems = [
     light
   />
 
-  <brand-manual data-copied={t("brand.copy.copied")} class="block bg-black">
-    <main class="bg-black px-4 pb-24 pt-32 md:px-8 lg:px-24 lg:pb-8 lg:pt-40">
+  <brand-manual data-copied={t("brand.copy.copied")} class="block bg-surface-page">
+    <main class="bg-surface-page px-4 pb-24 pt-32 md:px-8 lg:px-24 lg:pb-8 lg:pt-40">
       <!-- Header -->
       <header class="mx-auto max-w-6xl">
-        <p class="flex items-center gap-2 font-mono text-sm uppercase tracking-widest text-primary">
+        <p class="flex items-center gap-2 font-mono text-sm uppercase tracking-widest text-text-accent">
           <span class="inline-block h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
           {t("brand.kicker")}
         </p>
-        <h1 class="mt-4 font-unbounded text-3xl font-bold uppercase leading-tight text-white md:text-5xl">
+        <h1 class="mt-4 font-unbounded text-3xl font-bold uppercase leading-tight text-text-primary md:text-5xl">
           {t("brand.title")}
         </h1>
-        <p class="mt-6 max-w-3xl font-albert text-base leading-relaxed text-gray-200 md:text-lg">
+        <p class="mt-6 max-w-3xl font-albert text-base leading-relaxed text-text-secondary md:text-lg">
           {t("brand.lede")}
         </p>
-        <p class="mt-6 font-mono text-xs uppercase tracking-widest text-gray-300">
+        <p class="mt-6 font-mono text-xs uppercase tracking-widest text-text-muted">
           {t("brand.metaLine")}
         </p>
       </header>
@@ -95,7 +95,7 @@ const tocItems = [
       <nav
         aria-label={t("brand.toc.label")}
         data-mobile-toc
-        class="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/90 backdrop-blur-sm lg:hidden"
+        class="fixed inset-x-0 bottom-0 z-40 border-t border-border-subtle bg-surface-page/90 backdrop-blur-sm lg:hidden"
       >
         <ul
           data-toc-scroll
@@ -107,7 +107,7 @@ const tocItems = [
                 <a
                   href={`#${item.id}`}
                   data-toc-link={item.id}
-                  class="text-gray-300 transition-colors hover:text-primary"
+                  class="text-text-muted transition-colors hover:text-text-accent"
                 >
                   {t(`brand.sections.${item.id}.nav`)}
                 </a>
@@ -166,8 +166,8 @@ const tocItems = [
     top: 0.5rem;
     right: 0.5rem;
     z-index: 10;
-    background: var(--black);
-    color: var(--text-white);
+    background: var(--surface-page);
+    color: var(--text-primary);
     border: 1px solid var(--color-primary);
     padding: 0.125rem 0.5rem;
     font-family: var(--mono);

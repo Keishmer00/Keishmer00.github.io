@@ -66,7 +66,7 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
   />
 
   <featured-case-study>
-    <main class="bg-black text-white">
+    <main class="bg-surface-page text-text-primary">
       <!-- HERO: la imagen del panel de la home, con el logo y el titular -->
       <section
         class="relative isolate flex min-h-svh flex-col justify-end overflow-hidden px-4 pb-14 pt-32 md:px-8 lg:min-h-screen lg:px-24 lg:pb-20"
@@ -97,7 +97,7 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
           />
         </picture>
         <div
-          class="pointer-events-none absolute inset-0 bg-linear-to-t from-black via-black/70 to-black/30"
+          class="pointer-events-none absolute inset-0 bg-linear-to-t from-surface-page via-surface-page/70 to-surface-page/30 light:via-surface-page/80 light:to-surface-page/70"
           aria-hidden="true"
         >
         </div>
@@ -107,20 +107,20 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
         >
           <div class="flex max-w-4xl flex-col gap-5" data-hero-copy>
             <p
-              class="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-widest text-gray-200 md:text-sm"
+              class="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-widest text-text-secondary md:text-sm"
             >
               <span class="flex items-center gap-2">
                 <span class="h-2 w-2 rounded-full bg-primary" aria-hidden="true"
                 ></span>
                 {t("featured.detail.eyebrow")}
               </span>
-              <span class="text-gray-300" aria-hidden="true">·</span>
+              <span class="text-text-muted" aria-hidden="true">·</span>
               <span>{project.sector}</span>
-              <span class="text-gray-300" aria-hidden="true">·</span>
+              <span class="text-text-muted" aria-hidden="true">·</span>
               <span>{project.year}</span>
             </p>
             <h1
-              class="font-unbounded text-3xl font-bold uppercase leading-tight text-white md:text-5xl lg:text-6xl"
+              class="font-unbounded text-3xl font-bold uppercase leading-tight text-text-primary md:text-5xl lg:text-6xl"
             >
               {project.title}
             </h1>
@@ -130,7 +130,7 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
             src={project.logo.src}
             alt={project.logoAlt}
             decoding="async"
-            class="h-14 w-auto max-w-55 shrink-0 object-contain object-left brightness-0 invert drop-shadow-[0_2px_24px_rgba(0,0,0,0.65)] md:h-20 lg:h-24 lg:max-w-xs lg:object-right"
+            class="h-14 w-auto max-w-55 shrink-0 object-contain object-left brightness-0 invert drop-shadow-[0_2px_24px_rgba(0,0,0,0.65)] light:invert-0 light:drop-shadow-none md:h-20 lg:h-24 lg:max-w-xs lg:object-right"
           />
         </div>
       </section>
@@ -142,42 +142,42 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
         <aside class="flex w-full flex-col gap-8 lg:w-1/3" data-reveal>
           <div class="flex flex-col gap-2">
             <h2
-              class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300"
+              class="border-b border-border-subtle pb-2 font-mono text-sm font-bold uppercase tracking-widest text-text-muted"
             >
               {t("projects.client")}
             </h2>
-            <p class="font-unbounded text-lg text-white">{project.client}</p>
+            <p class="font-unbounded text-lg text-text-primary">{project.client}</p>
           </div>
 
           <div class="grid grid-cols-2 gap-8">
             <div class="flex flex-col gap-2">
               <h2
-                class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300"
+                class="border-b border-border-subtle pb-2 font-mono text-sm font-bold uppercase tracking-widest text-text-muted"
               >
                 {t("featured.detail.year")}
               </h2>
-              <p class="font-mono text-base text-white">{project.year}</p>
+              <p class="font-mono text-base text-text-primary">{project.year}</p>
             </div>
             <div class="flex flex-col gap-2">
               <h2
-                class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300"
+                class="border-b border-border-subtle pb-2 font-mono text-sm font-bold uppercase tracking-widest text-text-muted"
               >
                 {t("featured.detail.sector")}
               </h2>
-              <p class="font-mono text-base text-white">{project.sector}</p>
+              <p class="font-mono text-base text-text-primary">{project.sector}</p>
             </div>
           </div>
 
           <div class="flex flex-col gap-2">
             <h2
-              class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300"
+              class="border-b border-border-subtle pb-2 font-mono text-sm font-bold uppercase tracking-widest text-text-muted"
             >
               {t("projects.services")}
             </h2>
             <ul class="flex flex-col gap-1">
               {
                 project.services.map((service) => (
-                  <li class="font-mono text-base text-white">{service}</li>
+                  <li class="font-mono text-base text-text-primary">{service}</li>
                 ))
               }
             </ul>
@@ -186,14 +186,14 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
           {
             project.url && (
               <div class="flex flex-col gap-2">
-                <h2 class="border-b border-gray-300/20 pb-2 font-mono text-sm font-bold uppercase tracking-widest text-gray-300">
+                <h2 class="border-b border-border-subtle pb-2 font-mono text-sm font-bold uppercase tracking-widest text-text-muted">
                   {t("projects.website")}
                 </h2>
                 <a
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex w-fit items-center gap-2 break-all font-mono text-base text-primary hover:underline"
+                  class="inline-flex w-fit items-center gap-2 break-all font-mono text-base text-text-accent hover:underline"
                 >
                   {t("featured.detail.visitSite")}
                   <span aria-hidden="true">↗</span>
@@ -205,7 +205,7 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
 
         <article class="w-full lg:w-2/3" data-reveal>
           <p
-            class="max-w-3xl font-albert text-xl leading-relaxed text-gray-50 md:text-2xl"
+            class="max-w-3xl font-albert text-xl leading-relaxed text-text-primary md:text-2xl"
           >
             {project.intro}
           </p>
@@ -218,34 +218,34 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
         aria-labelledby="process-title"
       >
         <header
-          class="flex flex-col gap-4 border-b border-white/10 pb-10"
+          class="flex flex-col gap-4 border-b border-border-subtle pb-10"
           data-reveal
         >
           <h2
             id="process-title"
-            class="font-unbounded text-2xl uppercase text-white md:text-4xl"
+            class="font-unbounded text-2xl uppercase text-text-primary md:text-4xl"
           >
             {t("featured.detail.processTitle")}
           </h2>
           <p
-            class="max-w-2xl font-albert text-base leading-relaxed text-gray-200 md:text-lg"
+            class="max-w-2xl font-albert text-base leading-relaxed text-text-secondary md:text-lg"
           >
             {t("featured.detail.processIntro")}
           </p>
           <ol
-            class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs uppercase tracking-wider text-gray-200 md:text-sm"
+            class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs uppercase tracking-wider text-text-secondary md:text-sm"
           >
             {
               project.stages.map((stage, index) => (
                 <li class="flex items-center gap-2">
                   {index > 0 && (
-                    <span class="text-gray-300" aria-hidden="true">
+                    <span class="text-text-muted" aria-hidden="true">
                       →
                     </span>
                   )}
                   <a
                     href={`#stage-${stage.id}`}
-                    class="transition-colors hover:text-primary"
+                    class="transition-colors hover:text-text-accent"
                   >
                     {t(`featured.stages.${stage.id}`)}
                   </a>
@@ -260,31 +260,31 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
             project.stages.map((stage, index) => (
               <li
                 id={`stage-${stage.id}`}
-                class="grid scroll-mt-32 gap-6 border-b border-white/10 py-10 lg:grid-cols-12 lg:gap-12 lg:py-16"
+                class="grid scroll-mt-32 gap-6 border-b border-border-subtle py-10 lg:grid-cols-12 lg:gap-12 lg:py-16"
                 data-stage
               >
                 <div class="flex flex-row items-baseline gap-4 self-start lg:sticky lg:top-32 lg:col-span-4 lg:flex-col lg:gap-3">
-                  <p class="font-mono text-sm uppercase tracking-widest text-gray-300">
+                  <p class="font-mono text-sm uppercase tracking-widest text-text-muted">
                     {t("featured.detail.stageLabel")}{" "}
-                    <span class="text-primary">{pad(index + 1)}</span>
+                    <span class="text-text-accent">{pad(index + 1)}</span>
                   </p>
-                  <p class="font-unbounded text-lg uppercase text-white md:text-xl">
+                  <p class="font-unbounded text-lg uppercase text-text-primary md:text-xl">
                     {t(`featured.stages.${stage.id}`)}
                   </p>
                 </div>
 
                 <div class="flex flex-col gap-5 lg:col-span-8">
-                  <h3 class="max-w-3xl font-unbounded text-xl font-bold uppercase leading-tight text-white md:text-2xl lg:text-3xl">
+                  <h3 class="max-w-3xl font-unbounded text-xl font-bold uppercase leading-tight text-text-primary md:text-2xl lg:text-3xl">
                     {stage.title}
                   </h3>
-                  <p class="max-w-3xl font-albert text-base leading-relaxed text-gray-100 md:text-lg">
+                  <p class="max-w-3xl font-albert text-base leading-relaxed text-text-primary md:text-lg">
                     {stage.body}
                   </p>
                   {stage.images && stage.images.length > 0 && (
                     <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
                       {stage.images.map((image, imageIndex) => (
                         <div
-                          class="aspect-4/3 overflow-hidden bg-secondary"
+                          class="aspect-4/3 overflow-hidden bg-surface-elevated"
                           data-gallery-image
                         >
                           <img
@@ -313,11 +313,11 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
           class="max-w-4xl border-l-2 border-primary pl-6 lg:pl-10"
           data-reveal
         >
-          <h2 class="font-unbounded text-2xl uppercase text-white md:text-3xl">
+          <h2 class="font-unbounded text-2xl uppercase text-text-primary md:text-3xl">
             {t("featured.detail.outcomeTitle")}
           </h2>
           <p
-            class="mt-5 font-albert text-lg leading-relaxed text-gray-50 md:text-xl"
+            class="mt-5 font-albert text-lg leading-relaxed text-text-primary md:text-xl"
           >
             {project.outcome}
           </p>
@@ -349,7 +349,7 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
               href={getFeaturedProjectUrl(adjacent.next.id, lang)}
               data-analytics-event="case_study_click"
               data-analytics-label={adjacent.next.id}
-              class="group relative isolate flex flex-col gap-4 overflow-hidden border border-white/15 p-8 transition-colors duration-300 hover:border-primary md:p-12 lg:flex-row lg:items-end lg:justify-between lg:gap-12"
+              class="group relative isolate flex flex-col gap-4 overflow-hidden border border-border-subtle p-8 transition-colors duration-300 hover:border-primary md:p-12 lg:flex-row lg:items-end lg:justify-between lg:gap-12"
               data-reveal
             >
               <picture>
@@ -372,17 +372,17 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
                 />
               </picture>
               <div class="flex flex-col gap-3">
-                <p class="font-mono text-xs uppercase tracking-widest text-gray-200 md:text-sm">
+                <p class="font-mono text-xs uppercase tracking-widest text-text-secondary md:text-sm">
                   {t("featured.detail.next")}
                 </p>
-                <p class="font-unbounded text-2xl font-bold uppercase text-white md:text-4xl">
+                <p class="font-unbounded text-2xl font-bold uppercase text-text-primary md:text-4xl">
                   {adjacent.next.brand}
                 </p>
-                <p class="max-w-2xl font-albert text-base text-gray-100 md:text-lg">
+                <p class="max-w-2xl font-albert text-base text-text-primary md:text-lg">
                   {adjacent.next.title}
                 </p>
               </div>
-              <span class="inline-flex shrink-0 items-center gap-2 font-mono text-lg text-white transition-colors group-hover:text-primary">
+              <span class="inline-flex shrink-0 items-center gap-2 font-mono text-lg text-text-primary transition-colors group-hover:text-text-accent">
                 {t("featured.cta")}
                 <span
                   class="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -394,7 +394,7 @@ const absoluteImage = `https://keishmerstudio.com${(project.heroImage ?? project
             </a>
             <a
               href={projectsPath}
-              class="mt-6 inline-flex items-center gap-2 font-mono text-base text-gray-200 transition-colors hover:text-primary"
+              class="mt-6 inline-flex items-center gap-2 font-mono text-base text-text-secondary transition-colors hover:text-text-accent"
             >
               <span aria-hidden="true">←</span>
               {t("featured.detail.allProjects")}

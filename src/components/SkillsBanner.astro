@@ -12,7 +12,7 @@ const skills = tArray("aboutMe.skills");
 
 <section
   id="skills-banner"
-  class="relative w-full bg-black overflow-hidden select-none"
+  class="relative w-full bg-surface-page overflow-hidden select-none"
 >
   <div class="relative flex py-3 md:py-4">
     <!-- Edge fade masks -->
@@ -24,10 +24,10 @@ const skills = tArray("aboutMe.skills");
         <span class="flex items-center gap-3 md:gap-5">
           {skills.map((skill, i) => (
             <span class="inline-flex items-center gap-3 md:gap-4">
-              <span class="inline-flex items-center px-4 py-2 border border-gray-600 rounded-full text-xs md:text-sm font-mono text-gray-200 bg-gray-400/20 hover:text-white hover:border-gray-400 transition-colors duration-200">
+              <span class="inline-flex items-center px-4 py-2 border border-border-subtle rounded-full text-xs md:text-sm font-mono text-text-secondary bg-text-subtle/20 hover:text-text-primary hover:border-border-default transition-colors duration-200">
                 {skill}
               </span>
-              <svg class={`h-3 w-3 lg:h-4 lg:w-4 ${i === skills.length - 1 ? "mr-4 md:mr-8" : ""}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#3a3a3a"><path d="M440-80v-800h80v800h-80Zm160-200v-400h120v400H600Zm-360 0v-400h120v400H240Z"/></svg>
+              <svg class={`h-3 w-3 lg:h-4 lg:w-4 text-text-subtle ${i === skills.length - 1 ? "mr-4 md:mr-8" : ""}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M440-80v-800h80v800h-80Zm160-200v-400h120v400H600Zm-360 0v-400h120v400H240Z"/></svg>
             </span>
           ))}
         </span>

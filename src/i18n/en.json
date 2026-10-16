@@ -16,6 +16,15 @@
     "brand": "Brand",
     "logo": "KEISHMER STUDIO"
   },
+  "theme": {
+    "label": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "switchToSystem": "Use system theme"
+  },
   "hero": {
     "available": "Available for design, SEO, frontend development, and branding projects",
     "headline": "Product Designer & Frontend Developer for brands",
@@ -471,7 +480,7 @@
     "breadcrumb": "Brand",
     "title": "Design system & brand manual",
     "lede": "The single source of truth for how this site looks and reads. Every value here is generated from the tokens the site actually ships, so this page stays in sync with production.",
-    "metaLine": "One dark theme · EN/ES · Astro + Tailwind v4 + GSAP",
+    "metaLine": "Two themes · EN/ES · Astro + Tailwind v4 + GSAP",
     "toc": {
       "label": "Contents"
     },
@@ -510,7 +519,23 @@
         "nav": "Color",
         "eyebrow": "02 — Foundations",
         "title": "Color",
-        "intro": "A single dark theme built on near-black surfaces, a light icy-gray text ramp, and one coral accent. Color is classified by role, not by hue.",
+        "intro": "Two themes — dark (the baseline) and light — built from the same roles: surfaces, a text ramp and one coral accent. Components use semantic tokens, so every role resolves to the right value in each theme.",
+        "semantic": {
+          "title": "Semantic tokens",
+          "desc": "What components actually use. Each role has a dark and a light value; the site follows the system preference and the theme selector in the menu can force either one. Contrast is measured against each theme's page background.",
+          "token": "Token",
+          "dark": "Dark",
+          "light": "Light",
+          "groups": {
+            "surface": "Surfaces",
+            "text": "Text",
+            "border": "Borders",
+            "state": "State",
+            "effect": "Effects (canvas)"
+          },
+          "primitivesTitle": "Primitive palette",
+          "primitivesDesc": "The raw values behind the dark theme. Kept for reference and decoration; new UI should reach for the semantic tokens above."
+        },
         "groups": {
           "brand": { "title": "Brand & accent", "desc": "The coral primary is the single accent. Blue appears only inside the call-to-action glow; pink is a soft tint reserved for highlights." },
           "surface": { "title": "Surfaces", "desc": "Near-black neutrals. The page always paints black; panels lift with slightly lighter grays." },
@@ -567,7 +592,7 @@
         "intro": "Mostly sharp edges. Radius is reserved for chips and pills; borders are thin hairlines.",
         "radiusTitle": "Radius",
         "strokeTitle": "Stroke",
-        "note": "Borders lean on opacity (border-white/10 → /40) instead of new colors. Hairline is the default for dividers and cards."
+        "note": "Borders lean on opacity through three tokens (border-subtle → default → strong) that flip with the theme. Hairline is the default for dividers and cards."
       },
       "elevation": {
         "nav": "Elevation",

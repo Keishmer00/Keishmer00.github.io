@@ -21,42 +21,42 @@ const localizedPath = (path: string) => {
     ]}
 >
     <section class="w-full h-auto gap-2 flex flex-col items-start justify-center">
-        <p class="text-white font-unbounded font-bold lg:text-8xl text-5xl text-center lg:text-left uppercase" aria-label={t("site.title")}>
+        <p class="text-text-primary font-unbounded font-bold lg:text-8xl text-5xl text-center lg:text-left uppercase" aria-label={t("site.title")}>
             {t("footer.logo")}
         </p>
-        <p class="text-gray-200 text-base lg:text-xl font-mono lg:text-start text-center w-full">
+        <p class="text-text-secondary text-base lg:text-xl font-mono lg:text-start text-center w-full">
             {t("footer.description")}
         </p>
         <div class="flex gap-6 w-full lg:justify-start justify-center">
-            <a class="font-mono text-base text-white hover:text-primary transition-colors" href="mailto:kshmr044@gmail.com" data-analytics-event="direct_email_click">kshmr044@gmail.com</a>
-            <a class="font-mono text-base text-white hover:text-primary transition-colors" href="https://www.linkedin.com/in/keishmer-p%C3%A9rez-torres/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a class="font-mono text-base text-white hover:text-primary transition-colors" href="https://github.com/Keishmer00" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a class="font-mono text-base text-white hover:text-primary transition-colors" href="https://www.instagram.com/keishmer00/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a class="font-mono text-base text-text-primary hover:text-text-accent transition-colors" href="mailto:kshmr044@gmail.com" data-analytics-event="direct_email_click">kshmr044@gmail.com</a>
+            <a class="font-mono text-base text-text-primary hover:text-text-accent transition-colors" href="https://www.linkedin.com/in/keishmer-p%C3%A9rez-torres/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="font-mono text-base text-text-primary hover:text-text-accent transition-colors" href="https://github.com/Keishmer00" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="font-mono text-base text-text-primary hover:text-text-accent transition-colors" href="https://www.instagram.com/keishmer00/" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
-        <p class="hidden lg:block text-gray-200 text-xs text-start">{t("footer.copyright")}</p>
+        <p class="hidden lg:block text-text-secondary text-xs text-start">{t("footer.copyright")}</p>
     </section>
     <section class="lg:w-1/2 w-full h-auto flex flex-col gap-8">
         <div class="flex flex-col w-full gap-6">
             <div class="flex flex-col gap-2">
-                <p class="text-gray-300 text-base uppercase font-mono text-center lg:text-right">{t("footer.pagesTitle")}</p>
-                <ul class="flex flex-col font-mono text-white items-center lg:items-end gap-2">
-                    <li><a href={localizedPath("/about-me/")} class="hover:text-primary transition-colors">{t("aboutMe.title")}</a></li>
-                    <li><a href={localizedPath("/projects/")} class="hover:text-primary transition-colors">{t("nav.projects")}</a></li>
-                    <li><a href={localizedPath("/ux-ui-design/")} class="hover:text-primary transition-colors">{t("nav.uxuiDesigner")}</a></li>
-                    <li><a href={localizedPath("/frontend-dev/")} class="hover:text-primary transition-colors">{t("nav.frontendDev")}</a></li>
-                    <li><a href={localizedPath("/visual-artist/")} class="hover:text-primary transition-colors">{t("nav.visualArtist")}</a></li>
-                    <li><a href={localizedPath("/contact/")} class="hover:text-primary transition-colors">{t("nav.contact")}</a></li>
-                    <li><a href={localizedPath("/brand/")} class="hover:text-primary transition-colors">{t("nav.brand")}</a></li>
+                <p class="text-text-muted text-base uppercase font-mono text-center lg:text-right">{t("footer.pagesTitle")}</p>
+                <ul class="flex flex-col font-mono text-text-primary items-center lg:items-end gap-2">
+                    <li><a href={localizedPath("/about-me/")} class="hover:text-text-accent transition-colors">{t("aboutMe.title")}</a></li>
+                    <li><a href={localizedPath("/projects/")} class="hover:text-text-accent transition-colors">{t("nav.projects")}</a></li>
+                    <li><a href={localizedPath("/ux-ui-design/")} class="hover:text-text-accent transition-colors">{t("nav.uxuiDesigner")}</a></li>
+                    <li><a href={localizedPath("/frontend-dev/")} class="hover:text-text-accent transition-colors">{t("nav.frontendDev")}</a></li>
+                    <li><a href={localizedPath("/visual-artist/")} class="hover:text-text-accent transition-colors">{t("nav.visualArtist")}</a></li>
+                    <li><a href={localizedPath("/contact/")} class="hover:text-text-accent transition-colors">{t("nav.contact")}</a></li>
+                    <li><a href={localizedPath("/brand/")} class="hover:text-text-accent transition-colors">{t("nav.brand")}</a></li>
                 </ul>
             </div>
             <div class="flex flex-col gap-2">
-                <p class="text-gray-300 text-base uppercase font-mono text-center lg:text-right">{t("footer.legalTitle")}</p>
-                <ul class="flex flex-col font-mono text-white items-center lg:items-end gap-2">
-                    <li><a href={localizedPath("/terms")} class="hover:text-primary transition-colors">{t("terms.breadcrumb")}</a></li>
-                    <li><a href={localizedPath("/privacy")} class="hover:text-primary transition-colors">{t("privacy.breadcrumb")}</a></li>
+                <p class="text-text-muted text-base uppercase font-mono text-center lg:text-right">{t("footer.legalTitle")}</p>
+                <ul class="flex flex-col font-mono text-text-primary items-center lg:items-end gap-2">
+                    <li><a href={localizedPath("/terms")} class="hover:text-text-accent transition-colors">{t("terms.breadcrumb")}</a></li>
+                    <li><a href={localizedPath("/privacy")} class="hover:text-text-accent transition-colors">{t("privacy.breadcrumb")}</a></li>
                 </ul>
             </div>
-            <p class="lg:hidden w-full text-gray-200 text-xs text-center">{t("footer.copyright")}</p>
+            <p class="lg:hidden w-full text-text-secondary text-xs text-center">{t("footer.copyright")}</p>
         </div>
     </section>
 </footer>

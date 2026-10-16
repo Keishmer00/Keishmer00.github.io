@@ -38,6 +38,66 @@ const { lang, page, pathname, title, description } = Astro.props;
 
 		<SeoHead lang={lang} page={page} pathname={pathname} title={title} description={description} />
 
+		<!-- Idioma automático (spec 001): al ENTRAR al sitio, si el idioma preferido no
+		     coincide con el de la página, se pasa a su URL equivalente (tomada de los
+		     <link hreflang>). Preferido = elección manual guardada por el selector, o el
+		     idioma del navegador. Una vez por sesión, nunca en navegación interna, en el 404 ni para bots. -->
+			<script is:inline data-page-lang={lang} data-page={page}>
+				(function () {
+					try {
+						var current = document.currentScript.getAttribute('data-page-lang');
+						if (document.currentScript.getAttribute('data-page') === 'error') return;
+						if (/bot|crawl|spider|slurp|bingpreview|facebookexternalhit|lighthouse|headless|prerender/i.test(navigator.userAgent)) return;
+						var ref = document.referrer;
+						if (ref && new URL(ref).origin === location.origin) return; // navegación interna
+						if (sessionStorage.getItem('keishmer-lang-auto')) return;
+						sessionStorage.setItem('keishmer-lang-auto', '1');
+						var wanted = null;
+						try { wanted = localStorage.getItem('keishmer-lang'); } catch (e) {}
+						if (wanted !== 'en' && wanted !== 'es') {
+							var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+							wanted = 'en';
+							for (var i = 0; i < langs.length; i++) {
+								var l = String(langs[i]).toLowerCase();
+								if (l.indexOf('es') === 0) { wanted = 'es'; break; }
+								if (l.indexOf('en') === 0) { wanted = 'en'; break; }
+							}
+						}
+						if (wanted === current) return;
+						var link = document.querySelector('link[rel="alternate"][hreflang="' + wanted + '"]');
+						if (!link) return;
+						var target = new URL(link.getAttribute('href'));
+						if (target.pathname === location.pathname) return;
+						location.replace(target.pathname + location.search + location.hash);
+					} catch (e) {}
+				})();
+			</script>
+
+		<!-- Avoid theme flash: resolve saved/system preference and apply it before first paint. -->
+		<script is:inline>
+			(function () {
+				const STORAGE_KEY = 'keishmer-theme';
+				let raw;
+				try { raw = localStorage.getItem(STORAGE_KEY); } catch { raw = null; }
+				const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+				const effective = (!raw || raw === 'system') ? (prefersLight ? 'light' : 'dark') : raw;
+				document.documentElement.dataset.theme = effective;
+				const themeColor = effective === 'light' ? '#F2F4FF' : '#121314';
+				// Actualiza el `content` de las metas existentes (no las reemplaza): Safari/iOS
+				// solo reacciona a cambios de atributo en la meta que ya leyó. Se quita `media`
+				// para que el color elegido gane aunque el sistema esté en el otro modo.
+				const metas = document.querySelectorAll('meta[name="theme-color"]');
+				if (metas.length) {
+					metas.forEach((m) => { m.removeAttribute('media'); m.setAttribute('content', themeColor); });
+				} else {
+					const meta = document.createElement('meta');
+					meta.name = 'theme-color';
+					meta.content = themeColor;
+					document.head.appendChild(meta);
+				}
+			})();
+		</script>
+
 	</head>
 	<body>
 		<CursorParticles />
@@ -59,12 +119,12 @@ const { lang, page, pathname, title, description } = Astro.props;
 		   ni el pin de FeaturedProjects — recibía el scroll de la ventana). Spec 008. */
 		overflow-x: clip;
 		font-family: var(--albert);
-		color: var(--text-white);
-		/* Fondo negro en el canvas del documento: el overscroll (elástico en macOS/iOS,
+		color: var(--text-primary);
+		/* Fondo del tema en el canvas del documento: el overscroll (elástico en macOS/iOS,
 		   pull-to-refresh en móvil) muestra el fondo del `html`, no del `body`; y cubre
 		   bajo las secciones fijadas (pin) cuando la barra de direcciones móvil cambia
 		   el alto del viewport. */
-		background-color: var(--black);
+		background-color: var(--surface-page);
 	}
 
 	/* Navegadores sin `clip` (Safari < 16): mejor recortar como antes que dejar scroll horizontal. */

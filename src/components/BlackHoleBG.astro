@@ -14,19 +14,19 @@ export interface Props {
 
 const {
   speed = 17,
-  strokeColor = "#292929",
+  strokeColor = "var(--fx-line)",
   lineWidth = 1,
   lines = 77,
   discs = 77,
   particles = true,
-  particleColor = "#e99b9b",
+  particleColor = "var(--fx-particle)",
   particleCount = 111,
   glow = true,
-  glowColor = "#fff7f7",
+  glowColor = "var(--fx-glow)",
 } = Astro.props;
 ---
 
-<div class="absolute inset-0 overflow-hidden bg-black" data-anim="blackhole">
+<div class="absolute inset-0 overflow-hidden bg-surface-page" data-anim="blackhole">
   <div
     class="absolute top-1/2 left-1/2 w-[140%] h-[140%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
   ></div>
@@ -49,13 +49,13 @@ const {
   {glow && (
     <div
       class="absolute z-5 top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-      style={`background: radial-gradient(ellipse at 50% 75%, ${glowColor} 20%, transparent 75%); mix-blend-mode: overlay`}
+      style={`background: radial-gradient(ellipse at 50% 75%, ${glowColor} 20%, transparent 75%); mix-blend-mode: var(--fx-blend, overlay)`}
     ></div>
   )}
 
   <div
     class="absolute z-7 top-0 left-0 w-full h-full pointer-events-none"
-    style="background: repeating-linear-gradient(transparent, transparent 1px, #726666 1px, #121314 2px); mix-blend-mode: overlay"
+    style="background: repeating-linear-gradient(transparent, transparent 1px, var(--fx-scanline) 1px, var(--surface-page) 2px); mix-blend-mode: var(--fx-blend, overlay)"
   ></div>
 </div>
 
@@ -126,6 +126,24 @@ const {
   var particleColor: string = canvas.dataset.particleColor || "#FF6B6B";
   var particleCount: number = parseInt(canvas.dataset.particleCount || "") || 161;
   var glowColor: string = canvas.dataset.glowColor || "#F5DDDD";
+
+  function resolveColor(color: string): string {
+    if (color.indexOf("var(") === -1) return color;
+    const varName = color.replace(/^var\(\s*(--[^)]+)\s*\)$/, "$1");
+    const value = varName
+      ? getComputedStyle(document.documentElement).getPropertyValue(varName).trim()
+      : "";
+    return value || color;
+  }
+
+  // Raw values (may be `var(--token)`) are kept so colors can be re-resolved
+  // when the theme changes (spec 010).
+  var rawStrokeColor: string = strokeColor;
+  var rawParticleColor: string = particleColor;
+  var rawGlowColor: string = glowColor;
+  strokeColor = resolveColor(rawStrokeColor);
+  particleColor = resolveColor(rawParticleColor);
+  glowColor = resolveColor(rawGlowColor);
 
   function toRGB(color: string | number[]): number[] {
     if (typeof color === "string") {
@@ -484,6 +502,16 @@ const {
     });
     ro.observe(canvas.parentElement!);
     (canvas as any)._ro = ro;
+
+    // Theme switch: re-resolve token colors and repaint the cached lines layer.
+    window.addEventListener("keishmer:theme-change", function (): void {
+      strokeColor = resolveColor(rawStrokeColor);
+      particleColor = resolveColor(rawParticleColor);
+      glowColor = resolveColor(rawGlowColor);
+      particleRGB = toRGB(particleColor);
+      setLines();
+      setParticles();
+    });
   }
 
   if (document.readyState === "loading") {

@@ -19,14 +19,14 @@ const { t, tArray } = useTranslations(lang);
   />
   <div class="mt-12 grid gap-10 md:grid-cols-2">
     <div>
-      <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+      <h3 class="font-unbounded text-lg font-bold uppercase text-text-primary">
         {t("brand.sections.voice.rulesTitle")}
       </h3>
       <ul class="mt-6 flex flex-col gap-3">
         {
           tArray("brand.sections.voice.rules").map((rule) => (
-            <li class="flex items-start gap-3 font-albert text-sm leading-relaxed text-gray-200 md:text-base">
-              <span class="text-primary" aria-hidden="true">✓</span>
+            <li class="flex items-start gap-3 font-albert text-sm leading-relaxed text-text-secondary md:text-base">
+              <span class="text-text-accent" aria-hidden="true">✓</span>
               {rule}
             </li>
           ))
@@ -34,13 +34,13 @@ const { t, tArray } = useTranslations(lang);
       </ul>
     </div>
     <div>
-      <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+      <h3 class="font-unbounded text-lg font-bold uppercase text-text-primary">
         {t("brand.sections.voice.terminologyTitle")}
       </h3>
       <ul class="mt-6 flex flex-col gap-3">
         {
           tArray("brand.sections.voice.terminology").map((term) => (
-            <li class="border-b border-white/10 pb-3 font-mono text-sm text-gray-200">
+            <li class="border-b border-border-subtle pb-3 font-mono text-sm text-text-secondary">
               {term}
             </li>
           ))

@@ -32,7 +32,28 @@
   // Hide native cursor on desktop once the custom cursor is active
   document.body.classList.add('cursor-custom');
 
-  const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() || '#FF6B6B';
+  function getCSSColor(varName: string, fallback: string): string {
+    const value = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    return value || fallback;
+  }
+
+  function toRGB(hex: string): number[] {
+    const clean = hex.replace('#', '');
+    if (clean.length === 3) {
+      return [
+        parseInt(clean[0] + clean[0], 16),
+        parseInt(clean[1] + clean[1], 16),
+        parseInt(clean[2] + clean[2], 16),
+      ];
+    }
+    return [
+      parseInt(clean.slice(0, 2), 16),
+      parseInt(clean.slice(2, 4), 16),
+      parseInt(clean.slice(4, 6), 16),
+    ];
+  }
+
+  let primaryColor = getCSSColor('--color-primary', '#FF6B6B');
   const BASE_CURSOR_RADIUS = 10;
   const HOVER_CURSOR_RADIUS = 12;
   const RING_EXTRA_RADIUS = 8;
@@ -56,7 +77,9 @@
   let lastMoveTime = Date.now();
 
   const particles: Particle[] = [];
-  const particleColor = 'rgba(198, 210, 212, '; // #c6d2d4 - project white
+  const particleColorBase = getCSSColor('--fx-cursor', '#C6D2D4');
+  let particleRGB = toRGB(particleColorBase);
+  const particleColor = () => `rgba(${particleRGB[0]}, ${particleRGB[1]}, ${particleRGB[2]}, `;
 
   // Configuration
   const IDLE_THRESHOLD = 80; // ms without movement to enter idle mode
@@ -137,7 +160,7 @@
 
     draw() {
       if (!ctx) return;
-      ctx.strokeStyle = particleColor + this.alpha + ')';
+      ctx.strokeStyle = particleColor() + this.alpha + ')';
       ctx.lineWidth = 1;
       ctx.strokeRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
     }
@@ -184,7 +207,7 @@
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = particleColor + alpha + ')';
+          ctx.strokeStyle = particleColor() + alpha + ')';
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
@@ -356,6 +379,12 @@
     height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
+  });
+
+  // Update colors when the user toggles the theme manually.
+  window.addEventListener('keishmer:theme-change', () => {
+    primaryColor = getCSSColor('--color-primary', '#FF6B6B');
+    particleRGB = toRGB(getCSSColor('--fx-cursor', '#C6D2D4'));
   });
 
   // Start animation

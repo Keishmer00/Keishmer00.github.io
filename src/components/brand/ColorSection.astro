@@ -6,7 +6,12 @@ import {
   PAGE_BACKGROUND,
   contrastRatio,
   contrastRating,
+  semanticTokens,
+  semanticGroups,
+  THEME_PAGE_BACKGROUND,
+  isHex,
   type ColorToken,
+  type ThemeMode,
 } from "../../lib/tokens";
 import SectionHeading from "./SectionHeading.astro";
 
@@ -42,6 +47,31 @@ const swatches = (colors: ColorToken[]) =>
       note: color.noteKey ? t(`brand.sections.color.notes.${color.noteKey}`) : null,
     };
   });
+
+const themeModes: ThemeMode[] = ["dark", "light"];
+
+/** One theme cell of a semantic token: value, legible ink and (optional) contrast. */
+const semanticCell = (value: string, mode: ThemeMode, checkContrast?: boolean) => {
+  const page = THEME_PAGE_BACKGROUND[mode];
+  const hex = isHex(value);
+  const ratio = hex && checkContrast ? contrastRatio(value, page) : null;
+  return {
+    value,
+    page,
+    ink: hex ? inkFor(value) : inkFor(page),
+    contrast: ratio === null ? null : `${ratio.toFixed(2)} · ${ratingLabel(contrastRating(ratio))}`,
+  };
+};
+
+const semanticRows = semanticGroups.map((group) => ({
+  group,
+  tokens: semanticTokens
+    .filter((tk) => tk.group === group)
+    .map((tk) => ({
+      ...tk,
+      cells: themeModes.map((mode) => ({ mode, ...semanticCell(tk[mode], mode, tk.checkContrast) })),
+    })),
+}));
 ---
 
 <section id="color" class="scroll-mt-28">
@@ -51,18 +81,75 @@ const swatches = (colors: ColorToken[]) =>
     intro={t("brand.sections.color.intro")}
   />
 
-  <p class="mt-6 max-w-3xl font-mono text-sm leading-relaxed text-gray-300">
-    <span class="text-white">{t("brand.howToRead.title")}</span>
+  <p class="mt-6 max-w-3xl font-mono text-sm leading-relaxed text-text-muted">
+    <span class="text-text-primary">{t("brand.howToRead.title")}</span>
     — {t("brand.howToRead.body")}
+  </p>
+
+  <!-- Semantic tokens: dark vs light, side by side (spec 010) -->
+  <div class="mt-12">
+    <h3 class="font-unbounded text-lg font-bold uppercase text-text-primary">
+      {t("brand.sections.color.semantic.title")}
+    </h3>
+    <p class="mt-2 max-w-2xl font-albert text-sm leading-relaxed text-text-muted md:text-base">
+      {t("brand.sections.color.semantic.desc")}
+    </p>
+
+    <div class="mt-6 hidden grid-cols-[minmax(0,1.2fr)_1fr_1fr] gap-3 font-mono text-[11px] uppercase tracking-widest text-text-muted sm:grid">
+      <span>{t("brand.sections.color.semantic.token")}</span>
+      <span>{t("brand.sections.color.semantic.dark")}</span>
+      <span>{t("brand.sections.color.semantic.light")}</span>
+    </div>
+
+    {
+      semanticRows.map((row) => (
+        <div class="mt-6">
+          <p class="border-b border-border-subtle pb-2 font-mono text-xs uppercase tracking-widest text-text-accent">
+            {t(`brand.sections.color.semantic.groups.${row.group}`)}
+          </p>
+          <ul class="mt-3 flex flex-col gap-3">
+            {row.tokens.map((tk) => (
+              <li class="grid grid-cols-2 gap-3 sm:grid-cols-[minmax(0,1.2fr)_1fr_1fr] sm:items-center">
+                <code class="col-span-2 font-mono text-sm text-text-primary sm:col-span-1">{tk.cssVar}</code>
+                {tk.cells.map((cell) => (
+                  <button
+                    type="button"
+                    data-copy={cell.value}
+                    aria-label={`${tk.cssVar} — ${t(`brand.sections.color.semantic.${cell.mode}`)} — ${cell.value}`}
+                    class="group relative flex h-16 cursor-pointer items-stretch overflow-hidden border border-border-subtle p-1.5 text-left transition-transform duration-300 hover:-translate-y-0.5 hover:border-border-strong"
+                    style={`background:${cell.page}`}
+                  >
+                    <span
+                      class="flex w-full flex-col justify-between px-2 py-1"
+                      style={tk.group === "border" ? `border:2px solid ${cell.value}; color:${cell.ink}` : `background:${cell.value}; color:${cell.ink}`}
+                    >
+                      <span class="font-mono text-[11px] leading-tight">{cell.value}</span>
+                      {cell.contrast && <span class="font-mono text-[10px] opacity-80">{cell.contrast}</span>}
+                    </span>
+                  </button>
+                ))}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+
+  <h3 class="mt-20 font-unbounded text-lg font-bold uppercase text-text-primary">
+    {t("brand.sections.color.semantic.primitivesTitle")}
+  </h3>
+  <p class="mt-2 max-w-2xl font-albert text-sm leading-relaxed text-text-muted md:text-base">
+    {t("brand.sections.color.semantic.primitivesDesc")}
   </p>
 
   {
     colorGroups.map((group) => (
       <div class="mt-12">
-        <h3 class="font-unbounded text-lg font-bold uppercase text-white">
+        <h3 class="font-unbounded text-lg font-bold uppercase text-text-primary">
           {t(`brand.sections.color.groups.${group.id}.title`)}
         </h3>
-        <p class="mt-2 max-w-2xl font-albert text-sm leading-relaxed text-gray-300 md:text-base">
+        <p class="mt-2 max-w-2xl font-albert text-sm leading-relaxed text-text-muted md:text-base">
           {t(`brand.sections.color.groups.${group.id}.desc`)}
         </p>
         <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -72,7 +159,7 @@ const swatches = (colors: ColorToken[]) =>
                 type="button"
                 data-copy={swatch.hex}
                 aria-label={`${swatch.name} — ${swatch.hex}`}
-                class="group relative flex h-28 w-full cursor-pointer flex-col justify-between overflow-hidden border border-white/10 p-3 text-left transition-transform duration-300 hover:-translate-y-0.5 hover:border-white/30 md:h-32"
+                class="group relative flex h-28 w-full cursor-pointer flex-col justify-between overflow-hidden border border-border-subtle p-3 text-left transition-transform duration-300 hover:-translate-y-0.5 hover:border-text-primary/30 md:h-32"
                 style={`background:${swatch.hex}; color:${swatch.ink}`}
               >
                 <span class="font-mono text-xs font-bold uppercase leading-tight">
@@ -88,7 +175,7 @@ const swatches = (colors: ColorToken[]) =>
                 </span>
               </button>
               {swatch.note && (
-                <p class="font-albert text-xs leading-snug text-gray-300">
+                <p class="font-albert text-xs leading-snug text-text-muted">
                   {swatch.note}
                 </p>
               )}

@@ -8,22 +8,22 @@ const { t } = useTranslations(lang);
 const questions = ["one", "two", "three", "four", "five", "six", "seven", "eight"] as const;
 ---
 
-<section class="bg-black px-4 py-20 md:px-8 lg:px-64 lg:py-28">
+<section class="bg-surface-page px-4 py-20 md:px-8 lg:px-64 lg:py-28">
   <div class="mx-auto ">
-    <p class="font-mono text-sm uppercase tracking-widest text-primary">{t("faq.eyebrow")}</p>
-    <h5 class="mt-4 font-unbounded text-2xl uppercase text-white md:text-4xl">{t("faq.title")}</h5>
-    <div class="mt-8 divide-y divide-gray-800/80 border-y border-gray-800/80">
+    <p class="font-mono text-sm uppercase tracking-widest text-text-accent">{t("faq.eyebrow")}</p>
+    <h5 class="mt-4 font-unbounded text-2xl uppercase text-text-primary md:text-4xl">{t("faq.title")}</h5>
+    <div class="mt-8 divide-y divide-border-subtle border-y border-border-subtle">
       {questions.map((question) => (
         <details class="group py-5">
-          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 pr-2 font-unbounded text-sm text-white marker:hidden">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 pr-2 font-unbounded text-sm text-text-primary marker:hidden">
             <span>{t(`faq.${question}Question`)}</span>
             <span class="faq-icon relative inline-flex h-6 w-6 shrink-0 items-center justify-center transition-transform duration-300 ease-out group-open:rotate-45" aria-hidden="true">
-              <span class="absolute h-3.5 w-0.5 bg-white transition-colors duration-300 group-open:bg-primary"></span>
-              <span class="absolute h-0.5 w-3.5 bg-white transition-colors duration-300 group-open:bg-primary"></span>
+              <span class="absolute h-3.5 w-0.5 bg-text-primary transition-colors duration-300 group-open:bg-surface-primary"></span>
+              <span class="absolute h-0.5 w-3.5 bg-text-primary transition-colors duration-300 group-open:bg-surface-primary"></span>
             </span>
           </summary>
           <div class="faq-answer overflow-hidden">
-            <p class="pt-4 font-albert text-xl leading-relaxed text-gray-300">{t(`faq.${question}Answer`)}</p>
+            <p class="pt-4 font-albert text-xl leading-relaxed text-text-muted">{t(`faq.${question}Answer`)}</p>
           </div>
         </details>
       ))}

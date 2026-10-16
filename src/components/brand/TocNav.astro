@@ -12,7 +12,7 @@ const { t } = useTranslations(lang);
 ---
 
 <nav aria-label={t("brand.toc.label")} class="font-mono text-sm">
-  <p class="mb-4 text-xs uppercase tracking-widest text-gray-300">{t("brand.toc.label")}</p>
+  <p class="mb-4 text-xs uppercase tracking-widest text-text-muted">{t("brand.toc.label")}</p>
   <ul class="flex flex-col gap-2.5">
     {
       items.map((item) => (
@@ -20,7 +20,7 @@ const { t } = useTranslations(lang);
           <a
             href={`#${item.id}`}
             data-toc-link={item.id}
-            class="uppercase tracking-wider text-gray-300 transition-colors hover:text-primary"
+            class="uppercase tracking-wider text-text-muted transition-colors hover:text-text-accent"
           >
             {t(`brand.sections.${item.id}.nav`)}
           </a>

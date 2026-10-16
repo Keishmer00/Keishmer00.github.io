@@ -4,7 +4,7 @@
 
 ## 1. Objetivo (una frase)
 
-Una página pública `/brand/` que consolida el sistema de diseño del sitio (color, tipografía, espaciado, radio/borde, elevación, movimiento, layout, iconografía, efectos, componentes en vivo y voz) como única fuente de verdad, inspirada en `wise.gold/brand` pero optimizada para un solo tema oscuro y bilingüe EN/ES.
+Una página pública `/brand/` que consolida el sistema de diseño del sitio (color, tipografía, espaciado, radio/borde, elevación, movimiento, layout, iconografía, efectos, componentes en vivo y voz) como única fuente de verdad, inspirada en `wise.gold/brand` pero optimizada para bilingüe EN/ES. Al momento de su creación el sitio era dark-only; ver spec 010 para el modo claro.
 
 ## 2. Alcance
 
@@ -19,7 +19,7 @@ Una página pública `/brand/` que consolida el sistema de diseño del sitio (co
 
 **No entra:**
 - **No** refactoriza componentes existentes ni introduce una capa semántica nueva en `global.css` (el sitio conserva sus tokens actuales; `tokens.ts` solo los documenta).
-- **No** añade tema claro ni selector de modo (el sitio es dark-only).
+- **No** añade tema claro ni selector de modo en este spec; esa funcionalidad queda en la spec 010.
 - **No** hay descarga de tokens (`tokens.css`/JSON) ni paquete instalable.
 
 **Textos/i18n:** grupo `brand.*` (contenido de página) + `seo.brand.*` (`title`, `description`) + `nav.brand`, en `en.json` **y** `es.json` (EN base). **SEO:** `page: "brand"` en `Layout`/`SeoHead` → canonical/hreflang automáticos; prioridad `0.6` / `yearly` en `astro.config.mjs`. Enlace en `Navbar` (menú) y `Footer`.
@@ -51,10 +51,11 @@ Una página pública `/brand/` que consolida el sistema de diseño del sitio (co
 **Tomadas:**
 - **Ruta ES `/es/brand/`** (no `/es/marca/`): mantiene intacta la convención de slugs idénticos que asumen `getAlternatePaths`, `LanguageSwitcher` y el hreflang, sin tocar helpers compartidos.
 - **`tokens.ts` como fuente única** en lugar de hex sueltos en la página: documenta sin refactor y evita que el manual se desincronice.
-- **Un solo tema oscuro**: elimina la complejidad multi-modo de `wise.gold/brand`.
+- **Un solo tema oscuro** (al momento de la spec 010 se amplía a dos temas; esta spec describe el manual base).
 - **Galería de componentes en vivo** con las clases reales, no solo muestras de token.
 
 **Descartadas:**
 - **Slug `/es/marca/` con alias de rutas**: exigía extender `getAlternatePaths`/`LanguageSwitcher`/hreflang con un mapa de slugs para una sola página; complejidad desproporcionada.
 - **Refactor a tokens semánticos (`surface/text/border/action`) en `global.css`**: alcance mayor con riesgo de tocar muchos componentes; fuera de lo pedido.
-- **Modo claro / descargables / paquete**: el sitio no los usa.
+- **Descargables / paquete**: no están en alcance.
+- **Modo claro**: ahora vive en la spec 010.

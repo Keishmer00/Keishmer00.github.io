@@ -38,18 +38,18 @@ const pad = (n: number) => String(n).padStart(2, "0");
     ]}
     light
   />
-  <main class="bg-black px-4 pb-8 pt-32 md:px-8 lg:px-24 lg:pt-40">
+  <main class="bg-surface-page px-4 pb-8 pt-32 md:px-8 lg:px-24 lg:pt-40">
     <section class="mx-auto mb-16 max-w-6xl">
       <h1
-        class="font-unbounded text-3xl font-bold uppercase leading-tight text-white md:text-5xl"
+        class="font-unbounded text-3xl font-bold uppercase leading-tight text-text-primary md:text-5xl"
       >
         {t("projects.title")}
       </h1>
-      <p class="mt-4 font-mono text-xs text-gray-300 md:text-xl">
+      <p class="mt-4 font-mono text-xs text-text-muted md:text-xl">
         {t("projects.description")}
       </p>
       <p
-        class="mt-6 max-w-3xl font-albert text-base leading-relaxed text-gray-200 md:text-lg"
+        class="mt-6 max-w-3xl font-albert text-base leading-relaxed text-text-secondary md:text-lg"
       >
         {t("featured.list.intro")}
       </p>
@@ -61,7 +61,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
           projects.map((project, index) => (
             <li>
               <article
-                class="featured-item group grid gap-8 border-t border-white/10 pt-8 lg:grid-cols-12 lg:gap-12 lg:pt-12"
+                class="featured-item group grid gap-8 border-t border-border-subtle pt-8 lg:grid-cols-12 lg:gap-12 lg:pt-12"
                 data-project={project.id}
               >
                 <a
@@ -97,44 +97,44 @@ const pad = (n: number) => String(n).padStart(2, "0");
                 <div
                   class={`flex flex-col gap-4 lg:col-span-7 lg:justify-center lg:gap-5 ${index % 2 === 1 ? "lg:order-1" : ""}`}
                 >
-                  <p class="font-mono text-sm uppercase tracking-widest text-gray-200 md:text-base">
-                    <span class="text-primary">{pad(index + 1)}</span>
-                    <span class="mx-2 text-gray-300" aria-hidden="true">
+                  <p class="font-mono text-sm uppercase tracking-widest text-text-secondary md:text-base">
+                    <span class="text-text-accent">{pad(index + 1)}</span>
+                    <span class="mx-2 text-text-muted" aria-hidden="true">
                       —
                     </span>
-                    <span class="text-white">{project.brand}</span>
-                    <span class="mx-2 text-gray-300" aria-hidden="true">
+                    <span class="text-text-primary">{project.brand}</span>
+                    <span class="mx-2 text-text-muted" aria-hidden="true">
                       ·
                     </span>
                     <span>{project.sector}</span>
-                    <span class="mx-2 text-gray-300" aria-hidden="true">
+                    <span class="mx-2 text-text-muted" aria-hidden="true">
                       ·
                     </span>
                     <span>{project.year}</span>
                   </p>
 
-                  <h2 class="max-w-2xl font-unbounded text-2xl font-bold uppercase leading-tight text-white md:text-3xl">
+                  <h2 class="max-w-2xl font-unbounded text-2xl font-bold uppercase leading-tight text-text-primary md:text-3xl">
                     <a
                       href={project.href}
-                      class="transition-colors hover:text-primary"
+                      class="transition-colors hover:text-text-accent"
                     >
                       {project.title}
                     </a>
                   </h2>
 
-                  <p class="max-w-2xl font-albert text-base leading-relaxed text-gray-100 md:text-lg">
+                  <p class="max-w-2xl font-albert text-base leading-relaxed text-text-primary md:text-lg">
                     {project.description}
                   </p>
 
                   <div class="flex flex-col gap-2 md:flex-row md:items-baseline md:gap-4">
-                    <p class="shrink-0 font-mono text-xs uppercase tracking-widest text-gray-300">
+                    <p class="shrink-0 font-mono text-xs uppercase tracking-widest text-text-muted">
                       {t("featured.stagesLabel")}
                     </p>
-                    <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs uppercase tracking-wider text-gray-200 md:text-sm">
+                    <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs uppercase tracking-wider text-text-secondary md:text-sm">
                       {project.stages.map((stage, stageIndex) => (
                         <li class="flex items-center gap-2">
                           {stageIndex > 0 && (
-                            <span class="text-gray-300" aria-hidden="true">
+                            <span class="text-text-muted" aria-hidden="true">
                               →
                             </span>
                           )}
@@ -148,7 +148,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
                     href={project.href}
                     data-analytics-event="case_study_click"
                     data-analytics-label={project.id}
-                    class="group/cta mt-2 inline-flex w-fit items-center gap-2 border border-white/40 px-4 py-3 font-mono text-base text-white transition-colors duration-300 hover:border-primary hover:text-primary"
+                    class="group/cta mt-2 inline-flex w-fit items-center gap-2 border border-border-strong px-4 py-3 font-mono text-base text-text-primary transition-colors duration-300 hover:border-primary hover:text-text-accent"
                   >
                     <span>{t("featured.cta")}</span>
                     <span
