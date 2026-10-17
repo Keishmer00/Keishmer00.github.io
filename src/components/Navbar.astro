@@ -50,17 +50,17 @@ const localizedPath = (path: string) => {
 
   <div
     id="menuOverlay"
-    class="fixed inset-0 lg:left-72.5 lg:border-l lg:border-border-default opacity-0 pointer-events-none z-50 flex items-center justify-center bg-surface-default"
+    class="fixed inset-0 lg:left-72.5 lg:border-l lg:border-border-default opacity-0 pointer-events-none z-50 flex items-center justify-center overflow-hidden overscroll-none bg-surface-default"
   >
     <div
       id="menuContent"
-      class="flex flex-col items-start justify-start py-24 w-full h-full relative"
+      class="relative flex h-full w-full flex-col items-start justify-start overflow-hidden py-24 max-lg:[@media(min-height:641px)_and_(max-height:700px)]:py-16 max-lg:[@media(max-height:640px)]:pt-12 max-lg:[@media(max-height:640px)]:pb-6 lg:flex-row lg:items-end lg:justify-between lg:gap-12 lg:px-16 lg:pt-24 lg:pb-16 [@media(min-width:1024px)_and_(max-height:700px)]:pb-10"
     >
       <div
-        class="flex flex-col md:flex-row gap-12 items-start justify-start w-full max-w-4xl px-4 text-text-primary"
+        class="flex flex-col md:flex-row gap-12 items-start justify-start w-full max-w-4xl px-4 text-text-primary lg:w-auto lg:min-w-0 lg:px-0"
       >
         <ul
-          class="flex flex-col gap-6 text-2xl font-mono uppercase px-8 items-start w-full"
+          class="flex flex-col gap-6 text-2xl font-mono uppercase px-8 items-start w-full lg:px-0 [@media(min-height:641px)_and_(max-height:760px)]:gap-4 [@media(max-height:640px)]:gap-2 [@media(max-height:640px)]:text-xl"
         >
           <li data-menu-title class="text-text-muted text-sm uppercase tracking-widest mb-2 list-none">
             {t("nav.menu")}
@@ -200,7 +200,8 @@ const localizedPath = (path: string) => {
           </li>
         </ul>
       </div>
-      <div class="flex flex-col gap-4 p-12 justify-center lg:justify-start">
+      <div data-menu-aside class="max-w-full lg:flex lg:shrink-0 lg:flex-col lg:items-start lg:gap-10">
+      <div class="flex max-w-full flex-col gap-4 p-12 justify-center lg:justify-start lg:p-0 max-lg:[@media(min-height:641px)_and_(max-height:760px)]:py-8 max-lg:[@media(max-height:640px)]:gap-2 max-lg:[@media(max-height:640px)]:py-3">
         <span class="font-mono uppercase text-text-muted">Social</span>
         <div class="flex gap-4">
         <a
@@ -226,9 +227,10 @@ const localizedPath = (path: string) => {
         >
         </div>
       </div>
-      <div class="flex flex-col gap-4 px-12 pb-12 justify-center lg:justify-start" data-menu-theme>
+      <div class="flex max-w-full flex-col gap-4 px-12 pb-12 justify-center lg:justify-start lg:p-0 max-lg:[@media(max-height:640px)]:gap-2 max-lg:[@media(max-height:640px)]:pb-0" data-menu-theme>
         <span class="font-mono uppercase text-text-muted">{t("theme.label")}</span>
         <ThemeController lang={lang} />
+      </div>
       </div>
     </div>
   </div>
@@ -251,6 +253,11 @@ const localizedPath = (path: string) => {
     let menuTl = null;
 
     if (!openMenuBtn || !menuOverlay || !menuContent || !line1 || !line2) return;
+
+    // El menú nunca hace scroll (ni deja que la página de fondo se desplace bajo él).
+    const blockScroll = (e: Event) => e.preventDefault();
+    menuOverlay.addEventListener("wheel", blockScroll, { passive: false });
+    menuOverlay.addEventListener("touchmove", blockScroll, { passive: false });
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
